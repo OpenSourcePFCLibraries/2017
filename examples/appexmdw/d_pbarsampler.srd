@@ -1,0 +1,12 @@
+HA$PBExportHeader$d_pbarsampler.srd
+$PBExportComments$External DataWindow.  (w_pbarsampler)
+release 5;
+datawindow(units=0 timer_interval=0 color=16777215 processing=0 print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no )
+header(height=1 color="536870912" )
+summary(height=1 color="536870912" )
+footer(height=1 color="536870912" )
+detail(height=161 color="536870912" )
+table(column=(type=char(8) updatewhereclause=no name=pbar_sampler dbname="pbar_sampler" )
+ )
+data("AaBbYyZz",) 
+column(band=detail id=1 alignment="2" tabsequence=10 border="0" color="0" x="5" y="4" height="153" width="828" format="[general]"  name=pbar_sampler edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
