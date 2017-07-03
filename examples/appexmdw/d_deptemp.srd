@@ -1,0 +1,16 @@
+HA$PBExportHeader$d_deptemp.srd
+$PBExportComments$Department ID & Employee ID (w_TreeViewUpdate)
+release 5;
+datawindow(units=0 timer_interval=0 color=80263328 processing=1 print.documentname="" print.orientation = 0 print.margin.left = 107 print.margin.right = 107 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no grid.lines=0 selected.mouse=no )
+header(height=65 color="536870912" )
+summary(height=1 color="536870912" )
+footer(height=1 color="536870912" )
+detail(height=77 color="536870912" )
+table(column=(type=long updatewhereclause=yes key=yes name=emp_id dbname="employee.emp_id" )
+ column=(type=long update=yes updatewhereclause=yes name=dept_id dbname="employee.dept_id" )
+ column=(type=char(42) updatewhereclause=yes name=emp_fullname dbname="emp_fullname" )
+ retrieve="PBSELECT( VERSION(400) TABLE(NAME=~"employee~" ) COLUMN(NAME=~"employee.emp_id~") COLUMN(NAME=~"employee.dept_id~") COMPUTE(NAME=~"emp_fullname = emp_lname + ', ' + emp_fname~")WHERE(    EXP1 =~"~~~"employee~~~".~~~"dept_id~~~"~"   OP =~"=~"    EXP2 =~":dept_id~" ) ) ORDER(NAME=~"3~" ASC=yes ) ARG(NAME = ~"dept_id~" TYPE = number) " update="employee" updatewhere=1 updatekeyinplace=no arguments=(("dept_id", number)) )
+text(band=header alignment="2" text="Emp. ID"border="6" color="0" x="8" y="3" height="52" width="225"  name=emp_id_t  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="79219928" )
+text(band=header alignment="0" text="Dept. ID"border="6" color="0" x="239" y="3" height="52" width="239"  name=dept_id_t  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="79219928" )
+column(band=detail id=2 alignment="0" tabsequence=32766 border="5" color="0" x="239" y="9" height="61" width="239" format="[general]"  name=dept_id edit.limit=0 edit.case=any edit.autoselect=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=1 alignment="1" tabsequence=10 border="5" color="0" x="8" y="9" height="61" width="225" format="[general]"  name=emp_id  tag="Identification Number of the employee" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1080593568" )
