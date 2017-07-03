@@ -1,0 +1,10 @@
+Save Format v3.0(19990112)
+@begin Libraries
+ "tutorial\\pfctutor.pbl" "";
+@end;
+@begin Objects
+ "tutorial\\d_dddw_states.srd" "tutorial\\pfctutor.pbl";
+ "tutorial\\pfctutor.sra" "tutorial\\pfctutor.pbl";
+ "tutorial\\d_prodlist.srd" "tutorial\\pfctutor.pbl";
+ "tutorial\\d_sales_report.srd" "tutorial\\pfctutor.pbl";
+@end;
