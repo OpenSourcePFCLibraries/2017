@@ -1,0 +1,245 @@
+HA$PBExportHeader$m_pfcsecurity_user_mgmt.srm
+$PBExportComments$User/Group Management Menu
+forward
+global type m_pfcsecurity_user_mgmt from m_pfcsecurity_master
+end type
+type m_additem from menu within m_edit
+end type
+type m_deleteitem from menu within m_edit
+end type
+type m_edititem from menu within m_edit
+end type
+end forward
+
+global type m_pfcsecurity_user_mgmt from m_pfcsecurity_master
+end type
+global m_pfcsecurity_user_mgmt m_pfcsecurity_user_mgmt
+
+on m_pfcsecurity_user_mgmt.create
+m_pfcsecurity_user_mgmt=this
+call m_pfcsecurity_master::create
+end on
+
+on m_pfcsecurity_user_mgmt.destroy
+call m_pfcsecurity_master::destroy
+end on
+
+on m_new.create
+call m_pfcsecurity_master`m_new::create
+this.Visible=false
+this.Enabled=false
+end on
+
+on m_open.create
+call m_pfcsecurity_master`m_open::create
+this.Visible=false
+this.Enabled=false
+end on
+
+on m_saveas.create
+call m_pfcsecurity_master`m_saveas::create
+this.Visible=false
+this.Enabled=false
+end on
+
+on m_dash13.create
+call m_pfcsecurity_master`m_dash13::create
+this.Visible=true
+end on
+
+type m_edit from m_pfcsecurity_master`m_edit within m_pfcsecurity_user_mgmt
+m_additem m_additem
+m_deleteitem m_deleteitem
+m_edititem m_edititem
+end type
+
+on m_edit.create
+call m_pfcsecurity_master`m_edit::create
+this.m_additem=create m_additem
+this.m_deleteitem=create m_deleteitem
+this.m_edititem=create m_edititem
+this.Item[UpperBound(this.item)+1]=this.m_additem
+this.Item[UpperBound(this.item)+1]=this.m_deleteitem
+this.Item[UpperBound(this.item)+1]=this.m_edititem
+end on
+
+on m_edit.destroy
+destroy(this.m_additem)
+destroy(this.m_deleteitem)
+destroy(this.m_edititem)
+end on
+
+on m_undo.create
+call m_pfcsecurity_master`m_undo::create
+this.Visible=false
+this.Enabled=false
+end on
+
+on m_dash21.create
+call m_pfcsecurity_master`m_dash21::create
+this.Visible=false
+end on
+
+on m_cut.create
+call m_pfcsecurity_master`m_cut::create
+this.Visible=false
+this.Enabled=false
+end on
+
+on m_copy.create
+call m_pfcsecurity_master`m_copy::create
+this.Visible=false
+this.Enabled=false
+end on
+
+on m_paste.create
+call m_pfcsecurity_master`m_paste::create
+this.Visible=false
+this.Enabled=false
+end on
+
+on m_pastespecial.create
+call m_pfcsecurity_master`m_pastespecial::create
+this.Visible=false
+this.Enabled=false
+end on
+
+on m_clear.create
+call m_pfcsecurity_master`m_clear::create
+this.Visible=false
+this.Enabled=false
+end on
+
+on m_dash22.create
+call m_pfcsecurity_master`m_dash22::create
+this.Visible=false
+end on
+
+on m_selectall.create
+call m_pfcsecurity_master`m_selectall::create
+this.Visible=false
+this.Enabled=false
+end on
+
+on m_dash23.create
+call m_pfcsecurity_master`m_dash23::create
+this.Visible=false
+end on
+
+on m_find.create
+call m_pfcsecurity_master`m_find::create
+this.Visible=false
+this.Enabled=false
+end on
+
+on m_replace.create
+call m_pfcsecurity_master`m_replace::create
+this.Visible=false
+this.Enabled=false
+end on
+
+on m_dash24.create
+call m_pfcsecurity_master`m_dash24::create
+this.Visible=false
+end on
+
+on m_updatelinks.create
+call m_pfcsecurity_master`m_updatelinks::create
+this.Visible=false
+this.Enabled=false
+end on
+
+on m_object1.create
+call m_pfcsecurity_master`m_object1::create
+this.Visible=false
+this.Enabled=false
+end on
+
+on m_ruler.create
+call m_pfcsecurity_master`m_ruler::create
+this.Visible=false
+this.Enabled=false
+end on
+
+on m_dash31.create
+call m_pfcsecurity_master`m_dash31::create
+this.Visible=false
+end on
+
+on m_insert.create
+call m_pfcsecurity_master`m_insert::create
+this.Visible=false
+this.Enabled=false
+end on
+
+on m_insertfile.create
+call m_pfcsecurity_master`m_insertfile::create
+this.Visible=false
+this.Enabled=false
+end on
+
+on m_picture.create
+call m_pfcsecurity_master`m_picture::create
+this.Visible=false
+this.Enabled=false
+end on
+
+on m_dash41.create
+call m_pfcsecurity_master`m_dash41::create
+this.Visible=false
+end on
+
+on m_object.create
+call m_pfcsecurity_master`m_object::create
+this.Visible=false
+this.Enabled=false
+end on
+
+type m_additem from menu within m_edit
+end type
+
+event clicked;of_sendmessage('ue_add_item')
+end event
+
+on m_additem.create
+this.Text="&Add Item~tCtrl+A"
+this.Microhelp="Add a New Item"
+this.ToolBarItemName="Insert5!"
+this.ToolBarItemText="Add "
+this.ToolBarItemOrder=55
+this.ToolBarItemSpace=1
+this.Shortcut=321
+end on
+
+type m_deleteitem from menu within m_edit
+end type
+
+event clicked;of_sendmessage('ue_delete_item')
+end event
+
+on m_deleteitem.create
+this.Text="&Delete Item~tCtrl+D"
+this.Microhelp="Delete The Current Item"
+this.ToolBarItemName="DeleteRow!"
+this.ToolBarItemText="Delete"
+this.ToolBarItemOrder=56
+this.ToolBarItemSpace=1
+this.Shortcut=324
+end on
+
+type m_edititem from menu within m_edit
+end type
+
+on m_edititem.create
+this.Text="&Edit Item~tCtrl+E"
+this.Microhelp="Edit the currently select item"
+this.ToolBarItemName="Custom081!"
+this.ToolBarItemText="Edit"
+this.ToolBarItemOrder=57
+this.ToolBarItemSpace=1
+this.Shortcut=325
+end on
+
+event clicked;of_sendmessage('ue_edit_item')
+end event
+
