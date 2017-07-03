@@ -1,0 +1,715 @@
+HA$PBExportHeader$pfc_m_tvs.srm
+$PBExportComments$PFC TreeView menu class
+forward
+global type pfc_m_tvs from menu
+end type
+type m_viewitem from menu within pfc_m_tvs
+end type
+type m_open from menu within m_viewitem
+end type
+type m_find from menu within m_viewitem
+end type
+type m_dash14 from menu within m_viewitem
+end type
+type m_cut from menu within m_viewitem
+end type
+type m_copy from menu within m_viewitem
+end type
+type m_paste from menu within m_viewitem
+end type
+type m_clear from menu within m_viewitem
+end type
+type m_dash15 from menu within m_viewitem
+end type
+type m_new from menu within m_viewitem
+end type
+type m_delete from menu within m_viewitem
+end type
+type m_rename from menu within m_viewitem
+end type
+type m_dash16 from menu within m_viewitem
+end type
+type m_properties from menu within m_viewitem
+end type
+type m_viewitem from menu within pfc_m_tvs
+m_open m_open
+m_find m_find
+m_dash14 m_dash14
+m_cut m_cut
+m_copy m_copy
+m_paste m_paste
+m_clear m_clear
+m_dash15 m_dash15
+m_new m_new
+m_delete m_delete
+m_rename m_rename
+m_dash16 m_dash16
+m_properties m_properties
+end type
+end forward
+
+global type pfc_m_tvs from menu
+m_viewitem m_viewitem
+end type
+global pfc_m_tvs pfc_m_tvs
+
+type variables
+treeview	itv_parent
+end variables
+
+forward prototypes
+public function integer of_setparent (treeview atv_parent)
+end prototypes
+
+public function integer of_setparent (treeview atv_parent);//////////////////////////////////////////////////////////////////////////////
+//
+//	Function:  of_SetParent
+//
+//	Access:  Public
+//
+//	Arguments:
+//	atv_parent:  TreeView
+//
+//	Returns:   integer
+//	 1 = success
+//	-1 = error
+//
+//	Description:  Establishes a treeview reference for the menu
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+//	Revision History
+//
+//	Version
+//	6.0   Initial version
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+/*
+ * Open Source PowerBuilder Foundation Class Libraries
+ *
+ * Copyright (c) 2004-2017, All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted in accordance with the MIT License
+
+ *
+ * https://opensource.org/licenses/MIT
+ *
+ * ====================================================================
+ *
+ * This software consists of voluntary contributions made by many
+ * individuals and was originally based on software copyright (c) 
+ * 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
+ * information on the Open Source PowerBuilder Foundation Class
+ * Libraries see https://github.com/OpenSourcePFCLibraries
+*/
+//
+//////////////////////////////////////////////////////////////////////////////
+
+integer	li_rc
+
+if IsValid (atv_parent) then
+	itv_parent = atv_parent	
+	li_rc = 1
+else
+	li_rc = -1
+end if
+
+return li_rc
+end function
+
+on pfc_m_tvs.create
+pfc_m_tvs=this
+this.m_viewitem=create m_viewitem
+this.Item[]={this.m_viewitem}
+end on
+
+on pfc_m_tvs.destroy
+destroy(this.m_viewitem)
+end on
+
+type m_viewitem from menu within pfc_m_tvs
+m_open m_open
+m_find m_find
+m_dash14 m_dash14
+m_cut m_cut
+m_copy m_copy
+m_paste m_paste
+m_clear m_clear
+m_dash15 m_dash15
+m_new m_new
+m_delete m_delete
+m_rename m_rename
+m_dash16 m_dash16
+m_properties m_properties
+end type
+
+on m_viewitem.create
+this.Text="&View"
+this.m_open=create m_open
+this.m_find=create m_find
+this.m_dash14=create m_dash14
+this.m_cut=create m_cut
+this.m_copy=create m_copy
+this.m_paste=create m_paste
+this.m_clear=create m_clear
+this.m_dash15=create m_dash15
+this.m_new=create m_new
+this.m_delete=create m_delete
+this.m_rename=create m_rename
+this.m_dash16=create m_dash16
+this.m_properties=create m_properties
+this.Item[]={this.m_open, &
+this.m_find, &
+this.m_dash14, &
+this.m_cut, &
+this.m_copy, &
+this.m_paste, &
+this.m_clear, &
+this.m_dash15, &
+this.m_new, &
+this.m_delete, &
+this.m_rename, &
+this.m_dash16, &
+this.m_properties}
+end on
+
+on m_viewitem.destroy
+destroy(this.m_open)
+destroy(this.m_find)
+destroy(this.m_dash14)
+destroy(this.m_cut)
+destroy(this.m_copy)
+destroy(this.m_paste)
+destroy(this.m_clear)
+destroy(this.m_dash15)
+destroy(this.m_new)
+destroy(this.m_delete)
+destroy(this.m_rename)
+destroy(this.m_dash16)
+destroy(this.m_properties)
+end on
+
+type m_open from menu within m_viewitem
+end type
+
+event clicked;//////////////////////////////////////////////////////////////////////////////
+//
+//	Event:  Clicked
+//
+//	Description:	Open the selected the item in the treeview.
+//
+//////////////////////////////////////////////////////////////////////////////
+//	
+//	Revision History
+//
+//	Version
+//	6.0   Initial version
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+/*
+ * Open Source PowerBuilder Foundation Class Libraries
+ *
+ * Copyright (c) 2004-2017, All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted in accordance with the MIT License
+
+ *
+ * https://opensource.org/licenses/MIT
+ *
+ * ====================================================================
+ *
+ * This software consists of voluntary contributions made by many
+ * individuals and was originally based on software copyright (c) 
+ * 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
+ * information on the Open Source PowerBuilder Foundation Class
+ * Libraries see https://github.com/OpenSourcePFCLibraries
+*/
+//
+//////////////////////////////////////////////////////////////////////////////
+
+itv_parent.dynamic event pfc_open()
+
+end event
+
+on m_open.create
+this.Text="&Open"
+this.Visible=false
+this.Enabled=false
+end on
+
+type m_find from menu within m_viewitem
+end type
+
+event clicked;//////////////////////////////////////////////////////////////////////////////
+//
+//	Event:  Clicked
+//
+//	Description:	Invoke the find dialog.
+//
+//////////////////////////////////////////////////////////////////////////////
+//	
+//	Revision History
+//
+//	Version
+//	6.0   Initial version
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+/*
+ * Open Source PowerBuilder Foundation Class Libraries
+ *
+ * Copyright (c) 2004-2017, All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted in accordance with the MIT License
+
+ *
+ * https://opensource.org/licenses/MIT
+ *
+ * ====================================================================
+ *
+ * This software consists of voluntary contributions made by many
+ * individuals and was originally based on software copyright (c) 
+ * 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
+ * information on the Open Source PowerBuilder Foundation Class
+ * Libraries see https://github.com/OpenSourcePFCLibraries
+*/
+//
+//////////////////////////////////////////////////////////////////////////////
+
+itv_parent.dynamic event pfc_finddlg()
+
+end event
+
+on m_find.create
+this.Text="&Find..."
+this.Visible=false
+this.Enabled=false
+end on
+
+type m_dash14 from menu within m_viewitem
+end type
+
+on m_dash14.create
+this.Text="-"
+this.Visible=false
+end on
+
+type m_cut from menu within m_viewitem
+end type
+
+event clicked;//////////////////////////////////////////////////////////////////////////////
+//
+//	Event:  Clicked
+//
+//	Description:	Cut the item from the treeview.
+//
+//////////////////////////////////////////////////////////////////////////////
+//	
+//	Revision History
+//
+//	Version
+//	6.0   Initial version
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+/*
+ * Open Source PowerBuilder Foundation Class Libraries
+ *
+ * Copyright (c) 2004-2017, All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted in accordance with the MIT License
+
+ *
+ * https://opensource.org/licenses/MIT
+ *
+ * ====================================================================
+ *
+ * This software consists of voluntary contributions made by many
+ * individuals and was originally based on software copyright (c) 
+ * 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
+ * information on the Open Source PowerBuilder Foundation Class
+ * Libraries see https://github.com/OpenSourcePFCLibraries
+*/
+//
+//////////////////////////////////////////////////////////////////////////////
+
+itv_parent.dynamic event pfc_cut()
+
+end event
+
+on m_cut.create
+this.Text="Cu&t"
+this.Visible=false
+this.Enabled=false
+end on
+
+type m_copy from menu within m_viewitem
+end type
+
+event clicked;//////////////////////////////////////////////////////////////////////////////
+//
+//	Event:  Clicked
+//
+//	Description:	Copy the item from the treeview.
+//
+//////////////////////////////////////////////////////////////////////////////
+//	
+//	Revision History
+//
+//	Version
+//	6.0   Initial version
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+/*
+ * Open Source PowerBuilder Foundation Class Libraries
+ *
+ * Copyright (c) 2004-2017, All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted in accordance with the MIT License
+
+ *
+ * https://opensource.org/licenses/MIT
+ *
+ * ====================================================================
+ *
+ * This software consists of voluntary contributions made by many
+ * individuals and was originally based on software copyright (c) 
+ * 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
+ * information on the Open Source PowerBuilder Foundation Class
+ * Libraries see https://github.com/OpenSourcePFCLibraries
+*/
+//
+//////////////////////////////////////////////////////////////////////////////
+
+itv_parent.dynamic event pfc_copy()
+
+end event
+
+on m_copy.create
+this.Text="&Copy"
+this.Visible=false
+this.Enabled=false
+end on
+
+type m_paste from menu within m_viewitem
+end type
+
+event clicked;//////////////////////////////////////////////////////////////////////////////
+//
+//	Event:  Clicked
+//
+//	Description:	Paste the item to the treeview.
+//
+//////////////////////////////////////////////////////////////////////////////
+//	
+//	Revision History
+//
+//	Version
+//	6.0   Initial version
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+/*
+ * Open Source PowerBuilder Foundation Class Libraries
+ *
+ * Copyright (c) 2004-2017, All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted in accordance with the MIT License
+
+ *
+ * https://opensource.org/licenses/MIT
+ *
+ * ====================================================================
+ *
+ * This software consists of voluntary contributions made by many
+ * individuals and was originally based on software copyright (c) 
+ * 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
+ * information on the Open Source PowerBuilder Foundation Class
+ * Libraries see https://github.com/OpenSourcePFCLibraries
+*/
+//
+//////////////////////////////////////////////////////////////////////////////
+
+itv_parent.dynamic event pfc_paste()
+
+end event
+
+on m_paste.create
+this.Text="&Paste"
+this.Visible=false
+this.Enabled=false
+end on
+
+type m_clear from menu within m_viewitem
+end type
+
+event clicked;//////////////////////////////////////////////////////////////////////////////
+//
+//	Event:  Clicked
+//
+//	Description:	Clear the item from the treeview.
+//
+//////////////////////////////////////////////////////////////////////////////
+//	
+//	Revision History
+//
+//	Version
+//	6.0   Initial version
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+/*
+ * Open Source PowerBuilder Foundation Class Libraries
+ *
+ * Copyright (c) 2004-2017, All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted in accordance with the MIT License
+
+ *
+ * https://opensource.org/licenses/MIT
+ *
+ * ====================================================================
+ *
+ * This software consists of voluntary contributions made by many
+ * individuals and was originally based on software copyright (c) 
+ * 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
+ * information on the Open Source PowerBuilder Foundation Class
+ * Libraries see https://github.com/OpenSourcePFCLibraries
+*/
+//
+//////////////////////////////////////////////////////////////////////////////
+
+itv_parent.dynamic event pfc_clear()
+
+end event
+
+on m_clear.create
+this.Text="C&lear"
+this.Visible=false
+this.Enabled=false
+end on
+
+type m_dash15 from menu within m_viewitem
+end type
+
+on m_dash15.create
+this.Text="-"
+this.Visible=false
+end on
+
+type m_new from menu within m_viewitem
+end type
+
+event clicked;//////////////////////////////////////////////////////////////////////////////
+//
+//	Event:  Clicked
+//
+//	Description:	Add a new item to the treeview.
+//
+//////////////////////////////////////////////////////////////////////////////
+//	
+//	Revision History
+//
+//	Version
+//	6.0   Initial version
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+/*
+ * Open Source PowerBuilder Foundation Class Libraries
+ *
+ * Copyright (c) 2004-2017, All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted in accordance with the MIT License
+
+ *
+ * https://opensource.org/licenses/MIT
+ *
+ * ====================================================================
+ *
+ * This software consists of voluntary contributions made by many
+ * individuals and was originally based on software copyright (c) 
+ * 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
+ * information on the Open Source PowerBuilder Foundation Class
+ * Libraries see https://github.com/OpenSourcePFCLibraries
+*/
+//
+//////////////////////////////////////////////////////////////////////////////
+
+itv_parent.dynamic event pfc_newitem()
+
+end event
+
+on m_new.create
+this.Text="&New"
+this.Visible=false
+end on
+
+type m_delete from menu within m_viewitem
+end type
+
+event clicked;//////////////////////////////////////////////////////////////////////////////
+//
+//	Event:  Clicked
+//
+//	Description:	delete the selected items in the treeview.
+//
+//////////////////////////////////////////////////////////////////////////////
+//	
+//	Revision History
+//
+//	Version
+//	6.0   Initial version
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+/*
+ * Open Source PowerBuilder Foundation Class Libraries
+ *
+ * Copyright (c) 2004-2017, All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted in accordance with the MIT License
+
+ *
+ * https://opensource.org/licenses/MIT
+ *
+ * ====================================================================
+ *
+ * This software consists of voluntary contributions made by many
+ * individuals and was originally based on software copyright (c) 
+ * 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
+ * information on the Open Source PowerBuilder Foundation Class
+ * Libraries see https://github.com/OpenSourcePFCLibraries
+*/
+//
+//////////////////////////////////////////////////////////////////////////////
+
+itv_parent.dynamic event pfc_deleteitem()
+
+end event
+
+on m_delete.create
+this.Text="&Delete"
+this.Visible=false
+end on
+
+type m_rename from menu within m_viewitem
+end type
+
+event clicked;//////////////////////////////////////////////////////////////////////////////
+//
+//	Event:  Clicked
+//
+//	Description:	Rename (edit) the treeview item.
+//
+//////////////////////////////////////////////////////////////////////////////
+//	
+//	Revision History
+//
+//	Version
+//	6.0   Initial version
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+/*
+ * Open Source PowerBuilder Foundation Class Libraries
+ *
+ * Copyright (c) 2004-2017, All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted in accordance with the MIT License
+
+ *
+ * https://opensource.org/licenses/MIT
+ *
+ * ====================================================================
+ *
+ * This software consists of voluntary contributions made by many
+ * individuals and was originally based on software copyright (c) 
+ * 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
+ * information on the Open Source PowerBuilder Foundation Class
+ * Libraries see https://github.com/OpenSourcePFCLibraries
+*/
+//
+//////////////////////////////////////////////////////////////////////////////
+
+itv_parent.dynamic event pfc_renameitem()
+
+end event
+
+on m_rename.create
+this.Text="Renam&e"
+this.Visible=false
+end on
+
+type m_dash16 from menu within m_viewitem
+end type
+
+on m_dash16.create
+this.Text="-"
+this.Visible=false
+end on
+
+type m_properties from menu within m_viewitem
+end type
+
+event clicked;//////////////////////////////////////////////////////////////////////////////
+//
+//	Event:  Clicked
+//
+//	Description:	Show the treeview properties dialog.
+//
+//////////////////////////////////////////////////////////////////////////////
+//	
+//	Revision History
+//
+//	Version
+//	6.0   Initial version
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+/*
+ * Open Source PowerBuilder Foundation Class Libraries
+ *
+ * Copyright (c) 2004-2017, All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted in accordance with the MIT License
+
+ *
+ * https://opensource.org/licenses/MIT
+ *
+ * ====================================================================
+ *
+ * This software consists of voluntary contributions made by many
+ * individuals and was originally based on software copyright (c) 
+ * 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
+ * information on the Open Source PowerBuilder Foundation Class
+ * Libraries see https://github.com/OpenSourcePFCLibraries
+*/
+//
+//////////////////////////////////////////////////////////////////////////////
+
+itv_parent.dynamic event pfc_properties()
+end event
+
+on m_properties.create
+this.Text="P&roperties"
+this.Visible=false
+end on
+
+on m_properties.destroy
+end on
+
