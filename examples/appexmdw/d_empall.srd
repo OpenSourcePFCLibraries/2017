@@ -1,0 +1,94 @@
+HA$PBExportHeader$d_empall.srd
+$PBExportComments$All Employees, All Columns ( w_rowmanager  )
+release 6;
+datawindow(units=0 timer_interval=0 color=79219928 processing=1 print.documentname="" print.orientation = 0 print.margin.left = 107 print.margin.right = 107 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no print.buttons=no print.preview.buttons=no grid.lines=0 grid.columnmove=no selected.mouse=no )
+header(height=112 color="-1" )
+summary(height=0 color="-1" )
+footer(height=0 color="-1" )
+detail(height=72 color="-1" )
+table(column=(type=decimal(0) update=yes updatewhereclause=yes key=yes name=emp_id dbname="employee.emp_id" validation="Integer(gettext() ) > 100" validationmsg="GetText()" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=manager_id dbname="employee.manager_id" )
+ column=(type=char(20) update=yes updatewhereclause=yes name=emp_lname dbname="employee.emp_lname" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=dept_id dbname="employee.dept_id" )
+ column=(type=char(40) update=yes updatewhereclause=yes name=street dbname="employee.street" )
+ column=(type=char(20) update=yes updatewhereclause=yes name=city dbname="employee.city" )
+ column=(type=char(4) update=yes updatewhereclause=yes name=state dbname="employee.state" )
+ column=(type=char(9) update=yes updatewhereclause=yes name=zip_code dbname="employee.zip_code" )
+ column=(type=char(10) update=yes updatewhereclause=yes name=phone dbname="employee.phone" )
+ column=(type=char(1) update=yes updatewhereclause=yes name=status dbname="employee.status" initial="A" values="Active	A/Gone	T/On Leave	L/" validation="match( gettext() , ~"^[ALT]$~")" )
+ column=(type=char(11) update=yes updatewhereclause=yes name=ss_number dbname="employee.ss_number" )
+ column=(type=decimal(3) update=yes updatewhereclause=yes name=salary dbname="employee.salary" validation=" real(gettext())  > 0" validationmsg="'Sorry! The value must be greater than zero.'" )
+ column=(type=datetime update=yes updatewhereclause=yes name=start_date dbname="employee.start_date" )
+ column=(type=datetime update=yes updatewhereclause=yes name=termination_date dbname="employee.termination_date" )
+ column=(type=datetime update=yes updatewhereclause=yes name=birth_date dbname="employee.birth_date" )
+ column=(type=char(1) update=yes updatewhereclause=yes name=bene_health_ins dbname="employee.bene_health_ins" values="Health Insurance	Y/Health Insurance	N" validation="match( gettext() , ~"^[YNyn]$~")" )
+ column=(type=char(1) update=yes updatewhereclause=yes name=bene_life_ins dbname="employee.bene_life_ins" values="Life Insurance	Y/Life Insurance	N" validation="match( gettext() , ~"^[YNyn]$~")" )
+ column=(type=char(1) update=yes updatewhereclause=yes name=bene_day_care dbname="employee.bene_day_care" values="Day Care	Y/Day Care	N" validation="match( gettext() , ~"^[YNyn]$~")" )
+ column=(type=char(20) update=yes updatewhereclause=yes name=emp_fname dbname="employee.emp_fname" )
+ column=(type=char(1) update=yes updatewhereclause=yes name=sex dbname="employee.sex" )
+ retrieve="  SELECT employee.emp_id,   
+         employee.manager_id,   
+          employee.emp_lname,   
+         employee.dept_id,   
+         employee.street,   
+         employee.city,   
+         employee.state,   
+         employee.zip_code,   
+         employee.phone,   
+         employee.status,   
+         employee.ss_number,   
+         employee.salary,   
+         employee.start_date,   
+         employee.termination_date,   
+         employee.birth_date,   
+         employee.bene_health_ins,   
+         employee.bene_life_ins,   
+         employee.bene_day_care,   
+     		  employee.emp_fname,   
+         employee.sex  
+    FROM employee   
+" update="employee" updatewhere=0 updatekeyinplace=no filter=" dept_id  >=  200"  sort="dept_id A emp_id D " )
+text(band=header alignment="2" text="Employee
+ID"border="6" color="41943040" x="9" y="8" height="100" width="233"  name=emp_id_t  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="79219928" )
+text(band=header alignment="2" text="Manager
+ID"border="6" color="41943040" x="251" y="8" height="100" width="201"  name=manager_id_t  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="79219928" )
+text(band=header alignment="2" text="First
+ Name"border="6" color="41943040" x="462" y="8" height="100" width="370"  name=emp_fname_t  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="79219928" )
+text(band=header alignment="2" text="Last
+ Name"border="6" color="41943040" x="841" y="8" height="100" width="471"  name=emp_lname_t  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="79219928" )
+text(band=header alignment="2" text="Department
+ID"border="6" color="41943040" x="1321" y="8" height="100" width="251"  name=dept_id_t  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="79219928" )
+text(band=header alignment="2" text="Street"border="6" color="41943040" x="1582" y="8" height="100" width="425"  name=street_t  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="79219928" )
+text(band=header alignment="2" text="City"border="6" color="41943040" x="2016" y="8" height="100" width="389"  name=city_t  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="79219928" )
+text(band=header alignment="2" text="State"border="6" color="41943040" x="2414" y="8" height="100" width="155"  name=state_t  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="79219928" )
+text(band=header alignment="2" text="Zip Code"border="6" color="41943040" x="2578" y="8" height="100" width="251"  name=zip_code_t  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="79219928" )
+text(band=header alignment="2" text="Phone"border="6" color="41943040" x="2839" y="8" height="100" width="347"  name=phone_t  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="79219928" )
+text(band=header alignment="2" text="Status"border="6" color="41943040" x="3195" y="8" height="100" width="265"  name=status_t  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="79219928" )
+text(band=header alignment="2" text="SSN"border="6" color="41943040" x="3470" y="8" height="100" width="329"  name=ss_number_t  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="79219928" )
+text(band=header alignment="2" text="Salary"border="6" color="41943040" x="3808" y="8" height="100" width="302"  name=salary_t  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="79219928" )
+text(band=header alignment="2" text="Start
+ Date"border="6" color="41943040" x="4119" y="8" height="100" width="297"  name=start_date_t  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="79219928" )
+text(band=header alignment="2" text="Termination
+Date"border="6" color="41943040" x="4425" y="8" height="100" width="297"  name=termination_date_t  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="79219928" )
+text(band=header alignment="2" text="Health
+Insurance"border="6" color="41943040" x="4731" y="8" height="100" width="462"  name=bene_health_ins_t  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="79219928" )
+text(band=header alignment="2" text="Life
+Insurance"border="6" color="41943040" x="5202" y="8" height="100" width="439"  name=bene_life_ins_t  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="79219928" )
+column(band=detail id=12 alignment="1" tabsequence=120 border="5" color="41943040" x="3808" y="0" height="60" width="302" format="$###,##0.00"  name=salary  tag="Annual salary of the employee" editmask.mask="$###,###,###.00" editmask.focusrectangle=no  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1080593568" )
+column(band=detail id=13 alignment="0" tabsequence=130 border="5" color="41943040" x="4119" y="0" height="60" width="297" format="[general]"  name=start_date  tag="Date the employee began working" edit.name="MM/DD/YYYY" editmask.mask="MM/DD/YYYY" editmask.focusrectangle=no  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1080593568" )
+column(band=detail id=14 alignment="0" tabsequence=140 border="5" color="41943040" x="4425" y="0" height="60" width="297" format="[general]"  name=termination_date  tag="Date the employee was terminated" edit.name="MM/DD/YYYY" editmask.mask="MM/DD/YYYY" editmask.focusrectangle=no  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1080593568" )
+column(band=detail id=16 alignment="0" tabsequence=150 border="5" color="41943040" x="4731" y="0" height="60" width="462" format="[general]"  name=bene_health_ins  tag="Determines if the employee has health insurance" edit.name="Health Insurance" checkbox.text="Health Insurance" checkbox.on="Y" checkbox.off="N" checkbox.scale=no checkbox.threed=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1080593568" )
+column(band=detail id=17 alignment="0" tabsequence=160 border="5" color="41943040" x="5202" y="0" height="60" width="439" format="[general]"  name=bene_life_ins  tag="Determines if the employee has life insurance" edit.name="Life Insurance" checkbox.text="Life Insurance" checkbox.on="Y" checkbox.off="N" checkbox.scale=no checkbox.threed=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1080593568" )
+column(band=detail id=19 alignment="0" tabsequence=20 border="5" color="41943040" x="462" y="0" height="60" width="370" format="[general]"  name=emp_fname  tag="First name of the employee" edit.limit=20 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1080593568" )
+column(band=detail id=3 alignment="0" tabsequence=30 border="5" color="41943040" x="841" y="0" height="60" width="471" format="[general]"  name=emp_lname  tag="Last name of the employee" edit.limit=20 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1080593568" )
+column(band=detail id=4 alignment="1" tabsequence=40 border="5" color="41943040" x="1321" y="0" height="60" width="251" format="[general]"  name=dept_id  tag="Identification Number for the department where the employee works" dddw.name=d_dddwdept dddw.displaycolumn=dept_id dddw.datacolumn=dept_id dddw.percentwidth=250 dddw.lines=5 dddw.limit=0 dddw.allowedit=no dddw.useasborder=yes dddw.case=any dddw.required=yes dddw.vscrollbar=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1080593568" )
+column(band=detail id=5 alignment="0" tabsequence=50 border="5" color="41943040" x="1582" y="0" height="60" width="425" format="[general]"  name=street  tag="Street address of the employee" edit.limit=40 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1080593568" )
+column(band=detail id=6 alignment="0" tabsequence=60 border="5" color="41943040" x="2016" y="0" height="60" width="389" format="[general]"  name=city  tag="City where the employee resides" edit.limit=20 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1080593568" )
+column(band=detail id=7 alignment="0" tabsequence=70 border="5" color="41943040" x="2414" y="0" height="60" width="155" format="[general]"  name=state  tag="State where the employee resides" dddw.name=d_dddwstate dddw.displaycolumn=state_id dddw.datacolumn=state_id dddw.percentwidth=100 dddw.lines=0 dddw.limit=0 dddw.allowedit=no dddw.useasborder=yes dddw.case=any dddw.vscrollbar=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1080593568" )
+column(band=detail id=8 alignment="0" tabsequence=80 border="5" color="41943040" x="2578" y="0" height="60" width="251" format="[general]"  name=zip_code  tag="Zip Code where the employee resides" edit.name="ZipCode" editmask.mask="#####-####" editmask.focusrectangle=no  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1080593568" )
+column(band=detail id=9 alignment="0" tabsequence=90 border="5" color="41943040" x="2839" y="0" height="60" width="347" format="[general]"  name=phone  tag="Phone number of the employee" edit.name="TelephoneNumber" editmask.mask="(###) ###-####" editmask.focusrectangle=no  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1080593568" )
+column(band=detail id=10 alignment="0" tabsequence=100 border="5" color="41943040" x="3195" y="0" height="64" width="265" format="[general]"  name=status  tag="Status of the employee (active, on leave, or terminated)" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no edit.codetable=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1080593568" )
+column(band=detail id=11 alignment="0" tabsequence=110 border="5" color="41943040" x="3470" y="0" height="60" width="329" format="[general]"  name=ss_number  tag="Social Security Number of the employee" edit.name="SocSecNumber" editmask.mask="###-##-####" editmask.focusrectangle=no  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1080593568" )
+column(band=detail id=2 alignment="0" tabsequence=10 border="5" color="41943040" x="251" y="4" height="60" width="201" format="[general]"  name=manager_id  tag="Identification number of the employee's manager" dddw.name=d_dddwemployeeid dddw.displaycolumn=emp_id dddw.datacolumn=emp_id dddw.percentwidth=300 dddw.lines=0 dddw.limit=0 dddw.allowedit=no dddw.useasborder=yes dddw.case=any  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1080593568" )
+column(band=detail id=1 alignment="1" tabsequence=32766 border="5" color="41943040" x="9" y="0" height="60" width="233" format="[general]"  name=emp_id  tag="Identification Number of the employee" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="79219928" )
+htmltable(border="1" cellpadding="0" cellspacing="0" generatecss="no" nowrap="yes")
