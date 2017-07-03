@@ -1,0 +1,37 @@
+HA$PBExportHeader$d_ddobjsamp.srd
+$PBExportComments$4 table join. (w_dwresizegrid, w_ddcalsamp)
+release 5;
+datawindow(units=0 timer_interval=0 color=80263328 processing=1 print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no print.buttons=no print.preview.buttons=no grid.lines=0 selected.mouse=no )
+header(height=108 color="536870912" )
+summary(height=4 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=80 color="536870912" )
+table(column=(type=long updatewhereclause=yes key=yes name=customer_id dbname="customer.id" )
+ column=(type=char(15) update=yes updatewhereclause=yes name=customer_fname dbname="customer.fname" )
+ column=(type=char(20) update=yes updatewhereclause=yes name=customer_lname dbname="customer.lname" )
+ column=(type=char(12) update=yes updatewhereclause=yes name=customer_phone dbname="customer.phone" )
+ column=(type=long updatewhereclause=yes name=sales_order_items_quantity dbname="sales_order_items.quantity" )
+ column=(type=date updatewhereclause=yes name=sales_order_order_date dbname="sales_order.order_date" )
+ column=(type=long updatewhereclause=yes name=sales_order_items_line_id dbname="sales_order_items.line_id" )
+ column=(type=long updatewhereclause=yes name=sales_order_items_id dbname="sales_order_items.id" )
+ column=(type=long updatewhereclause=yes name=sales_order_items_prod_id dbname="sales_order_items.prod_id" )
+ retrieve="PBSELECT( VERSION(400) TABLE(NAME=~"customer~" )  TABLE(NAME=~"product~" )  TABLE(NAME=~"sales_order~" )  TABLE(NAME=~"sales_order_items~" ) COLUMN(NAME=~"customer.id~") COLUMN(NAME=~"customer.fname~") COLUMN(NAME=~"customer.lname~") COLUMN(NAME=~"customer.phone~") COLUMN(NAME=~"sales_order_items.quantity~") COLUMN(NAME=~"sales_order.order_date~") COLUMN(NAME=~"sales_order_items.line_id~") COLUMN(NAME=~"sales_order_items.id~") COLUMN(NAME=~"sales_order_items.prod_id~")    JOIN (LEFT=~"customer.id~"    OP =~"=~"RIGHT=~"sales_order.cust_id~" )    JOIN (LEFT=~"sales_order.id~"    OP =~"=~"RIGHT=~"sales_order_items.id~" )    JOIN (LEFT=~"product.id~"    OP =~"=~"RIGHT=~"sales_order_items.prod_id~" )) " update="customer" updatewhere=1 updatekeyinplace=yes )
+text(band=header alignment="2" text="Customer
+ID"border="6" color="0" x="9" y="4" height="104" width="242"  name=customer_id_t  font.face="MS Sans Serif" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="67108864" )
+text(band=header alignment="2" text="Order
+Date"border="6" color="0" x="261" y="4" height="104" width="389"  name=order_date_t  font.face="MS Sans Serif" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="67108864" )
+text(band=header alignment="2" text="Last
+ Name"border="6" color="0" x="658" y="4" height="104" width="389"  name=last_name_t  font.face="MS Sans Serif" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="67108864" )
+text(band=header alignment="2" text="Phone
+ Number"border="6" color="0" x="1056" y="4" height="104" width="357"  name=phone_number_t  font.face="MS Sans Serif" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="67108864" )
+text(band=header alignment="2" text="
+Quantity"border="6" color="0" x="1422" y="4" height="104" width="320"  name=quantity_t  font.face="MS Sans Serif" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="67108864" )
+text(band=header alignment="2" text="
+Product Name"border="6" color="0" x="1751" y="4" height="104" width="466"  name=product_name_t  font.face="MS Sans Serif" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="67108864" )
+column(band=detail id=9 alignment="0" tabsequence=50 border="5" color="0" x="1751" y="4" height="64" width="466" format="[general]"  name=sales_order_items_prod_id dddw.name=d_dddwmtuproductid dddw.displaycolumn=name dddw.datacolumn=sales_order_items_prod_id dddw.percentwidth=150 dddw.lines=5 dddw.limit=0 dddw.allowedit=no dddw.useasborder=yes dddw.case=any dddw.vscrollbar=yes  font.face="MS Sans Serif" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=5 alignment="2" tabsequence=40 border="5" color="0" x="1422" y="4" height="64" width="320" format="[general]"  name=sales_order_items_quantity edit.limit=0 edit.case=any edit.autoselect=yes  font.face="MS Sans Serif" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=4 alignment="2" tabsequence=30 border="5" color="0" x="1056" y="4" height="64" width="357" format="[general]"  name=customer_phone edit.limit=0 edit.case=any edit.autoselect=yes  font.face="MS Sans Serif" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=3 alignment="0" tabsequence=20 border="5" color="0" x="658" y="4" height="64" width="389" format="[general]"  name=customer_lname edit.limit=0 edit.case=any edit.autoselect=yes  font.face="MS Sans Serif" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=6 alignment="2" tabsequence=10 border="5" color="0" x="261" y="4" height="64" width="389" format="[general]"  name=sales_order_order_date edit.limit=0 edit.case=any edit.autoselect=yes  font.face="MS Sans Serif" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=1 alignment="1" tabsequence=32766 border="5" color="0" x="9" y="4" height="64" width="242" format="[general]"  name=customer_id edit.limit=0 edit.case=any edit.autoselect=yes  font.face="MS Sans Serif" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="79741120" )
+htmltable(border="1" cellpadding="0" cellspacing="0" generatecss="no" nowrap="yes")
