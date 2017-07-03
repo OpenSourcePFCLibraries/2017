@@ -1,0 +1,17 @@
+HA$PBExportHeader$d_ds_project_categories.srd
+$PBExportComments$The datawindow used for the project category datastore
+release 5;
+datawindow(units=0 timer_interval=0 color=16777215 processing=0 print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no )
+header(height=1 color="536870912" )
+summary(height=1 color="536870912" )
+footer(height=1 color="536870912" )
+detail(height=77 color="536870912" )
+table(column=(type=char(50) updatewhereclause=yes name=name dbname="project_category.name" )
+ column=(type=long updatewhereclause=yes identity=yes name=category_id dbname="project_category.category_id" )
+ retrieve="  SELECT  ~"project_category~".~"name~" ,           
+~"project_category~".~"category_id~"     
+        FROM ~"project_category~"     
+        WHERE ~"project_category~".~"project_id~" = :project_id
+        ORDER BY ~"project_category~".~"name~"          ASC  " arguments=(("project_id", number)) )
+column(band=detail id=1 alignment="0" tabsequence=0 border="0" color="0" x="1" y="0" height="77" width="1651"  name=name  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=2 alignment="0" tabsequence=0 border="0" color="0" x="1651" y="0" height="77" width="1422" format="[General]"  name=category_id  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
