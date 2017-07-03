@@ -1,0 +1,8 @@
+HA$PBExportHeader$s_hunterlab_colorattrib.srs
+$PBExportComments$Color Conversion Service YXY color attrib
+global type s_hunterlab_colorattrib from structure
+	decimal		a
+	decimal		b
+	decimal		l
+end type
+
