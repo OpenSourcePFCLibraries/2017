@@ -1,0 +1,15 @@
+HA$PBExportHeader$w_pfcsecurity_display_user_info.srd
+$PBExportComments$Displays user information for reports
+release 5;
+datawindow(units=0 timer_interval=0 color=16777215 processing=0 print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no )
+header(height=1 color="536870912" )
+summary(height=1 color="536870912" )
+footer(height=1 color="536870912" )
+detail(height=69 color="536870912" )
+table(column=(type=char(32) updatewhereclause=yes name=description dbname="security_users.description" )
+ column=(type=long updatewhereclause=yes name=user_type dbname="security_users.user_type" initial="0" values="User	0/Group	1/" )
+ column=(type=long updatewhereclause=yes name=priority dbname="security_users.priority" )
+ retrieve="PBSELECT( VERSION(400) TABLE(NAME=~"security_users~" ) COLUMN(NAME=~"security_users.description~") COLUMN(NAME=~"security_users.user_type~") COLUMN(NAME=~"security_users.priority~")WHERE(    EXP1 =~"~~~"security_users~~~".~~~"name~~~"~"   OP =~"=~"    EXP2 =~":name~" ) ) ARG(NAME = ~"name~" TYPE = string) " arguments=(("name", string)) )
+column(band=detail id=1 alignment="0" tabsequence=32766 border="0" color="0" x="19" y="4" height="61" width="755" format="[general]"  name=description  slideleft=yes edit.limit=32 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=detail alignment="0" expression="~", ~"+if(  user_type = 0, ~"Who is a User~", ~"Which is a Group with priority = ~"+string(priority))
+"border="0" color="0" x="787" y="4" height="61" width="846"  slideleft=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
