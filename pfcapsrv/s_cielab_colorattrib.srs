@@ -1,0 +1,8 @@
+HA$PBExportHeader$s_cielab_colorattrib.srs
+$PBExportComments$Color Conversion Service CIE-L-AB color attrib
+global type s_cielab_colorattrib from structure
+	decimal		l
+	decimal		a
+	decimal		b
+end type
+
