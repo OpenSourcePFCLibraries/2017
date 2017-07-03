@@ -1,0 +1,77 @@
+HA$PBExportHeader$d_project_analyzer_summary.srd
+$PBExportComments$Tabular datawindow for showing estimates against actuals
+release 5;
+datawindow(units=0 timer_interval=0 color=16777215 processing=0 print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no )
+header(height=237 color="536870912" )
+summary(height=369 color="536870912" )
+footer(height=5 color="536870912" )
+detail(height=1 color="536870912" )
+table(column=(type=char(50) updatewhereclause=yes name=group_item dbname="compute_0001" )
+ column=(type=char(50) updatewhereclause=yes name=name dbname="project_derived_item.name" )
+ column=(type=decimal(2) updatewhereclause=yes name=rate dbname="project_derived_item.rate" )
+ column=(type=decimal(10) updatewhereclause=yes name=estimated_hours dbname="compute_0004" )
+ column=(type=decimal(2) updatewhereclause=yes name=project_derived_item_actual_hours dbname="project_derived_item.actual_hours" )
+ retrieve="  SELECT 'Derived Items',
+			~"project_derived_item~".~"name~",
+			~"project_derived_item~".~"rate~", 
+            (SELECT sum(~"project_category_item~".~"estimated_hours~"*    
+        					  ~"project_role~".~"multipler~" ) * (~"project_derived_item~".~"percentage~" / 100)
+    			FROM ~"project_category_item~",   
+        				~"project_complexity~",   
+        				~"project_role~"  
+  				 WHERE ( ~"project_complexity~".~"complexity_id~" = ~"project_category_item~".~"complexity_id~" ) and  
+       				  ( ~"project_category_item~".~"role_id~" = ~"project_role~".~"role_id~" ) and  
+       				  ( ( ~"project_category_item~".~"project_id~" = :project_id) )),
+			~"project_derived_item~".~"actual_hours~"
+      FROM ~"project_derived_item~"
+   WHERE ( ( ~"project_derived_item~".~"project_id~" = :project_id ) )
+
+   UNION   
+  SELECT ~"project_category~".~"name~",   
+         ~"project_category_item~".~"name~",   
+         ~"project_role~".~"rate~",   
+         (~"project_category_item~".~"estimated_hours~" * ~"project_role~".~"multipler~"),
+        	~"project_category_item~".~"actual_hours~"
+    FROM ~"project_category_item~",   
+         ~"project_role~",   
+         ~"project_category~"  
+   WHERE ( ~"project_category_item~".~"role_id~" = ~"project_role~".~"role_id~" ) and  
+         ( ~"project_category~".~"category_id~" = ~"project_category_item~".~"category_id~" ) and  
+         ( ( ~"project_category_item~".~"project_id~" = :project_id ) )
+" arguments=(("project_id", number))  sort="group_item A " )
+group(level=1 header.height=1 trailer.height=77 by=("group_item" ) header.color="536870912" trailer.color="536870912"  sort="4444 A " )
+text(band=header alignment="0" text="Project Summary:"border="0" color="0" x="1" y="28" height="65" width="627"  font.face="MS Sans Serif" font.height="-10" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+text(band=header alignment="2" text="Estimated Hours"border="0" color="0" x="865" y="132" height="53" width="490"  name=project_category_item_estimated_hours_t  font.face="MS Sans Serif" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Estimated Cost"border="0" color="0" x="1413" y="132" height="53" width="490"  font.face="MS Sans Serif" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Actual Hours"border="0" color="0" x="1962" y="132" height="53" width="490"  font.face="MS Sans Serif" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Actual Cost"border="0" color="0" x="2510" y="132" height="53" width="490"  font.face="MS Sans Serif" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+line(band=header x1="1" y1="208" x2="3479" y2="208" pen.style="0" pen.width="5" pen.color="0"  background.mode="1" background.color="553648127" )
+column(band=detail id=4 alignment="1" tabsequence=32766 border="0" color="0" x="919" y="4" height="53" width="334" format="#,##0.00"  name=estimated_hours edit.limit=0 edit.case=any edit.autoselect=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+column(band=detail id=5 alignment="1" tabsequence=32766 border="0" color="0" x="2017" y="4" height="53" width="334" format="#,##0.00"  name=project_derived_item_actual_hours edit.limit=0 edit.case=any edit.autoselect=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=detail alignment="1" expression="/*  estimated_hours  *  default_derived_item_rate  */"border="0" color="0" x="1468" y="4" height="53" width="334" format="$#,##0.00;[RED]($#,##0.00)"  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=detail alignment="1" expression="/*  project_derived_item_actual_hours  *  default_derived_item_rate  */"border="0" color="0" x="2565" y="4" height="53" width="334" format="$#,##0.00;[RED]($#,##0.00)"  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=2 alignment="0" tabsequence=32766 border="0" color="0" x="3479" y="0" height="53" width="1212" format="[general]"  name=name edit.limit=0 edit.case=any edit.autoselect=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+column(band=detail id=3 alignment="0" tabsequence=32766 border="0" color="0" x="4691" y="0" height="53" width="988" format="[General]"  name=rate edit.limit=0 edit.case=any edit.autoselect=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+compute(band=trailer.1 alignment="1" expression=" sum( estimated_hours  *  rate   for group 1)"border="0" color="0" x="1413" y="4" height="57" width="334" format="$#,##0.00;[RED]($#,##0.00)"  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=trailer.1 alignment="1" expression="sum(project_derived_item_actual_hours for group 1)"border="0" color="0" x="1943" y="4" height="57" width="334" format="#,##0.00"  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=trailer.1 alignment="1" expression="sum( project_derived_item_actual_hours  *   rate  for group 1)"border="0" color="0" x="2510" y="4" height="57" width="334" format="$#,##0.00;[RED]($#,##0.00)"  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=trailer.1 id=1 alignment="0" tabsequence=32766 border="0" color="0" x="92" y="4" height="57" width="860" format="[general]"  name=group_item edit.limit=0 edit.case=any edit.autoselect=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+compute(band=trailer.1 alignment="1" expression="sum(estimated_hours for group 1)"border="0" color="0" x="865" y="4" height="57" width="334" format="#,##0.00"  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+line(band=summary x1="942" y1="8" x2="1331" y2="8" pen.style="0" pen.width="5" pen.color="0"  background.mode="1" background.color="553648127" )
+line(band=summary x1="1989" y1="8" x2="2378" y2="8" pen.style="0" pen.width="5" pen.color="0"  background.mode="1" background.color="553648127" )
+line(band=summary x1="1436" y1="8" x2="1825" y2="8" pen.style="0" pen.width="5" pen.color="0"  background.mode="1" background.color="553648127" )
+line(band=summary x1="1989" y1="20" x2="2378" y2="20" pen.style="0" pen.width="5" pen.color="0"  background.mode="1" background.color="553648127" )
+line(band=summary x1="2510" y1="20" x2="2899" y2="20" pen.style="0" pen.width="5" pen.color="0"  background.mode="1" background.color="553648127" )
+line(band=summary x1="1436" y1="20" x2="1825" y2="20" pen.style="0" pen.width="5" pen.color="0"  background.mode="1" background.color="553648127" )
+compute(band=summary alignment="1" expression="sum( estimated_hours  *   rate )"border="0" color="0" x="1409" y="56" height="57" width="334" format="$#,##0.00;[RED]($#,##0.00)"  name=total_estimated_cost  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=summary alignment="1" expression="sum(project_derived_item_actual_hours)"border="0" color="0" x="1948" y="56" height="57" width="334" format="#,##0.00"  name=total_actual_hours  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=summary alignment="1" expression="sum( project_derived_item_actual_hours  *   rate ) "border="0" color="0" x="2510" y="56" height="57" width="334" format="$#,##0.00;[RED]($#,##0.00)"  name=total_acutal_cost  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+line(band=summary x1="942" y1="20" x2="1331" y2="20" pen.style="0" pen.width="5" pen.color="0"  background.mode="1" background.color="553648127" )
+line(band=summary x1="2510" y1="8" x2="2899" y2="8" pen.style="0" pen.width="5" pen.color="0"  background.mode="1" background.color="553648127" )
+text(band=summary alignment="0" text="Total"border="0" color="0" x="92" y="56" height="53" width="156"  font.face="MS Sans Serif" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=summary alignment="0" text="Project Analysis:"border="0" color="0" x="1" y="276" height="65" width="609"  font.face="MS Sans Serif" font.height="-10" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+compute(band=summary alignment="1" expression="sum(estimated_hours)"border="0" color="0" x="865" y="56" height="57" width="334" format="#,##0.00"  name=total_estimated_hours  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+compute(band=summary alignment="0" expression="~"The project was under buget ~" + String(sum( estimated_hours  *   rate ) - sum( project_derived_item_actual_hours  *   rate ), ~"$#,##0.00~") + ~" and ~""border="0" color="0" x="613" y="276" height="65" width="1335" format="[general]" visible="1~tif(sum( estimated_hours  * rate) > sum( project_derived_item_actual_hours  *  rate), 1, 0)"  font.face="MS Sans Serif" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=summary alignment="0" expression="~"over buget ~" + String(sum(project_derived_item_actual_hours) - sum(estimated_hours) ,~"#,##0.00~") + ~" hours.~""border="0" color="0" x="1953" y="276" height="65" width="1267" format="[general]" visible="1~tif(sum(project_derived_item_actual_hours) > sum(estimated_hours), 1, 0)"  slideleft=yes  font.face="MS Sans Serif" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=summary alignment="0" expression="~"under buget ~" + String(sum(estimated_hours)  - sum(project_derived_item_actual_hours) ,~"#,##0.00~") + ~" hours.~""border="0" color="0" x="1953" y="276" height="65" width="1267" format="[general]" visible="1~tif(sum(project_derived_item_actual_hours) < sum(estimated_hours), 1, 0)"  slideleft=yes  font.face="MS Sans Serif" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=summary alignment="0" expression="~"The project was over buget ~" + String(sum( project_derived_item_actual_hours  *   rate ) - sum( estimated_hours  *  rate ), ~"$#,##0.00~") + ~" and ~""border="0" color="0" x="613" y="276" height="65" width="1335" format="[general]" visible="1~tif(sum( estimated_hours  * rate) < sum( project_derived_item_actual_hours  *  rate), 1, 0)"  font.face="MS Sans Serif" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
