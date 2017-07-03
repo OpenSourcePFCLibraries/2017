@@ -1,0 +1,21 @@
+Save Format v3.0(19990112)
+@begin Libraries
+ "pfewnsrv\\pfewnsrv.pbl" "";
+@end;
+@begin Objects
+ "pfewnsrv\\n_cst_resizeattrib.sru" "pfewnsrv\\pfewnsrv.pbl";
+ "pfewnsrv\\n_cst_winsrv_statusbar.sru" "pfewnsrv\\pfewnsrv.pbl";
+ "pfewnsrv\\m_frame.srm" "pfewnsrv\\pfewnsrv.pbl";
+ "pfewnsrv\\n_cst_winsrv_style.sru" "pfewnsrv\\pfewnsrv.pbl";
+ "pfewnsrv\\m_master.srm" "pfewnsrv\\pfewnsrv.pbl";
+ "pfewnsrv\\n_cst_menu.sru" "pfewnsrv\\pfewnsrv.pbl";
+ "pfewnsrv\\n_cst_resize.sru" "pfewnsrv\\pfewnsrv.pbl";
+ "pfewnsrv\\w_statusbar.srw" "pfewnsrv\\pfewnsrv.pbl";
+ "pfewnsrv\\w_toolbars.srw" "pfewnsrv\\pfewnsrv.pbl";
+ "pfewnsrv\\n_cst_winsrv.sru" "pfewnsrv\\pfewnsrv.pbl";
+ "pfewnsrv\\n_cst_winsrv_sheetmanagerattrib.sru" "pfewnsrv\\pfewnsrv.pbl";
+ "pfewnsrv\\n_cst_winsrv_sheetmanager.sru" "pfewnsrv\\pfewnsrv.pbl";
+ "pfewnsrv\\n_cst_toolbarattrib.sru" "pfewnsrv\\pfewnsrv.pbl";
+ "pfewnsrv\\n_cst_winsrv_statusbarattrib.sru" "pfewnsrv\\pfewnsrv.pbl";
+ "pfewnsrv\\n_cst_winsrv_preference.sru" "pfewnsrv\\pfewnsrv.pbl";
+@end;
