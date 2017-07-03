@@ -1,0 +1,8 @@
+HA$PBExportHeader$s_cielch_colorattrib.srs
+$PBExportComments$Color Conversion Service CIE-L-CH color attrib
+global type s_cielch_colorattrib from structure
+	decimal		l
+	decimal		c
+	decimal		h
+end type
+
