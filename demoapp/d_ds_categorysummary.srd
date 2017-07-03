@@ -1,0 +1,47 @@
+HA$PBExportHeader$d_ds_categorysummary.srd
+$PBExportComments$The source for the ListView when a Category Item is selected
+release 5;
+datawindow(units=0 timer_interval=0 color=16777215 processing=0 print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no )
+header(height=89 color="536870912" )
+summary(height=1 color="536870912" )
+footer(height=1 color="536870912" )
+detail(height=69 color="536870912" )
+table(column=(type=long update=yes updatewhereclause=yes key=yes identity=yes name=category_item_id dbname="project_category_item.category_item_id" initial="AUTOINCREMENT" )
+ column=(type=long update=yes updatewhereclause=yes key=yes name=project_id dbname="project_category_item.project_id" )
+ column=(type=long update=yes updatewhereclause=yes key=yes name=default_category_id dbname="project_category_item.category_id" )
+ column=(type=long update=yes updatewhereclause=yes name=complexity_id dbname="project_category_item.complexity_id" )
+ column=(type=long update=yes updatewhereclause=yes name=role_id dbname="project_category_item.role_id" )
+ column=(type=char(50) updatewhereclause=yes name=name dbname="project_category_item.name" )
+ column=(type=decimal(2) updatewhereclause=yes name=estimated_hours dbname="project_category_item.estimated_hours" )
+ column=(type=decimal(2) updatewhereclause=yes name=actual_hours dbname="project_category_item.actual_hours" )
+ column=(type=char(50) updatewhereclause=yes name=role_name dbname="project_role.name" )
+ column=(type=decimal(2) updatewhereclause=yes name=role_rate dbname="project_role.rate" validation=" real(gettext())  > 0" validationmsg="'Rate must be greater than zero.'" )
+ column=(type=decimal(2) updatewhereclause=yes name=role_multiplier dbname="project_role.multipler" )
+ column=(type=decimal(4) updatewhereclause=yes name=estimated_hours dbname="compute_0012" )
+ column=(type=decimal(6) updatewhereclause=yes name=estimated_cost dbname="compute_0013" )
+ column=(type=decimal(4) updatewhereclause=yes name=actual_cost dbname="compute_0014" )
+ retrieve="  SELECT  ~"project_category_item~".~"category_item_id~" ,           
+~"project_category_item~".~"project_id~" ,           
+~"project_category_item~".~"category_id~" ,           
+~"project_category_item~".~"complexity_id~" ,           
+~"project_category_item~".~"role_id~" ,           
+~"project_category_item~".~"name~" ,           
+~"project_category_item~".~"estimated_hours~" ,           
+~"project_category_item~".~"actual_hours~" ,           
+~"project_role~".~"name~" ,           
+~"project_role~".~"rate~" ,           
+~"project_role~".~"multipler~" ,           
+~"project_category_item~".~"estimated_hours~" * ~"project_role~".~"multipler~",           
+~"project_category_item~".~"estimated_hours~" * ~"project_role~".~"rate~" * ~"project_role~".~"multipler~",           
+~"project_category_item~".~"actual_hours~" * ~"project_role~".~"rate~"    
+        FROM ~"project_category_item~" ,           ~"project_role~"     
+        WHERE ( ~"project_role~".~"role_id~" = ~"project_category_item~".~"role_id~" ) and          
+( ( ~"project_category_item~".~"project_id~" = :project_id ) and          
+( ~"project_category_item~".~"category_id~" = :category_id ) )  " update="project_category_item" updatewhere=0 updatekeyinplace=no arguments=(("project_id", number),("category_id", number))  sort="name A " )
+column(band=detail id=6 alignment="0" tabsequence=32766 border="0" color="0" x="10" y="4" height="65" width="700" format="[general]"  name=name edit.limit=0 edit.case=any edit.autoselect=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=8 alignment="1" tabsequence=32766 border="0" color="0" x="1555" y="4" height="53" width="211" format="#,##0.00"  name=actual_hours edit.limit=0 edit.case=any edit.autoselect=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=13 alignment="1" tabsequence=32766 border="0" color="0" x="1793" y="8" height="53" width="348" format="$#,##0.00;[RED]($#,##0.00)"  name=estimated_cost edit.limit=0 edit.case=any edit.autoselect=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=14 alignment="1" tabsequence=32766 border="0" color="0" x="2149" y="8" height="53" width="293" format="$#,##0.00;[RED]($#,##0.00)"  name=actual_cost edit.limit=0 edit.case=any edit.autoselect=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=9 alignment="0" tabsequence=32766 border="0" color="0" x="723" y="8" height="53" width="243" format="[general]"  name=role_name edit.limit=0 edit.case=any edit.autoselect=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=12 alignment="1" tabsequence=32766 border="0" color="0" x="1317" y="8" height="53" width="206" format="#,##0.00"  name=estimated_hours edit.limit=0 edit.case=any edit.autoselect=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=10 alignment="0" tabsequence=32766 border="0" color="0" x="993" y="8" height="53" width="302" format="[General]"  name=role_rate edit.limit=0 edit.case=any edit.autoselect=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
