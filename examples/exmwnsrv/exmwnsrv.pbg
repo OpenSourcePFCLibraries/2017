@@ -1,0 +1,8 @@
+Save Format v3.0(19990112)
+@begin Libraries
+ "examples\\exmwnsrv\\exmwnsrv.pbl" "";
+@end;
+@begin Objects
+ "examples\\exmwnsrv\\n_cst_winsrv_statusbar.sru" "examples\\exmwnsrv\\exmwnsrv.pbl";
+ "examples\\exmwnsrv\\m_master.srm" "examples\\exmwnsrv\\exmwnsrv.pbl";
+@end;
