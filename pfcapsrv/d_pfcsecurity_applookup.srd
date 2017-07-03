@@ -1,0 +1,17 @@
+HA$PBExportHeader$d_pfcsecurity_applookup.srd
+$PBExportComments$PFC Security - Verify the existance of an application in the database
+release 8;
+datawindow(units=0 timer_interval=0 color=77956459 processing=0 HTMLDW=no print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no print.buttons=no print.preview.buttons=no )
+header(height=64 color="536870912" )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=64 color="536870912" )
+table(column=(type=char(32) update=yes updatewhereclause=yes key=yes name=application dbname="security_apps.application" )
+ column=(type=char(64) update=yes updatewhereclause=yes name=description dbname="security_apps.description" )
+ retrieve="PBSELECT( VERSION(400) TABLE(NAME=~"security_apps~" ) COLUMN(NAME=~"security_apps.application~") COLUMN(NAME=~"security_apps.description~")WHERE(    EXP1 =~"~~~"security_apps~~~".~~~"application~~~"~"   OP =~"=~"    EXP2 =~":app~" ) ) ARG(NAME = ~"app~" TYPE = string) " update="security_apps" updatewhere=1 updatekeyinplace=no arguments=(("app", string)) )
+text(band=header alignment="2" text="Description" border="6" color="33554432" x="722" y="8" height="52" width="1170" html.valueishtml="0"  name=description_t visible="1"  font.face="MS Sans Serif" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="67108864" )
+text(band=header alignment="2" text="Application" border="6" color="33554432" x="0" y="8" height="52" width="704" html.valueishtml="0"  name=application_t visible="1"  font.face="MS Sans Serif" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="67108864" )
+column(band=detail id=2 alignment="0" tabsequence=32766 border="0" color="33554432" x="722" y="4" height="56" width="1170" format="[general]" html.valueishtml="0"  name=description visible="1" edit.limit=64 edit.case=any edit.autoselect=yes edit.autohscroll=yes edit.imemode=0  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="67108864" )
+column(band=detail id=1 alignment="0" tabsequence=32766 border="0" color="33554432" x="0" y="4" height="56" width="672" format="[general]" html.valueishtml="0"  name=application visible="1" edit.limit=32 edit.case=any edit.autoselect=yes edit.autohscroll=yes edit.imemode=0  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="67108864" )
+htmltable(border="0" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" netscapelayers="0" )
