@@ -1,0 +1,1543 @@
+HA$PBExportHeader$pfc_m_lvs.srm
+$PBExportComments$PFC ListView menu class
+forward
+global type pfc_m_lvs from menu
+end type
+type m_viewitem from menu within pfc_m_lvs
+end type
+type m_viewdisplay from menu within m_viewitem
+end type
+type m_largeicon from menu within m_viewdisplay
+end type
+type m_smallicon from menu within m_viewdisplay
+end type
+type m_list from menu within m_viewdisplay
+end type
+type m_details from menu within m_viewdisplay
+end type
+type m_viewdisplay from menu within m_viewitem
+m_largeicon m_largeicon
+m_smallicon m_smallicon
+m_list m_list
+m_details m_details
+end type
+type m_dash11 from menu within m_viewitem
+end type
+type m_arrangeicons from menu within m_viewitem
+end type
+type m_1 from menu within m_arrangeicons
+end type
+type m_2 from menu within m_arrangeicons
+end type
+type m_3 from menu within m_arrangeicons
+end type
+type m_4 from menu within m_arrangeicons
+end type
+type m_5 from menu within m_arrangeicons
+end type
+type m_6 from menu within m_arrangeicons
+end type
+type m_7 from menu within m_arrangeicons
+end type
+type m_8 from menu within m_arrangeicons
+end type
+type m_9 from menu within m_arrangeicons
+end type
+type m_10 from menu within m_arrangeicons
+end type
+type m_dash12 from menu within m_arrangeicons
+end type
+type m_autoarrange from menu within m_arrangeicons
+end type
+type m_arrangeicons from menu within m_viewitem
+m_1 m_1
+m_2 m_2
+m_3 m_3
+m_4 m_4
+m_5 m_5
+m_6 m_6
+m_7 m_7
+m_8 m_8
+m_9 m_9
+m_10 m_10
+m_dash12 m_dash12
+m_autoarrange m_autoarrange
+end type
+type m_dash13 from menu within m_viewitem
+end type
+type m_selectall from menu within m_viewitem
+end type
+type m_invertselection from menu within m_viewitem
+end type
+type m_dash14 from menu within m_viewitem
+end type
+type m_cut from menu within m_viewitem
+end type
+type m_copy from menu within m_viewitem
+end type
+type m_paste from menu within m_viewitem
+end type
+type m_clear from menu within m_viewitem
+end type
+type m_dash15 from menu within m_viewitem
+end type
+type m_new from menu within m_viewitem
+end type
+type m_delete from menu within m_viewitem
+end type
+type m_rename from menu within m_viewitem
+end type
+type m_dash16 from menu within m_viewitem
+end type
+type m_properties from menu within m_viewitem
+end type
+type m_viewitem from menu within pfc_m_lvs
+m_viewdisplay m_viewdisplay
+m_dash11 m_dash11
+m_arrangeicons m_arrangeicons
+m_dash13 m_dash13
+m_selectall m_selectall
+m_invertselection m_invertselection
+m_dash14 m_dash14
+m_cut m_cut
+m_copy m_copy
+m_paste m_paste
+m_clear m_clear
+m_dash15 m_dash15
+m_new m_new
+m_delete m_delete
+m_rename m_rename
+m_dash16 m_dash16
+m_properties m_properties
+end type
+end forward
+
+global type pfc_m_lvs from menu
+m_viewitem m_viewitem
+end type
+global pfc_m_lvs pfc_m_lvs
+
+type variables
+Protected:
+listview	ilv_parent
+end variables
+
+forward prototypes
+public function integer of_setparent (listview alv_parent)
+end prototypes
+
+public function integer of_setparent (listview alv_parent);//////////////////////////////////////////////////////////////////////////////
+//
+//	Function:  of_SetParent
+//
+//	Access:  Public
+//
+//	Arguments:
+//	alv_parent:  ListView
+//
+//	Returns:   integer
+//	 1 = success
+//	-1 = error
+//
+//	Description:  Establishes a listview reference for the menu
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+//	Revision History
+//
+//	Version
+//	6.0   Initial version
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+/*
+ * Open Source PowerBuilder Foundation Class Libraries
+ *
+ * Copyright (c) 2004-2017, All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted in accordance with the MIT License
+
+ *
+ * https://opensource.org/licenses/MIT
+ *
+ * ====================================================================
+ *
+ * This software consists of voluntary contributions made by many
+ * individuals and was originally based on software copyright (c) 
+ * 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
+ * information on the Open Source PowerBuilder Foundation Class
+ * Libraries see https://github.com/OpenSourcePFCLibraries
+*/
+//
+//////////////////////////////////////////////////////////////////////////////
+
+integer	li_rc
+
+if IsValid (alv_parent) then
+	ilv_parent = alv_parent	
+	li_rc = 1
+else
+	li_rc = -1
+end if
+
+return li_rc
+end function
+
+on pfc_m_lvs.create
+pfc_m_lvs=this
+this.m_viewitem=create m_viewitem
+this.Item[]={this.m_viewitem}
+end on
+
+on pfc_m_lvs.destroy
+destroy(this.m_viewitem)
+end on
+
+type m_viewitem from menu within pfc_m_lvs
+m_viewdisplay m_viewdisplay
+m_dash11 m_dash11
+m_arrangeicons m_arrangeicons
+m_dash13 m_dash13
+m_selectall m_selectall
+m_invertselection m_invertselection
+m_dash14 m_dash14
+m_cut m_cut
+m_copy m_copy
+m_paste m_paste
+m_clear m_clear
+m_dash15 m_dash15
+m_new m_new
+m_delete m_delete
+m_rename m_rename
+m_dash16 m_dash16
+m_properties m_properties
+end type
+
+on m_viewitem.create
+this.Text="&View"
+this.m_viewdisplay=create m_viewdisplay
+this.m_dash11=create m_dash11
+this.m_arrangeicons=create m_arrangeicons
+this.m_dash13=create m_dash13
+this.m_selectall=create m_selectall
+this.m_invertselection=create m_invertselection
+this.m_dash14=create m_dash14
+this.m_cut=create m_cut
+this.m_copy=create m_copy
+this.m_paste=create m_paste
+this.m_clear=create m_clear
+this.m_dash15=create m_dash15
+this.m_new=create m_new
+this.m_delete=create m_delete
+this.m_rename=create m_rename
+this.m_dash16=create m_dash16
+this.m_properties=create m_properties
+this.Item[]={this.m_viewdisplay, &
+this.m_dash11, &
+this.m_arrangeicons, &
+this.m_dash13, &
+this.m_selectall, &
+this.m_invertselection, &
+this.m_dash14, &
+this.m_cut, &
+this.m_copy, &
+this.m_paste, &
+this.m_clear, &
+this.m_dash15, &
+this.m_new, &
+this.m_delete, &
+this.m_rename, &
+this.m_dash16, &
+this.m_properties}
+end on
+
+on m_viewitem.destroy
+destroy(this.m_viewdisplay)
+destroy(this.m_dash11)
+destroy(this.m_arrangeicons)
+destroy(this.m_dash13)
+destroy(this.m_selectall)
+destroy(this.m_invertselection)
+destroy(this.m_dash14)
+destroy(this.m_cut)
+destroy(this.m_copy)
+destroy(this.m_paste)
+destroy(this.m_clear)
+destroy(this.m_dash15)
+destroy(this.m_new)
+destroy(this.m_delete)
+destroy(this.m_rename)
+destroy(this.m_dash16)
+destroy(this.m_properties)
+end on
+
+type m_viewdisplay from menu within m_viewitem
+m_largeicon m_largeicon
+m_smallicon m_smallicon
+m_list m_list
+m_details m_details
+end type
+
+event clicked;//////////////////////////////////////////////////////////////////////////////
+//
+//	Event:  Clicked
+//
+//	Description:	Check the menu option that is the current view.
+//
+//////////////////////////////////////////////////////////////////////////////
+//	
+//	Revision History
+//
+//	Version
+//	6.0   Initial version
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+/*
+ * Open Source PowerBuilder Foundation Class Libraries
+ *
+ * Copyright (c) 2004-2017, All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted in accordance with the MIT License
+
+ *
+ * https://opensource.org/licenses/MIT
+ *
+ * ====================================================================
+ *
+ * This software consists of voluntary contributions made by many
+ * individuals and was originally based on software copyright (c) 
+ * 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
+ * information on the Open Source PowerBuilder Foundation Class
+ * Libraries see https://github.com/OpenSourcePFCLibraries
+*/
+//
+//////////////////////////////////////////////////////////////////////////////
+
+This.m_largeicon.Checked = False
+This.m_smallicon.Checked = False
+This.m_list.Checked = False
+This.m_details.Checked = False
+
+Choose Case ilv_Parent.View
+	Case ListViewLargeIcon!
+		This.m_largeicon.Checked = True
+	Case ListViewSmallIcon!
+		This.m_smallicon.Checked = True
+	Case ListViewList!
+		This.m_list.Checked = True
+	Case ListViewReport!
+		This.m_details.Checked = True
+End Choose
+
+end event
+
+on m_viewdisplay.create
+this.Text="&View"
+this.Microhelp="Contains commands for customizing display of items"
+this.m_largeicon=create m_largeicon
+this.m_smallicon=create m_smallicon
+this.m_list=create m_list
+this.m_details=create m_details
+this.Item[]={this.m_largeicon, &
+this.m_smallicon, &
+this.m_list, &
+this.m_details}
+end on
+
+on m_viewdisplay.destroy
+destroy(this.m_largeicon)
+destroy(this.m_smallicon)
+destroy(this.m_list)
+destroy(this.m_details)
+end on
+
+type m_largeicon from menu within m_viewdisplay
+end type
+
+event clicked;//////////////////////////////////////////////////////////////////////////////
+//
+//	Event:  Clicked
+//
+//	Description:	Change the ListView to display the items
+//						in Large Icon view.
+//
+//////////////////////////////////////////////////////////////////////////////
+//	
+//	Revision History
+//
+//	Version
+//	6.0   Initial version
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+/*
+ * Open Source PowerBuilder Foundation Class Libraries
+ *
+ * Copyright (c) 2004-2017, All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted in accordance with the MIT License
+
+ *
+ * https://opensource.org/licenses/MIT
+ *
+ * ====================================================================
+ *
+ * This software consists of voluntary contributions made by many
+ * individuals and was originally based on software copyright (c) 
+ * 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
+ * information on the Open Source PowerBuilder Foundation Class
+ * Libraries see https://github.com/OpenSourcePFCLibraries
+*/
+//
+//////////////////////////////////////////////////////////////////////////////
+
+ilv_Parent.View = ListViewLargeIcon!
+
+end event
+
+on m_largeicon.create
+this.Text="Lar&ge Icons"
+this.Microhelp="Displays items by using large icons"
+end on
+
+on m_largeicon.destroy
+end on
+
+type m_smallicon from menu within m_viewdisplay
+end type
+
+event clicked;//////////////////////////////////////////////////////////////////////////////
+//
+//	Event:  Clicked
+//
+//	Description:	Change the ListView to display the items
+//						in Small Icon view.
+//
+//////////////////////////////////////////////////////////////////////////////
+//	
+//	Revision History
+//
+//	Version
+//	6.0   Initial version
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+/*
+ * Open Source PowerBuilder Foundation Class Libraries
+ *
+ * Copyright (c) 2004-2017, All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted in accordance with the MIT License
+
+ *
+ * https://opensource.org/licenses/MIT
+ *
+ * ====================================================================
+ *
+ * This software consists of voluntary contributions made by many
+ * individuals and was originally based on software copyright (c) 
+ * 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
+ * information on the Open Source PowerBuilder Foundation Class
+ * Libraries see https://github.com/OpenSourcePFCLibraries
+*/
+//
+//////////////////////////////////////////////////////////////////////////////
+
+ilv_Parent.View = ListViewSmallIcon!
+
+end event
+
+on m_smallicon.create
+this.Text="S&mall Icons"
+this.Microhelp="Displays items by using small icons"
+end on
+
+type m_list from menu within m_viewdisplay
+end type
+
+event clicked;//////////////////////////////////////////////////////////////////////////////
+//
+//	Event:  Clicked
+//
+//	Description:	Change the ListView to display the items
+//						in List view.
+//
+//////////////////////////////////////////////////////////////////////////////
+//	
+//	Revision History
+//
+//	Version
+//	6.0   Initial version
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+/*
+ * Open Source PowerBuilder Foundation Class Libraries
+ *
+ * Copyright (c) 2004-2017, All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted in accordance with the MIT License
+
+ *
+ * https://opensource.org/licenses/MIT
+ *
+ * ====================================================================
+ *
+ * This software consists of voluntary contributions made by many
+ * individuals and was originally based on software copyright (c) 
+ * 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
+ * information on the Open Source PowerBuilder Foundation Class
+ * Libraries see https://github.com/OpenSourcePFCLibraries
+*/
+//
+//////////////////////////////////////////////////////////////////////////////
+
+ilv_Parent.View = ListViewList!
+
+end event
+
+on m_list.create
+this.Text="&List"
+this.Microhelp="Displays items in a list"
+end on
+
+type m_details from menu within m_viewdisplay
+end type
+
+event clicked;//////////////////////////////////////////////////////////////////////////////
+//
+//	Event:  Clicked
+//
+//	Description:	Change the ListView to display the items
+//						in Report view.
+//
+//////////////////////////////////////////////////////////////////////////////
+//	
+//	Revision History
+//
+//	Version
+//	6.0   Initial version
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+/*
+ * Open Source PowerBuilder Foundation Class Libraries
+ *
+ * Copyright (c) 2004-2017, All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted in accordance with the MIT License
+
+ *
+ * https://opensource.org/licenses/MIT
+ *
+ * ====================================================================
+ *
+ * This software consists of voluntary contributions made by many
+ * individuals and was originally based on software copyright (c) 
+ * 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
+ * information on the Open Source PowerBuilder Foundation Class
+ * Libraries see https://github.com/OpenSourcePFCLibraries
+*/
+//
+//////////////////////////////////////////////////////////////////////////////
+
+ilv_Parent.View = ListViewReport!
+
+end event
+
+on m_details.create
+this.Text="&Details"
+this.Microhelp="Displays information about each item"
+end on
+
+type m_dash11 from menu within m_viewitem
+end type
+
+on m_dash11.create
+this.Text="-"
+end on
+
+type m_arrangeicons from menu within m_viewitem
+m_1 m_1
+m_2 m_2
+m_3 m_3
+m_4 m_4
+m_5 m_5
+m_6 m_6
+m_7 m_7
+m_8 m_8
+m_9 m_9
+m_10 m_10
+m_dash12 m_dash12
+m_autoarrange m_autoarrange
+end type
+
+on m_arrangeicons.create
+this.Text="Arrange &Icons"
+this.Microhelp="Contains commands for arranging items"
+this.m_1=create m_1
+this.m_2=create m_2
+this.m_3=create m_3
+this.m_4=create m_4
+this.m_5=create m_5
+this.m_6=create m_6
+this.m_7=create m_7
+this.m_8=create m_8
+this.m_9=create m_9
+this.m_10=create m_10
+this.m_dash12=create m_dash12
+this.m_autoarrange=create m_autoarrange
+this.Item[]={this.m_1, &
+this.m_2, &
+this.m_3, &
+this.m_4, &
+this.m_5, &
+this.m_6, &
+this.m_7, &
+this.m_8, &
+this.m_9, &
+this.m_10, &
+this.m_dash12, &
+this.m_autoarrange}
+end on
+
+on m_arrangeicons.destroy
+destroy(this.m_1)
+destroy(this.m_2)
+destroy(this.m_3)
+destroy(this.m_4)
+destroy(this.m_5)
+destroy(this.m_6)
+destroy(this.m_7)
+destroy(this.m_8)
+destroy(this.m_9)
+destroy(this.m_10)
+destroy(this.m_dash12)
+destroy(this.m_autoarrange)
+end on
+
+type m_1 from menu within m_arrangeicons
+end type
+
+on m_1.create
+this.Text="1"
+this.Visible=false
+end on
+
+on m_1.destroy
+end on
+
+event clicked;//////////////////////////////////////////////////////////////////////////////
+//
+//	Event:  Clicked
+//
+//	Description:	Arrange the items ordered by column 1.
+//
+//////////////////////////////////////////////////////////////////////////////
+//	
+//	Revision History
+//
+//	Version
+//	6.0   Initial version
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+/*
+ * Open Source PowerBuilder Foundation Class Libraries
+ *
+ * Copyright (c) 2004-2017, All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted in accordance with the MIT License
+
+ *
+ * https://opensource.org/licenses/MIT
+ *
+ * ====================================================================
+ *
+ * This software consists of voluntary contributions made by many
+ * individuals and was originally based on software copyright (c) 
+ * 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
+ * information on the Open Source PowerBuilder Foundation Class
+ * Libraries see https://github.com/OpenSourcePFCLibraries
+*/
+//
+//////////////////////////////////////////////////////////////////////////////
+
+ilv_Parent.event ColumnClick(1)
+
+end event
+
+type m_2 from menu within m_arrangeicons
+end type
+
+on m_2.create
+this.Text="2"
+this.Visible=false
+end on
+
+event clicked;//////////////////////////////////////////////////////////////////////////////
+//
+//	Event:  Clicked
+//
+//	Description:	Arrange the items ordered by column 2.
+//
+//////////////////////////////////////////////////////////////////////////////
+//	
+//	Revision History
+//
+//	Version
+//	6.0   Initial version
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+/*
+ * Open Source PowerBuilder Foundation Class Libraries
+ *
+ * Copyright (c) 2004-2017, All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted in accordance with the MIT License
+
+ *
+ * https://opensource.org/licenses/MIT
+ *
+ * ====================================================================
+ *
+ * This software consists of voluntary contributions made by many
+ * individuals and was originally based on software copyright (c) 
+ * 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
+ * information on the Open Source PowerBuilder Foundation Class
+ * Libraries see https://github.com/OpenSourcePFCLibraries
+*/
+//
+//////////////////////////////////////////////////////////////////////////////
+
+ilv_Parent.event ColumnClick(2)
+
+end event
+
+type m_3 from menu within m_arrangeicons
+end type
+
+on m_3.create
+this.Text="3"
+this.Visible=false
+end on
+
+event clicked;//////////////////////////////////////////////////////////////////////////////
+//
+//	Event:  Clicked
+//
+//	Description:	Arrange the items ordered by column 3.
+//
+//////////////////////////////////////////////////////////////////////////////
+//	
+//	Revision History
+//
+//	Version
+//	6.0   Initial version
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+/*
+ * Open Source PowerBuilder Foundation Class Libraries
+ *
+ * Copyright (c) 2004-2017, All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted in accordance with the MIT License
+
+ *
+ * https://opensource.org/licenses/MIT
+ *
+ * ====================================================================
+ *
+ * This software consists of voluntary contributions made by many
+ * individuals and was originally based on software copyright (c) 
+ * 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
+ * information on the Open Source PowerBuilder Foundation Class
+ * Libraries see https://github.com/OpenSourcePFCLibraries
+*/
+//
+//////////////////////////////////////////////////////////////////////////////
+
+ilv_Parent.event ColumnClick(3)
+
+end event
+
+type m_4 from menu within m_arrangeicons
+end type
+
+on m_4.create
+this.Text="4"
+this.Visible=false
+end on
+
+event clicked;//////////////////////////////////////////////////////////////////////////////
+//
+//	Event:  Clicked
+//
+//	Description:	Arrange the items ordered by column 4.
+//
+//////////////////////////////////////////////////////////////////////////////
+//	
+//	Revision History
+//
+//	Version
+//	6.0   Initial version
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+/*
+ * Open Source PowerBuilder Foundation Class Libraries
+ *
+ * Copyright (c) 2004-2017, All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted in accordance with the MIT License
+
+ *
+ * https://opensource.org/licenses/MIT
+ *
+ * ====================================================================
+ *
+ * This software consists of voluntary contributions made by many
+ * individuals and was originally based on software copyright (c) 
+ * 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
+ * information on the Open Source PowerBuilder Foundation Class
+ * Libraries see https://github.com/OpenSourcePFCLibraries
+*/
+//
+//////////////////////////////////////////////////////////////////////////////
+
+ilv_Parent.event ColumnClick(4)
+
+end event
+
+type m_5 from menu within m_arrangeicons
+end type
+
+on m_5.create
+this.Text="5"
+this.Visible=false
+end on
+
+event clicked;//////////////////////////////////////////////////////////////////////////////
+//
+//	Event:  Clicked
+//
+//	Description:	Arrange the items ordered by column 5.
+//
+//////////////////////////////////////////////////////////////////////////////
+//	
+//	Revision History
+//
+//	Version
+//	6.0   Initial version
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+/*
+ * Open Source PowerBuilder Foundation Class Libraries
+ *
+ * Copyright (c) 2004-2017, All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted in accordance with the MIT License
+
+ *
+ * https://opensource.org/licenses/MIT
+ *
+ * ====================================================================
+ *
+ * This software consists of voluntary contributions made by many
+ * individuals and was originally based on software copyright (c) 
+ * 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
+ * information on the Open Source PowerBuilder Foundation Class
+ * Libraries see https://github.com/OpenSourcePFCLibraries
+*/
+//
+//////////////////////////////////////////////////////////////////////////////
+
+ilv_Parent.event ColumnClick(5)
+
+end event
+
+type m_6 from menu within m_arrangeicons
+end type
+
+on m_6.create
+this.Text="6"
+this.Visible=false
+end on
+
+event clicked;//////////////////////////////////////////////////////////////////////////////
+//
+//	Event:  Clicked
+//
+//	Description:	Arrange the items ordered by column 6.
+//
+//////////////////////////////////////////////////////////////////////////////
+//	
+//	Revision History
+//
+//	Version
+//	6.0   Initial version
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+/*
+ * Open Source PowerBuilder Foundation Class Libraries
+ *
+ * Copyright (c) 2004-2017, All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted in accordance with the MIT License
+
+ *
+ * https://opensource.org/licenses/MIT
+ *
+ * ====================================================================
+ *
+ * This software consists of voluntary contributions made by many
+ * individuals and was originally based on software copyright (c) 
+ * 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
+ * information on the Open Source PowerBuilder Foundation Class
+ * Libraries see https://github.com/OpenSourcePFCLibraries
+*/
+//
+//////////////////////////////////////////////////////////////////////////////
+
+ilv_Parent.event ColumnClick(6)
+
+end event
+
+type m_7 from menu within m_arrangeicons
+end type
+
+on m_7.create
+this.Text="7"
+this.Visible=false
+end on
+
+event clicked;//////////////////////////////////////////////////////////////////////////////
+//
+//	Event:  Clicked
+//
+//	Description:	Arrange the items ordered by column 7.
+//
+//////////////////////////////////////////////////////////////////////////////
+//	
+//	Revision History
+//
+//	Version
+//	6.0   Initial version
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+/*
+ * Open Source PowerBuilder Foundation Class Libraries
+ *
+ * Copyright (c) 2004-2017, All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted in accordance with the MIT License
+
+ *
+ * https://opensource.org/licenses/MIT
+ *
+ * ====================================================================
+ *
+ * This software consists of voluntary contributions made by many
+ * individuals and was originally based on software copyright (c) 
+ * 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
+ * information on the Open Source PowerBuilder Foundation Class
+ * Libraries see https://github.com/OpenSourcePFCLibraries
+*/
+//
+//////////////////////////////////////////////////////////////////////////////
+
+ilv_Parent.event ColumnClick(7)
+
+end event
+
+type m_8 from menu within m_arrangeicons
+end type
+
+on m_8.create
+this.Text="8"
+this.Visible=false
+end on
+
+event clicked;//////////////////////////////////////////////////////////////////////////////
+//
+//	Event:  Clicked
+//
+//	Description:	Arrange the items ordered by column 8.
+//
+//////////////////////////////////////////////////////////////////////////////
+//	
+//	Revision History
+//
+//	Version
+//	6.0   Initial version
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+/*
+ * Open Source PowerBuilder Foundation Class Libraries
+ *
+ * Copyright (c) 2004-2017, All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted in accordance with the MIT License
+
+ *
+ * https://opensource.org/licenses/MIT
+ *
+ * ====================================================================
+ *
+ * This software consists of voluntary contributions made by many
+ * individuals and was originally based on software copyright (c) 
+ * 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
+ * information on the Open Source PowerBuilder Foundation Class
+ * Libraries see https://github.com/OpenSourcePFCLibraries
+*/
+//
+//////////////////////////////////////////////////////////////////////////////
+
+ilv_Parent.event ColumnClick(8)
+
+end event
+
+type m_9 from menu within m_arrangeicons
+end type
+
+on m_9.create
+this.Text="9"
+this.Visible=false
+end on
+
+event clicked;//////////////////////////////////////////////////////////////////////////////
+//
+//	Event:  Clicked
+//
+//	Description:	Arrange the items ordered by column 9.
+//
+//////////////////////////////////////////////////////////////////////////////
+//	
+//	Revision History
+//
+//	Version
+//	6.0   Initial version
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+/*
+ * Open Source PowerBuilder Foundation Class Libraries
+ *
+ * Copyright (c) 2004-2017, All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted in accordance with the MIT License
+
+ *
+ * https://opensource.org/licenses/MIT
+ *
+ * ====================================================================
+ *
+ * This software consists of voluntary contributions made by many
+ * individuals and was originally based on software copyright (c) 
+ * 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
+ * information on the Open Source PowerBuilder Foundation Class
+ * Libraries see https://github.com/OpenSourcePFCLibraries
+*/
+//
+//////////////////////////////////////////////////////////////////////////////
+
+ilv_Parent.event ColumnClick(9)
+
+end event
+
+type m_10 from menu within m_arrangeicons
+end type
+
+on m_10.create
+this.Text="10"
+this.Visible=false
+end on
+
+event clicked;//////////////////////////////////////////////////////////////////////////////
+//
+//	Event:  Clicked
+//
+//	Description:	Arrange the items ordered by column 10.
+//
+//////////////////////////////////////////////////////////////////////////////
+//	
+//	Revision History
+//
+//	Version
+//	6.0   Initial version
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+/*
+ * Open Source PowerBuilder Foundation Class Libraries
+ *
+ * Copyright (c) 2004-2017, All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted in accordance with the MIT License
+
+ *
+ * https://opensource.org/licenses/MIT
+ *
+ * ====================================================================
+ *
+ * This software consists of voluntary contributions made by many
+ * individuals and was originally based on software copyright (c) 
+ * 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
+ * information on the Open Source PowerBuilder Foundation Class
+ * Libraries see https://github.com/OpenSourcePFCLibraries
+*/
+//
+//////////////////////////////////////////////////////////////////////////////
+
+ilv_Parent.event ColumnClick(10)
+
+end event
+
+type m_dash12 from menu within m_arrangeicons
+end type
+
+on m_dash12.create
+this.Text="-"
+this.ShiftToRight=true
+end on
+
+type m_autoarrange from menu within m_arrangeicons
+end type
+
+on m_autoarrange.create
+this.Text="&Auto Arrange"
+this.Microhelp="Arranges the icons automatically"
+this.ShiftToRight=true
+end on
+
+event clicked;//////////////////////////////////////////////////////////////////////////////
+//
+//	Event:  clicked
+//
+//	Description:  Change autoarrange state of listview
+//
+//////////////////////////////////////////////////////////////////////////////
+//	
+//	Revision History
+//
+//	Version
+//	6.0   Initial version
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+/*
+ * Open Source PowerBuilder Foundation Class Libraries
+ *
+ * Copyright (c) 2004-2017, All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted in accordance with the MIT License
+
+ *
+ * https://opensource.org/licenses/MIT
+ *
+ * ====================================================================
+ *
+ * This software consists of voluntary contributions made by many
+ * individuals and was originally based on software copyright (c) 
+ * 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
+ * information on the Open Source PowerBuilder Foundation Class
+ * Libraries see https://github.com/OpenSourcePFCLibraries
+*/
+//
+//////////////////////////////////////////////////////////////////////////////
+
+this.checked = not this.checked
+ilv_parent.autoarrange = this.checked
+end event
+
+type m_dash13 from menu within m_viewitem
+end type
+
+on m_dash13.create
+this.Text="-"
+end on
+
+type m_selectall from menu within m_viewitem
+end type
+
+event clicked;//////////////////////////////////////////////////////////////////////////////
+//
+//	Event:  Clicked
+//
+//	Description:	Select all the items in the listview.
+//
+//////////////////////////////////////////////////////////////////////////////
+//	
+//	Revision History
+//
+//	Version
+//	6.0   Initial version
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+/*
+ * Open Source PowerBuilder Foundation Class Libraries
+ *
+ * Copyright (c) 2004-2017, All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted in accordance with the MIT License
+
+ *
+ * https://opensource.org/licenses/MIT
+ *
+ * ====================================================================
+ *
+ * This software consists of voluntary contributions made by many
+ * individuals and was originally based on software copyright (c) 
+ * 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
+ * information on the Open Source PowerBuilder Foundation Class
+ * Libraries see https://github.com/OpenSourcePFCLibraries
+*/
+//
+//////////////////////////////////////////////////////////////////////////////
+
+ilv_parent.dynamic event pfc_selectall()
+
+end event
+
+on m_selectall.create
+this.Text="Select &All"
+this.Microhelp="Select all listview items"
+end on
+
+type m_invertselection from menu within m_viewitem
+end type
+
+event clicked;//////////////////////////////////////////////////////////////////////////////
+//
+//	Event:  Clicked
+//
+//	Description:	Make all selected items unselected and vice versa.
+//
+//////////////////////////////////////////////////////////////////////////////
+//	
+//	Revision History
+//
+//	Version
+//	6.0   Initial version
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+/*
+ * Open Source PowerBuilder Foundation Class Libraries
+ *
+ * Copyright (c) 2004-2017, All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted in accordance with the MIT License
+
+ *
+ * https://opensource.org/licenses/MIT
+ *
+ * ====================================================================
+ *
+ * This software consists of voluntary contributions made by many
+ * individuals and was originally based on software copyright (c) 
+ * 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
+ * information on the Open Source PowerBuilder Foundation Class
+ * Libraries see https://github.com/OpenSourcePFCLibraries
+*/
+//
+//////////////////////////////////////////////////////////////////////////////
+
+ilv_parent.dynamic event pfc_invertselection()
+
+end event
+
+on m_invertselection.create
+this.Text="Invert &Selection"
+this.Microhelp="Reverse the selection of listview items"
+end on
+
+type m_dash14 from menu within m_viewitem
+end type
+
+on m_dash14.create
+this.Text="-"
+this.Visible=false
+end on
+
+type m_cut from menu within m_viewitem
+end type
+
+on m_cut.create
+this.Text="Cu&t"
+this.Visible=false
+this.Enabled=false
+end on
+
+type m_copy from menu within m_viewitem
+end type
+
+on m_copy.create
+this.Text="&Copy"
+this.Visible=false
+this.Enabled=false
+end on
+
+type m_paste from menu within m_viewitem
+end type
+
+on m_paste.create
+this.Text="&Paste"
+this.Visible=false
+this.Enabled=false
+end on
+
+type m_clear from menu within m_viewitem
+end type
+
+on m_clear.create
+this.Text="C&lear"
+this.Visible=false
+this.Enabled=false
+end on
+
+type m_dash15 from menu within m_viewitem
+end type
+
+on m_dash15.create
+this.Text="-"
+this.Visible=false
+end on
+
+type m_new from menu within m_viewitem
+end type
+
+event clicked;//////////////////////////////////////////////////////////////////////////////
+//
+//	Event:  Clicked
+//
+//	Description:	Add a new item to the listview.
+//
+//////////////////////////////////////////////////////////////////////////////
+//	
+//	Revision History
+//
+//	Version
+//	6.0   Initial version
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+/*
+ * Open Source PowerBuilder Foundation Class Libraries
+ *
+ * Copyright (c) 2004-2017, All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted in accordance with the MIT License
+
+ *
+ * https://opensource.org/licenses/MIT
+ *
+ * ====================================================================
+ *
+ * This software consists of voluntary contributions made by many
+ * individuals and was originally based on software copyright (c) 
+ * 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
+ * information on the Open Source PowerBuilder Foundation Class
+ * Libraries see https://github.com/OpenSourcePFCLibraries
+*/
+//
+//////////////////////////////////////////////////////////////////////////////
+
+ilv_parent.dynamic event pfc_newitem()
+
+end event
+
+on m_new.create
+this.Text="&New"
+this.Microhelp="Add a new item to the listview"
+this.Visible=false
+end on
+
+type m_delete from menu within m_viewitem
+end type
+
+event clicked;//////////////////////////////////////////////////////////////////////////////
+//
+//	Event:  Clicked
+//
+//	Description:	delete the selected items in the listview.
+//
+//////////////////////////////////////////////////////////////////////////////
+//	
+//	Revision History
+//
+//	Version
+//	6.0   Initial version
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+/*
+ * Open Source PowerBuilder Foundation Class Libraries
+ *
+ * Copyright (c) 2004-2017, All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted in accordance with the MIT License
+
+ *
+ * https://opensource.org/licenses/MIT
+ *
+ * ====================================================================
+ *
+ * This software consists of voluntary contributions made by many
+ * individuals and was originally based on software copyright (c) 
+ * 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
+ * information on the Open Source PowerBuilder Foundation Class
+ * Libraries see https://github.com/OpenSourcePFCLibraries
+*/
+//
+//////////////////////////////////////////////////////////////////////////////
+
+ilv_parent.dynamic event pfc_deleteitem()
+
+end event
+
+on m_delete.create
+this.Text="&Delete"
+this.Microhelp="Delete the selected item(s)"
+this.Visible=false
+end on
+
+type m_rename from menu within m_viewitem
+end type
+
+event clicked;//////////////////////////////////////////////////////////////////////////////
+//
+//	Event:  Clicked
+//
+//	Description:	Rename (edit) the listview item.
+//
+//////////////////////////////////////////////////////////////////////////////
+//	
+//	Revision History
+//
+//	Version
+//	6.0   Initial version
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+/*
+ * Open Source PowerBuilder Foundation Class Libraries
+ *
+ * Copyright (c) 2004-2017, All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted in accordance with the MIT License
+
+ *
+ * https://opensource.org/licenses/MIT
+ *
+ * ====================================================================
+ *
+ * This software consists of voluntary contributions made by many
+ * individuals and was originally based on software copyright (c) 
+ * 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
+ * information on the Open Source PowerBuilder Foundation Class
+ * Libraries see https://github.com/OpenSourcePFCLibraries
+*/
+//
+//////////////////////////////////////////////////////////////////////////////
+
+ilv_parent.dynamic event pfc_renameitem()
+
+end event
+
+on m_rename.create
+this.Text="Renam&e"
+this.Microhelp="Rename the selected item"
+this.Visible=false
+end on
+
+type m_dash16 from menu within m_viewitem
+end type
+
+on m_dash16.create
+this.Text="-"
+this.Visible=false
+end on
+
+type m_properties from menu within m_viewitem
+end type
+
+event clicked;//////////////////////////////////////////////////////////////////////////////
+//
+//	Event:  Clicked
+//
+//	Description:	Show the listview properties dialog.
+//
+//////////////////////////////////////////////////////////////////////////////
+//	
+//	Revision History
+//
+//	Version
+
+//	6.0   Initial version
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+/*
+ * Open Source PowerBuilder Foundation Class Libraries
+ *
+ * Copyright (c) 2004-2017, All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted in accordance with the MIT License
+
+ *
+ * https://opensource.org/licenses/MIT
+ *
+ * ====================================================================
+ *
+ * This software consists of voluntary contributions made by many
+ * individuals and was originally based on software copyright (c) 
+ * 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
+ * information on the Open Source PowerBuilder Foundation Class
+ * Libraries see https://github.com/OpenSourcePFCLibraries
+*/
+//
+//////////////////////////////////////////////////////////////////////////////
+
+ilv_parent.dynamic event pfc_properties()
+end event
+
+on m_properties.create
+this.Text="P&roperties"
+this.Visible=false
+end on
+
+on m_properties.destroy
+end on
+
