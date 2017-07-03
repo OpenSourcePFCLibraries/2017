@@ -1,0 +1,13 @@
+HA$PBExportHeader$d_metaclass2.srd
+release 5;
+datawindow(units=0 timer_interval=0 color=16777215 processing=0 print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.prompt=no print.buttons=no print.preview.buttons=no )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=64 color="536870912" )
+table(column=(type=char(20) update=yes updatewhereclause=no key=yes name=category_name dbname="category_name" )
+ column=(type=number updatewhereclause=no name=picture dbname="picture" )
+ update="examples_categories_list" updatewhere=0 updatekeyinplace=no )
+data("Properties", 1,"Events", 2,"Functions", 3,"External Functions", 4,"Global Variables", 5,"Instance Variables", 6,"Shared Variables", 7,"Structures", 8,) 
+column(band=detail id=1 alignment="0" tabsequence=10 border="0" color="0" x="0" y="4" height="52" width="549" format="[general]"  name=category_name edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=2 alignment="0" tabsequence=32766 border="0" color="0" x="562" y="4" height="52" width="462" format="[general]"  name=picture edit.limit=0 edit.case=any edit.autoselect=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+htmltable(border="1" cellpadding="0" cellspacing="0" generatecss="no" nowrap="yes")
