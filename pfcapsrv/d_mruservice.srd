@@ -1,0 +1,22 @@
+HA$PBExportHeader$d_mruservice.srd
+$PBExportComments$PFC Mru service datastore object
+release 8;
+datawindow(units=0 timer_interval=0 color=16777215 processing=0 HTMLDW=no print.documentname="" print.orientation = 0 print.margin.left = 107 print.margin.right = 107 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no print.buttons=no print.preview.buttons=no )
+summary(height=4 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=80 color="536870912" )
+table(column=(type=char(50) updatewhereclause=no name=s_id dbname="s_id" )
+ column=(type=char(50) updatewhereclause=no name=s_classname dbname="s_classname" )
+ column=(type=char(50) updatewhereclause=no name=s_menuitemname dbname="s_menuitemname" )
+ column=(type=char(100) updatewhereclause=no name=s_menuitemkey dbname="s_menuitemkey" )
+ column=(type=char(100) updatewhereclause=no name=s_menuitemmhelp dbname="s_menuitemmhelp" )
+ column=(type=number updatewhereclause=no name=n_identity dbname="n_identity" )
+ )
+column(band=detail id=2 alignment="0" tabsequence=10 border="0" color="0" x="5" y="4" height="72" width="1422" format="[general]" html.valueishtml="0"  name=s_classname visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes edit.imemode=0  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+column(band=detail id=4 alignment="0" tabsequence=30 border="0" color="0" x="2857" y="4" height="72" width="2729" format="[general]" html.valueishtml="0"  name=s_menuitemkey visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes edit.imemode=0  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=6 alignment="0" tabsequence=32766 border="0" color="0" x="5591" y="4" height="72" width="265" format="[general]" html.valueishtml="0"  name=n_identity visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.imemode=0  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=3 alignment="0" tabsequence=20 border="0" color="0" x="1431" y="4" height="72" width="1422" format="[general]" html.valueishtml="0"  name=s_menuitemname visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes edit.imemode=0  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=1 alignment="0" tabsequence=32766 border="0" color="0" x="5865" y="4" height="72" width="1422" format="[general]" html.valueishtml="0"  name=s_id visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.imemode=0  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=5 alignment="0" tabsequence=32766 border="0" color="0" x="7296" y="4" height="72" width="1422" format="[general]" html.valueishtml="0"  name=s_menuitemmhelp visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.imemode=0  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" netscapelayers="0" )
