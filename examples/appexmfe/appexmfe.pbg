@@ -1,0 +1,19 @@
+Save Format v3.0(19990112)
+@begin Libraries
+ "examples\\appexmfe\\appexmfe.pbl" "";
+@end;
+@begin Objects
+ "examples\\appexmfe\\u_utilproperties.sru" "examples\\appexmfe\\appexmfe.pbl";
+ "examples\\appexmfe\\w_utilproperties.srw" "examples\\appexmfe\\appexmfe.pbl";
+ "examples\\appexmfe\\n_cst_explorerattrib.sru" "examples\\appexmfe\\appexmfe.pbl";
+ "examples\\appexmfe\\m_utilityproperties.srm" "examples\\appexmfe\\appexmfe.pbl";
+ "examples\\appexmfe\\d_catexamples.srd" "examples\\appexmfe\\appexmfe.pbl";
+ "examples\\appexmfe\\u_cb_sqlspy.sru" "examples\\appexmfe\\appexmfe.pbl";
+ "examples\\appexmfe\\d_windows.srd" "examples\\appexmfe\\appexmfe.pbl";
+ "examples\\appexmfe\\d_titles.srd" "examples\\appexmfe\\appexmfe.pbl";
+ "examples\\appexmfe\\m_examplemain.srm" "examples\\appexmfe\\appexmfe.pbl";
+ "examples\\appexmfe\\d_maincategorylist.srd" "examples\\appexmfe\\appexmfe.pbl";
+ "examples\\appexmfe\\d_toplevel.srd" "examples\\appexmfe\\appexmfe.pbl";
+ "examples\\appexmfe\\w_examplemain.srw" "examples\\appexmfe\\appexmfe.pbl";
+ "examples\\appexmfe\\n_exampleappmanager.sru" "examples\\appexmfe\\appexmfe.pbl";
+@end;
