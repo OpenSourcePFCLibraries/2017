@@ -1,0 +1,241 @@
+HA$PBExportHeader$m_pfcsecurity_template_mgmt.srm
+$PBExportComments$Template Management Menu
+forward
+global type m_pfcsecurity_template_mgmt from m_pfcsecurity_master
+end type
+type m_deletewindow from menu within m_edit
+end type
+type m_deleterow from menu within m_edit
+end type
+end forward
+
+global type m_pfcsecurity_template_mgmt from m_pfcsecurity_master
+end type
+global m_pfcsecurity_template_mgmt m_pfcsecurity_template_mgmt
+
+on m_pfcsecurity_template_mgmt.create
+m_pfcsecurity_template_mgmt=this
+call super::create
+end on
+
+on m_pfcsecurity_template_mgmt.destroy
+call super::destroy
+end on
+
+on m_new.create
+call super::create
+this.Visible=false
+this.Enabled=false
+end on
+
+on m_open.create
+call super::create
+this.Visible=false
+this.Enabled=false
+end on
+
+on m_saveas.create
+call super::create
+this.Visible=false
+this.Enabled=false
+end on
+
+on m_dash13.create
+call super::create
+this.Visible=true
+end on
+
+type m_edit from m_pfcsecurity_master`m_edit within m_pfcsecurity_template_mgmt
+m_deletewindow m_deletewindow
+m_deleterow m_deleterow
+end type
+
+on m_edit.create
+call super::create
+this.m_deletewindow=create m_deletewindow
+this.m_deleterow=create m_deleterow
+this.Item[UpperBound(this.item)+1]=this.m_deletewindow
+this.Item[UpperBound(this.item)+1]=this.m_deleterow
+end on
+
+on m_edit.destroy
+call super::destroy
+destroy(this.m_deletewindow)
+destroy(this.m_deleterow)
+end on
+
+on m_undo.create
+call super::create
+this.Visible=false
+this.Enabled=false
+end on
+
+on m_dash21.create
+call super::create
+this.Visible=false
+end on
+
+on m_cut.create
+call super::create
+this.Visible=false
+this.Enabled=false
+end on
+
+on m_copy.create
+call super::create
+this.Visible=false
+this.Enabled=false
+end on
+
+on m_paste.create
+call super::create
+this.Visible=false
+this.Enabled=false
+end on
+
+on m_pastespecial.create
+call super::create
+this.Visible=false
+this.Enabled=false
+end on
+
+on m_clear.create
+call super::create
+this.Visible=false
+this.Enabled=false
+end on
+
+on m_dash22.create
+call super::create
+this.Visible=false
+end on
+
+on m_selectall.create
+call super::create
+this.Visible=false
+this.Enabled=false
+end on
+
+on m_dash23.create
+call super::create
+this.Visible=false
+end on
+
+on m_find.create
+call super::create
+this.Visible=false
+this.Enabled=false
+end on
+
+on m_replace.create
+call super::create
+this.Visible=false
+this.Enabled=false
+end on
+
+on m_dash24.create
+call super::create
+this.Visible=false
+end on
+
+on m_updatelinks.create
+call super::create
+this.Visible=false
+this.Enabled=false
+end on
+
+on m_object1.create
+call super::create
+this.Visible=false
+this.Enabled=false
+end on
+
+on m_ruler.create
+call super::create
+this.Visible=false
+this.Enabled=false
+end on
+
+on m_dash31.create
+call super::create
+this.Visible=false
+end on
+
+on m_filter.create
+call super::create
+this.Visible=false
+this.Enabled=false
+end on
+
+on m_dash36.create
+call super::create
+this.Visible=false
+end on
+
+on m_zoom.create
+call super::create
+this.Visible=false
+this.Enabled=false
+end on
+
+on m_insert.create
+call super::create
+this.Visible=false
+this.Enabled=false
+end on
+
+on m_insertfile.create
+call super::create
+this.Visible=false
+this.Enabled=false
+end on
+
+on m_picture.create
+call super::create
+this.Visible=false
+this.Enabled=false
+end on
+
+on m_dash41.create
+call super::create
+this.Visible=false
+end on
+
+on m_object.create
+call super::create
+this.Visible=false
+this.Enabled=false
+end on
+
+type m_deletewindow from menu within m_edit
+end type
+
+on m_deletewindow.create
+this.Text="Delete &Object~tCtrl+W"
+this.Microhelp="Delete the object and all of it's controls"
+this.ToolBarItemName="Custom081!"
+this.ToolBarItemText="Delete Object"
+this.ToolBarItemOrder=57
+this.ToolBarItemSpace=1
+this.Shortcut=343
+end on
+
+event clicked;of_sendmessage('ue_delete_window')
+end event
+
+type m_deleterow from menu within m_edit
+end type
+
+event clicked;of_sendmessage('pfc_deleterow')
+end event
+
+on m_deleterow.create
+this.Text="&Delete Row~tCtrl+D"
+this.Microhelp="Delete The Current Row"
+this.ToolBarItemName="Next5!"
+this.ToolBarItemText="Delete Row"
+this.ToolBarItemOrder=56
+this.ToolBarItemSpace=1
+this.Shortcut=324
+end on
+
