@@ -1,0 +1,19 @@
+HA$PBExportHeader$d_messageprint.srd
+$PBExportComments$PFC Message service Print
+release 8;
+datawindow(units=0 timer_interval=0 color=16777215 processing=0 HTMLDW=no print.documentname="" print.orientation = 0 print.margin.left = 107 print.margin.right = 107 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no print.buttons=no print.preview.buttons=no )
+summary(height=4 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=376 color="553648127"  height.autosize=yes)
+table(column=(type=char(255) updatewhereclause=yes name=title dbname="title" )
+ column=(type=char(5000) updatewhereclause=yes name=message dbname="message" )
+ column=(type=char(5000) updatewhereclause=yes name=comments dbname="comments" )
+ )
+column(band=detail id=1 alignment="0" tabsequence=10 border="0" color="0" x="631" y="16" height="72" width="2688" format="[general]" html.valueishtml="0"  name=title visible="1" height.autosize=yes edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes edit.imemode=0  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+text(band=detail alignment="1" text="Title:" border="0" color="0" x="5" y="16" height="72" width="594" html.valueishtml="0"  name=title_t visible="1"  font.face="Arial" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=2 alignment="0" tabsequence=20 border="0" color="0" x="631" y="140" height="72" width="2688" format="[general]" html.valueishtml="0"  name=message visible="1" height.autosize=yes edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes edit.imemode=0  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+text(band=detail alignment="1" text="Message:" border="0" color="0" x="5" y="140" height="72" width="594" html.valueishtml="0"  name=message_t visible="1"  slideup=allabove  font.face="Arial" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=3 alignment="0" tabsequence=30 border="0" color="0" x="631" y="264" height="76" width="2688" format="[general]" html.valueishtml="0"  name=comments visible="1"  slideup=allabove height.autosize=yes edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes edit.imemode=0  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=detail alignment="1" text="Comments:" border="0" color="0" x="5" y="264" height="76" width="594" html.valueishtml="0"  name=comments_t visible="1"  slideup=allabove  font.face="Arial" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+htmltable(border="0" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" netscapelayers="0" )
