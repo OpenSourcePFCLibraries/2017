@@ -1,0 +1,12 @@
+HA$PBExportHeader$d_objectsref.srd
+$PBExportComments$List of xref objects referenced by another ( w_TreeViewRecursive )
+release 5;
+datawindow(units=0 timer_interval=0 color=79219928 processing=1 print.documentname="" print.orientation = 0 print.margin.left = 107 print.margin.right = 107 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no grid.lines=0 selected.mouse=no )
+header(height=1 color="536870912" )
+summary(height=5 color="536870912" )
+footer(height=1 color="536870912" )
+detail(height=89 color="536870912" )
+table(column=(type=char(128) update=yes updatewhereclause=yes key=yes name=referenced_in dbname="xref_info.referenced_in" )
+ retrieve="PBSELECT( VERSION(400) DISTINCT ()TABLE(NAME=~"xref_info~" ) COLUMN(NAME=~"xref_info.referenced_in~")WHERE(    EXP1 =~"( ~~~"xref_info~~~".~~~"object_ref~~~"~"   OP =~"=~"    EXP2 =~":object )~" ) ) ORDER(NAME=~"xref_info.referenced_in~" ASC=yes ) ARG(NAME = ~"object~" TYPE = string) " update="xref_info" updatewhere=0 updatekeyinplace=no arguments=(("object", string)) )
+text(band=header alignment="0" text="Referenced In"border="0" color="0" x="10" y="4" height="77" width="1038"  font.face="Arial" font.height="-12" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=1 alignment="0" tabsequence=32766 border="5" color="0" x="10" y="0" height="77" width="1038" format="[general]"  name=referenced_in edit.limit=0 edit.case=any edit.autoselect=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="77633680" )
