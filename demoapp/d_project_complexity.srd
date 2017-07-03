@@ -1,0 +1,31 @@
+HA$PBExportHeader$d_project_complexity.srd
+$PBExportComments$The complexity datawindow used on the wizard
+release 5;
+datawindow(units=0 timer_interval=0 color=79741120 processing=0 print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no )
+header(height=77 color="536870912" )
+summary(height=1 color="536870912" )
+footer(height=1 color="536870912" )
+detail(height=97 color="536870912" )
+table(column=(type=long update=yes updatewhereclause=yes key=yes name=complexity_id dbname="project_complexity.complexity_id" )
+ column=(type=long updatewhereclause=yes identity=yes name=complexity dbname="project_complexity.complexity" )
+ column=(type=long update=yes updatewhereclause=yes key=yes name=project_id dbname="project_complexity.project_id" )
+ column=(type=char(50) update=yes updatewhereclause=yes name=name dbname="project_complexity.name" )
+ column=(type=decimal(2) update=yes updatewhereclause=yes name=estimated_hours dbname="project_complexity.estimated_hours" )
+ column=(type=long updatewhereclause=yes name=dependent_count dbname="compute_0006" )
+ retrieve="  SELECT ~"project_complexity~".~"complexity_id~",
+			~"project_complexity~".~"complexity_id~" complexity,   
+         ~"project_complexity~".~"project_id~",   
+         ~"project_complexity~".~"name~",   
+         ~"project_complexity~".~"estimated_hours~",   
+         (SELECT count(*)  
+    			FROM ~"project_category_item~"  
+   				WHERE ~"project_category_item~".~"project_id~" = :project_id AND   
+							~"project_category_item~".~"complexity_id~" = complexity)  
+    FROM ~"project_complexity~"  
+   WHERE ~"project_complexity~".~"project_id~" = :project_id   
+ORDER BY ~"project_complexity~".~"name~" ASC   
+" update="project_complexity" updatewhere=1 updatekeyinplace=no arguments=(("project_id", number)) )
+text(band=header alignment="2" text="Complexity Name"border="6" color="0" x="10" y="8" height="53" width="1303"  name=name_t  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="  Estimate Hours"border="6" color="0" x="1335" y="8" height="53" width="403"  name=estimated_hours_t  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=4 alignment="0" tabsequence=20 border="5" color="0" x="151" y="16" height="65" width="1125" format="[general]"  name=name edit.limit=50 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.nilisnull=yes edit.autohscroll=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1090519039" )
+column(band=detail id=5 alignment="1" tabsequence=30 border="5" color="0" x="1331" y="16" height="65" width="234" format="[General]"  name=estimated_hours editmask.mask="###,##0.00" editmask.focusrectangle=no  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1090519039" )
