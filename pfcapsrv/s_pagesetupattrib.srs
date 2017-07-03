@@ -1,0 +1,23 @@
+HA$PBExportHeader$s_pagesetupattrib.srs
+$PBExportComments$PFC Structure for PageSetup
+global type s_pagesetupattrib from structure
+	boolean		b_disablemargins
+	boolean		b_disableorientation
+	boolean		b_disablepaper
+	integer		i_minmarginleft
+	integer		i_minmarginright
+	integer		i_minmargintop
+	integer		i_minmarginbottom
+	integer		i_marginleft
+	integer		i_marginright
+	integer		i_margintop
+	integer		i_marginbottom
+	integer		i_papersize
+	integer		i_papersource
+	boolean		b_portraitorientation
+	s_paperattrib		str_papersize[]
+	s_paperattrib		str_papersource[]
+	integer		i_units
+	boolean		b_actiontaken
+end type
+
