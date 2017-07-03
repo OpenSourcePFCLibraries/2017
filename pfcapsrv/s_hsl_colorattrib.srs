@@ -1,0 +1,8 @@
+HA$PBExportHeader$s_hsl_colorattrib.srs
+$PBExportComments$Color Conversion Service HSL color attrib
+global type s_hsl_colorattrib from structure
+	decimal		h
+	decimal		s
+	decimal		l
+end type
+
