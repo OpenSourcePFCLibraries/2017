@@ -1,0 +1,30 @@
+HA$PBExportHeader$d_ds_category.srd
+$PBExportComments$The source for the list of Category Items per project, as they appear in the TreeView control.
+release 5;
+datawindow(units=0 timer_interval=0 color=16777215 processing=0 print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no )
+header(height=77 color="536870912" )
+summary(height=1 color="536870912" )
+footer(height=1 color="536870912" )
+detail(height=73 color="536870912" )
+table(column=(type=long update=yes updatewhereclause=yes key=yes name=default_category_id dbname="project_category.category_id" )
+ column=(type=long update=yes updatewhereclause=yes key=yes name=project_id dbname="project_category.project_id" )
+ column=(type=char(50) updatewhereclause=yes name=name dbname="project_category.name" )
+ retrieve="   SELECT ~"project_category~".~"category_id~",   
+         ~"project_category~".~"project_id~",   
+         ~"project_category~".~"name~"  
+    FROM ~"project_category~" 
+   WHERE (~"project_category~".~"project_id~" = :project_id)
+UNION
+  SELECT 0,
+			~"project_derived_item~".~"project_id~",
+			'Derived Items'  
+    FROM ~"project_derived_item~" 
+   WHERE ~"project_derived_item~".~"project_id~" = :project_id
+	GROUP BY ~"project_derived_item~".~"project_id~"
+
+
+" update="project_category" updatewhere=0 updatekeyinplace=no arguments=(("project_id", number))  sort="name A " )
+text(band=header alignment="2" text="Category"border="0" color="0" x="5" y="0" height="65" width="513"  name=category_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=2 alignment="0" tabsequence=32766 border="0" color="0" x="663" y="4" height="65" width="631" format="[general]"  name=project_id edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=1 alignment="0" tabsequence=32766 border="0" color="0" x="1" y="12" height="53" width="535" format="[General]"  name=default_category_id edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=3 alignment="0" tabsequence=32766 border="0" color="0" x="1358" y="16" height="53" width="1212" format="[general]"  name=name edit.limit=0 edit.case=any edit.autoselect=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
