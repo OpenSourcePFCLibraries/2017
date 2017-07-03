@@ -1,0 +1,15 @@
+HA$PBExportHeader$d_dddwfincode.srd
+$PBExportComments$Finance Code Table. (w_dw3types, w_linkautoupdate)
+release 5;
+datawindow(units=0 timer_interval=0 color=1090519039 processing=1 print.documentname="" print.orientation = 0 print.margin.left = 107 print.margin.right = 107 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no grid.lines=1 )
+header(height=1 color="536870912" )
+summary(height=1 color="536870912" )
+footer(height=1 color="536870912" )
+detail(height=68 color="536870912" )
+table(column=(type=char(2) update=yes updatewhereclause=yes key=yes name=code dbname="fin_code.code" )
+ column=(type=char(10) update=yes updatewhereclause=yes name=type dbname="fin_code.type" )
+ column=(type=char(50) update=yes updatewhereclause=yes name=description dbname="fin_code.description" )
+ retrieve="PBSELECT( VERSION(400) TABLE(NAME=~"fin_code~" ) COLUMN(NAME=~"fin_code.code~") COLUMN(NAME=~"fin_code.type~") COLUMN(NAME=~"fin_code.description~")) " update="fin_code" updatewhere=1 updatekeyinplace=no )
+column(band=detail id=2 alignment="0" tabsequence=20 border="0" color="0" x="111" y="3" height="61" width="225" format="[general]"  name=type  tag="Financial Code type" edit.limit=10 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1080593568" )
+column(band=detail id=3 alignment="0" tabsequence=30 border="0" color="0" x="342" y="3" height="61" width="402" format="[general]"  name=description  tag="Financial Code description" edit.limit=50 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1080593568" )
+column(band=detail id=1 alignment="0" tabsequence=10 border="0" color="0" x="8" y="3" height="61" width="97" format="[general]"  name=code  tag="Unique financial identification code" edit.limit=2 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1080593568" )
