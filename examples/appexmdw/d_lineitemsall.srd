@@ -1,0 +1,28 @@
+HA$PBExportHeader$d_lineitemsall.srd
+$PBExportComments$Sales Order Line Items. ( w_linkagefilter )
+release 5;
+datawindow(units=0 timer_interval=0 color=82889382 processing=0 print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no print.buttons=no print.preview.buttons=no )
+header(height=132 color="536870912" )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=68 color="536870912" )
+table(column=(type=long update=yes updatewhereclause=yes key=yes name=line_id dbname="sales_order_items.line_id" )
+ column=(type=long update=yes updatewhereclause=yes name=prod_id dbname="sales_order_items.prod_id" )
+ column=(type=long update=yes updatewhereclause=yes name=quantity dbname="sales_order_items.quantity" )
+ column=(type=date update=yes updatewhereclause=yes name=ship_date dbname="sales_order_items.ship_date" )
+ column=(type=long update=yes updatewhereclause=yes key=yes name=sales_id dbname="sales_order_items.id" )
+ retrieve="PBSELECT( VERSION(400) TABLE(NAME=~"sales_order_items~" ) COLUMN(NAME=~"sales_order_items.line_id~") COLUMN(NAME=~"sales_order_items.prod_id~") COLUMN(NAME=~"sales_order_items.quantity~") COLUMN(NAME=~"sales_order_items.ship_date~") COLUMN(NAME=~"sales_order_items.id~")) " update="sales_order_items" updatewhere=0 updatekeyinplace=no  sort="sales_id A line_id A " )
+group(level=1 header.height=0 trailer.height=0 by=("sales_id" ) header.color="536870912" trailer.color="536870912" )
+text(band=header alignment="2" text="Sales Order ID"border="6" color="33554687" x="96" y="12" height="108" width="215"  name=sales_order_t  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="67108864" )
+text(band=header alignment="2" text="Line #"border="6" color="33554687" x="329" y="12" height="108" width="247"  name=line_id_t  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="67108864" )
+text(band=header alignment="2" text="Product
+ID"border="6" color="33554687" x="594" y="12" height="108" width="265"  name=prod_id_t  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="67108864" )
+text(band=header alignment="2" text="Quantity"border="6" color="33554687" x="878" y="12" height="108" width="270"  name=quantity_t  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="67108864" )
+text(band=header alignment="2" text="Date
+Shipped"border="6" color="33554687" x="1166" y="12" height="108" width="325"  name=ship_date_t  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="67108864" )
+column(band=detail id=4 alignment="2" tabsequence=30 border="5" color="33554432" x="1166" y="4" height="60" width="325" format="[general]"  name=ship_date  tag="Date shipped" edit.name="MM/DD/YY" editmask.mask="MM/DD/YY" editmask.focusrectangle=no  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=5 alignment="0" tabsequence=32766 border="5" color="0" x="96" y="4" height="60" width="215" format="[general]"  name=sales_id edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="77633680" )
+column(band=detail id=1 alignment="2" tabsequence=32766 border="5" color="33554432" x="329" y="4" height="60" width="247" format="[general]"  name=line_id  tag="Line item Identification Number" edit.limit=0 edit.case=any edit.autoselect=yes edit.required=yes edit.autohscroll=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="77633680" )
+column(band=detail id=2 alignment="2" tabsequence=10 border="5" color="33554432" x="594" y="4" height="60" width="265" format="[general]"  name=prod_id  tag="Product Identification Number" dddw.name=d_dddwproductid dddw.displaycolumn=id dddw.datacolumn=id dddw.percentwidth=200 dddw.lines=0 dddw.limit=0 dddw.allowedit=no dddw.useasborder=yes dddw.case=any dddw.vscrollbar=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=3 alignment="2" tabsequence=20 border="5" color="33554432" x="878" y="4" height="60" width="270" format="[general]"  name=quantity  tag="Quantity ordered" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+htmltable(border="1" cellpadding="0" cellspacing="0" generatecss="no" nowrap="yes")
