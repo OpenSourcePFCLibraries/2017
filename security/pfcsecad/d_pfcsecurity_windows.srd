@@ -1,0 +1,15 @@
+HA$PBExportHeader$d_pfcsecurity_windows.srd
+$PBExportComments$List the windows for an application from the template table
+release 5;
+datawindow(units=0 timer_interval=0 color=77956459 processing=0 print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no print.buttons=no print.preview.buttons=no )
+header(height=76 color="536870912" )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=64 color="536870912" )
+table(column=(type=char(32) updatewhereclause=yes key=yes name=application dbname="security_template.application" )
+ column=(type=char(64) update=yes updatewhereclause=yes key=yes name=window dbname="security_template.window" )
+ retrieve="PBSELECT( VERSION(400) DISTINCT ()TABLE(NAME=~"security_template~" ) COLUMN(NAME=~"security_template.application~") COLUMN(NAME=~"security_template.window~")WHERE(    EXP1 =~"~~~"security_template~~~".~~~"application~~~"~"   OP =~"=~"    EXP2 =~":app~" ) ) ARG(NAME = ~"app~" TYPE = string) " update="security_template" updatewhere=0 updatekeyinplace=no arguments=(("app", string)) )
+column(band=detail id=1 alignment="0" tabsequence=32766 border="0" color="33554432" x="1504" y="0" height="52" width="736" format="[general]"  name=application edit.limit=0 edit.case=any edit.autoselect=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="67108864" )
+column(band=detail id=2 alignment="0" tabsequence=32766 border="0" color="33554432" x="18" y="4" height="52" width="1486" format="[general]"  name=window edit.limit=64 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="67108864" )
+text(band=header alignment="2" text="Object"border="4" color="33554432" x="18" y="16" height="52" width="1486"  name=window_t  font.face="MS Sans Serif" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+htmltable(border="1" cellpadding="0" cellspacing="0" generatecss="no" nowrap="yes")
