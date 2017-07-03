@@ -1,0 +1,40 @@
+Save Format v3.0(19990112)
+@begin Libraries
+ "pfeutil\\pfeutil.pbl" "";
+@end;
+@begin Objects
+ "pfeutil\\u_tabpg_dwproperty_srvcalculator.sru" "pfeutil\\pfeutil.pbl";
+ "pfeutil\\u_tabpg_dwproperty_buffers.sru" "pfeutil\\pfeutil.pbl";
+ "pfeutil\\u_tabpg_dwproperty_services.sru" "pfeutil\\pfeutil.pbl";
+ "pfeutil\\w_dwpropertyservices.srw" "pfeutil\\pfeutil.pbl";
+ "pfeutil\\u_tabpg_dwproperty_srvcalendar.sru" "pfeutil\\pfeutil.pbl";
+ "pfeutil\\u_tabpg_dwproperty_srvcalendar2.sru" "pfeutil\\pfeutil.pbl";
+ "pfeutil\\n_cst_dwsrv_property.sru" "pfeutil\\pfeutil.pbl";
+ "pfeutil\\w_sqlspyinspect.srw" "pfeutil\\pfeutil.pbl";
+ "pfeutil\\u_tab_dwproperty_srv.sru" "pfeutil\\pfeutil.pbl";
+ "pfeutil\\u_tabpg_dwproperty_status.sru" "pfeutil\\pfeutil.pbl";
+ "pfeutil\\u_tabpg_dwproperty_srvfind.sru" "pfeutil\\pfeutil.pbl";
+ "pfeutil\\u_tabpg_dwproperty_srvsort.sru" "pfeutil\\pfeutil.pbl";
+ "pfeutil\\u_tabpg_dwproperty_srvlinkage2.sru" "pfeutil\\pfeutil.pbl";
+ "pfeutil\\u_tabpg_dwproperty_base.sru" "pfeutil\\pfeutil.pbl";
+ "pfeutil\\u_tabpg_dwproperty_srvdropdownsearch.sru" "pfeutil\\pfeutil.pbl";
+ "pfeutil\\u_tabpg_dwproperty_srvfilter.sru" "pfeutil\\pfeutil.pbl";
+ "pfeutil\\u_tabpg_dwproperty_srvlinkage.sru" "pfeutil\\pfeutil.pbl";
+ "pfeutil\\u_tabpg_dwproperty_srvreport.sru" "pfeutil\\pfeutil.pbl";
+ "pfeutil\\u_tabpg_dwproperty_srvresize.sru" "pfeutil\\pfeutil.pbl";
+ "pfeutil\\u_tabpg_dwproperty_srvsyntax.sru" "pfeutil\\pfeutil.pbl";
+ "pfeutil\\n_cst_dwpropertyattrib.sru" "pfeutil\\pfeutil.pbl";
+ "pfeutil\\n_cst_propertyattrib.sru" "pfeutil\\pfeutil.pbl";
+ "pfeutil\\u_tabpg_dwproperty_srvquerymode.sru" "pfeutil\\pfeutil.pbl";
+ "pfeutil\\u_tabpg_dwproperty_srvrowmanager.sru" "pfeutil\\pfeutil.pbl";
+ "pfeutil\\u_tab_dwproperty.sru" "pfeutil\\pfeutil.pbl";
+ "pfeutil\\u_tabpg_dwproperty_srvmultitable.sru" "pfeutil\\pfeutil.pbl";
+ "pfeutil\\u_tabpg_dwproperty_srvreqcolumn.sru" "pfeutil\\pfeutil.pbl";
+ "pfeutil\\u_tabpg_dwproperty_srvprintpreview.sru" "pfeutil\\pfeutil.pbl";
+ "pfeutil\\n_cst_debug.sru" "pfeutil\\pfeutil.pbl";
+ "pfeutil\\u_tabpg_dwproperty_srvrowselection.sru" "pfeutil\\pfeutil.pbl";
+ "pfeutil\\w_debuglog.srw" "pfeutil\\pfeutil.pbl";
+ "pfeutil\\n_cst_sqlspy.sru" "pfeutil\\pfeutil.pbl";
+ "pfeutil\\w_dwproperty.srw" "pfeutil\\pfeutil.pbl";
+ "pfeutil\\w_sqlspy.srw" "pfeutil\\pfeutil.pbl";
+@end;
