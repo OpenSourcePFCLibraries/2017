@@ -1,0 +1,9 @@
+HA$PBExportHeader$s_json_attrib.srs
+$PBExportComments$JSON Objet's Pair's attributes structure
+global type s_json_attrib from structure
+	string		is_object		descriptor "comment" = "JSON Object's name"
+	string		is_pair_name		descriptor "comment" = "JSON Object's Pair's name"
+	any		ia_pair_value		descriptor "comment" = "JSON Object's Pair's Value"
+	integer		ii_kind		descriptor "comment" = "JSON Oject's Pair's Kind"
+end type
+
