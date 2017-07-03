@@ -1,0 +1,22 @@
+HA$PBExportHeader$d_project.srd
+$PBExportComments$The project datawindow used on the wizard.
+release 5;
+datawindow(units=0 timer_interval=0 color=80263328 processing=0 print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no print.buttons=no print.preview.buttons=no )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=292 color="536870912" )
+table(column=(type=char(50) update=yes updatewhereclause=yes name=name dbname="project.name" validationmsg="~"Project Name is required.~"" )
+ column=(type=char(50) update=yes updatewhereclause=yes name=project_leader dbname="project.project_leader" )
+ column=(type=date update=yes updatewhereclause=yes name=start_date dbname="project.start_date" )
+ column=(type=date update=yes updatewhereclause=yes name=end_date dbname="project.end_date" )
+ column=(type=long update=yes updatewhereclause=yes key=yes identity=yes name=project_id dbname="project.project_id" )
+ retrieve="PBSELECT( VERSION(400) TABLE(NAME=~"project~" ) COLUMN(NAME=~"project.name~") COLUMN(NAME=~"project.project_leader~") COLUMN(NAME=~"project.start_date~") COLUMN(NAME=~"project.end_date~") COLUMN(NAME=~"project.project_id~")WHERE(    EXP1 =~"~~~"project~~~".~~~"project_id~~~"~"   OP =~"=~"    EXP2 =~":projec_id~" ) ) ARG(NAME = ~"projec_id~" TYPE = number) " update="project" updatewhere=1 updatekeyinplace=yes arguments=(("projec_id", number)) )
+text(band=detail alignment="0" text="Project Name:"border="0" color="0" x="14" y="28" height="52" width="306"  name=name_t  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=detail alignment="0" text="Project Leader:"border="0" color="0" x="14" y="120" height="56" width="329"  name=project_leader_t  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=detail alignment="0" text="End Date:"border="0" color="0" x="773" y="212" height="56" width="251"  name=end_date_t  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=detail alignment="0" text="Start Date:"border="0" color="0" x="14" y="212" height="56" width="329"  name=start_date_t  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=1 alignment="0" tabsequence=10 border="5" color="0" x="379" y="24" height="64" width="1166" format="[general]"  name=name pointer="IBeam!" edit.limit=50 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.nilisnull=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1090519039" )
+column(band=detail id=2 alignment="0" tabsequence=20 border="5" color="0" x="379" y="116" height="64" width="1166" format="[general]"  name=project_leader pointer="IBeam!" edit.limit=50 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.nilisnull=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1090519039" )
+column(band=detail id=3 alignment="0" tabsequence=30 border="5" color="0" x="379" y="208" height="64" width="274" format="[general]"  name=start_date pointer="IBeam!" editmask.mask="mm/dd/yy" editmask.focusrectangle=no  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1090519039" )
+column(band=detail id=4 alignment="0" tabsequence=40 border="5" color="0" x="1042" y="208" height="64" width="274" format="[general]"  name=end_date pointer="IBeam!" editmask.mask="mm/dd/yy" editmask.focusrectangle=no  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1090519039" )
+htmltable(border="1" cellpadding="0" cellspacing="0" generatecss="no" nowrap="yes")
