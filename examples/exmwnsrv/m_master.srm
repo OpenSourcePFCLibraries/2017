@@ -1,0 +1,20 @@
+HA$PBExportHeader$m_master.srm
+$PBExportComments$Extended for PFC Examples Application.
+forward
+global type m_master from pfc_m_master
+end type
+end forward
+
+global type m_master from pfc_m_master
+end type
+global m_master m_master
+
+on m_master.create
+m_master=this
+call super::create
+end on
+
+on m_master.destroy
+call super::destroy
+end on
+
