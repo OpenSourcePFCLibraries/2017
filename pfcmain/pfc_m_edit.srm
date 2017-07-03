@@ -1,0 +1,180 @@
+HA$PBExportHeader$pfc_m_edit.srm
+$PBExportComments$PFC Edit menu class
+forward
+global type pfc_m_edit from menu
+end type
+type m_edititem from menu within pfc_m_edit
+end type
+type m_cut from menu within m_edititem
+end type
+type m_copy from menu within m_edititem
+end type
+type m_paste from menu within m_edititem
+end type
+type m_selectall from menu within m_edititem
+end type
+type m_edititem from menu within pfc_m_edit
+m_cut m_cut
+m_copy m_copy
+m_paste m_paste
+m_selectall m_selectall
+end type
+end forward
+
+global type pfc_m_edit from menu
+m_edititem m_edititem
+end type
+global pfc_m_edit pfc_m_edit
+
+type variables
+Protected:
+dragobject	idrg_parent
+end variables
+
+forward prototypes
+public function integer of_setparent (dragobject adrg_parent)
+end prototypes
+
+public function integer of_setparent (dragobject adrg_parent);//////////////////////////////////////////////////////////////////////////////
+//
+//	Function:  of_SetParent
+//
+//	Access:  public
+//
+//	Arguments:
+//	adrg_parent   parent object of the menu
+//
+//	Returns:  integer
+//	 1 = success
+//	-1 = failure, parent reference is not valid
+//
+//	Description:  Sets the parent object of this menu
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+//	Revision History
+//
+//	Version
+//	5.0   Initial version
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+/*
+ * Open Source PowerBuilder Foundation Class Libraries
+ *
+ * Copyright (c) 2004-2017, All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted in accordance with the MIT License
+
+ *
+ * https://opensource.org/licenses/MIT
+ *
+ * ====================================================================
+ *
+ * This software consists of voluntary contributions made by many
+ * individuals and was originally based on software copyright (c) 
+ * 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
+ * information on the Open Source PowerBuilder Foundation Class
+ * Libraries see https://github.com/OpenSourcePFCLibraries
+*/
+//
+//////////////////////////////////////////////////////////////////////////////
+
+integer	li_rc = 1
+
+if IsValid (adrg_parent) then
+	idrg_parent = adrg_parent
+else
+	li_rc = -1
+end if
+
+return li_rc
+end function
+
+on pfc_m_edit.create
+pfc_m_edit=this
+this.m_edititem=create m_edititem
+this.Item[]={this.m_edititem}
+end on
+
+on pfc_m_edit.destroy
+destroy(this.m_edititem)
+end on
+
+type m_edititem from menu within pfc_m_edit
+m_cut m_cut
+m_copy m_copy
+m_paste m_paste
+m_selectall m_selectall
+end type
+
+on m_edititem.create
+this.Text="&Edit"
+this.m_cut=create m_cut
+this.m_copy=create m_copy
+this.m_paste=create m_paste
+this.m_selectall=create m_selectall
+this.Item[]={this.m_cut, &
+this.m_copy, &
+this.m_paste, &
+this.m_selectall}
+end on
+
+on m_edititem.destroy
+destroy(this.m_cut)
+destroy(this.m_copy)
+destroy(this.m_paste)
+destroy(this.m_selectall)
+end on
+
+type m_cut from menu within m_edititem
+end type
+
+event clicked;idrg_parent.dynamic event pfc_cut()
+end event
+
+on m_cut.create
+this.Text="C&ut"
+this.Microhelp="Moves the selection to the Clipboard"
+this.Enabled=false
+end on
+
+type m_copy from menu within m_edititem
+end type
+
+event clicked;idrg_parent.dynamic event pfc_copy()
+
+end event
+
+on m_copy.create
+this.Text="&Copy"
+this.Microhelp="Copies the selection to the Clipboard"
+this.Enabled=false
+end on
+
+type m_paste from menu within m_edititem
+end type
+
+event clicked;idrg_parent.dynamic event pfc_paste()
+
+end event
+
+on m_paste.create
+this.Text="&Paste"
+this.Microhelp="Inserts Clipboard contents at current insertion point"
+this.Enabled=false
+end on
+
+type m_selectall from menu within m_edititem
+end type
+
+on m_selectall.create
+this.Text="Select &All"
+this.Microhelp="Selects all items or information"
+this.Enabled=false
+end on
+
+event clicked;idrg_parent.dynamic event pfc_selectall()
+end event
+
