@@ -1,0 +1,54 @@
+HA$PBExportHeader$d_project_category_deviations.srd
+$PBExportComments$The nested dw used in for showing the category deviations in the analyzer report
+release 5;
+datawindow(units=0 timer_interval=0 color=16777215 processing=0 print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no )
+header(height=253 color="536870912" )
+summary(height=1 color="536870912" )
+footer(height=1 color="536870912" )
+detail(height=77 color="536870912" )
+table(column=(type=char(50) updatewhereclause=yes name=name dbname="project_category_item.name" )
+ column=(type=char(50) updatewhereclause=yes name=project_role_name dbname="project_role.name" )
+ column=(type=char(50) updatewhereclause=yes name=project_complexity_name dbname="project_complexity.name" )
+ column=(type=long updatewhereclause=yes name=category_id dbname="project_category_item.category_id" )
+ column=(type=decimal(2) updatewhereclause=yes name=estimated_hours dbname="project_category_item.estimated_hours" )
+ column=(type=decimal(4) updatewhereclause=yes name=compute_0006 dbname="compute_0006" )
+ column=(type=decimal(2) updatewhereclause=yes name=actual_hours dbname="project_category_item.actual_hours" )
+ column=(type=char(50) updatewhereclause=yes name=project_category_name dbname="project_category.name" )
+ retrieve="  SELECT ~"project_category_item~".~"name~",   
+         ~"project_role~".~"name~",
+			~"project_complexity~".~"name~", 
+         ~"project_category_item~".~"category_id~",   
+         ~"project_category_item~".~"estimated_hours~", 
+			~"project_category_item~".~"estimated_hours~" * ~"project_role~".~"multipler~",  
+         ~"project_category_item~".~"actual_hours~",
+			~"project_category~".~"name~"  
+    FROM ~"project_category_item~",   
+         ~"project_role~",
+			~"project_complexity~",
+			~"project_category~"  
+	WHERE ( ~"project_category~".~"category_id~" = ~"project_category_item~".~"category_id~" ) and  
+         ( ~"project_category~".~"project_id~" = ~"project_category_item~".~"project_id~" ) and 
+			( ~"project_complexity~".~"complexity_id~" = ~"project_category_item~".~"complexity_id~" ) and  
+         ( ~"project_complexity~".~"project_id~" = ~"project_category_item~".~"project_id~" ) and 
+			( ~"project_role~".~"role_id~" = ~"project_category_item~".~"role_id~" ) and  
+         ( ~"project_role~".~"project_id~" = ~"project_category_item~".~"project_id~" ) and 
+			(~"project_category_item~".~"project_id~" = :project_id) and
+			((~"project_category_item~".~"actual_hours~" <= 
+				~"project_category_item~".~"estimated_hours~" * ~"project_role~".~"multipler~" * (1 - :deviation)) or
+			(~"project_category_item~".~"actual_hours~" >= 
+			 ~"project_category_item~".~"estimated_hours~" * ~"project_role~".~"multipler~" * (1 + :deviation)))
+" arguments=(("project_id", number),("deviation", number))  sort="project_category_name A " )
+group(level=1 header.height=97 trailer.height=1 by=("category_id" ) header.color="536870912" trailer.color="536870912" )
+line(band=header x1="5" y1="240" x2="3009" y2="240" pen.style="0" pen.width="5" pen.color="0"  background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Name"border="0" color="0" x="147" y="160" height="53" width="165"  name=name_t  font.face="MS Sans Serif" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Complexity"border="0" color="0" x="1079" y="160" height="53" width="321"  name=complexity_id_t  font.face="MS Sans Serif" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Est Hrs"border="0" color="0" x="2455" y="160" height="53" width="220"  font.face="MS Sans Serif" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Act Hrs"border="0" color="0" x="2739" y="160" height="53" width="229"  font.face="MS Sans Serif" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=header alignment="0" expression="~"Category Items Exceeding (+/-) ~" +  (deviation * 100) + ~"% ~""border="0" color="0" x="1" y="64" height="53" width="1134" format="[general]"  font.face="MS Sans Serif" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="Team Member"border="0" color="0" x="1825" y="156" height="53" width="412"  name=role_id_t  font.face="MS Sans Serif" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=header.1 id=8 alignment="0" tabsequence=32766 border="0" color="0" x="142" y="16" height="53" width="983" format="[general]"  name=project_category_name edit.limit=0 edit.case=any edit.autoselect=yes  font.face="MS Sans Serif" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+column(band=detail id=1 alignment="0" tabsequence=32766 border="0" color="0" x="225" y="4" height="65" width="837" format="[general]"  name=name edit.limit=50 edit.case=any edit.autoselect=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=7 alignment="1" tabsequence=32766 border="0" color="0" x="2675" y="4" height="65" width="266" format="#,##0.00"  name=actual_hours edit.limit=0 edit.case=any edit.autoselect=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=2 alignment="0" tabsequence=32766 border="0" color="0" x="1825" y="4" height="65" width="549" format="[general]"  name=project_role_name edit.limit=0 edit.case=any edit.autoselect=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+column(band=detail id=3 alignment="0" tabsequence=32766 border="0" color="0" x="1079" y="4" height="65" width="732" format="[general]"  name=project_complexity_name edit.limit=0 edit.case=any edit.autoselect=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+column(band=detail id=6 alignment="1" tabsequence=0 border="0" color="0" x="2387" y="4" height="65" width="266" format="0.00"  name=compute_0006  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
