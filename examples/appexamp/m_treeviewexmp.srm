@@ -1,0 +1,541 @@
+HA$PBExportHeader$m_treeviewexmp.srm
+forward
+global type m_treeviewexmp from m_frame
+end type
+type m_insertitem from menu within m_edit
+end type
+type m_deleteitem from menu within m_edit
+end type
+type m_- from menu within m_edit
+end type
+type m_refreshitem from menu within m_edit
+end type
+type m_refreshlevel from menu within m_edit
+end type
+type m_refreshtree from menu within m_edit
+end type
+end forward
+
+global type m_treeviewexmp from m_frame
+end type
+global m_treeviewexmp m_treeviewexmp
+
+on m_treeviewexmp.create
+m_treeviewexmp=this
+call super::create
+end on
+
+on m_treeviewexmp.destroy
+call super::destroy
+end on
+
+on m_new.create
+call super::create
+this.Visible=false
+end on
+
+on m_open.create
+call super::create
+this.Visible=false
+end on
+
+on m_save.create
+call super::create
+this.Text="&Update Tree~tCtrl+S"
+this.ToolBarItemName="TreeView!"
+this.Visible=true
+this.Enabled=true
+this.ToolBarItemOrder=0
+this.Shortcut=339
+end on
+
+event m_save::clicked;//////////////////////////////////////////////////////////////////////////////
+//
+//	Event:
+//	clicked
+//
+//	Description:
+//	Calls the ue_updatetree event on the window.
+//
+//////////////////////////////////////////////////////////////////////////////
+//	
+//	Revision History
+//
+//	Version
+//	6.0   Initial version
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+/*
+ * Open Source PowerBuilder Foundation Class Libraries
+ *
+ * Copyright (c) 2004-2017, All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted in accordance with the MIT License
+ * 
+ *
+ * https://opensource.org/licenses/MIT
+ *
+ * ====================================================================
+ *
+ * This software consists of voluntary contributions made by many
+ * individuals and was originally based on software copyright (c) 
+ * 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
+ * information on the Open Source PowerBuilder Foundation Class
+ * Libraries see https://github.com/OpenSourcePFCLibraries
+*/
+//
+//////////////////////////////////////////////////////////////////////////////
+
+of_SendMessage("ue_updatetree")
+end event
+
+on m_dash12.create
+call super::create
+this.Visible=true
+end on
+
+on m_print.create
+call super::create
+this.Microhelp="Prints the treeview"
+this.ToolBarItemName="Print!"
+this.Visible=true
+this.Enabled=true
+end on
+
+event m_print::clicked;call super::clicked;//////////////////////////////////////////////////////////////////////////////
+//
+//	Event:
+//	clicked
+//
+//	Description:
+//	Calls the ue_printtree event on the window.
+//
+//////////////////////////////////////////////////////////////////////////////
+//	
+//	Revision History
+//
+//	Version
+//	6.0   Initial version
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+/*
+ * Open Source PowerBuilder Foundation Class Libraries
+ *
+ * Copyright (c) 2004-2017, All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted in accordance with the MIT License
+ * 
+ *
+ * https://opensource.org/licenses/MIT
+ *
+ * ====================================================================
+ *
+ * This software consists of voluntary contributions made by many
+ * individuals and was originally based on software copyright (c) 
+ * 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
+ * information on the Open Source PowerBuilder Foundation Class
+ * Libraries see https://github.com/OpenSourcePFCLibraries
+*/
+//
+//////////////////////////////////////////////////////////////////////////////
+
+of_SendMessage("ue_printtree")
+end event
+
+on m_pagesetup.create
+call super::create
+this.Visible=true
+this.Enabled=true
+this.ToolBarItemVisible=false
+end on
+
+on m_exit.create
+call super::create
+this.ToolBarItemName="Exit!"
+this.ToolBarItemVisible=true
+end on
+
+type m_edit from m_frame`m_edit within m_treeviewexmp
+m_insertitem m_insertitem
+m_deleteitem m_deleteitem
+m_- m_-
+m_refreshitem m_refreshitem
+m_refreshlevel m_refreshlevel
+m_refreshtree m_refreshtree
+end type
+
+on m_edit.create
+call super::create
+this.Visible=true
+this.Enabled=true
+this.m_insertitem=create m_insertitem
+this.m_deleteitem=create m_deleteitem
+this.m_-=create m_-
+this.m_refreshitem=create m_refreshitem
+this.m_refreshlevel=create m_refreshlevel
+this.m_refreshtree=create m_refreshtree
+this.Item[UpperBound(this.item)+1]=this.m_insertitem
+this.Item[UpperBound(this.item)+1]=this.m_deleteitem
+this.Item[UpperBound(this.item)+1]=this.m_-
+this.Item[UpperBound(this.item)+1]=this.m_refreshitem
+this.Item[UpperBound(this.item)+1]=this.m_refreshlevel
+this.Item[UpperBound(this.item)+1]=this.m_refreshtree
+end on
+
+on m_edit.destroy
+call super::destroy
+destroy(this.m_insertitem)
+destroy(this.m_deleteitem)
+destroy(this.m_-)
+destroy(this.m_refreshitem)
+destroy(this.m_refreshlevel)
+destroy(this.m_refreshtree)
+end on
+
+on m_cut.create
+call super::create
+this.ToolBarItemName="Cut!"
+this.Visible=true
+this.Enabled=true
+this.ToolBarItemSpace=3
+end on
+
+on m_copy.create
+call super::create
+this.ToolBarItemName="Copy!"
+this.Visible=true
+this.Enabled=true
+end on
+
+on m_paste.create
+call super::create
+this.ToolBarItemName="Paste!"
+this.Visible=true
+this.Enabled=true
+end on
+
+on m_dash22.create
+call super::create
+this.Visible=true
+end on
+
+on m_helptopics.create
+call super::create
+this.ToolBarItemName="Help!"
+this.ToolBarItemVisible=true
+this.ToolBarItemSpace=0
+end on
+
+event clicked;//////////////////////////////////////////////////////////////////////////////
+//
+//	Event:
+//	clicked
+//
+//	Description:
+//	Opens the properties window to display about, description, and technique
+// information for the example.
+//
+//////////////////////////////////////////////////////////////////////////////
+//	
+//	Revision History
+//
+//	Version
+//	6.0   Initial version
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+/*
+ * Open Source PowerBuilder Foundation Class Libraries
+ *
+ * Copyright (c) 2004-2017, All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted in accordance with the MIT License
+ * 
+ *
+ * https://opensource.org/licenses/MIT
+ *
+ * ====================================================================
+ *
+ * This software consists of voluntary contributions made by many
+ * individuals and was originally based on software copyright (c) 
+ * 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
+ * information on the Open Source PowerBuilder Foundation Class
+ * Libraries see https://github.com/OpenSourcePFCLibraries
+*/
+//
+//////////////////////////////////////////////////////////////////////////////
+
+//Open(w_properties)
+end event
+
+on m_about.create
+call super::create
+this.ToolBarItemName="Query!"
+this.ToolBarItemOrder=252
+this.ToolBarItemSpace=2
+end on
+
+type m_insertitem from menu within m_edit
+end type
+
+on m_insertitem.create
+this.Text="&Insert Item"
+this.ToolBarItemName="Insert!"
+this.ToolBarItemSpace=3
+end on
+
+event clicked;//////////////////////////////////////////////////////////////////////////////
+//
+//	Event:
+//	clicked
+//
+//	Description:
+//	Calls the ue_insertrow event on the window.
+//
+//////////////////////////////////////////////////////////////////////////////
+//	
+//	Revision History
+//
+//	Version
+//	6.0   Initial version
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+/*
+ * Open Source PowerBuilder Foundation Class Libraries
+ *
+ * Copyright (c) 2004-2017, All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted in accordance with the MIT License
+ * 
+ *
+ * https://opensource.org/licenses/MIT
+ *
+ * ====================================================================
+ *
+ * This software consists of voluntary contributions made by many
+ * individuals and was originally based on software copyright (c) 
+ * 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
+ * information on the Open Source PowerBuilder Foundation Class
+ * Libraries see https://github.com/OpenSourcePFCLibraries
+*/
+//
+//////////////////////////////////////////////////////////////////////////////
+
+of_SendMessage("pfc_new")
+end event
+
+type m_deleteitem from menu within m_edit
+end type
+
+on m_deleteitem.create
+this.Text="&Delete Item"
+this.ToolBarItemName="Clear!"
+end on
+
+event clicked;//////////////////////////////////////////////////////////////////////////////
+//
+//	Event:
+//	clicked
+//
+//	Description:
+//	Calls the ue_deleteitem event on the window.
+//
+//////////////////////////////////////////////////////////////////////////////
+//	
+//	Revision History
+//
+//	Version
+//	6.0   Initial version
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+/*
+ * Open Source PowerBuilder Foundation Class Libraries
+ *
+ * Copyright (c) 2004-2017, All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted in accordance with the MIT License
+ * 
+ *
+ * https://opensource.org/licenses/MIT
+ *
+ * ====================================================================
+ *
+ * This software consists of voluntary contributions made by many
+ * individuals and was originally based on software copyright (c) 
+ * 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
+ * information on the Open Source PowerBuilder Foundation Class
+ * Libraries see https://github.com/OpenSourcePFCLibraries
+*/
+//
+//////////////////////////////////////////////////////////////////////////////
+
+of_SendMessage("ue_deleteitem")
+end event
+
+type m_- from menu within m_edit
+end type
+
+on m_-.create
+this.Text="-"
+end on
+
+type m_refreshitem from menu within m_edit
+end type
+
+on m_refreshitem.create
+this.Text="Refresh &Item"
+this.ToolBarItemName="Regenerate5!"
+this.ToolBarItemSpace=3
+end on
+
+event clicked;//////////////////////////////////////////////////////////////////////////////
+//
+//	Event:
+//	clicked
+//
+//	Description:
+//	Calls the ue_refreshitem event on the window.
+//
+//////////////////////////////////////////////////////////////////////////////
+//	
+//	Revision History
+//
+//	Version
+//	6.0   Initial version
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+/*
+ * Open Source PowerBuilder Foundation Class Libraries
+ *
+ * Copyright (c) 2004-2017, All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted in accordance with the MIT License
+ * 
+ *
+ * https://opensource.org/licenses/MIT
+ *
+ * ====================================================================
+ *
+ * This software consists of voluntary contributions made by many
+ * individuals and was originally based on software copyright (c) 
+ * 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
+ * information on the Open Source PowerBuilder Foundation Class
+ * Libraries see https://github.com/OpenSourcePFCLibraries
+*/
+//
+//////////////////////////////////////////////////////////////////////////////
+
+of_SendMessage("ue_refreshitem")
+end event
+
+type m_refreshlevel from menu within m_edit
+end type
+
+on m_refreshlevel.create
+this.Text="Refresh &Level"
+this.ToolBarItemName="Import5!"
+end on
+
+event clicked;//////////////////////////////////////////////////////////////////////////////
+//
+//	Event:
+//	clicked
+//
+//	Description:
+//	Calls the ue_refreshlevel event on the window.
+//
+//////////////////////////////////////////////////////////////////////////////
+//	
+//	Revision History
+//
+//	Version
+//	6.0   Initial version
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+/*
+ * Open Source PowerBuilder Foundation Class Libraries
+ *
+ * Copyright (c) 2004-2017, All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted in accordance with the MIT License
+ * 
+ *
+ * https://opensource.org/licenses/MIT
+ *
+ * ====================================================================
+ *
+ * This software consists of voluntary contributions made by many
+ * individuals and was originally based on software copyright (c) 
+ * 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
+ * information on the Open Source PowerBuilder Foundation Class
+ * Libraries see https://github.com/OpenSourcePFCLibraries
+*/
+//
+//////////////////////////////////////////////////////////////////////////////
+
+of_SendMessage("ue_refreshlevel")
+end event
+
+type m_refreshtree from menu within m_edit
+end type
+
+on m_refreshtree.create
+this.Text="Refresh &Tree"
+this.ToolBarItemName="Continue!"
+end on
+
+event clicked;//////////////////////////////////////////////////////////////////////////////
+//
+//	Event:
+//	clicked
+//
+//	Description:
+//	Calls the ue_refreshtree event on the window.
+//
+//////////////////////////////////////////////////////////////////////////////
+//	
+//	Revision History
+//
+//	Version
+//	6.0   Initial version
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+/*
+ * Open Source PowerBuilder Foundation Class Libraries
+ *
+ * Copyright (c) 2004-2017, All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted in accordance with the MIT License
+ * 
+ *
+ * https://opensource.org/licenses/MIT
+ *
+ * ====================================================================
+ *
+ * This software consists of voluntary contributions made by many
+ * individuals and was originally based on software copyright (c) 
+ * 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
+ * information on the Open Source PowerBuilder Foundation Class
+ * Libraries see https://github.com/OpenSourcePFCLibraries
+*/
+//
+//////////////////////////////////////////////////////////////////////////////
+
+of_SendMessage("ue_refreshtree")
+end event
+
