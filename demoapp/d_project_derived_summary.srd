@@ -1,0 +1,43 @@
+HA$PBExportHeader$d_project_derived_summary.srd
+$PBExportComments$The tabular datawindow used to show derived summary information
+release 5;
+datawindow(units=0 timer_interval=0 color=16777215 processing=0 print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no )
+header(height=173 color="536870912" )
+summary(height=117 color="536870912" )
+footer(height=1 color="536870912" )
+detail(height=81 color="536870912" )
+table(column=(type=char(50) updatewhereclause=yes name=name dbname="project_derived_item.name" )
+ column=(type=decimal(2) updatewhereclause=yes name=percentage dbname="project_derived_item.percentage" )
+ column=(type=decimal(2) updatewhereclause=yes name=rate dbname="project_derived_item.rate" )
+ column=(type=decimal(4) updatewhereclause=yes name=compute_0004 dbname="compute_0004" )
+ retrieve="  SELECT ~"project_derived_item~".~"name~",   
+         ~"project_derived_item~".~"percentage~",   
+         ~"project_derived_item~".~"rate~",   
+            (SELECT sum(~"project_category_item~".~"estimated_hours~"*    
+        					  ~"project_role~".~"multipler~" ) 
+    			FROM ~"project_category_item~",   
+        				~"project_complexity~",   
+        				~"project_role~"  
+  				 WHERE ( ~"project_complexity~".~"complexity_id~" = ~"project_category_item~".~"complexity_id~" ) and  
+       				  ( ~"project_category_item~".~"role_id~" = ~"project_role~".~"role_id~" ) and  
+       				  ( ( ~"project_category_item~".~"project_id~" = :project_id) ))
+      FROM ~"project_derived_item~"
+   WHERE ~"project_derived_item~".~"project_id~" = :project_id  
+" arguments=(("project_id", number)) )
+line(band=header x1="1" y1="144" x2="3479" y2="144" pen.style="0" pen.width="5" pen.color="0"  background.mode="1" background.color="553648127" )
+text(band=header alignment="2" text="Percent"border="0" color="0" x="1180" y="68" height="53" width="234"  name=default_derived_item_percentage_t  font.face="MS Sans Serif" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="Derived Items"border="0" color="0" x="19" y="68" height="53" width="417"  name=default_derived_item_name_t  font.face="MS Sans Serif" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Estimated Cost"border="0" color="0" x="2945" y="68" height="53" width="421"  font.face="MS Sans Serif" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Rate"border="0" color="0" x="1587" y="72" height="53" width="298"  name=default_derived_item_rate_t  font.face="MS Sans Serif" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Estimated Hrs"border="0" color="0" x="1966" y="12" height="53" width="764"  font.face="MS Sans Serif" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=header alignment="2" expression="~"(% * ~" +  String(compute_0004) + ~" hrs)~""border="0" color="0" x="1966" y="68" height="57" width="764" format="[general]"  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=detail alignment="2" expression=" percentage  + ~"%~""border="0" color="0" x="1180" y="4" height="65" width="234" format="[general]"  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=detail alignment="1" expression="adjusted_hours * rate"border="0" color="0" x="2945" y="4" height="65" width="348" format="$#,##0.00;[RED]($#,##0.00)"  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=1 alignment="0" tabsequence=32766 border="0" color="0" x="19" y="4" height="65" width="1020" format="[general]"  name=name edit.limit=0 edit.case=any edit.autoselect=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=3 alignment="1" tabsequence=32766 border="0" color="0" x="1587" y="4" height="65" width="211" format="$#,##0.00;($#,##0.00)"  name=rate edit.limit=0 edit.case=any edit.autoselect=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=detail alignment="2" expression="compute_0004 * (percentage / 100)"border="0" color="0" x="1966" y="4" height="65" width="764" format="#,##0.00"  name=adjusted_hours  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=summary alignment="1" expression=" sum( adjusted_hours * rate  for all)"border="0" color="0" x="2945" y="36" height="69" width="348" format="$#,##0.00;[RED]($#,##0.00)"  name=total_estimated_cost  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=summary alignment="0" text="Total"border="0" color="0" x="714" y="36" height="53" width="156"  font.face="MS Sans Serif" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+line(band=summary x1="2853" y1="20" x2="3425" y2="20" pen.style="0" pen.width="5" pen.color="0"  background.mode="1" background.color="536870912" )
+line(band=summary x1="2163" y1="20" x2="2538" y2="20" pen.style="0" pen.width="5" pen.color="0"  background.mode="1" background.color="536870912" )
+compute(band=summary alignment="2" expression="sum( compute_0004 * (percentage / 100) for all)"border="0" color="0" x="1966" y="36" height="69" width="764" format="#,##0.00"  name=total_estimated_hours  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
