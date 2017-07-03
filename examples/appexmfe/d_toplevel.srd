@@ -1,0 +1,21 @@
+HA$PBExportHeader$d_toplevel.srd
+$PBExportComments$w_examplemain treeview level 1
+release 5;
+datawindow(units=0 timer_interval=0 color=16777215 processing=0 print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no print.buttons=no print.preview.buttons=no )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=76 color="536870912" )
+table(column=(type=long updatewhereclause=yes key=yes name=category_id dbname="examples_categories_list.category_id" )
+ column=(type=char(40) updatewhereclause=yes name=category_name dbname="examples_categories_list.category_name" )
+ column=(type=long updatewhereclause=yes name=picture_idx dbname="examples_categories_list.picture_idx" )
+ column=(type=long updatewhereclause=yes name=selected_picture_idx dbname="examples_categories_list.selected_picture_idx" )
+ column=(type=long updatewhereclause=yes name=overlay_picture_idx dbname="examples_categories_list.overlay_picture_idx" )
+ column=(type=long updatewhereclause=yes name=state_picture_idx dbname="examples_categories_list.state_picture_idx" )
+ retrieve="PBSELECT( VERSION(400) TABLE(NAME=~"examples_categories_list~" ) COLUMN(NAME=~"examples_categories_list.category_id~") COLUMN(NAME=~"examples_categories_list.category_name~") COLUMN(NAME=~"examples_categories_list.picture_idx~") COLUMN(NAME=~"examples_categories_list.selected_picture_idx~") COLUMN(NAME=~"examples_categories_list.overlay_picture_idx~") COLUMN(NAME=~"examples_categories_list.state_picture_idx~")WHERE(    EXP1 =~"( examples_categories_list.category_id~"   OP =~"=~"    EXP2 =~"0 )~" ) ) " update="examples_categories_list" updatewhere=0 updatekeyinplace=no )
+column(band=detail id=2 alignment="0" tabsequence=32766 border="0" color="0" x="5" y="4" height="64" width="786" format="[general]"  name=category_name edit.limit=40 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=1 alignment="0" tabsequence=32766 border="0" color="0" x="805" y="4" height="64" width="329" format="[General]"  name=category_id edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=5 alignment="0" tabsequence=32766 border="0" color="0" x="2039" y="4" height="64" width="334" format="[General]"  name=overlay_picture_idx edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=6 alignment="0" tabsequence=32766 border="0" color="0" x="2391" y="4" height="64" width="334" format="[General]"  name=state_picture_idx edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=3 alignment="0" tabsequence=32766 border="0" color="0" x="1143" y="4" height="64" width="302" format="[General]"  name=picture_idx edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=4 alignment="0" tabsequence=32766 border="0" color="0" x="1458" y="4" height="64" width="562" format="[General]"  name=selected_picture_idx edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+htmltable(border="1" cellpadding="0" cellspacing="0" generatecss="no" nowrap="yes")
