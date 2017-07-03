@@ -1,0 +1,32 @@
+HA$PBExportHeader$d_buildfilter.srd
+$PBExportComments$Sales Orders with customer names. (w_buildfilter)
+release 6;
+datawindow(units=0 timer_interval=0 color=82889382 processing=0 print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no print.buttons=no print.preview.buttons=no )
+header(height=120 color="536870912" )
+summary(height=4 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=92 color="536870912" )
+table(column=(type=long updatewhereclause=yes name=sales_id dbname="sales_order.id" )
+ column=(type=date update=yes updatewhereclause=yes name=order_date dbname="sales_order.order_date" )
+ column=(type=long update=yes updatewhereclause=yes name=sales_rep dbname="sales_order.sales_rep" )
+ column=(type=char(7) update=yes updatewhereclause=yes name=region dbname="sales_order.region" values="Central	Central/Eastern	Eastern/South	South/Western	Western/Canada	Canada/" )
+ column=(type=char(15) updatewhereclause=yes name=customer_fname dbname="customer.fname" )
+ column=(type=char(20) updatewhereclause=yes name=last_name dbname="customer.lname" )
+ column=(type=long update=yes updatewhereclause=yes name=customer_id dbname="sales_order.cust_id" )
+ retrieve="PBSELECT( VERSION(400) TABLE(NAME=~"sales_order~" )  TABLE(NAME=~"customer~" ) COLUMN(NAME=~"sales_order.id~") COLUMN(NAME=~"sales_order.order_date~") COLUMN(NAME=~"sales_order.sales_rep~") COLUMN(NAME=~"sales_order.region~") COLUMN(NAME=~"customer.fname~") COLUMN(NAME=~"customer.lname~") COLUMN(NAME=~"sales_order.cust_id~")    JOIN (LEFT=~"customer.id~"    OP =~"=~"RIGHT=~"sales_order.cust_id~" )) "  sort="customer_id A " )
+text(band=header alignment="2" text="Customer Name"border="6" color="33554687" x="251" y="12" height="104" width="535"  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="80263581" )
+text(band=header alignment="2" text="Customer ID"border="6" color="33554687" x="14" y="12" height="104" width="215"  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="80263581" )
+text(band=header alignment="2" text="Order
+ Date"border="6" color="33554687" x="1047" y="12" height="104" width="329"  name=order_date_t  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="67108864" )
+text(band=header alignment="2" text="Sales
+Order ID"border="6" color="33554687" x="809" y="12" height="104" width="215"  name=id_t  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="67108864" )
+text(band=header alignment="2" text="Sales
+Rep ID"border="6" color="33554687" x="1399" y="12" height="104" width="357"  name=sales_rep_t  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="67108864" )
+text(band=header alignment="2" text="Region"border="6" color="41943040" x="1778" y="12" height="104" width="434"  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="79741120" )
+column(band=detail id=1 alignment="2" tabsequence=32766 border="5" color="33554687" x="809" y="12" height="68" width="215" format="[general]"  name=sales_id  tag="Unique Identification Number of the sales order" edit.limit=0 edit.case=any edit.autoselect=yes edit.required=yes edit.autohscroll=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="80263581" )
+column(band=detail id=7 alignment="0" tabsequence=32766 border="5" color="0" x="14" y="12" height="68" width="215" format="[general]"  name=customer_id edit.limit=0 edit.case=any edit.autoselect=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="77633680" )
+compute(band=detail alignment="0" expression="string( customer_fname +  ~" ~" + last_name )"border="5" color="33554432" x="251" y="12" height="68" width="535" format="[general]"  name=customer_name  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="77643992" )
+column(band=detail id=2 alignment="2" tabsequence=32766 border="5" color="33554687" x="1047" y="12" height="68" width="329" format="[general]"  name=order_date  tag="Date Ordered" edit.name="MM/DD/YY" editmask.required=yes editmask.mask="MM/DD/YY" editmask.focusrectangle=no  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="77643992" )
+column(band=detail id=3 alignment="0" tabsequence=32766 border="5" color="33554687" x="1399" y="12" height="68" width="357" format="[general]"  name=sales_rep edit.limit=0 edit.case=any edit.autoselect=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="77643992" )
+column(band=detail id=4 alignment="0" tabsequence=32766 border="5" color="33554687" x="1778" y="12" height="68" width="434" format="[general]"  name=region edit.limit=0 edit.case=any edit.autoselect=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="77643992" )
+htmltable(border="1" cellpadding="0" cellspacing="0" generatecss="no" nowrap="yes")
