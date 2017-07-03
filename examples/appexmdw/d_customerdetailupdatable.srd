@@ -1,0 +1,20 @@
+HA$PBExportHeader$d_customerdetailupdatable.srd
+$PBExportComments$Customer List - All ( w_dw3types, w_linkagefilter, w_linkautoupdate, w_linkfiltsplit )
+release 5;
+datawindow(units=0 timer_interval=0 color=82889382 processing=0 print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no print.buttons=no print.preview.buttons=no )
+header(height=124 color="536870912" )
+summary(height=4 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=64 color="536870912" )
+table(column=(type=long update=yes updatewhereclause=yes key=yes name=cust_id dbname="customer.id" )
+ column=(type=char(35) update=yes updatewhereclause=yes name=company_name dbname="customer.company_name" )
+ column=(type=char(15) update=yes updatewhereclause=yes name=fname dbname="customer.fname" )
+ column=(type=char(20) update=yes updatewhereclause=yes name=lname dbname="customer.lname" )
+ retrieve="PBSELECT( VERSION(400) TABLE(NAME=~"customer~" ) COLUMN(NAME=~"customer.id~") COLUMN(NAME=~"customer.company_name~") COLUMN(NAME=~"customer.fname~") COLUMN(NAME=~"customer.lname~")) ORDER(NAME=~"customer.company_name~" ASC=yes )  ORDER(NAME=~"customer.id~" ASC=yes ) " update="customer" updatewhere=1 updatekeyinplace=no  sort="cust_id A " )
+text(band=header alignment="2" text="Customer
+ID"border="6" color="41943040" x="91" y="12" height="104" width="283"  name=id_t  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="79219928" )
+text(band=header alignment="2" text="Company      
+Name     "border="6" color="41943040" x="393" y="12" height="104" width="1093"  name=company_name_t  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="79219928" )
+column(band=detail id=2 alignment="0" tabsequence=10 border="5" color="33554432" x="389" y="4" height="60" width="1093" format="[general]"  name=company_name  tag="Name of the company" edit.limit=35 edit.case=any edit.autoselect=yes edit.required=yes edit.nilisnull=yes edit.autohscroll=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=1 alignment="2" tabsequence=32766 border="5" color="33554432" x="96" y="4" height="60" width="274" format="[general]"  name=cust_id  tag="Unique Identification number of the customer" edit.limit=0 edit.case=any edit.autoselect=yes edit.required=yes edit.autohscroll=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="77571519" )
+htmltable(border="1" cellpadding="0" cellspacing="0" generatecss="no" nowrap="yes")
