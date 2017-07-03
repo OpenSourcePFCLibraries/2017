@@ -1,0 +1,13 @@
+HA$PBExportHeader$d_dddwstates.srd
+$PBExportComments$USA state names and id's.   (w_refreshdddws)
+release 5;
+datawindow(units=0 timer_interval=0 color=1090519039 processing=0 print.documentname="" print.orientation = 0 print.margin.left = 107 print.margin.right = 107 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no )
+header(height=1 color="536870912" )
+summary(height=1 color="536870912" )
+footer(height=1 color="536870912" )
+detail(height=69 color="536870912" )
+table(column=(type=char(3) update=yes updatewhereclause=yes key=yes name=state_id dbname="states.state_id" )
+ column=(type=char(24) update=yes updatewhereclause=yes name=state_name dbname="states.state_name" )
+ retrieve="PBSELECT( VERSION(400) DISTINCT ()TABLE(NAME=~"states~" ) COLUMN(NAME=~"states.state_id~") COLUMN(NAME=~"states.state_name~")WHERE(    EXP1 =~"~~~"states~~~".~~~"country~~~"~"   OP =~"=~"    EXP2 =~"'USA'~" ) ) ORDER(NAME=~"states.state_name~" ASC=yes ) " update="states" updatewhere=1 updatekeyinplace=no )
+column(band=detail id=2 alignment="0" tabsequence=32766 border="0" color="41943040" x="10" y="8" height="53" width="554" format="[general]"  name=state_name edit.limit=0 edit.case=any edit.autoselect=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1080593568" )
+column(band=detail id=1 alignment="0" tabsequence=32766 border="0" color="41943040" x="577" y="8" height="53" width="170" format="[general]"  name=state_id  tag="State Identification Code" edit.limit=3 edit.case=any edit.autoselect=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1080593568" )
