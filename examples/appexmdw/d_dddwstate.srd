@@ -1,0 +1,11 @@
+HA$PBExportHeader$d_dddwstate.srd
+$PBExportComments$States table state id. (w_dropdownsearchdw, w_refreshdddws, w_rowmanager, w_linkagescroll)
+release 5;
+datawindow(units=0 timer_interval=0 color=1090519039 processing=0 print.documentname="" print.orientation = 0 print.margin.left = 107 print.margin.right = 107 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no )
+header(height=1 color="536870912" )
+summary(height=1 color="536870912" )
+footer(height=1 color="536870912" )
+detail(height=68 color="536870912" )
+table(column=(type=char(3) updatewhereclause=yes name=state_id dbname="states.state_id" )
+ retrieve="PBSELECT( VERSION(400) TABLE(NAME=~"states~" ) COLUMN(NAME=~"states.state_id~")) " )
+column(band=detail id=1 alignment="0" tabsequence=32766 border="0" color="41943040" x="4" y="3" height="61" width="168" format="[general]"  name=state_id  tag="State Identification Code" edit.limit=3 edit.case=any edit.autoselect=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1080593568" )
