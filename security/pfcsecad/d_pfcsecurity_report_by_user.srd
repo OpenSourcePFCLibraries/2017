@@ -1,0 +1,100 @@
+HA$PBExportHeader$d_pfcsecurity_report_by_user.srd
+$PBExportComments$PFC Security user report
+release 6;
+datawindow(units=0 timer_interval=0 color=16777215 processing=0 print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no print.buttons=no print.preview.buttons=no )
+header(height=192 color="536870912" )
+summary(height=0 color="536870912" )
+footer(height=96 color="536870912" )
+detail(height=60 color="536870912"  height.autosize=yes)
+table(column=(type=char(16) updatewhereclause=yes name=user_group_name dbname="security_info.user_name" )
+ column=(type=char(32) updatewhereclause=yes name=security_users_description dbname="security_users.description" )
+ column=(type=char(32) updatewhereclause=yes name=security_apps_application dbname="security_apps.application" )
+ column=(type=char(64) updatewhereclause=yes name=security_apps_description dbname="security_apps.description" )
+ column=(type=char(64) updatewhereclause=yes name=security_info_window dbname="security_info.window" )
+ column=(type=char(64) updatewhereclause=yes name=security_info_control dbname="security_info.control" )
+ column=(type=char(254) updatewhereclause=yes name=security_template_description dbname="security_template.description" )
+ column=(type=char(24) updatewhereclause=yes name=object_type dbname="security_template.object_type" )
+ column=(type=char(1) updatewhereclause=yes name=status dbname="security_info.status" values="Invisible	I/Enabled	E/Disabled	D/Not Set	N/" )
+ column=(type=long updatewhereclause=yes name=priority dbname="security_users.priority" )
+ column=(type=long updatewhereclause=yes name=user_type dbname="security_users.user_type" initial="0" values="User	0/Group	1/" )
+ retrieve="  SELECT security_info.user_name,   
+         security_users.description,   
+         security_apps.application,   
+         security_apps.description,   
+         security_info.window,   
+         security_info.control,   
+         security_template.description,   
+         security_template.object_type,   
+         security_info.status,   
+         security_users.priority,   
+         security_users.user_type  
+    FROM security_apps,   
+         security_info,   
+         security_template,   
+         security_users  
+   WHERE ( security_apps.application = security_info.application ) and  
+         ( security_info.application = security_template.application ) and  
+         ( security_info.window = security_template.window ) and  
+         ( security_info.control = security_template.control ) and  
+         ( security_info.user_name = security_users.name ) and  
+         ( ( security_info.user_name = :username ) )   
+   UNION   
+  SELECT security_info.user_name,   
+         security_users.description,   
+         security_apps.application,   
+         security_apps.description,   
+         security_info.window,   
+         security_info.control,   
+         security_template.description,   
+         security_template.object_type,   
+         security_info.status,   
+         security_users.priority,   
+         security_users.user_type  
+    FROM security_apps,   
+         security_groupings,   
+         security_info,   
+         security_template,   
+         security_users  
+   WHERE ( security_info.application = security_template.application ) and  
+         ( security_info.window = security_template.window ) and  
+         ( security_info.control = security_template.control ) and  
+         ( security_info.application = security_apps.application ) and  
+         ( security_info.user_name = security_groupings.group_name ) and  
+         ( security_groupings.group_name = security_users.name ) and  
+         ( ( security_groupings.user_name = :username ) )    
+" arguments=(("username", string))  sort="security_apps_application A security_info_window A security_info_control A priority A " )
+group(level=1 header.height=92 trailer.height=32 by=("security_apps_application" ) newpage=yes header.color="536870912" trailer.color="536870912" )
+group(level=2 header.height=216 trailer.height=44 by=("security_info_window" ) header.color="536870912" trailer.color="536870912" )
+text(band=header alignment="2" text="Description :"border="0" color="0" x="613" y="112" height="64" width="457"  name=security_users_description_t  font.face="MS Sans Serif" font.height="-10" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+report(band=header dataobject="d_pfcsecurity_display_user_info" x="1083" y="108" height="72" width="1993" border="0"  height.autosize=yes criteria="" nest_arguments=(("username")) trail_footer = yes  slideup=directlyabove )
+text(band=header alignment="0" text="PFC Security Report for User ID : "border="0" color="0" x="5" y="24" height="72" width="1065"  font.face="MS Sans Serif" font.height="-10" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+compute(band=header alignment="1" expression="today()"border="0" color="0" x="3013" y="24" height="72" width="485" format="[general]"  font.face="MS Sans Serif" font.height="-10" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=header alignment="0" expression="username"border="0" color="0" x="1088" y="24" height="72" width="1175" format="[general]"  font.face="MS Sans Serif" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+column(band=header.1 id=3 alignment="0" tabsequence=32766 border="0" color="0" x="411" y="20" height="52" width="768" format="[general]"  name=security_apps_application edit.limit=32000 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header.1 alignment="1" text="Description :"border="0" color="0" x="1189" y="20" height="52" width="389"  name=security_apps_description_t  font.face="MS Sans Serif" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=header.1 id=4 alignment="0" tabsequence=32766 border="0" color="0" x="1582" y="20" height="52" width="773" format="[general]"  name=security_apps_description edit.limit=32000 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header.1 alignment="1" text="Application :"border="0" color="0" x="18" y="20" height="52" width="384"  name=security_apps_application_t  font.face="MS Sans Serif" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+line(band=header.1 x1="9" y1="84" x2="3497" y2="84" pen.style="0" pen.width="9" pen.color="0"  background.mode="1" background.color="553648127" )
+text(band=header.2 alignment="1" text="Object :"border="0" color="0" x="73" y="68" height="52" width="224"  name=security_info_window_t  font.face="MS Sans Serif" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header.2 alignment="2" text="Priority"border="4" color="0" x="3301" y="144" height="52" width="192"  name=priority_t  font.face="MS Sans Serif" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header.2 alignment="2" text="User
+Type"border="4" color="0" x="3095" y="92" height="104" width="187"  name=user_type_t  font.face="MS Sans Serif" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header.2 alignment="0" text="Group/User"border="4" color="0" x="2702" y="144" height="52" width="375"  font.face="MS Sans Serif" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header.2 alignment="2" text="Control"border="4" color="0" x="18" y="144" height="52" width="1161"  name=security_info_control_t  font.face="MS Sans Serif" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header.2 alignment="2" text="Description"border="4" color="0" x="1198" y="144" height="52" width="818"  name=security_template_description_t  font.face="MS Sans Serif" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header.2 alignment="2" text="Status"border="4" color="0" x="2478" y="144" height="52" width="210"  name=status_t  font.face="MS Sans Serif" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header.2 alignment="2" text="Object Type"border="4" color="0" x="2030" y="144" height="52" width="434"  name=object_type_t  font.face="MS Sans Serif" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=header.2 id=5 alignment="0" tabsequence=32766 border="0" color="0" x="311" y="68" height="52" width="768" format="[general]"  name=security_info_window edit.limit=32000 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=10 alignment="2" tabsequence=32766 border="0" color="0" x="3305" y="4" height="56" width="192" format="[General]"  name=priority edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=11 alignment="2" tabsequence=32766 border="0" color="0" x="3095" y="4" height="56" width="187" format="[General]"  name=user_type edit.name="user_types" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no edit.codetable=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=1 alignment="0" tabsequence=32766 border="0" color="0" x="2702" y="4" height="56" width="375" format="[general]"  name=user_group_name edit.limit=0 edit.case=any edit.autoselect=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=6 alignment="0" tabsequence=32766 border="0" color="0" x="18" y="4" height="56" width="1161" format="[general]"  name=security_info_control edit.limit=32000 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=7 alignment="0" tabsequence=32766 border="0" color="0" x="1198" y="4" height="56" width="818" format="[general]"  name=security_template_description edit.limit=32000 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=9 alignment="0" tabsequence=32766 border="0" color="0" x="2478" y="4" height="56" width="210" format="[general]"  name=status ddlb.limit=0 ddlb.allowedit=no ddlb.case=any  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=8 alignment="0" tabsequence=32766 border="0" color="0" x="2030" y="4" height="56" width="434" format="[general]"  name=object_type edit.limit=32000 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+line(band=trailer.2 x1="5" y1="8" x2="3493" y2="8" pen.style="0" pen.width="9" pen.color="0"  background.mode="1" background.color="553648127" )
+line(band=trailer.1 x1="5" y1="8" x2="3493" y2="8" pen.style="0" pen.width="9" pen.color="0"  background.mode="1" background.color="553648127" )
+line(band=trailer.1 x1="5" y1="20" x2="3493" y2="20" pen.style="0" pen.width="9" pen.color="0"  background.mode="1" background.color="553648127" )
+compute(band=footer alignment="1" expression="'Page ' + page() + ' of ' + pageCount()"border="0" color="0" x="2830" y="16" height="72" width="667" format="[general]"  font.face="MS Sans Serif" font.height="-10" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+
+sparse(names="security_info_control	security_template_description	object_type")htmltable(border="1" cellpadding="0" cellspacing="0" generatecss="no" nowrap="yes")
