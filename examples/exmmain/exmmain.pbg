@@ -1,0 +1,10 @@
+Save Format v3.0(19990112)
+@begin Libraries
+ "examples\\exmmain\\exmmain.pbl" "";
+@end;
+@begin Objects
+ "examples\\exmmain\\n_tr.sru" "examples\\exmmain\\exmmain.pbl";
+ "examples\\exmmain\\u_calendar.sru" "examples\\exmmain\\exmmain.pbl";
+ "examples\\exmmain\\w_frame.srw" "examples\\exmmain\\exmmain.pbl";
+ "examples\\exmmain\\w_master.srw" "examples\\exmmain\\exmmain.pbl";
+@end;
