@@ -1,0 +1,100 @@
+HA$PBExportHeader$f_setfilesrv.srf
+$PBExportComments$PFC File Service Create/Destroy
+global type f_setfilesrv from function_object
+end type
+
+forward prototypes
+global function integer f_setfilesrv (ref pfcscanner_n_cst_filesrv anv_filesrv, boolean ab_switch)
+end prototypes
+
+global function integer f_setfilesrv (ref pfcscanner_n_cst_filesrv anv_filesrv, boolean ab_switch);//////////////////////////////////////////////////////////////////////////////
+//
+//	Function:  		f_SetFileSrv
+//
+//	Access:  		public
+//
+//	Arguments:		
+//	anv_Filesrv		User Object of type pfcscanner_n_cst_filesrv that will be created - passed by reference
+//	ab_Switch		True - start (create) the object
+//						False - stop (destroy) the object
+//
+//	Returns:  		Integer
+//						 1 - Successful operation.
+//						 0 - No action taken.
+//						-1 - An error was encountered.
+//
+//	Description:  	Creates/Destroys the file handler object (platform-specific)
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+//	Revision History
+//
+//	Version
+//	5.0   Initial version
+// 5.0.02 Added support for Macintosh, Solaris, and Windows NT.
+// 5.0.02 Added argument and error checking.
+// 5.0.03 Fixed Creation of 16 bit service for 16 bit exe running under NT
+//	6.0	Added support for Unix version on AIX (IBM) and HPUX (HP)
+// 6.0.02 Added support for Unicode.
+// 7.0 Removed support for 16-bit and Macintosh services
+//////////////////////////////////////////////////////////////////////////////
+//
+/*
+ * Open Source PowerBuilder Foundation Class Libraries
+ *
+ * Copyright (c) 2004-2017, All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted in accordance with the MIT License
+ * 
+ *
+ * http://www.gnu.org/copyleft/lesser.html
+ *
+ * ====================================================================
+ *
+ * This software consists of voluntary contributions made by many
+ * individuals and was originally based on software copyright (c) 
+ * 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
+ * information on the Open Source PowerBuilder Foundation Class
+ * Libraries see https://github.com/OpenSourcePFCLibraries
+*/
+//
+//////////////////////////////////////////////////////////////////////////////
+environment le_env
+
+GetEnvironment ( le_env ) 
+// Argument and error checking.
+If IsNull(ab_switch) Then Return -1
+
+if ab_switch then
+	if IsNull (anv_filesrv) or not IsValid (anv_filesrv) then
+		// create file service object based on platform
+		choose case le_env.ostype
+			case windows!, windowsnt!
+				if le_env.CharSet = charsetunicode! then
+					anv_filesrv = create pfcscanner_n_cst_filesrvunicode
+				else
+					anv_filesrv = create pfcscanner_n_cst_filesrvwin32
+				end if
+			case sol2!
+				anv_filesrv = create pfcscanner_n_cst_filesrvsol2
+			case hpux!
+				anv_filesrv = create pfcscanner_n_cst_filesrvhpux
+			case aix!
+				anv_filesrv = create pfcscanner_n_cst_filesrvaix
+			case else
+				anv_filesrv = create pfcscanner_n_cst_filesrv
+		end choose
+		return 1
+	end if
+else
+	if IsValid (anv_filesrv) then
+		destroy anv_filesrv
+		Return 1
+	end if
+end if
+
+Return 0
+
+end function
+
