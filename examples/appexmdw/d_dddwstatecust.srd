@@ -1,0 +1,15 @@
+HA$PBExportHeader$d_dddwstatecust.srd
+$PBExportComments$States table state_name joined with Customer table state column.  (w_dropdownsearchdw)
+release 5;
+datawindow(units=0 timer_interval=0 color=1090519039 processing=1 print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no grid.lines=1 selected.mouse=no )
+header(height=1 color="536870912" )
+summary(height=5 color="536870912" )
+footer(height=1 color="536870912" )
+detail(height=73 color="536870912" )
+table(column=(type=char(24) updatewhereclause=yes name=states_state_name dbname="states.state_name" )
+ column=(type=char(3) updatewhereclause=yes name=customer_state dbname="customer.state" )
+ retrieve="PBSELECT( VERSION(400) DISTINCT ()TABLE(NAME=~"customer~" )  TABLE(NAME=~"states~" ) COLUMN(NAME=~"states.state_name~") COLUMN(NAME=~"customer.state~")    JOIN (LEFT=~"states.state_id~"    OP =~"=~"RIGHT=~"customer.state~" )) ORDER(NAME=~"states.state_name~" ASC=yes ) " )
+text(band=header alignment="0" text="States State Name"border="0" color="0" x="10" y="4" height="77" width="508"  font.face="Arial" font.height="-12" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=1 alignment="0" tabsequence=32766 border="0" color="0" x="10" y="4" height="65" width="508" format="[general]"  name=states_state_name edit.limit=0 edit.case=any edit.autoselect=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=2 alignment="0" tabsequence=0 border="0" color="0" x="531" y="4" height="65" width="101"  name=customer_state  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="0" text="Customer State"border="0" color="0" x="526" y="4" height="53" width="106"  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
