@@ -1,0 +1,18 @@
+HA$PBExportHeader$d_pfcsecurity_userlookup.srd
+$PBExportComments$PFC Security - Retrieve the information about a user or group
+release 8;
+datawindow(units=0 timer_interval=0 color=77956459 processing=0 HTMLDW=no print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no print.buttons=no print.preview.buttons=no )
+summary(height=4 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=148 color="536870912" )
+table(column=(type=long update=yes updatewhereclause=yes name=user_type dbname="security_users.user_type" initial="0" values="User	0/Group	1/" )
+ column=(type=char(32) update=yes updatewhereclause=yes name=description dbname="security_users.description" )
+ column=(type=long update=yes updatewhereclause=yes name=priority dbname="security_users.priority" )
+ column=(type=char(16) update=yes updatewhereclause=yes key=yes name=name dbname="security_users.name" )
+ retrieve="PBSELECT( VERSION(400) TABLE(NAME=~"security_users~" ) COLUMN(NAME=~"security_users.user_type~") COLUMN(NAME=~"security_users.description~") COLUMN(NAME=~"security_users.priority~") COLUMN(NAME=~"security_users.name~")WHERE(    EXP1 =~"~~~"security_users~~~".~~~"name~~~"~"   OP =~"=~"    EXP2 =~":name~" ) ) ARG(NAME = ~"name~" TYPE = string) " update="security_users" updatewhere=1 updatekeyinplace=no arguments=(("name", string))  sort="user_type D description A " )
+column(band=detail id=4 alignment="0" tabsequence=10 border="5" color="33554432" x="690" y="8" height="56" width="517" format="[general]" html.valueishtml="0" protect="0~tif(isrownew(),0,1)"  name=name visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.imemode=0  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="0" background.color="1073741824~tif(isrownew(),16777215,536870912)" )
+column(band=detail id=2 alignment="0" tabsequence=20 border="5" color="33554432" x="690" y="84" height="60" width="517" format="[general]" html.valueishtml="0"  name=description visible="1" edit.limit=32 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes edit.imemode=0  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1073741824" )
+text(band=detail alignment="1" text="Name:" border="0" color="33554432" x="23" y="4" height="52" width="622" html.valueishtml="0"  name=t_1 visible="1"  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="77956459" )
+text(band=detail alignment="1" text="Description:" border="0" color="33554432" x="23" y="80" height="52" width="622" html.valueishtml="0"  name=description_t visible="1"  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="77956459" )
+htmltable(border="0" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" netscapelayers="0" )
