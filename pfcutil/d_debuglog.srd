@@ -1,0 +1,15 @@
+HA$PBExportHeader$d_debuglog.srd
+$PBExportComments$PFC DebugLog DataWindow/Datastore object
+release 5;
+datawindow(units=0 timer_interval=0 color=16777215 processing=0 print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no )
+header(height=93 color="536870912" )
+summary(height=1 color="536870912" )
+footer(height=1 color="536870912" )
+detail(height=68 color="536870912"  height.autosize=yes)
+table(column=(type=datetime name=when dbname="When" initial="today" )
+ column=(type=char(2000) name=msg dbname="MSG" )
+ )
+column(band=detail id=1 alignment="2" tabsequence=32766 border="0" color="0" x="18" y="4" height="58" width="399" format="m/d/yy h:mm:ss"  name=when edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=2 alignment="0" tabsequence=32766 border="0" color="0" x="434" y="4" height="58" width="3051" format="[general]"  name=msg height.autosize=yes edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="2" text="Date/Time"border="4" color="0" x="18" y="25" height="52" width="399"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="2" text="Message                                                                                       "border="4" color="0" x="434" y="25" height="52" width="3051"  name=msg_t  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
