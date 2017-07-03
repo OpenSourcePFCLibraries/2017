@@ -1,0 +1,22 @@
+HA$PBExportHeader$d_prodlist.srd
+$PBExportComments$PFC Tutorial: Product list DataWindow
+release 5;
+datawindow(units=0 timer_interval=0 color=12632256 processing=0 print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no )
+header(height=141 color="536870912" )
+summary(height=1 color="536870912" )
+footer(height=1 color="536870912" )
+detail(height=89 color="536870912" )
+table(column=(type=number update=yes key=yes name=id dbname="product.id" )
+ column=(type=char(15) update=yes name=name dbname="product.name" )
+ column=(type=char(30) update=yes name=description dbname="product.description" )
+ column=(type=decimal(2) update=yes name=unit_price dbname="product.unit_price" )
+ retrieve="PBSELECT( VERSION(400) TABLE(NAME=~"product~" ) COLUMN(NAME=~"product.id~") COLUMN(NAME=~"product.name~") COLUMN(NAME=~"product.description~") COLUMN(NAME=~"product.unit_price~")) " update="product" updatewhere=1 updatekeyinplace=no )
+text(band=header alignment="2" text="Product Name"border="0" color="0" x="453" y="4" height="65" width="412"  name=name_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Product Description"border="0" color="0" x="869" y="4" height="65" width="755"  name=description_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Unit Price"border="0" color="0" x="1811" y="8" height="65" width="343"  name=unit_price_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Product
+ID"border="0" color="0" x="179" y="0" height="129" width="206"  name=id_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=2 alignment="0" tabsequence=20 border="0" color="0" x="453" y="4" height="61" width="412" format="[general]"  name=name  tag="Name of the product" edit.limit=15 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=1 alignment="1" tabsequence=10 border="0" color="0" x="179" y="4" height="61" width="206" format="[general]"  name=id  tag="Unique Identification Code of the product" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=3 alignment="0" tabsequence=30 border="0" color="0" x="988" y="4" height="61" width="755" format="[general]"  name=description  tag="Describes what the product is" edit.limit=30 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=4 alignment="1" tabsequence=40 border="0" color="0" x="1747" y="4" height="61" width="343" format="$#,##0.00;[RED]($#,##0.00)"  name=unit_price  tag="Unit price per product" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
