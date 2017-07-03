@@ -1,0 +1,12 @@
+HA$PBExportHeader$d_dddw_project.srd
+$PBExportComments$The DDDW for all projects
+release 5;
+datawindow(units=0 timer_interval=0 color=16777215 processing=0 print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no )
+header(height=1 color="536870912" )
+summary(height=1 color="536870912" )
+footer(height=1 color="536870912" )
+detail(height=65 color="553648127" )
+table(column=(type=long update=yes updatewhereclause=yes key=yes identity=yes name=project_id dbname="project.project_id" initial="AUTOINCREMENT" )
+ column=(type=char(50) update=yes updatewhereclause=yes name=name dbname="project.name" )
+ retrieve="PBSELECT( VERSION(400) TABLE(NAME=~"project~" ) COLUMN(NAME=~"project.project_id~") COLUMN(NAME=~"project.name~")) ORDER(NAME=~"project.name~" ASC=yes ) " update="project" updatewhere=1 updatekeyinplace=no )
+column(band=detail id=2 alignment="0" tabsequence=32766 border="0" color="33554432" x="1" y="4" height="65" width="1276" format="[general]"  name=name edit.limit=50 edit.case=any edit.autoselect=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1090519039" )
