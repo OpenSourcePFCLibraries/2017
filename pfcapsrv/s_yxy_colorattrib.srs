@@ -1,0 +1,8 @@
+HA$PBExportHeader$s_yxy_colorattrib.srs
+$PBExportComments$Color Conversion Service YXY color attrib
+global type s_yxy_colorattrib from structure
+	decimal		y
+	decimal		x
+	decimal		y_
+end type
+
