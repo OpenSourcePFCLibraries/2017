@@ -1,0 +1,21 @@
+HA$PBExportHeader$d_pfcsecurity_controllistdel.srd
+$PBExportComments$Used for deleting all controls for an application, window.
+release 6;
+datawindow(units=0 timer_interval=0 color=1073741824 processing=0 print.documentname="" print.orientation = 0 print.margin.left = 0 print.margin.right = 0 print.margin.top = 0 print.margin.bottom = 0 print.paper.source = 0 print.paper.size = 0 print.prompt=no print.buttons=no print.preview.buttons=no )
+header(height=76 color="536870912" )
+summary(height=4 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=84 color="536870912" )
+table(column=(type=char(64) update=yes updatewhereclause=yes key=yes name=window dbname="security_info.window" )
+ column=(type=char(64) update=yes updatewhereclause=yes key=yes name=control dbname="security_info.control" )
+ column=(type=char(32) update=yes updatewhereclause=yes key=yes name=application dbname="security_info.application" )
+ column=(type=char(16) update=yes updatewhereclause=yes key=yes name=user_name dbname="security_info.user_name" )
+ retrieve="PBSELECT( VERSION(400) TABLE(NAME=~"security_info~" ) COLUMN(NAME=~"security_info.window~") COLUMN(NAME=~"security_info.control~") COLUMN(NAME=~"security_info.application~") COLUMN(NAME=~"security_info.user_name~")WHERE(    EXP1 =~"( security_info.window~"   OP =~"=~"    EXP2 =~":winname )~"    LOGIC =~"and~" ) WHERE(    EXP1 =~"( security_info.application~"   OP =~"=~"    EXP2 =~":app )~" ) ) ORDER(NAME=~"security_info.control~" ASC=yes ) ARG(NAME = ~"app~" TYPE = string)  ARG(NAME = ~"winname~" TYPE = string) " update="security_info" updatewhere=0 updatekeyinplace=no arguments=(("app", string),("winname", string))  sort="control A " )
+text(band=header alignment="0" text="Object"border="0" color="0" x="5" y="0" height="60" width="187"  name=window_t  font.face="Arial" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="Control"border="0" color="0" x="759" y="4" height="60" width="187"  name=control_t  font.face="Arial" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="Status"border="0" color="0" x="1559" y="8" height="60" width="169"  name=status_t  font.face="Arial" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=1 alignment="0" tabsequence=32766 border="0" color="0" x="5" y="4" height="72" width="709" format="[general]"  name=window edit.limit=30 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=2 alignment="0" tabsequence=32766 border="0" color="0" x="759" y="4" height="72" width="709" format="[general]"  name=control edit.limit=30 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=3 alignment="0" tabsequence=32766 border="0" color="0" x="1728" y="0" height="60" width="736" format="[general]"  name=application edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=4 alignment="0" tabsequence=32766 border="0" color="0" x="2464" y="0" height="60" width="370" format="[General]"  name=user_name edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+htmltable(border="1" cellpadding="0" cellspacing="0" generatecss="no" nowrap="yes")
