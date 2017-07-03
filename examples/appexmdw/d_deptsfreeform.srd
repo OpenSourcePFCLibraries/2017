@@ -1,0 +1,18 @@
+HA$PBExportHeader$d_deptsfreeform.srd
+$PBExportComments$Freeform Department List. ( w_dw3types )
+release 5;
+datawindow(units=0 timer_interval=0 color=79741120 processing=0 print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no )
+header(height=1 color="536870912" )
+summary(height=1 color="536870912" )
+footer(height=1 color="536870912" )
+detail(height=481 color="536870912" )
+table(column=(type=number update=yes updatewhereclause=yes key=yes name=dept_id dbname="department.dept_id" validation="mod(  real(gettext()) , 100 ) = 0" validationmsg="'The department number must be a multiple of 100.'" )
+ column=(type=char(40) update=yes updatewhereclause=yes name=dept_name dbname="department.dept_name" )
+ column=(type=number update=yes updatewhereclause=yes name=dept_head_id dbname="department.dept_head_id" )
+ retrieve="PBSELECT( VERSION(400) TABLE(NAME=~"department~" ) COLUMN(NAME=~"department.dept_id~") COLUMN(NAME=~"department.dept_name~") COLUMN(NAME=~"department.dept_head_id~")) " update="department" updatewhere=1 updatekeyinplace=no  sort="dept_id A " )
+column(band=detail id=2 alignment="0" tabsequence=10 border="5" color="41943040" x="37" y="244" height="61" width="865" format="[general]"  name=dept_name  tag="Name of the department" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1080593568" )
+text(band=detail alignment="0" text="Department ID"border="0" color="33554432" x="37" y="8" height="57" width="321"  name=dept_id_t  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+text(band=detail alignment="0" text="Department Name"border="0" color="33554432" x="37" y="168" height="57" width="398"  name=dept_name_t  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+text(band=detail alignment="0" text="Dept. Head ID"border="0" color="33554432" x="37" y="332" height="53" width="316"  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="79741120" )
+column(band=detail id=3 alignment="2" tabsequence=20 border="5" color="41943040" x="37" y="404" height="61" width="339" format="[general]"  name=dept_head_id dddw.name=d_dddwemployeeid dddw.displaycolumn=emp_id dddw.datacolumn=emp_id dddw.percentwidth=300 dddw.lines=0 dddw.limit=0 dddw.allowedit=no dddw.useasborder=yes dddw.case=any  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1080593568" )
+column(band=detail id=1 alignment="2" tabsequence=32766 border="5" color="41943040" x="37" y="84" height="61" width="339" format="[general]"  name=dept_id  tag="Unique Identification Code of the department" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="79219928" )
