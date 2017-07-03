@@ -1,0 +1,20 @@
+HA$PBExportHeader$d_dwproperty_srvcal.srd
+$PBExportComments$PFC DataWindow Property - calendar
+release 8;
+datawindow(units=0 timer_interval=0 color=80263328 processing=0 HTMLDW=no print.documentname="" print.orientation = 0 print.margin.left = 107 print.margin.right = 107 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no print.buttons=no print.preview.buttons=no )
+header(height=56 color="536870912" )
+summary(height=4 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=72 color="536870912" )
+table(column=(type=char(1) updatewhereclause=no name=register dbname="register" initial="N" values="	Y/	N" )
+ column=(type=char(40) updatewhereclause=no name=columnname dbname="columnname" )
+ column=(type=number updatewhereclause=no name=style dbname="style" values="NONE	1/DDLB	2/DDLB  WArrow	3/" )
+ )
+text(band=header alignment="2" text="Column" border="0" color="33554432" x="9" y="0" height="52" width="823" html.valueishtml="0"  name=columnname_t visible="1"  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Register" border="0" color="33554432" x="681" y="0" height="52" width="425" html.valueishtml="0"  name=t_1 visible="1"  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="80263328" )
+text(band=header alignment="2" text="Style" border="0" color="33554432" x="1074" y="0" height="52" width="608" html.valueishtml="0"  name=style_t visible="1"  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=2 alignment="0" tabsequence=20 border="0" color="33554432" x="9" y="4" height="60" width="795" format="[general]" html.valueishtml="0"  name=columnname visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes edit.imemode=0 edit.displayonly=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="80263328" )
+column(band=detail id=1 alignment="0" tabsequence=10 border="0" color="33554432" x="859" y="4" height="60" width="64" format="[general]" html.valueishtml="0"  name=register visible="1" checkbox.text="" checkbox.on="Y" checkbox.off="N" checkbox.scale=no checkbox.threed=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="67108864" )
+column(band=detail id=3 alignment="0" tabsequence=30 border="5" color="33554432" x="1074" y="4" height="56" width="608" format="[general]" html.valueishtml="0"  name=style visible="1" ddlb.limit=0 ddlb.allowedit=no ddlb.case=any ddlb.useasborder=yes ddlb.imemode=0  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1090519039" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" netscapelayers="0" )
