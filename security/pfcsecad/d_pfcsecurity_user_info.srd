@@ -1,0 +1,19 @@
+HA$PBExportHeader$d_pfcsecurity_user_info.srd
+$PBExportComments$Display user/group info
+release 5;
+datawindow(units=0 timer_interval=0 color=77956459 processing=0 print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no )
+header(height=1 color="536870912" )
+summary(height=1 color="536870912" )
+footer(height=1 color="536870912" )
+detail(height=225 color="536870912" )
+table(column=(type=long update=yes name=user_type dbname="security_users.user_type" initial="0" values="User	0/Group	1/" )
+ column=(type=char(32) update=yes name=description dbname="security_users.description" )
+ column=(type=long update=yes name=priority dbname="security_users.priority" )
+ column=(type=char(16) update=yes key=yes name=name dbname="security_users.name" )
+ retrieve="PBSELECT( VERSION(400) TABLE(NAME=~"security_users~" ) COLUMN(NAME=~"security_users.user_type~") COLUMN(NAME=~"security_users.description~") COLUMN(NAME=~"security_users.priority~") COLUMN(NAME=~"security_users.name~")WHERE(    EXP1 =~"~~~"security_users~~~".~~~"name~~~"~"   OP =~"=~"    EXP2 =~":name~" ) ) ARG(NAME = ~"name~" TYPE = string) " update="security_users" updatewhere=1 updatekeyinplace=no arguments=(("name", string))  sort="user_type D description A " )
+column(band=detail id=4 alignment="0" tabsequence=10 border="5" color="33554432" x="311" y="4" height="57" width="517" format="[general]"  name=name edit.limit=0 edit.case=any edit.autoselect=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="77956459" )
+text(band=detail alignment="1" text="Name : "border="0" color="33554432" x="133" y="4" height="57" width="165"  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="77956459" )
+column(band=detail id=2 alignment="0" tabsequence=20 border="5" color="33554432" x="311" y="76" height="61" width="517" format="[general]"  name=description edit.limit=32 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="77956459" )
+text(band=detail alignment="1" text="Description : "border="0" color="33554432" x="19" y="80" height="53" width="279"  name=description_t  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="77956459" )
+column(band=detail id=3 alignment="1" tabsequence=30 border="5" color="0" x="311" y="152" height="61" width="206" format="[general]"  name=priority edit.limit=0 edit.case=any edit.autoselect=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="77956459" )
+text(band=detail alignment="1" text="Priority : "border="0" color="0" x="119" y="156" height="53" width="179"  name=priority_t  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="77956459" )
