@@ -1,0 +1,90 @@
+HA$PBExportHeader$m_tvs.srm
+$PBExportComments$Extension TreeView menu class
+forward
+global type m_tvs from pfc_m_tvs
+end type
+end forward
+
+global type m_tvs from pfc_m_tvs
+end type
+global m_tvs m_tvs
+
+on m_tvs.create
+m_tvs=this
+call super::create
+end on
+
+on m_tvs.destroy
+call super::destroy
+end on
+
+on m_viewitem.create
+call super::create
+this.MergeOption=Exclude!
+end on
+
+on m_open.create
+call super::create
+this.MergeOption=Exclude!
+end on
+
+on m_find.create
+call super::create
+this.MergeOption=Exclude!
+end on
+
+on m_dash14.create
+call super::create
+this.MergeOption=Exclude!
+end on
+
+on m_cut.create
+call super::create
+this.MergeOption=Exclude!
+end on
+
+on m_copy.create
+call super::create
+this.MergeOption=Exclude!
+end on
+
+on m_paste.create
+call super::create
+this.MergeOption=Exclude!
+end on
+
+on m_clear.create
+call super::create
+this.MergeOption=Exclude!
+end on
+
+on m_dash15.create
+call super::create
+this.MergeOption=Exclude!
+end on
+
+on m_new.create
+call super::create
+this.MergeOption=Exclude!
+end on
+
+on m_delete.create
+call super::create
+this.MergeOption=Exclude!
+end on
+
+on m_rename.create
+call super::create
+this.MergeOption=Exclude!
+end on
+
+on m_dash16.create
+call super::create
+this.MergeOption=Exclude!
+end on
+
+on m_properties.create
+call super::create
+this.MergeOption=Exclude!
+end on
+
