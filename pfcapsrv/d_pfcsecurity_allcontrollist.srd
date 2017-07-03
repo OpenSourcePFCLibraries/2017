@@ -1,0 +1,22 @@
+HA$PBExportHeader$d_pfcsecurity_allcontrollist.srd
+$PBExportComments$PFC Security - settings for a user
+release 8;
+datawindow(units=0 timer_interval=0 color=1073741824 processing=0 HTMLDW=no print.documentname="" print.orientation = 0 print.margin.left = 0 print.margin.right = 0 print.margin.top = 0 print.margin.bottom = 0 print.paper.source = 0 print.paper.size = 0 print.prompt=no print.buttons=no print.preview.buttons=no )
+header(height=80 color="536870912" )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=68 color="536870912" )
+table(column=(type=char(64) updatewhereclause=yes name=window dbname="security_info.window" )
+ column=(type=char(64) updatewhereclause=yes name=control dbname="security_info.control" )
+ column=(type=char(1) updatewhereclause=yes name=status dbname="security_info.status" )
+ column=(type=long updatewhereclause=yes name=priority dbname="security_users.priority" )
+ retrieve="PBSELECT( VERSION(400) TABLE(NAME=~"security_info~" )  TABLE(NAME=~"security_users~" ) COLUMN(NAME=~"security_info.window~") COLUMN(NAME=~"security_info.control~") COLUMN(NAME=~"security_info.status~") COLUMN(NAME=~"security_users.priority~")    JOIN (LEFT=~"security_users.name~"    OP =~"=~"RIGHT=~"security_info.user_name~" )WHERE(    EXP1 =~"( security_info.user_name~"   OP =~"=~"    EXP2 =~":username )~"    LOGIC =~"and~" ) WHERE(    EXP1 =~"( security_info.application~"   OP =~"=~"    EXP2 =~":appname )~" ) ) ORDER(NAME=~"security_info.control~" ASC=yes )  ORDER(NAME=~"security_users.priority~" ASC=yes ) ARG(NAME = ~"appname~" TYPE = string)  ARG(NAME = ~"username~" TYPE = string) " arguments=(("appname", string),("username", string))  sort="control A priority A " )
+column(band=detail id=1 alignment="0" tabsequence=32766 border="0" color="0" x="14" y="4" height="72" width="709" format="[general]" html.valueishtml="0"  name=window visible="1" edit.limit=30 edit.case=any edit.autoselect=yes edit.autohscroll=yes edit.imemode=0  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=4 alignment="0" tabsequence=32766 border="0" color="0" x="1669" y="4" height="72" width="901" format="[General]" html.valueishtml="0"  name=priority visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.imemode=0  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=2 alignment="0" tabsequence=32766 border="0" color="0" x="741" y="4" height="72" width="709" format="[general]" html.valueishtml="0"  name=control visible="1" edit.limit=30 edit.case=any edit.autoselect=yes edit.autohscroll=yes edit.imemode=0  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=3 alignment="0" tabsequence=32766 border="0" color="0" x="1467" y="4" height="72" width="183" format="[general]" html.valueishtml="0"  name=status visible="1" edit.limit=1 edit.case=any edit.autoselect=yes edit.autohscroll=yes edit.imemode=0  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="Window" border="0" color="0" x="18" y="20" height="60" width="709" html.valueishtml="0"  name=window_t visible="1"  font.face="MS Sans Serif" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="Control" border="0" color="0" x="741" y="20" height="60" width="709" html.valueishtml="0"  name=control_t visible="1"  font.face="MS Sans Serif" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="Status" border="0" color="0" x="1467" y="16" height="64" width="768" html.valueishtml="0"  name=status_t visible="1"  font.face="MS Sans Serif" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" netscapelayers="0" )
