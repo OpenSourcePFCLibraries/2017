@@ -1,0 +1,8 @@
+HA$PBExportHeader$s_cieluv_colorattrib.srs
+$PBExportComments$Color Conversion Service CIE-L-UV color attrib
+global type s_cieluv_colorattrib from structure
+	decimal		l
+	decimal		u
+	decimal		v
+end type
+
