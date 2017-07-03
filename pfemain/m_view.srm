@@ -1,0 +1,120 @@
+HA$PBExportHeader$m_view.srm
+$PBExportComments$Extension View Menu class
+forward
+global type m_view from pfc_m_view
+end type
+end forward
+
+global type m_view from pfc_m_view
+end type
+global m_view m_view
+
+on m_view.create
+m_view=this
+call pfc_m_view::create
+end on
+
+on m_view.destroy
+call pfc_m_view::destroy
+end on
+
+on m_viewitem.create
+call pfc_m_view`m_viewitem::create
+this.MergeOption=Exclude!
+end on
+
+on m_viewdisplay.create
+call pfc_m_view`m_viewdisplay::create
+this.MergeOption=Exclude!
+end on
+
+on m_largeicon.create
+call pfc_m_view`m_largeicon::create
+this.MergeOption=Exclude!
+end on
+
+on m_smallicon.create
+call pfc_m_view`m_smallicon::create
+this.MergeOption=Exclude!
+end on
+
+on m_list.create
+call pfc_m_view`m_list::create
+this.MergeOption=Exclude!
+end on
+
+on m_details.create
+call pfc_m_view`m_details::create
+this.MergeOption=Exclude!
+end on
+
+on m_dash11.create
+call pfc_m_view`m_dash11::create
+this.MergeOption=Exclude!
+end on
+
+on m_arrangeicons.create
+call pfc_m_view`m_arrangeicons::create
+this.MergeOption=Exclude!
+end on
+
+on m_1.create
+call pfc_m_view`m_1::create
+this.MergeOption=Exclude!
+end on
+
+on m_2.create
+call pfc_m_view`m_2::create
+this.MergeOption=Exclude!
+end on
+
+on m_3.create
+call pfc_m_view`m_3::create
+this.MergeOption=Exclude!
+end on
+
+on m_4.create
+call pfc_m_view`m_4::create
+this.MergeOption=Exclude!
+end on
+
+on m_5.create
+call pfc_m_view`m_5::create
+this.MergeOption=Exclude!
+end on
+
+on m_6.create
+call pfc_m_view`m_6::create
+this.MergeOption=Exclude!
+end on
+
+on m_7.create
+call pfc_m_view`m_7::create
+this.MergeOption=Exclude!
+end on
+
+on m_8.create
+call pfc_m_view`m_8::create
+this.MergeOption=Exclude!
+end on
+
+on m_9.create
+call pfc_m_view`m_9::create
+this.MergeOption=Exclude!
+end on
+
+on m_10.create
+call pfc_m_view`m_10::create
+this.MergeOption=Exclude!
+end on
+
+on m_dash12.create
+call pfc_m_view`m_dash12::create
+this.MergeOption=Exclude!
+end on
+
+on m_autoarrange.create
+call pfc_m_view`m_autoarrange::create
+this.MergeOption=Exclude!
+end on
+
