@@ -1,0 +1,21 @@
+HA$PBExportHeader$d_pfcsecurity_allcontrollist.srd
+$PBExportComments$PFC Security - settings for a user
+release 6;
+datawindow(units=0 timer_interval=0 color=1073741824 processing=0 print.documentname="" print.orientation = 0 print.margin.left = 0 print.margin.right = 0 print.margin.top = 0 print.margin.bottom = 0 print.paper.source = 0 print.paper.size = 0 print.prompt=no print.buttons=no print.preview.buttons=no )
+header(height=72 color="536870912" )
+summary(height=4 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=88 color="536870912" )
+table(column=(type=char(64) updatewhereclause=yes name=window dbname="security_info.window" )
+ column=(type=char(64) updatewhereclause=yes name=control dbname="security_info.control" )
+ column=(type=char(1) updatewhereclause=yes name=status dbname="security_info.status" )
+ column=(type=long updatewhereclause=yes name=priority dbname="security_users.priority" )
+ retrieve="PBSELECT( VERSION(400) TABLE(NAME=~"security_info~" )  TABLE(NAME=~"security_users~" ) COLUMN(NAME=~"security_info.window~") COLUMN(NAME=~"security_info.control~") COLUMN(NAME=~"security_info.status~") COLUMN(NAME=~"security_users.priority~")    JOIN (LEFT=~"security_users.name~"    OP =~"=~"RIGHT=~"security_info.user_name~" )WHERE(    EXP1 =~"( security_info.user_name~"   OP =~"=~"    EXP2 =~":username )~"    LOGIC =~"and~" ) WHERE(    EXP1 =~"( security_info.application~"   OP =~"=~"    EXP2 =~":appname )~" ) ) ORDER(NAME=~"security_info.control~" ASC=yes )  ORDER(NAME=~"security_users.priority~" ASC=yes ) ARG(NAME = ~"appname~" TYPE = string)  ARG(NAME = ~"username~" TYPE = string) " arguments=(("appname", string),("username", string))  sort="control A priority A " )
+text(band=header alignment="0" text="Window"border="0" color="0" x="0" y="0" height="60" width="210"  name=window_t  font.face="Arial" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="Control"border="0" color="0" x="754" y="4" height="60" width="192"  name=control_t  font.face="Arial" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="Status"border="0" color="0" x="1554" y="4" height="64" width="174"  name=status_t  font.face="Arial" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=1 alignment="0" tabsequence=32766 border="0" color="0" x="0" y="8" height="72" width="709" format="[general]"  name=window edit.limit=30 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=2 alignment="0" tabsequence=32766 border="0" color="0" x="754" y="8" height="72" width="709" format="[general]"  name=control edit.limit=30 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=3 alignment="0" tabsequence=32766 border="0" color="0" x="1554" y="12" height="72" width="183" format="[general]"  name=status edit.limit=1 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=4 alignment="0" tabsequence=32766 border="0" color="0" x="1838" y="12" height="60" width="901" format="[General]"  name=priority edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+htmltable(border="1" cellpadding="0" cellspacing="0" generatecss="no" nowrap="yes")
