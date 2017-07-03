@@ -1,0 +1,21 @@
+HA$PBExportHeader$d_project_derived_item.srd
+$PBExportComments$The derived item datawindows used on the wizard
+release 5;
+datawindow(units=0 timer_interval=0 color=79741120 processing=0 print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no )
+header(height=77 color="536870912" )
+summary(height=1 color="536870912" )
+footer(height=1 color="536870912" )
+detail(height=101 color="536870912" )
+table(column=(type=long update=yes updatewhereclause=yes key=yes identity=yes name=derived_item_id dbname="project_derived_item.derived_item_id" )
+ column=(type=long update=yes updatewhereclause=yes name=project_id dbname="project_derived_item.project_id" )
+ column=(type=char(50) update=yes updatewhereclause=yes name=name dbname="project_derived_item.name" )
+ column=(type=decimal(2) update=yes updatewhereclause=yes name=percentage dbname="project_derived_item.percentage" )
+ column=(type=decimal(2) update=yes updatewhereclause=yes name=rate dbname="project_derived_item.rate" )
+ retrieve="PBSELECT( VERSION(400) TABLE(NAME=~"project_derived_item~" ) COLUMN(NAME=~"project_derived_item.derived_item_id~") COLUMN(NAME=~"project_derived_item.project_id~") COLUMN(NAME=~"project_derived_item.name~") COLUMN(NAME=~"project_derived_item.percentage~") COLUMN(NAME=~"project_derived_item.rate~")WHERE(    EXP1 =~"~~~"project_derived_item~~~".~~~"project_id~~~"~"   OP =~"=~"    EXP2 =~":project_id~" ) ) ORDER(NAME=~"project_derived_item.name~" ASC=yes ) ARG(NAME = ~"project_id~" TYPE = number) " update="project_derived_item" updatewhere=1 updatekeyinplace=no arguments=(("project_id", number)) )
+text(band=header alignment="2" text="Derived Item Name"border="6" color="0" x="10" y="8" height="53" width="1203"  name=name_t  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Percent"border="6" color="0" x="1230" y="8" height="53" width="202"  name=percentage_t  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Rate"border="6" color="0" x="1450" y="8" height="53" width="302"  name=rate_t  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=3 alignment="0" tabsequence=20 border="5" color="0" x="151" y="16" height="65" width="1034" format="[general]"  name=name edit.limit=50 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.nilisnull=yes edit.autohscroll=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1090519039" )
+text(band=detail alignment="1" text="%"border="0" color="0" x="1367" y="24" height="53" width="37"  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="79741120" )
+column(band=detail id=4 alignment="1" tabsequence=30 border="5" color="0" x="1230" y="16" height="65" width="119" format="[General]"  name=percentage editmask.mask="###" editmask.focusrectangle=no  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1090519039" )
+column(band=detail id=5 alignment="1" tabsequence=40 border="5" color="0" x="1436" y="16" height="65" width="238" format="[General]"  name=rate editmask.mask="$###,###.00" editmask.focusrectangle=no  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1090519039" )
