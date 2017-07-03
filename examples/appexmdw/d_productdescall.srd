@@ -1,0 +1,28 @@
+HA$PBExportHeader$d_productdescall.srd
+$PBExportComments$Product Description . (w_linkagefilter )
+release 5;
+datawindow(units=0 timer_interval=0 color=82889382 processing=0 print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no print.buttons=no print.preview.buttons=no )
+header(height=136 color="536870912" )
+summary(height=4 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=164 color="536870912" )
+table(column=(type=long updatewhereclause=yes key=yes name=prod_id dbname="product.id" )
+ column=(type=char(15) update=yes updatewhereclause=yes name=name dbname="product.name" )
+ column=(type=char(30) update=yes updatewhereclause=yes name=description dbname="product.description" )
+ column=(type=decimal(2) update=yes updatewhereclause=yes name=unit_price dbname="product.unit_price" )
+ column=(type=char(12) update=yes updatewhereclause=yes name=picture_name dbname="product.picture_name" )
+ retrieve="PBSELECT( VERSION(400) TABLE(NAME=~"product~" ) COLUMN(NAME=~"product.id~") COLUMN(NAME=~"product.name~") COLUMN(NAME=~"product.description~") COLUMN(NAME=~"product.unit_price~") COLUMN(NAME=~"product.picture_name~")) " update="product" updatewhere=0 updatekeyinplace=no )
+text(band=header alignment="2" text="Product ID"border="6" color="33554687" x="96" y="12" height="108" width="233"  name=product_id_t  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="77633680" )
+text(band=header alignment="2" text="Product
+ Name"border="6" color="33554687" x="631" y="12" height="108" width="443"  name=name_t  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="67108864" )
+text(band=header alignment="2" text="Product
+ Description"border="6" color="33554687" x="1093" y="12" height="108" width="489"  name=description_t  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="67108864" )
+text(band=header alignment="2" text="Unit
+ Price"border="6" color="33554687" x="1600" y="12" height="108" width="233"  name=unit_price_t  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="67108864" )
+text(band=header alignment="2" text="Picture"border="6" color="33554687" x="347" y="12" height="108" width="265"  name=picture_name_t  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="67108864" )
+column(band=detail id=1 alignment="0" tabsequence=32766 border="5" color="0" x="96" y="12" height="140" width="233" format="[general]"  name=prod_id height.autosize=yes edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="77571519" )
+column(band=detail id=2 alignment="2" tabsequence=32766 border="5" color="33554432" x="631" y="12" height="140" width="443" format="[general]"  name=name  tag="Name of the product" height.autosize=yes edit.limit=15 edit.case=any edit.autoselect=yes edit.required=yes edit.autohscroll=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="77571519" )
+column(band=detail id=3 alignment="0" tabsequence=32766 border="5" color="33554432" x="1093" y="12" height="140" width="489" format="[general]"  name=description  tag="Describes what the product is" height.autosize=yes edit.limit=30 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="77571519" )
+column(band=detail id=4 alignment="2" tabsequence=32766 border="5" color="33554432" x="1600" y="12" height="140" width="233" format="$#,##0.00;[RED]($#,##0.00)"  name=unit_price  tag="Unit price per product" height.autosize=yes edit.limit=0 edit.case=any edit.autoselect=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="77571519" )
+column(band=detail id=5 alignment="2" tabsequence=32766 border="5" color="33554432" x="347" y="12" height="140" width="265" format="[general]"  name=picture_name  tag=".bmp filename that shows what the product looks like" height.autosize=yes bitmapname=yes edit.limit=12 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="77633680" )
+htmltable(border="1" cellpadding="0" cellspacing="0" generatecss="no" nowrap="yes")
