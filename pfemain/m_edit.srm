@@ -1,0 +1,45 @@
+HA$PBExportHeader$m_edit.srm
+$PBExportComments$Extension Edit menu class
+forward
+global type m_edit from pfc_m_edit
+end type
+end forward
+
+global type m_edit from pfc_m_edit
+end type
+global m_edit m_edit
+
+on m_edit.create
+m_edit=this
+call pfc_m_edit::create
+end on
+
+on m_edit.destroy
+call pfc_m_edit::destroy
+end on
+
+on m_edititem.create
+call pfc_m_edit`m_edititem::create
+this.MergeOption=Exclude!
+end on
+
+on m_cut.create
+call pfc_m_edit`m_cut::create
+this.MergeOption=Exclude!
+end on
+
+on m_copy.create
+call pfc_m_edit`m_copy::create
+this.MergeOption=Exclude!
+end on
+
+on m_paste.create
+call pfc_m_edit`m_paste::create
+this.MergeOption=Exclude!
+end on
+
+on m_selectall.create
+call pfc_m_edit`m_selectall::create
+this.MergeOption=Exclude!
+end on
+
