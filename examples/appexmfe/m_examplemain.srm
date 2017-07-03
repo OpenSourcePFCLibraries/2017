@@ -1,0 +1,1240 @@
+HA$PBExportHeader$m_examplemain.srm
+$PBExportComments$Menu for PFC Code Examples Application.  Inherited from m_master.
+forward
+global type m_examplemain from m_master
+end type
+type m_tree from menu within m_print
+end type
+type m_listview from menu within m_print
+end type
+type m_expandall from menu within m_view
+end type
+type m_showtoolbar from menu within m_view
+end type
+type m_- from menu within m_view
+end type
+type m_dash52 from menu within m_tools
+end type
+type m_debugservices from menu within m_tools
+end type
+type m_sqlspyservices from menu within m_tools
+end type
+type m_dash53 from menu within m_tools
+end type
+type m_debuglog from menu within m_tools
+end type
+type m_sqlspy from menu within m_tools
+end type
+type m_dash54 from menu within m_tools
+end type
+type m_utilitypreferences from menu within m_tools
+end type
+end forward
+
+global type m_examplemain from m_master
+end type
+global m_examplemain m_examplemain
+
+type variables
+Public:
+listview		ilv_parent
+treeview		itv_parent
+window		iw_parent
+end variables
+
+forward prototypes
+public subroutine of_setlistview (listview alv_requestor)
+public subroutine of_getlistviewstyle ()
+public subroutine of_settreeview (treeview atv_requestor)
+public subroutine of_setwindow (window aw_requestor)
+end prototypes
+
+public subroutine of_setlistview (listview alv_requestor);ilv_parent = alv_requestor
+end subroutine
+
+public subroutine of_getlistviewstyle ();this.m_view.m_largeicon.checked = false
+this.m_view.m_smallicons.checked = false
+this.m_view.m_list.checked = false
+this.m_view.m_details.checked = false
+
+choose case ilv_parent.view
+	case listviewlargeicon!
+		this.m_view.m_largeicon.checked = true
+	case listviewsmallicon!
+		this.m_view.m_smallicons.checked = true
+	case listviewlist!
+		this.m_view.m_list.checked = true
+	case listviewreport!
+		this.m_view.m_details.checked = true
+end choose
+
+
+end subroutine
+
+public subroutine of_settreeview (treeview atv_requestor);itv_parent = atv_requestor
+end subroutine
+
+public subroutine of_setwindow (window aw_requestor);iw_parent = aw_requestor
+end subroutine
+
+on m_examplemain.create
+m_examplemain=this
+call super::create
+end on
+
+on m_examplemain.destroy
+call super::destroy
+end on
+
+on m_new.create
+call super::create
+this.Visible=false
+this.ToolBarItemVisible=false
+end on
+
+on m_open.create
+call super::create
+this.Visible=false
+this.ToolBarItemVisible=false
+end on
+
+on m_close.create
+call super::create
+this.Visible=false
+end on
+
+on m_dash11.create
+call super::create
+this.Visible=false
+end on
+
+on m_save.create
+call super::create
+this.Visible=false
+this.ToolBarItemVisible=false
+end on
+
+on m_saveas.create
+call super::create
+this.Visible=false
+end on
+
+on m_dash12.create
+call super::create
+this.Visible=false
+end on
+
+type m_print from m_master`m_print within m_file
+m_tree m_tree
+m_listview m_listview
+end type
+
+on m_print.create
+call super::create
+this.Text="&Print..."
+this.Shortcut=0
+this.m_tree=create m_tree
+this.m_listview=create m_listview
+this.Item[UpperBound(this.item)+1]=this.m_tree
+this.Item[UpperBound(this.item)+1]=this.m_listview
+end on
+
+on m_print.destroy
+call super::destroy
+destroy(this.m_tree)
+destroy(this.m_listview)
+end on
+
+event m_print::clicked;// override ancestor
+end event
+
+on m_printpreview.create
+call super::create
+this.Visible=false
+this.ToolBarItemVisible=false
+end on
+
+on m_pagesetup.create
+call super::create
+this.ToolBarItemVisible=false
+end on
+
+on m_printimmediate.create
+call super::create
+this.ToolBarItemVisible=false
+end on
+
+on m_dash13.create
+call super::create
+this.Visible=true
+end on
+
+on m_properties.create
+call super::create
+this.Visible=true
+end on
+
+on m_exit.create
+call super::create
+this.ToolBarItemVisible=true
+end on
+
+on m_edit.create
+call super::create
+this.Visible=false
+end on
+
+on m_undo.create
+call super::create
+this.Visible=false
+this.ToolBarItemVisible=false
+end on
+
+on m_dash21.create
+call super::create
+this.Visible=false
+end on
+
+on m_cut.create
+call super::create
+this.Visible=false
+this.ToolBarItemVisible=false
+end on
+
+on m_copy.create
+call super::create
+this.Visible=false
+this.ToolBarItemVisible=false
+end on
+
+on m_paste.create
+call super::create
+this.Visible=false
+this.ToolBarItemVisible=false
+end on
+
+on m_pastespecial.create
+call super::create
+this.Visible=false
+this.ToolBarItemVisible=false
+end on
+
+on m_clear.create
+call super::create
+this.Visible=false
+end on
+
+on m_dash22.create
+call super::create
+this.Visible=false
+end on
+
+on m_selectall.create
+call super::create
+this.Visible=false
+end on
+
+on m_dash23.create
+call super::create
+this.Visible=false
+end on
+
+on m_find.create
+call super::create
+this.ToolBarItemVisible=false
+end on
+
+on m_replace.create
+call super::create
+this.ToolBarItemVisible=false
+end on
+
+on m_updatelinks.create
+call super::create
+this.Visible=false
+this.ToolBarItemVisible=false
+end on
+
+on m_edit1.create
+call super::create
+this.Visible=false
+this.ToolBarItemVisible=false
+end on
+
+on m_open1.create
+call super::create
+this.ToolBarItemName="Start!"
+this.ToolBarItemVisible=false
+this.ToolBarItemSpace=75
+end on
+
+type m_view from m_master`m_view within m_examplemain
+m_expandall m_expandall
+m_showtoolbar m_showtoolbar
+m_- m_-
+end type
+
+on m_view.create
+call super::create
+this.m_expandall=create m_expandall
+this.m_showtoolbar=create m_showtoolbar
+this.m_-=create m_-
+this.Item[UpperBound(this.item)+1]=this.m_expandall
+this.Item[UpperBound(this.item)+1]=this.m_showtoolbar
+this.Item[UpperBound(this.item)+1]=this.m_-
+end on
+
+on m_view.destroy
+call super::destroy
+destroy(this.m_expandall)
+destroy(this.m_showtoolbar)
+destroy(this.m_-)
+end on
+
+on m_ruler.create
+call super::create
+this.Visible=false
+this.ToolBarItemVisible=false
+end on
+
+on m_dash31.create
+call super::create
+this.Visible=false
+end on
+
+on m_largeicon.create
+call super::create
+this.Visible=true
+this.Enabled=true
+this.ToolBarItemVisible=true
+this.ToolBarItemSpace=0
+end on
+
+event m_largeicon::clicked;call super::clicked;//////////////////////////////////////////////////////////////////////////////
+//
+//	Event:
+//	m_largeicon
+//
+//	Arguments:
+//	None
+//
+//	Returns:
+//	None
+//
+//	Description:
+//	Changes the List View presentation style to Large Icons.
+//
+//////////////////////////////////////////////////////////////////////////////
+//	
+//	Revision History
+//
+//	Version
+//	6.0   Initial version
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+/*
+ * Open Source PowerBuilder Foundation Class Libraries
+ *
+ * Copyright (c) 2004-2017, All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted in accordance with the MIT License
+ * 
+ *
+ * https://opensource.org/licenses/MIT
+ *
+ * ====================================================================
+ *
+ * This software consists of voluntary contributions made by many
+ * individuals and was originally based on software copyright (c) 
+ * 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
+ * information on the Open Source PowerBuilder Foundation Class
+ * Libraries see https://github.com/OpenSourcePFCLibraries
+*/
+//
+//////////////////////////////////////////////////////////////////////////////
+
+ilv_parent.view = listviewlargeicon!
+of_getListViewStyle()
+end event
+
+on m_smallicons.create
+call super::create
+this.Visible=true
+this.Enabled=true
+this.ToolBarItemVisible=true
+end on
+
+event m_smallicons::clicked;call super::clicked;//////////////////////////////////////////////////////////////////////////////
+//
+//	Event:
+//	m_smallicons
+//
+//	Arguments:
+//	None
+//
+//	Returns:
+//	None
+//
+//	Description:
+//	Changes the List View presentation style to Small Icons.
+//
+//////////////////////////////////////////////////////////////////////////////
+//	
+//	Revision History
+//
+//	Version
+//	6.0   Initial version
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+/*
+ * Open Source PowerBuilder Foundation Class Libraries
+ *
+ * Copyright (c) 2004-2017, All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted in accordance with the MIT License
+ * 
+ *
+ * https://opensource.org/licenses/MIT
+ *
+ * ====================================================================
+ *
+ * This software consists of voluntary contributions made by many
+ * individuals and was originally based on software copyright (c) 
+ * 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
+ * information on the Open Source PowerBuilder Foundation Class
+ * Libraries see https://github.com/OpenSourcePFCLibraries
+*/
+//
+//////////////////////////////////////////////////////////////////////////////
+
+ilv_parent.view = listviewsmallicon!
+of_getListViewStyle()
+end event
+
+on m_list.create
+call super::create
+this.Visible=true
+this.Enabled=true
+this.Checked=true
+this.ToolBarItemVisible=true
+end on
+
+event m_list::clicked;call super::clicked;//////////////////////////////////////////////////////////////////////////////
+//
+//	Event:
+//	m_list
+//
+//	Arguments:
+//	None
+//
+//	Returns:
+//	None
+//
+//	Description:
+//	Changes the List View presentation style to List.
+//
+//////////////////////////////////////////////////////////////////////////////
+//	
+//	Revision History
+//
+//	Version
+//	6.0   Initial version
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+/*
+ * Open Source PowerBuilder Foundation Class Libraries
+ *
+ * Copyright (c) 2004-2017, All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted in accordance with the MIT License
+ * 
+ *
+ * https://opensource.org/licenses/MIT
+ *
+ * ====================================================================
+ *
+ * This software consists of voluntary contributions made by many
+ * individuals and was originally based on software copyright (c) 
+ * 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
+ * information on the Open Source PowerBuilder Foundation Class
+ * Libraries see https://github.com/OpenSourcePFCLibraries
+*/
+//
+//////////////////////////////////////////////////////////////////////////////
+
+ilv_parent.view = listviewlist!
+of_getListViewStyle()
+end event
+
+on m_details.create
+call super::create
+this.Visible=true
+this.Enabled=true
+this.ToolBarItemVisible=true
+end on
+
+event m_details::clicked;call super::clicked;//////////////////////////////////////////////////////////////////////////////
+//
+//	Event:
+//	m_details
+//
+//	Arguments:
+//	None
+//
+//	Returns:
+//	None
+//
+//	Description:
+//	Changes the List View presentation style to Report.
+//
+//////////////////////////////////////////////////////////////////////////////
+//	
+//	Revision History
+//
+//	Version
+//	6.0   Initial version
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+/*
+ * Open Source PowerBuilder Foundation Class Libraries
+ *
+ * Copyright (c) 2004-2017, All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted in accordance with the MIT License
+ * 
+ *
+ * https://opensource.org/licenses/MIT
+ *
+ * ====================================================================
+ *
+ * This software consists of voluntary contributions made by many
+ * individuals and was originally based on software copyright (c) 
+ * 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
+ * information on the Open Source PowerBuilder Foundation Class
+ * Libraries see https://github.com/OpenSourcePFCLibraries
+*/
+//
+//////////////////////////////////////////////////////////////////////////////
+
+ilv_parent.view = listviewreport!
+of_GetListViewStyle()
+end event
+
+on m_arrangeicons.create
+call super::create
+this.ToolBarItemVisible=false
+end on
+
+on m_first.create
+call super::create
+this.Visible=false
+end on
+
+on m_priorpage.create
+call super::create
+this.Visible=false
+end on
+
+on m_nextpage.create
+call super::create
+this.Visible=false
+end on
+
+on m_lastpage.create
+call super::create
+this.Visible=false
+end on
+
+on m_dash35.create
+call super::create
+this.Visible=false
+end on
+
+on m_sort.create
+call super::create
+this.Visible=false
+this.ToolBarItemVisible=false
+end on
+
+on m_filter.create
+call super::create
+this.Visible=false
+this.ToolBarItemVisible=false
+end on
+
+on m_dash36.create
+call super::create
+this.Visible=false
+end on
+
+on m_zoom.create
+call super::create
+this.Visible=false
+this.ToolBarItemVisible=false
+end on
+
+on m_insert.create
+call super::create
+this.Visible=false
+end on
+
+on m_insertfile.create
+call super::create
+this.Visible=false
+this.ToolBarItemVisible=false
+end on
+
+on m_picture.create
+call super::create
+this.Visible=false
+this.ToolBarItemVisible=false
+end on
+
+on m_dash41.create
+call super::create
+this.Visible=false
+end on
+
+on m_object.create
+call super::create
+this.Visible=false
+this.ToolBarItemVisible=false
+end on
+
+type m_tools from m_master`m_tools within m_examplemain
+m_dash52 m_dash52
+m_debugservices m_debugservices
+m_sqlspyservices m_sqlspyservices
+m_dash53 m_dash53
+m_debuglog m_debuglog
+m_sqlspy m_sqlspy
+m_dash54 m_dash54
+m_utilitypreferences m_utilitypreferences
+end type
+
+on m_tools.create
+call super::create
+this.Text="&Utilities"
+this.m_dash52=create m_dash52
+this.m_debugservices=create m_debugservices
+this.m_sqlspyservices=create m_sqlspyservices
+this.m_dash53=create m_dash53
+this.m_debuglog=create m_debuglog
+this.m_sqlspy=create m_sqlspy
+this.m_dash54=create m_dash54
+this.m_utilitypreferences=create m_utilitypreferences
+this.Item[UpperBound(this.item)+1]=this.m_dash52
+this.Item[UpperBound(this.item)+1]=this.m_debugservices
+this.Item[UpperBound(this.item)+1]=this.m_sqlspyservices
+this.Item[UpperBound(this.item)+1]=this.m_dash53
+this.Item[UpperBound(this.item)+1]=this.m_debuglog
+this.Item[UpperBound(this.item)+1]=this.m_sqlspy
+this.Item[UpperBound(this.item)+1]=this.m_dash54
+this.Item[UpperBound(this.item)+1]=this.m_utilitypreferences
+end on
+
+on m_tools.destroy
+call super::destroy
+destroy(this.m_dash52)
+destroy(this.m_debugservices)
+destroy(this.m_sqlspyservices)
+destroy(this.m_dash53)
+destroy(this.m_debuglog)
+destroy(this.m_sqlspy)
+destroy(this.m_dash54)
+destroy(this.m_utilitypreferences)
+end on
+
+event m_tools::clicked;call super::clicked;//string				ls_ostype
+//menu					lm_menu
+//n_cst_conversion	lnv_conversion
+//n_cst_menu			lnv_menu
+//u_dw 					ldw_obj
+//
+//
+////Debug Services
+//
+//// Get the menu reference for the DW Properties setting
+//// on the debug services utility.
+//lnv_menu.of_GetMenuReference(gnv_app.iw_mainwindow.menuid,&
+//	"m_dwproperties", lm_menu)
+//
+//// If the operating system supports the status bar then the 
+//// status bar will give access to the utilities' properties.
+//// Macintosh and Unix will use the main menu.
+//ls_ostype = lnv_conversion.of_String(gnv_app.ienv_object.ostype)
+////if ls_ostype = "windows" or ls_ostype = "windowsnt" then	
+////	lm_menu.visible = false
+////else
+//	lm_menu.visible = true
+//	// For Macintosh and Unix only.
+//	if IsNull(gnv_app.inv_debug) or not IsValid(gnv_app.inv_debug) then
+//		lm_menu.enabled = false
+//	else
+//		lm_menu.enabled = true
+//		//Get the state information for the DataWindow Properties Service.	
+//		ldw_obj = create u_dw
+//		if IsValid(ldw_obj) then
+//			if ldw_obj.of_IsProperty() then
+//				lm_menu.checked = true
+//			else
+//				lm_menu.checked = false
+//			end if
+//		end if
+//		destroy ldw_obj
+//	end if
+////end if
+//
+////SQL Spy Services
+//
+//// Get the menu reference for the Log File property setting
+//// on the sql spy service utility.
+//lnv_menu.of_GetMenuReference(gnv_app.iw_mainwindow.menuid,&
+//	"m_setlogfile", lm_menu)
+//
+//// If the operating system supports the status bar then the 
+//// status bar will give access to the utilities' properties.
+//// Macintosh and Unix will use the main menu.
+//ls_ostype = lnv_conversion.of_String(gnv_app.ienv_object.ostype)
+////if ls_ostype = "windows" or ls_ostype = "windowsnt" then	
+////	lm_menu.visible = false
+////else
+//	lm_menu.visible = true
+//	// For Macintosh and Unix only.
+//	if IsNull(gnv_app.inv_debug) or not IsValid(gnv_app.inv_debug) then
+//		lm_menu.enabled = false
+//	else
+//		lm_menu.enabled = true
+//	end if
+////end if
+end event
+
+on m_toolbars.create
+call super::create
+this.Visible=false
+this.Enabled=false
+end on
+
+on m_window.create
+call super::create
+this.Visible=false
+end on
+
+on m_cascade.create
+call super::create
+this.Visible=false
+end on
+
+on m_tilehorizontal.create
+call super::create
+this.Visible=false
+end on
+
+on m_tilevertical.create
+call super::create
+this.Visible=false
+end on
+
+on m_layer.create
+call super::create
+this.Visible=false
+end on
+
+on m_dash51.create
+call super::create
+this.Visible=false
+end on
+
+on m_minimizeall.create
+call super::create
+this.ToolBarItemVisible=false
+end on
+
+on m_undoarrange.create
+call super::create
+this.Microhelp="Undo Arrange"
+this.Visible=false
+end on
+
+on m_helptopics.create
+call super::create
+this.ToolBarItemVisible=true
+end on
+
+type m_tree from menu within m_print
+end type
+
+event clicked;of_sendmessage("ue_printtree")
+end event
+
+on m_tree.create
+this.Text="&Tree View"
+end on
+
+type m_listview from menu within m_print
+end type
+
+on m_listview.create
+this.Text="&List View"
+end on
+
+type m_expandall from menu within m_view
+end type
+
+event clicked;//////////////////////////////////////////////////////////////////////////////
+//
+//	Event:
+//	m_expandall
+//
+//	Arguments:
+//	None
+//
+//	Returns:
+//	None
+//
+//	Description:
+//	Expands all items in the tree view.
+//
+//////////////////////////////////////////////////////////////////////////////
+//	
+//	Revision History
+//
+//	Version
+//	6.0   Initial version
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+/*
+ * Open Source PowerBuilder Foundation Class Libraries
+ *
+ * Copyright (c) 2004-2017, All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted in accordance with the MIT License
+ * 
+ *
+ * https://opensource.org/licenses/MIT
+ *
+ * ====================================================================
+ *
+ * This software consists of voluntary contributions made by many
+ * individuals and was originally based on software copyright (c) 
+ * 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
+ * information on the Open Source PowerBuilder Foundation Class
+ * Libraries see https://github.com/OpenSourcePFCLibraries
+*/
+//
+//////////////////////////////////////////////////////////////////////////////
+long	ll_selecteditem
+
+ll_selecteditem = itv_parent.finditem(currenttreeitem!, 0)
+itv_parent.ExpandAll(ll_selecteditem)
+
+end event
+
+on m_expandall.create
+this.Text="&Expand All"
+this.Microhelp="Expand all items on the selected Tree View Branch."
+this.ToolBarItemText="Expand All"
+this.ToolBarItemVisible=false
+end on
+
+type m_showtoolbar from menu within m_view
+end type
+
+event clicked;//////////////////////////////////////////////////////////////////////////////
+//
+//	Event:
+//	m_showtoolbar
+//
+//	Arguments:
+//	None
+//
+//	Returns:
+//	None
+//
+//	Description:
+//	Shows or hides the toolbar.
+//
+//////////////////////////////////////////////////////////////////////////////
+//	
+//	Revision History
+//
+//	Version
+//	6.0   Initial version
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+/*
+ * Open Source PowerBuilder Foundation Class Libraries
+ *
+ * Copyright (c) 2004-2017, All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted in accordance with the MIT License
+ * 
+ *
+ * https://opensource.org/licenses/MIT
+ *
+ * ====================================================================
+ *
+ * This software consists of voluntary contributions made by many
+ * individuals and was originally based on software copyright (c) 
+ * 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
+ * information on the Open Source PowerBuilder Foundation Class
+ * Libraries see https://github.com/OpenSourcePFCLibraries
+*/
+//
+//////////////////////////////////////////////////////////////////////////////
+
+if this.checked = true then
+	iw_parent.SetToolbar(1, false)
+	this.checked = false
+else
+	iw_parent.SetToolbar(1, true)
+	this.checked = true
+end if
+	
+end event
+
+on m_showtoolbar.create
+this.Text="Show &Toolbar"
+this.Checked=true
+end on
+
+type m_- from menu within m_view
+end type
+
+on m_-.create
+this.Text="-"
+end on
+
+type m_dash52 from menu within m_tools
+end type
+
+on m_dash52.create
+this.Text="-"
+this.Visible=false
+end on
+
+type m_debugservices from menu within m_tools
+end type
+
+on m_debugservices.create
+this.Text="Stop &Debug Services"
+this.Microhelp="Start/Stop the Debug Service."
+this.ToolBarItemName="Start5!"
+this.ToolBarItemText="Debug Service On"
+this.ToolBarItemVisible=false
+this.ToolBarItemOrder=1
+end on
+
+on m_debugservices.destroy
+end on
+
+event clicked;//////////////////////////////////////////////////////////////////////////////
+//
+//	Event:
+//	m_debugservices
+//
+//	Arguments:
+//	None
+//
+//	Returns:
+//	None
+//
+//	Description:
+//	Calls the ue_debugger script on the main application window.
+// The ue_debugger script starts and stops the Debug service.
+//
+//////////////////////////////////////////////////////////////////////////////
+//	
+//	Revision History
+//
+//	Version
+//	6.0   Initial version
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+/*
+ * Open Source PowerBuilder Foundation Class Libraries
+ *
+ * Copyright (c) 2004-2017, All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted in accordance with the MIT License
+ * 
+ *
+ * https://opensource.org/licenses/MIT
+ *
+ * ====================================================================
+ *
+ * This software consists of voluntary contributions made by many
+ * individuals and was originally based on software copyright (c) 
+ * 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
+ * information on the Open Source PowerBuilder Foundation Class
+ * Libraries see https://github.com/OpenSourcePFCLibraries
+*/
+//
+//////////////////////////////////////////////////////////////////////////////
+
+integer	li_return
+menu		lm_menu
+n_cst_menu	lnv_menu
+
+if IsNull(gnv_app.inv_debug) or not IsValid(gnv_app.inv_debug) then
+	// Start the Debug Service.
+	li_return = gnv_app.of_SetDebug(true)
+	gnv_app.inv_debug.of_SetDWProperty(true)
+	this.text = "Stop the Debug Service"
+else
+	// Stop the Debug Service.
+	li_return = gnv_app.of_SetDebug(false)
+	this.text = "Start the Debug Service"
+	// Start the Debug Service if not already started.
+	m_sqlspyservices.text = "Start the SQL Spy Service"
+end if
+end event
+
+type m_sqlspyservices from menu within m_tools
+end type
+
+on m_sqlspyservices.create
+this.Text="Start SQL S&py Service"
+this.Microhelp="Start/Stop the SQL Spy Service."
+this.ToolBarItemName="Search!"
+this.ToolBarItemVisible=false
+this.ToolBarItemOrder=2
+end on
+
+on m_sqlspyservices.destroy
+end on
+
+event clicked;integer		li_return
+menu			lm_menu
+n_cst_menu	lnv_menu
+
+if IsNull(gnv_app.inv_debug) or not &
+	IsValid(gnv_app.inv_debug) then
+	// Start the Debug Service if not already started.
+	m_debugservices.Event clicked()
+	// Start the SQL Spy Service.
+	li_return = gnv_app.inv_debug.of_SetSQLSpy(true)
+	this.text = "Stop the SQL Spy Service"
+else
+	if IsNull(gnv_app.inv_debug.inv_sqlspy) or not &
+		IsValid(gnv_app.inv_debug.inv_sqlspy) then
+		// Start the SQL Spy Service.
+		li_return = gnv_app.inv_debug.of_SetSQLSpy(true)
+		this.text = "Stop the SQL Spy Service"
+	else
+		//Stop the SQL Spy Service.
+		li_return = gnv_app.inv_debug.of_SetSQLSpy(false)
+		this.text = "Start the SQL Spy Service"
+	end if
+end if
+return
+end event
+
+type m_dash53 from menu within m_tools
+end type
+
+on m_dash53.create
+this.Text="-"
+end on
+
+type m_debuglog from menu within m_tools
+end type
+
+event clicked;//////////////////////////////////////////////////////////////////////////////
+//
+//	Event:
+//	m_debuglog
+//
+//	Arguments:
+//	None
+//
+//	Returns:
+//	None
+//
+//	Description:
+//	Calls the ue_debuglog event on the main application window.
+// The ue_debuglog event will open and close the Debug Log window.
+//
+//////////////////////////////////////////////////////////////////////////////
+//	
+//	Revision History
+//
+//	Version
+//	6.0   Initial version
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+/*
+ * Open Source PowerBuilder Foundation Class Libraries
+ *
+ * Copyright (c) 2004-2017, All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted in accordance with the MIT License
+ * 
+ *
+ * https://opensource.org/licenses/MIT
+ *
+ * ====================================================================
+ *
+ * This software consists of voluntary contributions made by many
+ * individuals and was originally based on software copyright (c) 
+ * 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
+ * information on the Open Source PowerBuilder Foundation Class
+ * Libraries see https://github.com/OpenSourcePFCLibraries
+*/
+//
+//////////////////////////////////////////////////////////////////////////////
+
+integer 		li_return
+menu			lm_menu
+n_cst_menu	lnv_menu
+
+if IsNull(gnv_app.inv_debug) or &
+	not IsValid(gnv_app.inv_debug) then
+	// Start the Debug Service if not already started.
+	m_debugservices.Event clicked()
+end if
+
+if gnv_app.inv_debug.of_IsLogOpen() then
+	// Close the Debug Log Window.
+	li_return = gnv_app.inv_debug.of_OpenLog(false)
+	this.text = "Open Debug Log Window"
+else
+	// Open the Debug Log Window.
+	li_return = gnv_app.inv_debug.of_OpenLog(true)
+	this.text = "Close Debug Log Window"
+end if
+
+return
+end event
+
+on m_debuglog.create
+this.Text="Open Debug &Log Window"
+this.Microhelp="Open/Close the Debug Log window."
+this.ToolBarItemName="Custom088!"
+this.ToolBarItemText="Open Debug Log"
+this.ToolBarItemVisible=false
+this.ToolBarItemOrder=4
+end on
+
+type m_sqlspy from menu within m_tools
+end type
+
+event clicked;//////////////////////////////////////////////////////////////////////////////
+//
+//	Event:
+//	m_sqlspy
+//
+//	Arguments:
+//	None
+//
+//	Returns:
+//	None
+//
+//	Description:
+//	Calls the ue_sqlspy event on the main application window.
+// The ue_sqlspy event will open and close the SQL Spy window.
+//
+//////////////////////////////////////////////////////////////////////////////
+//	
+//	Revision History
+//
+//	Version
+//	6.0   Initial version
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+/*
+ * Open Source PowerBuilder Foundation Class Libraries
+ *
+ * Copyright (c) 2004-2017, All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted in accordance with the MIT License
+ * 
+ *
+ * https://opensource.org/licenses/MIT
+ *
+ * ====================================================================
+ *
+ * This software consists of voluntary contributions made by many
+ * individuals and was originally based on software copyright (c) 
+ * 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
+ * information on the Open Source PowerBuilder Foundation Class
+ * Libraries see https://github.com/OpenSourcePFCLibraries
+*/
+//
+//////////////////////////////////////////////////////////////////////////////
+
+integer 		li_return
+menu			lm_menu
+n_cst_menu	lnv_menu
+
+if IsNull(gnv_app.inv_debug) or &
+	not IsValid(gnv_app.inv_debug) then
+	// Start the Debug Service.
+	m_debugservices.Event clicked()
+end if
+
+if IsNull(gnv_app.inv_debug.inv_sqlspy) or &
+	not IsValid(gnv_App.inv_debug.inv_sqlspy) then
+	//Start the SQL Spy Service.
+	m_sqlspyservices.Event clicked()
+end if
+
+if gnv_app.inv_debug.inv_sqlspy.of_IsOpen() then
+	// Close the SQLSpy Window.
+	li_return = gnv_app.inv_debug.inv_sqlspy.of_OpenSQLSpy(false)
+	this.text = "Open the SQL Spy Window"
+else
+	// Open the SQLSpy Window.
+	li_return = gnv_app.inv_debug.inv_sqlspy.of_OpenSQLSpy(true)
+	this.text = "Close the SQL Spy Window"
+end if
+
+return
+end event
+
+on m_sqlspy.create
+this.Text="Open &SQL Spy Window"
+this.Microhelp="Open/Close the SQL Spy window."
+this.ToolBarItemName="Custom090!"
+this.ToolBarItemText="Open SQL Spy"
+this.ToolBarItemVisible=false
+this.ToolBarItemOrder=3
+end on
+
+type m_dash54 from menu within m_tools
+end type
+
+on m_dash54.create
+this.Text="-"
+end on
+
+type m_utilitypreferences from menu within m_tools
+end type
+
+on m_utilitypreferences.create
+this.Text="Set Utility &Preferences..."
+this.Microhelp="Open the Utilities Preferences window."
+this.ToolBarItemVisible=false
+end on
+
+event clicked;Open(w_utilproperties)
+end event
+
