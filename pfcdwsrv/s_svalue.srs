@@ -1,0 +1,6 @@
+HA$PBExportHeader$s_svalue.srs
+$PBExportComments$PFC Simple structure with one string element
+global type s_svalue from structure
+	string		s_value
+end type
+
