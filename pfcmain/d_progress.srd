@@ -1,0 +1,12 @@
+HA$PBExportHeader$d_progress.srd
+$PBExportComments$PFC progress bar DW source
+release 5;
+datawindow(units=0 timer_interval=0 color=78748035 processing=0 print.documentname="" print.orientation = 0 print.margin.left = 107 print.margin.right = 107 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no )
+header(height=84 color="536870912" )
+summary(height=1 color="536870912" )
+footer(height=1 color="536870912" )
+detail(height=1 color="536870912" )
+table(column=(type=char(1000) updatewhereclause=no name=pct dbname="pct" initial="0" )
+ )
+rectangle(band=header x="1" y="0" height="90" width="1003"  name=progress_rect visible="1~t0" brush.hatch="6" brush.color="16711680" pen.style="5" pen.width="4" pen.color="553648127"  background.mode="2" background.color="33554432" )
+column(band=header id=1 alignment="2" tabsequence=32766 border="0" color="33554432" x="1" y="0" height="81" width="139" format="[General]"  name=pct visible="1~t0" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no edit.displayonly=yes  font.face="MS Sans Serif" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
