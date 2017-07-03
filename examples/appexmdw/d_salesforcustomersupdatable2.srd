@@ -1,0 +1,27 @@
+HA$PBExportHeader$d_salesforcustomersupdatable2.srd
+release 5;
+datawindow(units=0 timer_interval=0 color=82889382 processing=0 print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no print.buttons=no print.preview.buttons=no )
+header(height=136 color="536870912" )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=80 color="536870912" )
+table(column=(type=long update=yes updatewhereclause=yes key=yes name=sales_id dbname="sales_order.id" )
+ column=(type=date update=yes updatewhereclause=yes name=order_date dbname="sales_order.order_date" )
+ column=(type=long update=yes updatewhereclause=yes name=sales_rep dbname="sales_order.sales_rep" )
+ column=(type=long update=yes updatewhereclause=yes name=cust_id dbname="sales_order.cust_id" )
+ column=(type=char(2) update=yes updatewhereclause=yes name=fin_code_id dbname="sales_order.fin_code_id" )
+ retrieve="PBSELECT( VERSION(400) TABLE(NAME=~"sales_order~" ) COLUMN(NAME=~"sales_order.id~") COLUMN(NAME=~"sales_order.order_date~") COLUMN(NAME=~"sales_order.sales_rep~") COLUMN(NAME=~"sales_order.cust_id~") COLUMN(NAME=~"sales_order.fin_code_id~")WHERE(    EXP1 =~"~~~"sales_order~~~".~~~"cust_id~~~"~"   OP =~"=~"    EXP2 =~":custarg~" ) ) ARG(NAME = ~"custarg~" TYPE = number) " update="sales_order" updatewhere=0 updatekeyinplace=no arguments=(("custarg", number))  sort="cust_id A " )
+group(level=1 header.height=0 trailer.height=4 by=("cust_id" ) header.color="536870912" trailer.color="536870912" )
+text(band=header alignment="2" text="Sales
+Order ID"border="6" color="41943040" x="96" y="12" height="108" width="215"  name=sales_order_id_t  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="79219928" )
+text(band=header alignment="2" text="Sales
+Rep ID"border="6" color="41943040" x="677" y="12" height="108" width="357"  name=sales_rep_t  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="79219928" )
+text(band=header alignment="2" text="Fin
+Code"border="6" color="41943040" x="1051" y="12" height="108" width="233"  name=finance_code_t  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="79219928" )
+text(band=header alignment="2" text="Order
+ Date"border="6" color="41943040" x="329" y="12" height="108" width="329"  name=order_date_t  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="79219928" )
+column(band=detail id=1 alignment="2" tabsequence=32766 border="5" color="41943040" x="96" y="12" height="60" width="215" format="[general]"  name=sales_id  tag="Unique Identification Number of the sales order" edit.limit=0 edit.case=any edit.autoselect=yes edit.required=yes edit.autohscroll=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="79219928" )
+column(band=detail id=3 alignment="2" tabsequence=20 border="5" color="41943040" x="677" y="12" height="60" width="357" format="[general]"  name=sales_rep  tag="Identification Number of the Sales Representative" dddw.name=d_dddwemployeeid dddw.displaycolumn=emp_id dddw.datacolumn=emp_id dddw.percentwidth=150 dddw.lines=0 dddw.limit=0 dddw.allowedit=no dddw.useasborder=yes dddw.case=any dddw.required=yes dddw.vscrollbar=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1090519039" )
+column(band=detail id=5 alignment="0" tabsequence=30 border="5" color="41943040" x="1051" y="12" height="60" width="233" format="[general]"  name=fin_code_id dddw.name=d_dddwfincode dddw.displaycolumn=code dddw.datacolumn=code dddw.percentwidth=350 dddw.lines=0 dddw.limit=0 dddw.allowedit=no dddw.useasborder=yes dddw.case=any dddw.required=yes dddw.vscrollbar=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1090519039" )
+column(band=detail id=2 alignment="2" tabsequence=10 border="5" color="41943040" x="329" y="12" height="60" width="329" format="[general]"  name=order_date  tag="Date Ordered" edit.name="MM/DD/YY" editmask.mask="MM/DD/YY" editmask.focusrectangle=no  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1090519039" )
+htmltable(border="1" cellpadding="0" cellspacing="0" generatecss="no" nowrap="yes")
