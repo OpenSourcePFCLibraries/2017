@@ -1,0 +1,56 @@
+HA$PBExportHeader$d_multiupdate.srd
+$PBExportComments$4-way SQL join ( w_multiupdate )
+release 7;
+datawindow(units=0 timer_interval=0 color=80263328 processing=1 HTMLDW=no print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no print.buttons=no print.preview.buttons=no grid.lines=0 selected.mouse=no )
+header(height=124 color="536870912" )
+summary(height=4 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=76 color="536870912" )
+table(column=(type=long update=yes updatewhereclause=yes key=yes name=customer_id dbname="customer.id" )
+ column=(type=char(15) update=yes updatewhereclause=yes name=customer_fname dbname="customer.fname" )
+ column=(type=char(20) update=yes updatewhereclause=yes name=customer_lname dbname="customer.lname" )
+ column=(type=char(12) update=yes updatewhereclause=yes name=customer_phone dbname="customer.phone" )
+ column=(type=long updatewhereclause=yes name=sales_order_items_quantity dbname="sales_order_items.quantity" )
+ column=(type=long updatewhereclause=yes name=sales_order_id dbname="sales_order.id" )
+ column=(type=date updatewhereclause=yes name=sales_order_order_date dbname="sales_order.order_date" )
+ column=(type=long updatewhereclause=yes name=sales_order_items_line_id dbname="sales_order_items.line_id" )
+ column=(type=long updatewhereclause=yes name=sales_order_items_id dbname="sales_order_items.id" )
+ column=(type=long updatewhereclause=yes name=sales_order_items_prod_id dbname="sales_order_items.prod_id" )
+ retrieve="  SELECT dba.customer.id,   
+         dba.customer.fname,   
+         dba.customer.lname,   
+         dba.customer.phone,   
+         dba.sales_order_items.quantity,
+		dba.sales_order.id,   
+         dba.sales_order.order_date,   
+         dba.sales_order_items.line_id,   
+         dba.sales_order_items.id,   
+         dba.sales_order_items.prod_id  
+    FROM dba.customer,   
+         dba.product,   
+         dba.sales_order,   
+         dba.sales_order_items  
+   WHERE ( dba.customer.id = dba.sales_order.cust_id ) and  
+         ( dba.sales_order.id = dba.sales_order_items.id ) and  
+         ( dba.product.id = dba.sales_order_items.prod_id )    
+" update="customer" updatewhere=1 updatekeyinplace=yes )
+text(band=header alignment="2" text="Customer
+ID" border="6" color="0" x="9" y="12" height="104" width="297" html.valueishtml="0"  name=customer_id_t visible="1"  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="82889382" )
+text(band=header alignment="2" text="Last
+ Name" border="6" color="128" x="315" y="12" height="104" width="457" html.valueishtml="0"  name=customer_lname_t visible="1"  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="82889382" )
+text(band=header alignment="2" text="Phone
+ Number" border="6" color="128" x="782" y="12" height="104" width="398" html.valueishtml="0"  name=customer_phone_t visible="1"  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="82889382" )
+text(band=header alignment="2" text="
+Quantity" border="6" color="32768" x="1189" y="12" height="104" width="489" html.valueishtml="0"  name=sales_order_items_quantity_t visible="1"  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="82889382" )
+text(band=header alignment="2" text="
+Product Name" border="6" color="32768" x="1687" y="12" height="104" width="553" html.valueishtml="0"  name=sales_order_items_prod_id_t visible="1"  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="82889382" )
+text(band=header alignment="2" text="Order
+Date" border="6" color="8388736" x="2249" y="12" height="104" width="398" html.valueishtml="0"  name=sales_order_order_date_t visible="1"  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="82889382" )
+column(band=detail id=1 alignment="2" tabsequence=32766 border="5" color="0" x="9" y="4" height="60" width="297" format="[general]" html.valueishtml="0"  name=customer_id  tag="Unique Identification number of the customer" visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes edit.imemode=0  font.face="MS Sans Serif" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="67108864" )
+column(band=detail id=4 alignment="2" tabsequence=20 border="5" color="128" x="782" y="4" height="60" width="398" format="[general]" html.valueishtml="0"  name=customer_phone  tag="Phone number of the customer" visible="1" edit.name="TelephoneNumber" editmask.mask="(###) ###-####" editmask.imemode=0 editmask.focusrectangle=no  font.face="MS Sans Serif" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1086381248" )
+column(band=detail id=7 alignment="2" tabsequence=50 border="5" color="8388736" x="2249" y="4" height="60" width="398" format="[general]" html.valueishtml="0"  name=sales_order_order_date  tag="Date Ordered" visible="1" edit.name="MM/DD/YY" editmask.mask="MM/DD/YY" editmask.imemode=0 editmask.focusrectangle=no  font.face="MS Sans Serif" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1086381248" )
+column(band=detail id=3 alignment="2" tabsequence=10 border="5" color="128" x="315" y="4" height="60" width="457" format="[general]" html.valueishtml="0"  name=customer_lname  tag="Last name of the customer" visible="1" edit.limit=20 edit.case=any edit.autoselect=yes edit.autohscroll=yes edit.imemode=0  font.face="MS Sans Serif" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1086381248" )
+column(band=detail id=5 alignment="2" tabsequence=30 border="5" color="32768" x="1189" y="4" height="60" width="489" format="[general]" html.valueishtml="0"  name=sales_order_items_quantity  tag="Quantity ordered" visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes edit.imemode=0  font.face="MS Sans Serif" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1086381248" )
+column(band=detail id=10 alignment="0" tabsequence=40 border="5" color="32768" x="1687" y="4" height="60" width="553" format="[general]" html.valueishtml="0"  name=sales_order_items_prod_id visible="1" dddw.name=d_dddwmtuproductid dddw.displaycolumn=name dddw.datacolumn=sales_order_items_prod_id dddw.percentwidth=125 dddw.lines=5 dddw.limit=0 dddw.allowedit=no dddw.useasborder=yes dddw.case=any dddw.imemode=0 dddw.vscrollbar=yes  font.face="MS Sans Serif" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1086381248" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" )
