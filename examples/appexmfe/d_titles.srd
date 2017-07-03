@@ -1,0 +1,33 @@
+HA$PBExportHeader$d_titles.srd
+release 10;
+datawindow(units=0 timer_interval=0 color=16777215 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no )
+header(height=72 color="536870912" )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=84 color="536870912" )
+table(column=(type=char(60) update=yes updatewhereclause=yes name=title dbname="examples.title" )
+ column=(type=long update=yes updatewhereclause=yes key=yes name=example_id dbname="examples.example_id" )
+ column=(type=char(128) update=yes updatewhereclause=yes name=window dbname="examples.window" )
+ retrieve="  SELECT ~"examples~".~"title~",   
+         ~"examples~".~"example_id~",   
+         ~"examples~".~"window~"  
+    FROM ~"examples~"  
+   WHERE ~"examples~".~"window~" = :classname    
+" update="examples" updatewhere=1 updatekeyinplace=no arguments=(("classname", string)) )
+text(band=header alignment="2" text="Title" border="0" color="0" x="5" y="4" height="64" width="1317" html.valueishtml="0"  name=title_t visible="1"  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Example Id" border="0" color="0" x="1326" y="4" height="64" width="329" html.valueishtml="0"  name=example_id_t visible="1"  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Window" border="0" color="0" x="1659" y="4" height="64" width="2395" html.valueishtml="0"  name=window_t visible="1"  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=1 alignment="0" tabsequence=10 border="0" color="0" x="5" y="4" height="76" width="1317" format="[general]" html.valueishtml="0"  name=title  tag="Title of the example" visible="1" edit.limit=60 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=2 alignment="1" tabsequence=20 border="0" color="0" x="1326" y="4" height="76" width="329" format="[general]" html.valueishtml="0"  name=example_id  tag="Unique identifier for an example." visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=3 alignment="0" tabsequence=30 border="0" color="0" x="1659" y="4" height="76" width="2395" format="[general]" html.valueishtml="0"  name=window  tag="Window that is opened when the example runs" visible="1" edit.limit=128 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+xhtmlgen() cssgen()
+xmlgen()
+xsltgen()
+jsgen()
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
+export.xhtml()
+ 
