@@ -1,0 +1,22 @@
+HA$PBExportHeader$d_pfcsecurity_info_user_delete.srd
+$PBExportComments$Used to collect all users for a group so they can be deleted when the group us deleted
+release 5;
+datawindow(units=0 timer_interval=0 color=77956459 processing=1 print.documentname="" print.orientation = 0 print.margin.left = 0 print.margin.right = 0 print.margin.top = 0 print.margin.bottom = 0 print.paper.source = 0 print.paper.size = 0 print.prompt=no print.buttons=no print.preview.buttons=no grid.lines=0 grid.columnmove=no selected.mouse=no )
+header(height=76 color="536870912" )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=64 color="536870912" )
+table(column=(type=char(64) update=yes updatewhereclause=yes key=yes name=window dbname="security_info.window" )
+ column=(type=char(128) update=yes updatewhereclause=yes key=yes name=control dbname="security_info.control" )
+ column=(type=char(16) update=yes updatewhereclause=yes key=yes name=user_name dbname="security_info.user_name" )
+ column=(type=char(32) update=yes updatewhereclause=yes key=yes name=application dbname="security_info.application" )
+ retrieve="PBSELECT( VERSION(400) TABLE(NAME=~"security_info~" ) COLUMN(NAME=~"security_info.window~") COLUMN(NAME=~"security_info.control~") COLUMN(NAME=~"security_info.user_name~") COLUMN(NAME=~"security_info.application~")WHERE(    EXP1 =~" ~~~"security_info~~~".~~~"user_name~~~"~"   OP =~"=~"    EXP2 =~":username ~" ) ) ARG(NAME = ~"username~" TYPE = string) " update="security_info" updatewhere=0 updatekeyinplace=yes arguments=(("username", string))  sort="control A " )
+text(band=header alignment="0" text="Object"border="0" color="0" x="640" y="4" height="52" width="585"  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="0" text="User Name"border="0" color="0" x="1234" y="4" height="56" width="517"  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="0" text="Application"border="0" color="0" x="1760" y="4" height="56" width="434"  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="2" text="Control"border="6" color="33554432" x="9" y="8" height="56" width="622"  name=control_t  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=2 alignment="0" tabsequence=32766 border="0" color="33554432" x="9" y="4" height="56" width="622" format="[general]"  name=control edit.limit=30 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=1 alignment="0" tabsequence=32766 border="0" color="0" x="640" y="4" height="56" width="585" format="[general]"  name=window edit.limit=0 edit.case=any edit.autoselect=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=3 alignment="0" tabsequence=32766 border="0" color="0" x="1234" y="4" height="56" width="517" format="[general]"  name=user_name edit.limit=0 edit.case=any edit.autoselect=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=4 alignment="0" tabsequence=32766 border="0" color="0" x="1760" y="4" height="56" width="434" format="[general]"  name=application edit.limit=0 edit.case=any edit.autoselect=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+htmltable(border="1" cellpadding="0" cellspacing="0" generatecss="no" nowrap="yes")
