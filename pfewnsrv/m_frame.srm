@@ -1,0 +1,529 @@
+HA$PBExportHeader$m_frame.srm
+$PBExportComments$Extension/Example of frame menu
+forward
+global type m_frame from m_master
+end type
+end forward
+
+global type m_frame from m_master
+end type
+global m_frame m_frame
+
+on m_frame.create
+m_frame=this
+call m_master::create
+end on
+
+on m_frame.destroy
+call m_master::destroy
+end on
+
+on m_new.create
+call m_master`m_new::create
+this.ToolBarItemName=""
+this.MergeOption=Exclude!
+end on
+
+on m_open.create
+call m_master`m_open::create
+this.ToolBarItemName=""
+this.MergeOption=Exclude!
+end on
+
+on m_close.create
+call m_master`m_close::create
+this.ToolBarItemName=""
+this.Visible=false
+this.Enabled=false
+this.MergeOption=Exclude!
+end on
+
+on m_dash11.create
+call m_master`m_dash11::create
+this.Visible=false
+this.MergeOption=Exclude!
+end on
+
+on m_save.create
+call m_master`m_save::create
+this.ToolBarItemName=""
+this.Visible=false
+this.Enabled=false
+this.MergeOption=Exclude!
+end on
+
+on m_saveas.create
+call m_master`m_saveas::create
+this.ToolBarItemName=""
+this.Visible=false
+this.Enabled=false
+this.MergeOption=Exclude!
+end on
+
+on m_dash12.create
+call m_master`m_dash12::create
+this.Visible=false
+this.MergeOption=Exclude!
+end on
+
+on m_print.create
+call m_master`m_print::create
+this.Visible=false
+this.Enabled=false
+this.MergeOption=Exclude!
+end on
+
+on m_printpreview.create
+call m_master`m_printpreview::create
+this.ToolBarItemName=""
+this.Visible=false
+this.Enabled=false
+this.MergeOption=Exclude!
+end on
+
+on m_pagesetup.create
+call m_master`m_pagesetup::create
+this.Visible=false
+this.Enabled=false
+this.MergeOption=Exclude!
+end on
+
+on m_printimmediate.create
+call m_master`m_printimmediate::create
+this.ToolBarItemName=""
+this.Enabled=false
+this.MergeOption=Exclude!
+end on
+
+on m_dash13.create
+call m_master`m_dash13::create
+this.MergeOption=Exclude!
+end on
+
+on m_delete.create
+call m_master`m_delete::create
+this.ToolBarItemName=""
+this.MergeOption=Exclude!
+end on
+
+on m_properties.create
+call m_master`m_properties::create
+this.ToolBarItemName=""
+this.MergeOption=Exclude!
+end on
+
+on m_dash14.create
+call m_master`m_dash14::create
+this.MergeOption=Exclude!
+end on
+
+on m_exit.create
+call m_master`m_exit::create
+this.ToolBarItemName=""
+this.MergeOption=Exclude!
+this.MenuItemType=MenuItemTypeExit!
+end on
+
+on m_edit.create
+call m_master`m_edit::create
+this.Visible=false
+this.Enabled=false
+this.MergeOption=Exclude!
+end on
+
+on m_undo.create
+call m_master`m_undo::create
+this.ToolBarItemName=""
+this.Visible=false
+this.Enabled=false
+this.MergeOption=Exclude!
+end on
+
+on m_dash21.create
+call m_master`m_dash21::create
+this.Visible=false
+this.MergeOption=Exclude!
+end on
+
+on m_cut.create
+call m_master`m_cut::create
+this.ToolBarItemName=""
+this.Visible=false
+this.Enabled=false
+this.MergeOption=Exclude!
+end on
+
+on m_copy.create
+call m_master`m_copy::create
+this.ToolBarItemName=""
+this.Visible=false
+this.Enabled=false
+this.MergeOption=Exclude!
+end on
+
+on m_paste.create
+call m_master`m_paste::create
+this.ToolBarItemName=""
+this.Visible=false
+this.Enabled=false
+this.MergeOption=Exclude!
+end on
+
+on m_pastespecial.create
+call m_master`m_pastespecial::create
+this.Visible=false
+this.Enabled=false
+this.MergeOption=Exclude!
+end on
+
+on m_clear.create
+call m_master`m_clear::create
+this.ToolBarItemName=""
+this.Visible=false
+this.Enabled=false
+this.MergeOption=Exclude!
+end on
+
+on m_dash22.create
+call m_master`m_dash22::create
+this.Visible=false
+this.MergeOption=Exclude!
+end on
+
+on m_selectall.create
+call m_master`m_selectall::create
+this.ToolBarItemName=""
+this.Visible=false
+this.Enabled=false
+this.MergeOption=Exclude!
+end on
+
+on m_dash23.create
+call m_master`m_dash23::create
+this.Visible=false
+this.MergeOption=Exclude!
+end on
+
+on m_find.create
+call m_master`m_find::create
+this.ToolBarItemName=""
+this.Visible=false
+this.Enabled=false
+this.MergeOption=Exclude!
+end on
+
+on m_replace.create
+call m_master`m_replace::create
+this.ToolBarItemName=""
+this.Visible=false
+this.Enabled=false
+this.MergeOption=Exclude!
+end on
+
+on m_dash24.create
+call m_master`m_dash24::create
+this.Visible=false
+this.MergeOption=Exclude!
+end on
+
+on m_updatelinks.create
+call m_master`m_updatelinks::create
+this.Visible=false
+this.Enabled=false
+this.MergeOption=Exclude!
+end on
+
+on m_object1.create
+call m_master`m_object1::create
+this.Visible=false
+this.Enabled=false
+this.MergeOption=Exclude!
+end on
+
+on m_edit1.create
+call m_master`m_edit1::create
+this.Visible=false
+this.Enabled=false
+this.MergeOption=Exclude!
+end on
+
+on m_open1.create
+call m_master`m_open1::create
+this.Visible=false
+this.Enabled=false
+this.MergeOption=Exclude!
+end on
+
+on m_view.create
+call m_master`m_view::create
+this.Visible=false
+this.Enabled=false
+this.MergeOption=Exclude!
+end on
+
+on m_ruler.create
+call m_master`m_ruler::create
+this.Visible=false
+this.Enabled=false
+this.MergeOption=Exclude!
+end on
+
+on m_dash31.create
+call m_master`m_dash31::create
+this.Visible=false
+this.MergeOption=Exclude!
+end on
+
+on m_largeicon.create
+call m_master`m_largeicon::create
+this.ToolBarItemName=""
+this.MergeOption=Exclude!
+end on
+
+on m_smallicons.create
+call m_master`m_smallicons::create
+this.ToolBarItemName=""
+this.MergeOption=Exclude!
+end on
+
+on m_list.create
+call m_master`m_list::create
+this.ToolBarItemName=""
+this.MergeOption=Exclude!
+end on
+
+on m_details.create
+call m_master`m_details::create
+this.ToolBarItemName=""
+this.MergeOption=Exclude!
+end on
+
+on m_dash32.create
+call m_master`m_dash32::create
+this.MergeOption=Exclude!
+end on
+
+on m_arrangeicons.create
+call m_master`m_arrangeicons::create
+this.MergeOption=Exclude!
+end on
+
+on m_by1.create
+call m_master`m_by1::create
+this.Visible=false
+this.Enabled=false
+this.MergeOption=Exclude!
+end on
+
+on m_dash33.create
+call m_master`m_dash33::create
+this.Visible=false
+this.MergeOption=Exclude!
+end on
+
+on m_autoarrange.create
+call m_master`m_autoarrange::create
+this.Visible=false
+this.Enabled=false
+this.MergeOption=Exclude!
+end on
+
+on m_dash34.create
+call m_master`m_dash34::create
+this.MergeOption=Exclude!
+end on
+
+on m_first.create
+call m_master`m_first::create
+this.ToolBarItemName=""
+this.Visible=false
+this.Enabled=false
+this.MergeOption=Exclude!
+end on
+
+on m_priorpage.create
+call m_master`m_priorpage::create
+this.ToolBarItemName=""
+this.Visible=false
+this.Enabled=false
+this.MergeOption=Exclude!
+end on
+
+on m_nextpage.create
+call m_master`m_nextpage::create
+this.ToolBarItemName=""
+this.Visible=false
+this.Enabled=false
+this.MergeOption=Exclude!
+end on
+
+on m_lastpage.create
+call m_master`m_lastpage::create
+this.ToolBarItemName=""
+this.Visible=false
+this.Enabled=false
+this.MergeOption=Exclude!
+end on
+
+on m_dash35.create
+call m_master`m_dash35::create
+this.Visible=false
+this.MergeOption=Exclude!
+end on
+
+on m_sort.create
+call m_master`m_sort::create
+this.Visible=false
+this.Enabled=false
+this.MergeOption=Exclude!
+end on
+
+on m_filter.create
+call m_master`m_filter::create
+this.Visible=false
+this.Enabled=false
+this.MergeOption=Exclude!
+end on
+
+on m_dash36.create
+call m_master`m_dash36::create
+this.Visible=false
+this.MergeOption=Exclude!
+end on
+
+on m_zoom.create
+call m_master`m_zoom::create
+this.Visible=false
+this.Enabled=false
+this.MergeOption=Exclude!
+end on
+
+on m_insert.create
+call m_master`m_insert::create
+this.Visible=false
+this.Enabled=false
+this.MergeOption=Exclude!
+end on
+
+on m_insertfile.create
+call m_master`m_insertfile::create
+this.Visible=false
+this.Enabled=false
+this.MergeOption=Exclude!
+end on
+
+on m_picture.create
+call m_master`m_picture::create
+this.Visible=false
+this.Enabled=false
+this.MergeOption=Exclude!
+end on
+
+on m_dash41.create
+call m_master`m_dash41::create
+this.Visible=false
+this.MergeOption=Exclude!
+end on
+
+on m_object.create
+call m_master`m_object::create
+this.Visible=false
+this.Enabled=false
+this.MergeOption=Exclude!
+end on
+
+on m_tools.create
+call m_master`m_tools::create
+this.Visible=false
+this.Enabled=false
+this.MergeOption=Exclude!
+end on
+
+on m_toolbars.create
+call m_master`m_toolbars::create
+this.Visible=false
+this.Enabled=false
+this.MergeOption=Exclude!
+end on
+
+on m_window.create
+call m_master`m_window::create
+this.Visible=false
+this.Enabled=false
+this.MergeOption=WindowMenu!
+end on
+
+on m_cascade.create
+call m_master`m_cascade::create
+this.ToolBarItemName=""
+this.Visible=false
+this.Enabled=false
+this.MergeOption=Exclude!
+end on
+
+on m_tilehorizontal.create
+call m_master`m_tilehorizontal::create
+this.ToolBarItemName=""
+this.Visible=false
+this.Enabled=false
+this.MergeOption=Exclude!
+end on
+
+on m_tilevertical.create
+call m_master`m_tilevertical::create
+this.ToolBarItemName=""
+this.Visible=false
+this.Enabled=false
+this.MergeOption=Exclude!
+end on
+
+on m_layer.create
+call m_master`m_layer::create
+this.ToolBarItemName=""
+this.Visible=false
+this.Enabled=false
+this.MergeOption=Exclude!
+end on
+
+on m_dash51.create
+call m_master`m_dash51::create
+this.Visible=false
+this.MergeOption=Exclude!
+end on
+
+on m_minimizeall.create
+call m_master`m_minimizeall::create
+this.Visible=false
+this.Enabled=false
+this.MergeOption=Exclude!
+end on
+
+on m_undoarrange.create
+call m_master`m_undoarrange::create
+this.Visible=false
+this.Enabled=false
+this.MergeOption=Exclude!
+end on
+
+on m_help.create
+call m_master`m_help::create
+this.MergeOption=Exclude!
+end on
+
+on m_helptopics.create
+call m_master`m_helptopics::create
+this.ToolBarItemName=""
+this.MergeOption=Exclude!
+end on
+
+on m_dash61.create
+call m_master`m_dash61::create
+this.MergeOption=Exclude!
+end on
+
+on m_about.create
+call m_master`m_about::create
+this.MergeOption=Exclude!
+this.MenuItemType=MenuItemTypeAbout!
+end on
+
