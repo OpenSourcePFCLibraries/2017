@@ -1,0 +1,57 @@
+HA$PBExportHeader$d_project_category_summary.srd
+$PBExportComments$The tabular datawindow used to show project category summary information
+release 5;
+datawindow(units=0 timer_interval=0 color=16777215 processing=0 print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no )
+header(height=173 color="536870912" )
+summary(height=125 color="536870912" )
+footer(height=1 color="536870912" )
+detail(height=69 color="536870912" )
+table(column=(type=long updatewhereclause=yes identity=yes name=project_category_item_category_item_id dbname="project_category_item.category_item_id" )
+ column=(type=char(50) updatewhereclause=yes name=project_category_item_name dbname="project_category_item.name" )
+ column=(type=long updatewhereclause=yes name=project_category_item_category_id dbname="project_category_item.category_id" )
+ column=(type=long updatewhereclause=yes name=project_category_item_role_id dbname="project_category_item.role_id" )
+ column=(type=decimal(2) updatewhereclause=yes name=project_role_rate dbname="project_role.rate" validation=" real(gettext())  > 0" validationmsg="'Rate must be greater than zero.'" )
+ column=(type=decimal(2) updatewhereclause=yes name=project_role_multipler dbname="project_role.multipler" )
+ column=(type=decimal(2) updatewhereclause=yes name=project_category_item_estimated_hours dbname="project_category_item.estimated_hours" )
+ column=(type=long updatewhereclause=yes name=project_category_item_complexity_id dbname="project_category_item.complexity_id" )
+ column=(type=char(50) updatewhereclause=yes name=project_category_name dbname="project_category.name" )
+ column=(type=char(50) updatewhereclause=yes name=project_role_name dbname="project_role.name" )
+ retrieve="  SELECT  ~"project_category_item~".~"category_item_id~" ,           
+~"project_category_item~".~"name~" ,           
+~"project_category_item~".~"category_id~" ,           
+~"project_category_item~".~"role_id~" ,           
+~"project_role~".~"rate~" ,           
+~"project_role~".~"multipler~" ,           
+~"project_category_item~".~"estimated_hours~" ,           
+~"project_category_item~".~"complexity_id~" ,           
+~"project_category~".~"name~",
+~"project_role~".~"name~"
+        FROM ~"project_category_item~" ,           ~"project_role~" ,           
+~"project_category~"     
+        WHERE ( ~"project_category_item~".~"role_id~" = ~"project_role~".~"role_id~" ) and          
+( ~"project_category~".~"category_id~" = ~"project_category_item~".~"category_id~" ) and          
+( ( ~"project_category_item~".~"project_id~" = :project_id ) )  " arguments=(("project_id", number))  sort="project_category_name A " )
+group(level=1 header.height=89 trailer.height=1 by=("project_category_item_category_id" ) header.color="536870912" trailer.color="536870912" )
+text(band=header alignment="2" text="Estimated
+Hours"border="0" color="0" x="1678" y="20" height="105" width="293"  name=project_category_item_estimated_hours_t  font.face="MS Sans Serif" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Rate"border="0" color="0" x="1358" y="72" height="53" width="215"  name=role_rate_t  font.face="MS Sans Serif" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="Assigned Role"border="0" color="0" x="851" y="72" height="53" width="430"  name=project_category_item_role_id_t  font.face="MS Sans Serif" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="Category Items"border="0" color="0" x="5" y="72" height="53" width="449"  font.face="MS Sans Serif" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Multipler"border="0" color="0" x="2049" y="72" height="53" width="261"  font.face="MS Sans Serif" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="(Hrs * Multipler)"border="0" color="0" x="2433" y="76" height="53" width="385"  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Adjusted Hrs"border="0" color="0" x="2433" y="20" height="53" width="385"  font.face="MS Sans Serif" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+line(band=header x1="1" y1="144" x2="3479" y2="144" pen.style="0" pen.width="5" pen.color="0"  background.mode="1" background.color="553648127" )
+text(band=header alignment="2" text="Estimated Cost"border="0" color="0" x="2945" y="72" height="53" width="449"  font.face="MS Sans Serif" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=header.1 id=9 alignment="0" tabsequence=32766 border="0" color="0" x="10" y="24" height="65" width="869" format="[general]"  name=project_category_name edit.limit=0 edit.case=any edit.autoselect=yes  font.face="MS Sans Serif" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=2 alignment="0" tabsequence=32766 border="0" color="0" x="42" y="4" height="65" width="805" format="[general]"  name=project_category_item_name edit.limit=50 edit.case=any edit.autoselect=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=7 alignment="1" tabsequence=32766 border="0" color="0" x="1678" y="4" height="65" width="243" format="[general]"  name=project_category_item_estimated_hours edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=detail alignment="1" expression=" project_role_multipler  *   project_category_item_estimated_hours "border="0" color="0" x="2469" y="4" height="65" width="247" format="#,##0.00"  name=adjusted_hours  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=detail alignment="1" expression=" adjusted_hours *  project_role_rate "border="0" color="0" x="2945" y="4" height="65" width="348" format="$#,##0.00;[RED]($#,##0.00)"  name=estimated_cost  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=5 alignment="2" tabsequence=32766 border="0" color="0" x="1358" y="4" height="65" width="215" format="$#,##0.00;[RED]($#,##0.00)"  name=project_role_rate edit.limit=0 edit.case=any edit.autoselect=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=6 alignment="2" tabsequence=32766 border="0" color="0" x="2049" y="4" height="65" width="215" format="[General]"  name=project_role_multipler edit.limit=0 edit.case=any edit.autoselect=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=10 alignment="0" tabsequence=32766 border="0" color="0" x="851" y="4" height="65" width="531" format="[general]"  name=project_role_name edit.limit=0 edit.case=any edit.autoselect=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+line(band=summary x1="2949" y1="12" x2="3324" y2="12" pen.style="0" pen.width="5" pen.color="0"  background.mode="1" background.color="536870912" )
+line(band=summary x1="2460" y1="12" x2="2835" y2="12" pen.style="0" pen.width="5" pen.color="0"  background.mode="1" background.color="536870912" )
+compute(band=summary alignment="1" expression="sum( adjusted_hours *  project_role_rate  )"border="0" color="0" x="2945" y="36" height="69" width="348" format="$#,##0.00;[RED]($#,##0.00)"  name=total_estimated_cost  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=summary alignment="1" expression=" sum( project_role_multipler  *   project_category_item_estimated_hours )"border="0" color="0" x="2469" y="36" height="69" width="247" format="#,##0.00"  name=total_estimated_hours  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=summary alignment="0" text="Total"border="0" color="0" x="714" y="36" height="53" width="183"  font.face="MS Sans Serif" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
