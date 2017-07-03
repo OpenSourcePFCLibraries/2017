@@ -1,0 +1,29 @@
+/*  Set the Name of the application  */
+iapp_object.DisplayName = "<Application Display Name>"
+
+/*  Set Microhelp Functionality  */
+of_SetMicroHelp ( True )
+
+/*  Set the name of the application INI file  */
+of_SetAppIniFile ( "<application ini file name>" )
+
+/*  Set the name of the User INI file  */
+of_SetUserIniFile ( "<user ini file name>" )
+
+/*  Set the Application registry key  */
+of_SetAppKey ( "HKEY_LOCAL_MACHINE\Software\<Your Company Name>\<ApplicationName>" )
+
+/*  Set the User registry key  */
+of_SetUserKey ( "HKEY_CURRENT_USER\Software\<Your Company Name>\<ApplicationName>")
+
+/*  Set the application's online help file  */
+of_SetHelpFile ( "<help file name>" )
+
+/*  Set the application version  */
+of_SetVersion ( "Version X.X" )
+
+/*  Set The application logo (bitmap file name)  */
+of_SetLogo ( "<bitmap file name" )
+
+/*  Set the Application copyright message  */
+of_SetCopyright ( "Copyright © 19xx-xxxx <Your Company Name> and its subsidiaries.  All rights reserved." )

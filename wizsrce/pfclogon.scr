@@ -1,0 +1,9 @@
+/*  Perform databse logon  */
+SQLCA.of_SetUser ( as_userid, as_password )
+
+If SQLCA.of_Connect ( ) < 0 Then
+	Return FAILURE
+End If
+
+Return SUCCESS
+

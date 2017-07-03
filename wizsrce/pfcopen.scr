@@ -1,0 +1,9 @@
+/*  SQLCA can be initialized by platform  */
+If of_IsRegistryAvailable ( ) Then
+	SQLCA.of_Init ( of_GetUserKey ( ) + "\Profile PFC Examples DB" )
+Else
+	If SQLCA.of_Init ( is_userinifile, "PFC Examples DB" ) = -1 Then
+		MessageBox ( iapp_object.DisplayName, "Initialization failed from file " + is_userinifile )
+		Halt
+	End If
+End If
