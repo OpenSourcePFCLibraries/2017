@@ -1,0 +1,22 @@
+HA$PBExportHeader$d_project_analyzer_report.srd
+$PBExportComments$Report window for project analyzer
+release 5;
+datawindow(units=0 timer_interval=0 color=16777215 processing=0 print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no )
+header(height=401 color="536870912" )
+summary(height=1 color="536870912" )
+footer(height=1 color="536870912" )
+detail(height=557 color="536870912"  height.autosize=yes)
+table(column=(type=char(50) updatewhereclause=yes name=name dbname="project.name" )
+ column=(type=char(50) updatewhereclause=yes name=project_leader dbname="project.project_leader" )
+ retrieve="PBSELECT( VERSION(400) TABLE(NAME=~"project~" ) COLUMN(NAME=~"project.name~") COLUMN(NAME=~"project.project_leader~")WHERE(    EXP1 =~"~~~"project~~~".~~~"project_id~~~"~"   OP =~"=~"    EXP2 =~":project_id~" ) ) ARG(NAME = ~"project_id~" TYPE = number)  ARG(NAME = ~"deviation~" TYPE = number) " arguments=(("project_id", number),("deviation", number)) )
+bitmap(band=header filename="peat.bmp" x="19" y="12" height="129" width="147" border="0" )
+line(band=header x1="5" y1="388" x2="3507" y2="388" pen.style="0" pen.width="10" pen.color="0"  background.mode="1" background.color="553648127" )
+line(band=header x1="5" y1="372" x2="3507" y2="372" pen.style="0" pen.width="10" pen.color="0"  background.mode="1" background.color="553648127" )
+column(band=header id=1 alignment="2" tabsequence=32766 border="0" color="0" x="5" y="12" height="85" width="3498" format="[general]"  name=name edit.limit=50 edit.case=any edit.autoselect=yes  font.face="MS Sans Serif" font.height="-12" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=header alignment="0" expression="~"Project Leader:  ~" +  project_leader "border="0" color="0" x="1" y="248" height="77" width="1299" format="[general]"  font.face="MS Sans Serif" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=header alignment="1" expression="'Page ' + page() + ' of ' + pageCount()"border="0" color="0" x="2812" y="252" height="73" width="668" format="[general]"  font.face="MS Sans Serif" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Project Analyzer"border="0" color="0" x="1418" y="108" height="81" width="668"  font.face="MS Sans Serif" font.height="-12" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=header alignment="2" expression="~"Deviation:  ~" +  (deviation * 100) + ~"%~""border="0" color="0" x="1418" y="212" height="81" width="668" format="[general]"  font.face="MS Sans Serif" font.height="-10" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+report(band=detail dataobject="d_project_analyzer_summary" x="1" y="28" height="137" width="3077" border="0"  height.autosize=yes criteria="" nest_arguments=(("project_id")) trail_footer = yes  name=summary  slideup=directlyabove )
+report(band=detail dataobject="d_project_category_deviations" x="74" y="188" height="137" width="2666" border="0"  height.autosize=yes criteria="" nest_arguments=(("project_id"),("deviation")) trail_footer = yes  slideup=directlyabove )
+report(band=detail dataobject="d_project_derived_deviations" x="74" y="388" height="137" width="2666" border="0"  height.autosize=yes criteria="" nest_arguments=(("project_id"),("deviation")) trail_footer = yes  slideup=directlyabove )
