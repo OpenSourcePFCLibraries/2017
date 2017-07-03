@@ -1,0 +1,14 @@
+HA$PBExportHeader$d_rtedescexampall.srd
+release 5;
+datawindow(units=0 timer_interval=0 color=16777215 processing=0 print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no )
+header(height=1 color="536870912" )
+summary(height=1 color="536870912" )
+footer(height=1 color="536870912" )
+detail(height=81 color="536870912" )
+table(column=(type=char(60) update=yes updatewhereclause=yes name=title dbname="examples.title" )
+ column=(type=long update=yes updatewhereclause=yes key=yes name=example_id dbname="examples.example_id" )
+ column=(type=char(32766) update=yes updatewhereclause=no name=description dbname="examples.description" )
+ retrieve="PBSELECT( VERSION(400) TABLE(NAME=~"examples~" ) COLUMN(NAME=~"examples.title~") COLUMN(NAME=~"examples.example_id~") COLUMN(NAME=~"examples.description~")WHERE(    EXP1 =~"~~~"examples~~~".~~~"description~~~"~"   OP =~"is not~"    EXP2 =~"null~"    LOGIC =~"and~" ) WHERE(    EXP1 =~"~~~"examples~~~".~~~"example_id~~~"~"   OP =~">~"    EXP2 =~"0~" ) ) ORDER(NAME=~"examples.title~" ASC=yes ) " update="examples" updatewhere=1 updatekeyinplace=yes )
+column(band=detail id=1 alignment="0" tabsequence=32766 border="0" color="0" x="10" y="8" height="61" width="1381" format="[general]"  name=title edit.limit=0 edit.case=any edit.autoselect=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+column(band=detail id=2 alignment="0" tabsequence=32766 border="0" color="0" x="4133" y="12" height="53" width="988" format="[general]"  name=example_id edit.limit=0 edit.case=any edit.autoselect=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+column(band=detail id=3 alignment="0" tabsequence=0 border="0" color="0" x="1399" y="12" height="53" width="2716"  name=description  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
