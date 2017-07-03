@@ -1,0 +1,13 @@
+HA$PBExportHeader$d_dddwdept.srd
+$PBExportComments$Dept. name and ID. (w_dwresizeff, w_linkagescroll, w_rowmanager)
+release 5;
+datawindow(units=0 timer_interval=0 color=1090519039 processing=1 print.documentname="" print.orientation = 0 print.margin.left = 107 print.margin.right = 107 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no grid.lines=1 )
+header(height=1 color="536870912" )
+summary(height=4 color="536870912" )
+footer(height=1 color="536870912" )
+detail(height=68 color="536870912" )
+table(column=(type=long update=yes updatewhereclause=yes key=yes name=dept_id dbname="department.dept_id" validation="mod(  real(gettext()) , 100 ) = 0" validationmsg="'The department number must be a multiple of 100.'" )
+ column=(type=char(40) update=yes updatewhereclause=yes name=dept_name dbname="department.dept_name" )
+ retrieve="PBSELECT( VERSION(400) TABLE(NAME=~"department~" ) COLUMN(NAME=~"department.dept_id~") COLUMN(NAME=~"department.dept_name~")) " update="department" updatewhere=1 updatekeyinplace=no )
+column(band=detail id=1 alignment="1" tabsequence=10 border="0" color="41943040" x="8" y="3" height="61" width="203" format="[general]"  name=dept_id  tag="Unique Identification Code of the department" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1080593568" )
+column(band=detail id=2 alignment="0" tabsequence=20 border="0" color="41943040" x="217" y="3" height="61" width="306" format="[general]"  name=dept_name  tag="Name of the department" edit.limit=40 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1080593568" )
