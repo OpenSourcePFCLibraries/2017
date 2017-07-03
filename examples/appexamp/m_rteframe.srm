@@ -1,0 +1,846 @@
+HA$PBExportHeader$m_rteframe.srm
+forward
+global type m_rteframe from m_master
+end type
+type m_retrievedocument from menu within m_file
+end type
+type m_- from menu within m_tools
+end type
+type m_bold from menu within m_tools
+end type
+type m_italics from menu within m_tools
+end type
+type m_underline from menu within m_tools
+end type
+type m_m_dash52 from menu within m_tools
+end type
+type m_strikeout from menu within m_tools
+end type
+type m_subscript from menu within m_tools
+end type
+type m_superscript from menu within m_tools
+end type
+end forward
+
+global type m_rteframe from m_master
+end type
+global m_rteframe m_rteframe
+
+on m_rteframe.create
+m_rteframe=this
+call super::create
+end on
+
+on m_rteframe.destroy
+call super::destroy
+end on
+
+type m_file from m_master`m_file within m_rteframe
+m_retrievedocument m_retrievedocument
+end type
+
+on m_file.create
+call super::create
+this.m_retrievedocument=create m_retrievedocument
+this.Item[UpperBound(this.item)+1]=this.m_retrievedocument
+end on
+
+on m_file.destroy
+call super::destroy
+destroy(this.m_retrievedocument)
+end on
+
+on m_close.create
+call super::create
+this.ShiftToRight=true
+end on
+
+event m_close::clicked;call super::clicked;//SetPointer (hourglass!)
+//of_SendMessage ("pfc_new")
+end event
+
+on m_dash11.create
+call super::create
+this.Visible=false
+this.ShiftToRight=true
+end on
+
+on m_save.create
+call super::create
+this.Visible=false
+this.Enabled=false
+this.ShiftToRight=true
+end on
+
+on m_saveas.create
+call super::create
+this.Visible=false
+this.Enabled=false
+this.ShiftToRight=true
+end on
+
+on m_dash12.create
+call super::create
+this.Visible=false
+this.ShiftToRight=true
+end on
+
+on m_print.create
+call super::create
+this.Visible=false
+this.Enabled=false
+this.ShiftToRight=true
+this.ToolBarItemVisible=false
+end on
+
+on m_printpreview.create
+call super::create
+this.Visible=false
+this.Enabled=false
+this.ShiftToRight=true
+end on
+
+on m_pagesetup.create
+call super::create
+this.Visible=false
+this.Enabled=false
+this.ShiftToRight=true
+this.ToolBarItemVisible=false
+end on
+
+on m_printimmediate.create
+call super::create
+this.Text="Print &Immediate"
+this.Enabled=false
+this.ShiftToRight=true
+end on
+
+on m_dash13.create
+call super::create
+this.ShiftToRight=true
+end on
+
+on m_exit.create
+call super::create
+this.Text="&Exit"
+this.ToolBarItemVisible=true
+end on
+
+on m_edit.create
+call super::create
+this.Visible=false
+end on
+
+on m_undo.create
+call super::create
+this.Enabled=false
+end on
+
+on m_cut.create
+call super::create
+this.Enabled=false
+end on
+
+on m_copy.create
+call super::create
+this.Enabled=false
+end on
+
+on m_paste.create
+call super::create
+this.Enabled=false
+end on
+
+on m_pastespecial.create
+call super::create
+this.Visible=false
+this.Enabled=false
+this.ToolBarItemVisible=false
+end on
+
+on m_clear.create
+call super::create
+this.Enabled=false
+this.ToolBarItemVisible=true
+end on
+
+on m_selectall.create
+call super::create
+this.Enabled=false
+this.ToolBarItemVisible=true
+end on
+
+event m_find::clicked;//////////////////////////////////////////////////////////////////////////////
+//
+//	Event:
+//	clicked
+//
+//	Description:
+//	Calls the ue_finddlg event on the rich text edit.
+//
+//////////////////////////////////////////////////////////////////////////////
+//	
+//	Revision History
+//
+//	Version
+//	6.0   Initial version
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+/*
+ * Open Source PowerBuilder Foundation Class Libraries
+ *
+ * Copyright (c) 2004-2017, All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted in accordance with the MIT License
+ * 
+ *
+ * https://opensource.org/licenses/MIT
+ *
+ * ====================================================================
+ *
+ * This software consists of voluntary contributions made by many
+ * individuals and was originally based on software copyright (c) 
+ * 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
+ * information on the Open Source PowerBuilder Foundation Class
+ * Libraries see https://github.com/OpenSourcePFCLibraries
+*/
+//
+//////////////////////////////////////////////////////////////////////////////
+
+of_SendMessage("ue_finddlg")
+end event
+
+on m_find.create
+call super::create
+this.Enabled=false
+end on
+
+event m_replace::clicked;call super::clicked;//////////////////////////////////////////////////////////////////////////////
+//
+//	Event:
+//	clicked
+//
+//	Description:
+//	Calls the ue_replacedlg event on the rich text edit.
+//
+//////////////////////////////////////////////////////////////////////////////
+//	
+//	Revision History
+//
+//	Version
+//	6.0   Initial version
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+/*
+ * Open Source PowerBuilder Foundation Class Libraries
+ *
+ * Copyright (c) 2004-2017, All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted in accordance with the MIT License
+ * 
+ *
+ * https://opensource.org/licenses/MIT
+ *
+ * ====================================================================
+ *
+ * This software consists of voluntary contributions made by many
+ * individuals and was originally based on software copyright (c) 
+ * 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
+ * information on the Open Source PowerBuilder Foundation Class
+ * Libraries see https://github.com/OpenSourcePFCLibraries
+*/
+//
+//////////////////////////////////////////////////////////////////////////////
+
+of_SendMessage("ue_replacedlg")
+end event
+
+on m_replace.create
+call super::create
+this.Enabled=false
+end on
+
+on m_dash24.create
+call super::create
+this.Visible=false
+end on
+
+on m_updatelinks.create
+call super::create
+this.Visible=false
+this.Enabled=false
+this.ToolBarItemVisible=false
+end on
+
+on m_object1.create
+call super::create
+this.Visible=false
+end on
+
+on m_view.create
+call super::create
+this.Visible=false
+end on
+
+on m_ruler.create
+call super::create
+this.ToolBarItemVisible=false
+end on
+
+on m_dash31.create
+call super::create
+this.Visible=false
+end on
+
+on m_dash34.create
+call super::create
+this.Visible=true
+end on
+
+on m_first.create
+call super::create
+this.Enabled=false
+end on
+
+on m_priorpage.create
+call super::create
+this.Enabled=false
+end on
+
+on m_nextpage.create
+call super::create
+this.Enabled=false
+end on
+
+on m_lastpage.create
+call super::create
+this.Enabled=false
+end on
+
+on m_dash35.create
+call super::create
+this.Visible=false
+end on
+
+on m_sort.create
+call super::create
+this.Visible=false
+this.Enabled=false
+end on
+
+on m_filter.create
+call super::create
+this.Visible=false
+this.Enabled=false
+end on
+
+on m_dash36.create
+call super::create
+this.Visible=false
+end on
+
+on m_zoom.create
+call super::create
+this.Visible=false
+this.Enabled=false
+end on
+
+on m_insert.create
+call super::create
+this.Visible=false
+end on
+
+on m_dash41.create
+call super::create
+this.Visible=false
+end on
+
+on m_object.create
+call super::create
+this.Visible=false
+end on
+
+type m_tools from m_master`m_tools within m_rteframe
+m_- m_-
+m_bold m_bold
+m_italics m_italics
+m_underline m_underline
+m_m_dash52 m_m_dash52
+m_strikeout m_strikeout
+m_subscript m_subscript
+m_superscript m_superscript
+end type
+
+on m_tools.create
+call super::create
+this.Visible=false
+this.Enabled=false
+this.m_-=create m_-
+this.m_bold=create m_bold
+this.m_italics=create m_italics
+this.m_underline=create m_underline
+this.m_m_dash52=create m_m_dash52
+this.m_strikeout=create m_strikeout
+this.m_subscript=create m_subscript
+this.m_superscript=create m_superscript
+this.Item[UpperBound(this.item)+1]=this.m_-
+this.Item[UpperBound(this.item)+1]=this.m_bold
+this.Item[UpperBound(this.item)+1]=this.m_italics
+this.Item[UpperBound(this.item)+1]=this.m_underline
+this.Item[UpperBound(this.item)+1]=this.m_m_dash52
+this.Item[UpperBound(this.item)+1]=this.m_strikeout
+this.Item[UpperBound(this.item)+1]=this.m_subscript
+this.Item[UpperBound(this.item)+1]=this.m_superscript
+end on
+
+on m_tools.destroy
+call super::destroy
+destroy(this.m_-)
+destroy(this.m_bold)
+destroy(this.m_italics)
+destroy(this.m_underline)
+destroy(this.m_m_dash52)
+destroy(this.m_strikeout)
+destroy(this.m_subscript)
+destroy(this.m_superscript)
+end on
+
+on m_toolbars.create
+call super::create
+this.ShiftToRight=false
+end on
+
+on m_window.create
+call super::create
+this.Visible=false
+this.Enabled=false
+end on
+
+event clicked;//////////////////////////////////////////////////////////////////////////////
+//
+//	Event:
+//	clicked
+//
+//	Description:
+//	Opens the properties window to display about, description, and technique
+// information for the example.
+//
+//////////////////////////////////////////////////////////////////////////////
+//	
+//	Revision History
+//
+//	Version
+//	6.0   Initial version
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+/*
+ * Open Source PowerBuilder Foundation Class Libraries
+ *
+ * Copyright (c) 2004-2017, All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted in accordance with the MIT License
+ * 
+ *
+ * https://opensource.org/licenses/MIT
+ *
+ * ====================================================================
+ *
+ * This software consists of voluntary contributions made by many
+ * individuals and was originally based on software copyright (c) 
+ * 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
+ * information on the Open Source PowerBuilder Foundation Class
+ * Libraries see https://github.com/OpenSourcePFCLibraries
+*/
+//
+//////////////////////////////////////////////////////////////////////////////
+
+//Open(w_properties)
+end event
+
+type m_retrievedocument from menu within m_file
+end type
+
+event clicked;//////////////////////////////////////////////////////////////////////////////
+//
+//	Event:
+//	clicked
+//
+//	Description:
+//	Calls the ue_retrievedocument event on the control with focus.  This is a
+// application layer user event that was put on the rich text edit control for
+// the rte examples.
+//
+//////////////////////////////////////////////////////////////////////////////
+//	
+//	Revision History
+//
+//	Version
+//	6.0   Initial version
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+/*
+ * Open Source PowerBuilder Foundation Class Libraries
+ *
+ * Copyright (c) 2004-2017, All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted in accordance with the MIT License
+ * 
+ *
+ * https://opensource.org/licenses/MIT
+ *
+ * ====================================================================
+ *
+ * This software consists of voluntary contributions made by many
+ * individuals and was originally based on software copyright (c) 
+ * 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
+ * information on the Open Source PowerBuilder Foundation Class
+ * Libraries see https://github.com/OpenSourcePFCLibraries
+*/
+//
+//////////////////////////////////////////////////////////////////////////////
+
+of_SendMessage("ue_retrievedocument")
+end event
+
+on m_retrievedocument.create
+this.Text="&Retrieve Document"
+this.ToolBarItemName="Retrieve5!"
+this.ToolBarItemText="Retrieve Document"
+this.ToolBarItemOrder=16
+end on
+
+type m_- from menu within m_tools
+end type
+
+on m_-.create
+this.Text="-"
+this.ToolBarItemText="m_dash51"
+end on
+
+type m_bold from menu within m_tools
+end type
+
+event clicked;//////////////////////////////////////////////////////////////////////////////
+//
+//	Event:
+//	clicked
+//
+//	Description:
+//	Calls the ue_bold event on the rich text edit.
+//
+//////////////////////////////////////////////////////////////////////////////
+//	
+//	Revision History
+//
+//	Version
+//	6.0   Initial version
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+/*
+ * Open Source PowerBuilder Foundation Class Libraries
+ *
+ * Copyright (c) 2004-2017, All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted in accordance with the MIT License
+ * 
+ *
+ * https://opensource.org/licenses/MIT
+ *
+ * ====================================================================
+ *
+ * This software consists of voluntary contributions made by many
+ * individuals and was originally based on software copyright (c) 
+ * 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
+ * information on the Open Source PowerBuilder Foundation Class
+ * Libraries see https://github.com/OpenSourcePFCLibraries
+*/
+//
+//////////////////////////////////////////////////////////////////////////////
+
+of_SendMessage("ue_bold")
+end event
+
+on m_bold.create
+this.Text="&Bold"
+this.ToolBarItemName="Bold!"
+this.ToolBarItemOrder=91
+this.ToolBarItemSpace=2
+this.Enabled=false
+end on
+
+type m_italics from menu within m_tools
+end type
+
+event clicked;//////////////////////////////////////////////////////////////////////////////
+//
+//	Event:
+//	clicked
+//
+//	Description:
+//	Calls the ue_italics event on the rich text edit.
+//
+//////////////////////////////////////////////////////////////////////////////
+//	
+//	Revision History
+//
+//	Version
+//	6.0   Initial version
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+/*
+ * Open Source PowerBuilder Foundation Class Libraries
+ *
+ * Copyright (c) 2004-2017, All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted in accordance with the MIT License
+ * 
+ *
+ * https://opensource.org/licenses/MIT
+ *
+ * ====================================================================
+ *
+ * This software consists of voluntary contributions made by many
+ * individuals and was originally based on software copyright (c) 
+ * 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
+ * information on the Open Source PowerBuilder Foundation Class
+ * Libraries see https://github.com/OpenSourcePFCLibraries
+*/
+//
+//////////////////////////////////////////////////////////////////////////////
+
+of_SendMessage("ue_italics")
+end event
+
+on m_italics.create
+this.Text="&Italics"
+this.ToolBarItemName="Italic!"
+this.ToolBarItemOrder=92
+this.Enabled=false
+end on
+
+type m_underline from menu within m_tools
+end type
+
+event clicked;//////////////////////////////////////////////////////////////////////////////
+//
+//	Event:
+//	clicked
+//
+//	Description:
+//	Calls the ue_underline event on the rich text edit.
+//
+//////////////////////////////////////////////////////////////////////////////
+//	
+//	Revision History
+//
+//	Version
+//	6.0   Initial version
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+/*
+ * Open Source PowerBuilder Foundation Class Libraries
+ *
+ * Copyright (c) 2004-2017, All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted in accordance with the MIT License
+ * 
+ *
+ * https://opensource.org/licenses/MIT
+ *
+ * ====================================================================
+ *
+ * This software consists of voluntary contributions made by many
+ * individuals and was originally based on software copyright (c) 
+ * 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
+ * information on the Open Source PowerBuilder Foundation Class
+ * Libraries see https://github.com/OpenSourcePFCLibraries
+*/
+//
+//////////////////////////////////////////////////////////////////////////////
+
+of_SendMessage("ue_underline")
+end event
+
+on m_underline.create
+this.Text="&Underline"
+this.ToolBarItemName="Underline!"
+this.ToolBarItemOrder=93
+this.Enabled=false
+end on
+
+type m_m_dash52 from menu within m_tools
+end type
+
+on m_m_dash52.create
+this.Text="-"
+this.ToolBarItemText="m_dash52"
+end on
+
+type m_strikeout from menu within m_tools
+end type
+
+event clicked;//////////////////////////////////////////////////////////////////////////////
+//
+//	Event:
+//	clicked
+//
+//	Description:
+//	Calls the ue_strikeout event on the rich text edit.
+//
+//////////////////////////////////////////////////////////////////////////////
+//	
+//	Revision History
+//
+//	Version
+//	6.0   Initial version
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+/*
+ * Open Source PowerBuilder Foundation Class Libraries
+ *
+ * Copyright (c) 2004-2017, All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted in accordance with the MIT License
+ * 
+ *
+ * https://opensource.org/licenses/MIT
+ *
+ * ====================================================================
+ *
+ * This software consists of voluntary contributions made by many
+ * individuals and was originally based on software copyright (c) 
+ * 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
+ * information on the Open Source PowerBuilder Foundation Class
+ * Libraries see https://github.com/OpenSourcePFCLibraries
+*/
+//
+//////////////////////////////////////////////////////////////////////////////
+
+of_SendMessage("ue_strikeout")
+end event
+
+on m_strikeout.create
+this.Text="&Strikeout"
+this.ToolBarItemName="Strikethrough!"
+this.ToolBarItemOrder=94
+this.Enabled=false
+end on
+
+type m_subscript from menu within m_tools
+end type
+
+event clicked;//////////////////////////////////////////////////////////////////////////////
+//
+//	Event:
+//	clicked
+//
+//	Description:
+//	Calls the ue_subscript event on the rich text edit.
+//
+//////////////////////////////////////////////////////////////////////////////
+//	
+//	Revision History
+//
+//	Version
+//	6.0   Initial version
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+/*
+ * Open Source PowerBuilder Foundation Class Libraries
+ *
+ * Copyright (c) 2004-2017, All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted in accordance with the MIT License
+ * 
+ *
+ * https://opensource.org/licenses/MIT
+ *
+ * ====================================================================
+ *
+ * This software consists of voluntary contributions made by many
+ * individuals and was originally based on software copyright (c) 
+ * 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
+ * information on the Open Source PowerBuilder Foundation Class
+ * Libraries see https://github.com/OpenSourcePFCLibraries
+*/
+//
+//////////////////////////////////////////////////////////////////////////////
+
+of_SendMessage("ue_subscript")
+end event
+
+on m_subscript.create
+this.Text="Subscrip&t"
+this.ToolBarItemVisible=false
+this.Enabled=false
+end on
+
+type m_superscript from menu within m_tools
+end type
+
+event clicked;//////////////////////////////////////////////////////////////////////////////
+//
+//	Event:
+//	clicked
+//
+//	Description:
+//	Calls the ue_superscript event on the rich text edit.
+//
+//////////////////////////////////////////////////////////////////////////////
+//	
+//	Revision History
+//
+//	Version
+//	6.0   Initial version
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+/*
+ * Open Source PowerBuilder Foundation Class Libraries
+ *
+ * Copyright (c) 2004-2017, All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted in accordance with the MIT License
+ * 
+ *
+ * https://opensource.org/licenses/MIT
+ *
+ * ====================================================================
+ *
+ * This software consists of voluntary contributions made by many
+ * individuals and was originally based on software copyright (c) 
+ * 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
+ * information on the Open Source PowerBuilder Foundation Class
+ * Libraries see https://github.com/OpenSourcePFCLibraries
+*/
+//
+//////////////////////////////////////////////////////////////////////////////
+
+of_SendMessage("ue_superscript")
+end event
+
+on m_superscript.create
+this.Text="Su&perscript"
+this.ToolBarItemVisible=false
+this.Enabled=false
+end on
+
