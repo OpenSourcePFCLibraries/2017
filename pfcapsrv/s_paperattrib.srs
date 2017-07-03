@@ -1,0 +1,7 @@
+HA$PBExportHeader$s_paperattrib.srs
+$PBExportComments$PFC Structure for Paper dialog
+global type s_paperattrib from structure
+	integer		i_val
+	string		s_type
+end type
+
