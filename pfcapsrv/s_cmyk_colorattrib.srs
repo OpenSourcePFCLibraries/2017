@@ -1,0 +1,9 @@
+HA$PBExportHeader$s_cmyk_colorattrib.srs
+$PBExportComments$Color Conversion Service CMY color attrib
+global type s_cmyk_colorattrib from structure
+	decimal		c
+	decimal		m
+	decimal		y
+	decimal		k
+end type
+
