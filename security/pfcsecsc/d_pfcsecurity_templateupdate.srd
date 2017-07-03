@@ -1,0 +1,20 @@
+HA$PBExportHeader$d_pfcsecurity_templateupdate.srd
+$PBExportComments$PFC Security - Update the template table
+release 5;
+datawindow(units=0 timer_interval=0 color=77956459 processing=1 print.documentname="" print.orientation = 0 print.margin.left = 0 print.margin.right = 0 print.margin.top = 0 print.margin.bottom = 0 print.paper.source = 0 print.paper.size = 0 print.prompt=no grid.lines=0 )
+header(height=77 color="536870912" )
+summary(height=1 color="536870912" )
+footer(height=1 color="536870912" )
+detail(height=69 color="536870912" )
+table(column=(type=char(40) update=yes updatewhereclause=yes key=yes name=application dbname="security_template.application" )
+ column=(type=char(64) update=yes updatewhereclause=yes key=yes name=window dbname="security_template.window" )
+ column=(type=char(128) update=yes updatewhereclause=yes key=yes name=control dbname="security_template.control" )
+ column=(type=char(24) update=yes updatewhereclause=yes name=object_type dbname="security_template.object_type" )
+ column=(type=char(254) update=yes updatewhereclause=yes name=description dbname="security_template.description" initial=" " )
+ retrieve="PBSELECT( VERSION(400) TABLE(NAME=~"security_template~" ) COLUMN(NAME=~"security_template.application~") COLUMN(NAME=~"security_template.window~") COLUMN(NAME=~"security_template.control~") COLUMN(NAME=~"security_template.object_type~") COLUMN(NAME=~"security_template.description~")WHERE(    EXP1 =~"security_template.window~"   OP =~"=~"    EXP2 =~":window~"    LOGIC =~"and~" ) WHERE(    EXP1 =~"~~~"security_template~~~".~~~"application~~~"~"   OP =~"=~"    EXP2 =~":app~" ) ) ARG(NAME = ~"app~" TYPE = string)  ARG(NAME = ~"window~" TYPE = string) " update="security_template" updatewhere=2 updatekeyinplace=yes arguments=(("app", string),("window", string)) )
+text(band=header alignment="2" text="Control Name"border="6" color="0" x="10" y="4" height="57" width="700"  name=control_t  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Description"border="6" color="0" x="718" y="4" height="57" width="828"  name=description_t  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Object Type"border="6" color="0" x="1555" y="4" height="57" width="421"  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=4 alignment="0" tabsequence=32766 border="5" color="0" x="1555" y="8" height="53" width="421" format="[general]"  name=object_type edit.limit=0 edit.case=any edit.autoselect=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=5 alignment="0" tabsequence=10 border="5" color="0" x="718" y="8" height="53" width="828" format="[general]"  name=description edit.limit=60 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=3 alignment="0" tabsequence=32766 border="5" color="0" x="10" y="8" height="53" width="700" format="[general]"  name=control edit.limit=30 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
