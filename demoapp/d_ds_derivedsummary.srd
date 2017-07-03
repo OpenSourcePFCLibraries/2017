@@ -1,0 +1,40 @@
+HA$PBExportHeader$d_ds_derivedsummary.srd
+$PBExportComments$The source for the ListView when the Category Item "Derived Item" is selected.
+release 5;
+datawindow(units=0 timer_interval=0 color=16777215 processing=0 print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no )
+header(height=97 color="536870912" )
+summary(height=1 color="536870912" )
+footer(height=1 color="536870912" )
+detail(height=77 color="536870912" )
+table(column=(type=char(50) updatewhereclause=yes name=name dbname="project_derived_item.name" )
+ column=(type=decimal(2) updatewhereclause=yes name=rate dbname="project_derived_item.rate" )
+ column=(type=decimal(2) update=yes updatewhereclause=yes name=actual_hours dbname="project_derived_item.actual_hours" )
+ column=(type=long update=yes updatewhereclause=yes key=yes identity=yes name=derived_item_id dbname="project_derived_item.derived_item_id" )
+ column=(type=long update=yes updatewhereclause=yes key=yes name=project_id dbname="project_derived_item.project_id" )
+ column=(type=decimal(10) updatewhereclause=yes name=estimated_hours dbname="compute_0006" )
+ column=(type=decimal(4) updatewhereclause=yes name=actual_cost dbname="compute_0007" )
+ retrieve="   SELECT ~"project_derived_item~".~"name~" ,           
+			 ~"project_derived_item~".~"rate~" ,           
+			 ~"project_derived_item~".~"actual_hours~" ,           
+			 ~"project_derived_item~".~"derived_item_id~" ,           
+			 ~"project_derived_item~".~"project_id~", 
+            (SELECT sum(~"project_category_item~".~"estimated_hours~"*    
+        					  ~"project_role~".~"multipler~" ) * 
+								(~"project_derived_item~".~"percentage~" / 100)
+    			FROM ~"project_category_item~",   
+        				~"project_complexity~",   
+        				~"project_role~"  
+  				 WHERE ( ~"project_complexity~".~"complexity_id~" = ~"project_category_item~".~"complexity_id~" ) and  
+       				  ( ~"project_category_item~".~"role_id~" = ~"project_role~".~"role_id~" ) and  
+       				  ( ( ~"project_category_item~".~"project_id~" = :project_id) )),
+			~"project_derived_item~".~"actual_hours~"  * ~"project_derived_item~".~"rate~" 
+      FROM ~"project_derived_item~"
+   WHERE ~"project_derived_item~".~"project_id~" = :project_id  " update="project_derived_item" updatewhere=0 updatekeyinplace=no arguments=(("project_id", number))  sort="name A " )
+text(band=header alignment="2" text="Actual"border="0" color="0" x="2099" y="16" height="53" width="138"  name=project_derived_item_actual_hours_t  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Name"border="0" color="0" x="5" y="0" height="53" width="1166"  name=default_derived_item_name_t  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=3 alignment="1" tabsequence=32766 border="0" color="0" x="2053" y="4" height="65" width="275" format="#,##0.00"  name=actual_hours edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=1 alignment="0" tabsequence=32766 border="0" color="0" x="1" y="12" height="53" width="1139" format="[general]"  name=name edit.limit=0 edit.case=any edit.autoselect=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=6 alignment="0" tabsequence=32766 border="0" color="0" x="1226" y="16" height="53" width="179" format="#,##0.00"  name=estimated_hours edit.limit=0 edit.case=any edit.autoselect=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=7 alignment="0" tabsequence=0 border="0" color="0" x="2373" y="12" height="53" width="499" format="$#,##0.00;[RED]($#,##0.00)"  name=actual_cost  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Estimated"border="0" color="0" x="1226" y="12" height="53" width="211"  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=detail alignment="0" expression=" rate * estimated_hours "border="0" color="0" x="1555" y="12" height="53" width="183" format="$#,##0.00;[RED]($#,##0.00)"  name=estimated_cost  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
