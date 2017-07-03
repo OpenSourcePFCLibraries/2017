@@ -1,0 +1,152 @@
+HA$PBExportHeader$m_pfcsecurity_master.srm
+forward
+global type m_pfcsecurity_master from pfc_m_master
+end type
+type m_scanapplication from menu within m_file
+end type
+type m_edittemplates from menu within m_file
+end type
+type m_usersgroups from menu within m_file
+end type
+type m_configuresecurity from menu within m_file
+end type
+type m_reports from menu within m_file
+end type
+type m_userreport from menu within m_reports
+end type
+type m_windowreport from menu within m_reports
+end type
+type m_reports from menu within m_file
+m_userreport m_userreport
+m_windowreport m_windowreport
+end type
+end forward
+
+global type m_pfcsecurity_master from pfc_m_master
+end type
+global m_pfcsecurity_master m_pfcsecurity_master
+
+on m_pfcsecurity_master.create
+m_pfcsecurity_master=this
+call super::create
+end on
+
+on m_pfcsecurity_master.destroy
+call super::destroy
+end on
+
+type m_file from pfc_m_master`m_file within m_pfcsecurity_master
+m_scanapplication m_scanapplication
+m_edittemplates m_edittemplates
+m_usersgroups m_usersgroups
+m_configuresecurity m_configuresecurity
+m_reports m_reports
+end type
+
+on m_file.create
+call super::create
+this.m_scanapplication=create m_scanapplication
+this.m_edittemplates=create m_edittemplates
+this.m_usersgroups=create m_usersgroups
+this.m_configuresecurity=create m_configuresecurity
+this.m_reports=create m_reports
+this.Item[UpperBound(this.item)+1]=this.m_scanapplication
+this.Item[UpperBound(this.item)+1]=this.m_edittemplates
+this.Item[UpperBound(this.item)+1]=this.m_usersgroups
+this.Item[UpperBound(this.item)+1]=this.m_configuresecurity
+this.Item[UpperBound(this.item)+1]=this.m_reports
+end on
+
+on m_file.destroy
+call super::destroy
+destroy(this.m_scanapplication)
+destroy(this.m_edittemplates)
+destroy(this.m_usersgroups)
+destroy(this.m_configuresecurity)
+destroy(this.m_reports)
+end on
+
+on m_delete.create
+call super::create
+this.Text="&Delete"
+this.Shortcut=0
+end on
+
+type m_scanapplication from menu within m_file
+end type
+
+event clicked;run('pfcsecsc.exe')
+end event
+
+on m_scanapplication.create
+this.Text="Scan &Application"
+end on
+
+type m_edittemplates from menu within m_file
+end type
+
+on m_edittemplates.create
+this.Text="&Templates"
+end on
+
+event clicked;opensheet(w_pfcsecurity_templatemgmt,parentwindow,0,layered!)
+end event
+
+type m_usersgroups from menu within m_file
+end type
+
+on m_usersgroups.create
+this.Text="&Users/Groups"
+end on
+
+event clicked;opensheet(w_pfcsecurity_usermgmt,parentwindow,0,original!)
+end event
+
+type m_configuresecurity from menu within m_file
+end type
+
+on m_configuresecurity.create
+this.Text="Users/&Objects"
+end on
+
+event clicked;opensheet(w_pfcsecurity_infomgmt,parentwindow,0,layered!)
+end event
+
+type m_reports from menu within m_file
+m_userreport m_userreport
+m_windowreport m_windowreport
+end type
+
+on m_reports.create
+this.Text="&Reports"
+this.m_userreport=create m_userreport
+this.m_windowreport=create m_windowreport
+this.Item[]={this.m_userreport, &
+this.m_windowreport}
+end on
+
+on m_reports.destroy
+destroy(this.m_userreport)
+destroy(this.m_windowreport)
+end on
+
+type m_userreport from menu within m_reports
+end type
+
+event clicked;opensheet(w_pfcsecurity_reportuser,parentwindow,0,layered!)
+end event
+
+on m_userreport.create
+this.Text="Users"
+end on
+
+type m_windowreport from menu within m_reports
+end type
+
+event clicked;opensheet(w_pfcsecurity_reportwindow,parentwindow,0,layered!)
+end event
+
+on m_windowreport.create
+this.Text="Objects"
+end on
+
