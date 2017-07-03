@@ -1,0 +1,1178 @@
+HA$PBExportHeader$m_peat_master.srm
+$PBExportComments$The master menu use for all sheets in PEAT
+forward
+global type m_peat_master from m_master
+end type
+type m_project from menu within m_peat_master
+end type
+type m_information from menu within m_project
+end type
+type m_estimate from menu within m_project
+end type
+type m_actual from menu within m_project
+end type
+type m_project from menu within m_peat_master
+m_information m_information
+m_estimate m_estimate
+m_actual m_actual
+end type
+type m_report from menucascade within m_peat_master
+end type
+type m_projectestimation from menu within m_report
+end type
+type m_projectanalyzer from menu within m_report
+end type
+type m_report from menucascade within m_peat_master
+m_projectestimation m_projectestimation
+m_projectanalyzer m_projectanalyzer
+end type
+global type m_peat_master from m_master
+m_project m_project
+m_report m_report
+end type
+end forward
+
+global type m_peat_master from m_master
+m_project m_project
+m_report m_report
+end type
+global m_peat_master m_peat_master
+
+on m_peat_master.create
+m_peat_master=this
+call super::create
+this.m_project=create m_project
+this.m_report=create m_report
+this.Item[UpperBound(this.Item)+1]=this.m_project
+this.Item[UpperBound(this.Item)+1]=this.m_report
+end on
+
+on m_peat_master.destroy
+call super::destroy
+destroy(this.m_project)
+destroy(this.m_report)
+end on
+
+type m_file from m_master`m_file within m_peat_master
+end type
+
+on m_file.create
+call super::create
+end on
+
+on m_file.destroy
+call super::destroy
+end on
+
+type m_new from m_master`m_new within m_file
+end type
+
+on m_new.create
+call super::create
+this.text = "&New...~tCtrl+N"
+this.toolbaritemtext = "New,New Project Wizard"
+this.toolbaritemorder = 1
+end on
+
+on m_new.destroy
+call super::destroy
+end on
+
+type m_open from m_master`m_open within m_file
+end type
+
+on m_open.create
+call super::create
+this.text = "&Open~tCtrl+O"
+this.enabled = false
+this.toolbaritemvisible = false
+this.toolbaritemorder = 1
+end on
+
+on m_open.destroy
+call super::destroy
+end on
+
+type m_close from m_master`m_close within m_file
+end type
+
+on m_close.create
+call super::create
+end on
+
+on m_close.destroy
+call super::destroy
+end on
+
+type m_dash11 from m_master`m_dash11 within m_file
+end type
+
+on m_dash11.create
+call super::create
+this.visible = false
+end on
+
+on m_dash11.destroy
+call super::destroy
+end on
+
+type m_save from m_master`m_save within m_file
+end type
+
+on m_save.create
+call super::create
+this.visible = false
+this.enabled = false
+this.toolbaritemvisible = false
+end on
+
+on m_save.destroy
+call super::destroy
+end on
+
+type m_saveas from m_master`m_saveas within m_file
+end type
+
+on m_saveas.create
+call super::create
+this.visible = false
+this.enabled = false
+end on
+
+on m_saveas.destroy
+call super::destroy
+end on
+
+type m_dash12 from m_master`m_dash12 within m_file
+end type
+
+on m_dash12.create
+call super::create
+this.visible = false
+end on
+
+on m_dash12.destroy
+call super::destroy
+end on
+
+type m_print from m_master`m_print within m_file
+end type
+
+on m_print.create
+call super::create
+this.visible = false
+this.enabled = false
+this.toolbaritemvisible = false
+end on
+
+on m_print.destroy
+call super::destroy
+end on
+
+type m_printpreview from m_master`m_printpreview within m_file
+end type
+
+on m_printpreview.create
+call super::create
+this.visible = false
+this.enabled = false
+this.toolbaritemvisible = false
+end on
+
+on m_printpreview.destroy
+call super::destroy
+end on
+
+type m_pagesetup from m_master`m_pagesetup within m_file
+end type
+
+on m_pagesetup.create
+call super::create
+this.visible = false
+this.enabled = false
+this.toolbaritemvisible = false
+end on
+
+on m_pagesetup.destroy
+call super::destroy
+end on
+
+type m_printimmediate from m_master`m_printimmediate within m_file
+end type
+
+on m_printimmediate.create
+call super::create
+this.toolbaritemvisible = false
+end on
+
+on m_printimmediate.destroy
+call super::destroy
+end on
+
+type m_dash13 from m_master`m_dash13 within m_file
+end type
+
+on m_dash13.create
+call super::create
+this.visible = true
+end on
+
+on m_dash13.destroy
+call super::destroy
+end on
+
+type m_delete from m_master`m_delete within m_file
+end type
+
+on m_delete.create
+call super::create
+this.visible = true
+this.text = "&Delete...~tCtrl+D"
+this.enabled = true
+this.toolbaritemvisible = true
+this.toolbaritemtext = "Delete,Delete Project"
+this.toolbaritemorder = 2
+this.toolbaritemspace = 0
+end on
+
+event m_delete::clicked;call super::clicked;SetPointer(HourGlass!)
+of_SendMessage("peat_delete")
+end event
+
+on m_delete.destroy
+call super::destroy
+end on
+
+type m_properties from m_master`m_properties within m_file
+end type
+
+on m_properties.create
+call super::create
+end on
+
+on m_properties.destroy
+call super::destroy
+end on
+
+type m_dash14 from m_master`m_dash14 within m_file
+end type
+
+on m_dash14.create
+call super::create
+end on
+
+on m_dash14.destroy
+call super::destroy
+end on
+
+type m_exit from m_master`m_exit within m_file
+end type
+
+on m_exit.create
+call super::create
+this.toolbaritemvisible = true
+this.toolbaritemspace = 0
+end on
+
+on m_exit.destroy
+call super::destroy
+end on
+
+type m_pfcmrudash1 from m_master`m_pfcmrudash1 within m_file
+end type
+
+on m_pfcmrudash1.create
+call super::create
+end on
+
+on m_pfcmrudash1.destroy
+call super::destroy
+end on
+
+type m_pfcmru1 from m_master`m_pfcmru1 within m_file
+end type
+
+on m_pfcmru1.create
+call super::create
+end on
+
+on m_pfcmru1.destroy
+call super::destroy
+end on
+
+type m_pfcmru2 from m_master`m_pfcmru2 within m_file
+end type
+
+on m_pfcmru2.create
+call super::create
+end on
+
+on m_pfcmru2.destroy
+call super::destroy
+end on
+
+type m_pfcmru3 from m_master`m_pfcmru3 within m_file
+end type
+
+on m_pfcmru3.create
+call super::create
+end on
+
+on m_pfcmru3.destroy
+call super::destroy
+end on
+
+type m_pfcmru4 from m_master`m_pfcmru4 within m_file
+end type
+
+on m_pfcmru4.create
+call super::create
+end on
+
+on m_pfcmru4.destroy
+call super::destroy
+end on
+
+type m_pfcmru5 from m_master`m_pfcmru5 within m_file
+end type
+
+on m_pfcmru5.create
+call super::create
+end on
+
+on m_pfcmru5.destroy
+call super::destroy
+end on
+
+type m_edit from m_master`m_edit within m_peat_master
+end type
+
+on m_edit.create
+call super::create
+this.visible = false
+this.enabled = false
+end on
+
+on m_edit.destroy
+call super::destroy
+end on
+
+type m_undo from m_master`m_undo within m_edit
+end type
+
+on m_undo.create
+call super::create
+this.toolbaritemname = ""
+end on
+
+on m_undo.destroy
+call super::destroy
+end on
+
+type m_dash21 from m_master`m_dash21 within m_edit
+end type
+
+on m_dash21.create
+call super::create
+end on
+
+on m_dash21.destroy
+call super::destroy
+end on
+
+type m_cut from m_master`m_cut within m_edit
+end type
+
+on m_cut.create
+call super::create
+this.toolbaritemname = ""
+end on
+
+on m_cut.destroy
+call super::destroy
+end on
+
+type m_copy from m_master`m_copy within m_edit
+end type
+
+on m_copy.create
+call super::create
+this.toolbaritemname = ""
+end on
+
+on m_copy.destroy
+call super::destroy
+end on
+
+type m_paste from m_master`m_paste within m_edit
+end type
+
+on m_paste.create
+call super::create
+this.toolbaritemname = ""
+end on
+
+on m_paste.destroy
+call super::destroy
+end on
+
+type m_pastespecial from m_master`m_pastespecial within m_edit
+end type
+
+on m_pastespecial.create
+call super::create
+end on
+
+on m_pastespecial.destroy
+call super::destroy
+end on
+
+type m_clear from m_master`m_clear within m_edit
+end type
+
+on m_clear.create
+call super::create
+this.toolbaritemname = ""
+end on
+
+on m_clear.destroy
+call super::destroy
+end on
+
+type m_dash22 from m_master`m_dash22 within m_edit
+end type
+
+on m_dash22.create
+call super::create
+end on
+
+on m_dash22.destroy
+call super::destroy
+end on
+
+type m_selectall from m_master`m_selectall within m_edit
+end type
+
+on m_selectall.create
+call super::create
+this.toolbaritemname = ""
+end on
+
+on m_selectall.destroy
+call super::destroy
+end on
+
+type m_dash23 from m_master`m_dash23 within m_edit
+end type
+
+on m_dash23.create
+call super::create
+end on
+
+on m_dash23.destroy
+call super::destroy
+end on
+
+type m_find from m_master`m_find within m_edit
+end type
+
+on m_find.create
+call super::create
+this.toolbaritemname = ""
+end on
+
+on m_find.destroy
+call super::destroy
+end on
+
+type m_replace from m_master`m_replace within m_edit
+end type
+
+on m_replace.create
+call super::create
+this.toolbaritemname = ""
+end on
+
+on m_replace.destroy
+call super::destroy
+end on
+
+type m_dash24 from m_master`m_dash24 within m_edit
+end type
+
+on m_dash24.create
+call super::create
+end on
+
+on m_dash24.destroy
+call super::destroy
+end on
+
+type m_updatelinks from m_master`m_updatelinks within m_edit
+end type
+
+on m_updatelinks.create
+call super::create
+end on
+
+on m_updatelinks.destroy
+call super::destroy
+end on
+
+type m_object1 from m_master`m_object1 within m_edit
+end type
+
+on m_object1.create
+call super::create
+end on
+
+on m_object1.destroy
+call super::destroy
+end on
+
+type m_edit1 from m_master`m_edit1 within m_object1
+end type
+
+on m_edit1.create
+call super::create
+end on
+
+on m_edit1.destroy
+call super::destroy
+end on
+
+type m_open1 from m_master`m_open1 within m_object1
+end type
+
+on m_open1.create
+call super::create
+end on
+
+on m_open1.destroy
+call super::destroy
+end on
+
+type m_view from m_master`m_view within m_peat_master
+end type
+
+on m_view.create
+call super::create
+this.visible = false
+this.enabled = false
+end on
+
+on m_view.destroy
+call super::destroy
+end on
+
+type m_ruler from m_master`m_ruler within m_view
+end type
+
+on m_ruler.create
+call super::create
+end on
+
+on m_ruler.destroy
+call super::destroy
+end on
+
+type m_dash31 from m_master`m_dash31 within m_view
+end type
+
+on m_dash31.create
+call super::create
+end on
+
+on m_dash31.destroy
+call super::destroy
+end on
+
+type m_largeicon from m_master`m_largeicon within m_view
+end type
+
+on m_largeicon.create
+call super::create
+end on
+
+on m_largeicon.destroy
+call super::destroy
+end on
+
+type m_smallicons from m_master`m_smallicons within m_view
+end type
+
+on m_smallicons.create
+call super::create
+end on
+
+on m_smallicons.destroy
+call super::destroy
+end on
+
+type m_list from m_master`m_list within m_view
+end type
+
+on m_list.create
+call super::create
+end on
+
+on m_list.destroy
+call super::destroy
+end on
+
+type m_details from m_master`m_details within m_view
+end type
+
+on m_details.create
+call super::create
+end on
+
+on m_details.destroy
+call super::destroy
+end on
+
+type m_dash32 from m_master`m_dash32 within m_view
+end type
+
+on m_dash32.create
+call super::create
+end on
+
+on m_dash32.destroy
+call super::destroy
+end on
+
+type m_arrangeicons from m_master`m_arrangeicons within m_view
+end type
+
+on m_arrangeicons.create
+call super::create
+end on
+
+on m_arrangeicons.destroy
+call super::destroy
+end on
+
+type m_by1 from m_master`m_by1 within m_arrangeicons
+end type
+
+on m_by1.create
+call super::create
+end on
+
+on m_by1.destroy
+call super::destroy
+end on
+
+type m_dash33 from m_master`m_dash33 within m_arrangeicons
+end type
+
+on m_dash33.create
+call super::create
+end on
+
+on m_dash33.destroy
+call super::destroy
+end on
+
+type m_autoarrange from m_master`m_autoarrange within m_arrangeicons
+end type
+
+on m_autoarrange.create
+call super::create
+end on
+
+on m_autoarrange.destroy
+call super::destroy
+end on
+
+type m_dash34 from m_master`m_dash34 within m_view
+end type
+
+on m_dash34.create
+call super::create
+end on
+
+on m_dash34.destroy
+call super::destroy
+end on
+
+type m_first from m_master`m_first within m_view
+end type
+
+on m_first.create
+call super::create
+end on
+
+on m_first.destroy
+call super::destroy
+end on
+
+type m_priorpage from m_master`m_priorpage within m_view
+end type
+
+on m_priorpage.create
+call super::create
+end on
+
+on m_priorpage.destroy
+call super::destroy
+end on
+
+type m_nextpage from m_master`m_nextpage within m_view
+end type
+
+on m_nextpage.create
+call super::create
+end on
+
+on m_nextpage.destroy
+call super::destroy
+end on
+
+type m_lastpage from m_master`m_lastpage within m_view
+end type
+
+on m_lastpage.create
+call super::create
+end on
+
+on m_lastpage.destroy
+call super::destroy
+end on
+
+type m_dash35 from m_master`m_dash35 within m_view
+end type
+
+on m_dash35.create
+call super::create
+end on
+
+on m_dash35.destroy
+call super::destroy
+end on
+
+type m_sort from m_master`m_sort within m_view
+end type
+
+on m_sort.create
+call super::create
+end on
+
+on m_sort.destroy
+call super::destroy
+end on
+
+type m_filter from m_master`m_filter within m_view
+end type
+
+on m_filter.create
+call super::create
+end on
+
+on m_filter.destroy
+call super::destroy
+end on
+
+type m_dash36 from m_master`m_dash36 within m_view
+end type
+
+on m_dash36.create
+call super::create
+end on
+
+on m_dash36.destroy
+call super::destroy
+end on
+
+type m_zoom from m_master`m_zoom within m_view
+end type
+
+on m_zoom.create
+call super::create
+end on
+
+on m_zoom.destroy
+call super::destroy
+end on
+
+type m_insert from m_master`m_insert within m_peat_master
+end type
+
+on m_insert.create
+call super::create
+this.visible = false
+this.enabled = false
+end on
+
+on m_insert.destroy
+call super::destroy
+end on
+
+type m_insertfile from m_master`m_insertfile within m_insert
+end type
+
+on m_insertfile.create
+call super::create
+end on
+
+on m_insertfile.destroy
+call super::destroy
+end on
+
+type m_picture from m_master`m_picture within m_insert
+end type
+
+on m_picture.create
+call super::create
+end on
+
+on m_picture.destroy
+call super::destroy
+end on
+
+type m_dash41 from m_master`m_dash41 within m_insert
+end type
+
+on m_dash41.create
+call super::create
+end on
+
+on m_dash41.destroy
+call super::destroy
+end on
+
+type m_object from m_master`m_object within m_insert
+end type
+
+on m_object.create
+call super::create
+end on
+
+on m_object.destroy
+call super::destroy
+end on
+
+type m_tools from m_master`m_tools within m_peat_master
+end type
+
+on m_tools.create
+call super::create
+this.visible = false
+this.enabled = false
+end on
+
+on m_tools.destroy
+call super::destroy
+end on
+
+type m_toolbars from m_master`m_toolbars within m_tools
+end type
+
+on m_toolbars.create
+call super::create
+end on
+
+on m_toolbars.destroy
+call super::destroy
+end on
+
+type m_window from m_master`m_window within m_peat_master
+end type
+
+on m_window.create
+call super::create
+end on
+
+on m_window.destroy
+call super::destroy
+end on
+
+type m_cascade from m_master`m_cascade within m_window
+end type
+
+on m_cascade.create
+call super::create
+this.toolbaritemname = ""
+end on
+
+on m_cascade.destroy
+call super::destroy
+end on
+
+type m_tilehorizontal from m_master`m_tilehorizontal within m_window
+end type
+
+on m_tilehorizontal.create
+call super::create
+this.toolbaritemname = ""
+end on
+
+on m_tilehorizontal.destroy
+call super::destroy
+end on
+
+type m_tilevertical from m_master`m_tilevertical within m_window
+end type
+
+on m_tilevertical.create
+call super::create
+this.toolbaritemname = ""
+end on
+
+on m_tilevertical.destroy
+call super::destroy
+end on
+
+type m_layer from m_master`m_layer within m_window
+end type
+
+on m_layer.create
+call super::create
+this.toolbaritemname = ""
+end on
+
+on m_layer.destroy
+call super::destroy
+end on
+
+type m_dash51 from m_master`m_dash51 within m_window
+end type
+
+on m_dash51.create
+call super::create
+this.visible = false
+end on
+
+on m_dash51.destroy
+call super::destroy
+end on
+
+type m_minimizeall from m_master`m_minimizeall within m_window
+end type
+
+on m_minimizeall.create
+call super::create
+this.visible = false
+this.enabled = false
+end on
+
+on m_minimizeall.destroy
+call super::destroy
+end on
+
+type m_undoarrange from m_master`m_undoarrange within m_window
+end type
+
+on m_undoarrange.create
+call super::create
+this.visible = false
+this.enabled = false
+end on
+
+on m_undoarrange.destroy
+call super::destroy
+end on
+
+type m_help from m_master`m_help within m_peat_master
+end type
+
+on m_help.create
+call super::create
+end on
+
+on m_help.destroy
+call super::destroy
+end on
+
+type m_helptopics from m_master`m_helptopics within m_help
+end type
+
+on m_helptopics.create
+call super::create
+this.visible = false
+this.enabled = false
+this.toolbaritemspace = 3
+end on
+
+on m_helptopics.destroy
+call super::destroy
+end on
+
+type m_dash61 from m_master`m_dash61 within m_help
+end type
+
+on m_dash61.create
+call super::create
+this.visible = false
+end on
+
+on m_dash61.destroy
+call super::destroy
+end on
+
+type m_about from m_master`m_about within m_help
+end type
+
+on m_about.create
+call super::create
+this.text = "&About..."
+this.toolbaritemname = "Help!"
+this.toolbaritemtext = "About, About PEAT"
+this.toolbaritemorder = 256
+this.toolbaritemspace = 3
+end on
+
+on m_about.destroy
+call super::destroy
+end on
+
+type m_project from menu within m_peat_master
+m_information m_information
+m_estimate m_estimate
+m_actual m_actual
+end type
+
+on m_project.create
+call super::create
+this.text = "&Project"
+this.toolbaritemorder = 2
+this.toolbaritemspace = 3
+this.m_information=create m_information
+this.m_estimate=create m_estimate
+this.m_actual=create m_actual
+this.Item[UpperBound(this.Item)+1]=this.m_information
+this.Item[UpperBound(this.Item)+1]=this.m_estimate
+this.Item[UpperBound(this.Item)+1]=this.m_actual
+end on
+
+on m_project.destroy
+call super::destroy
+destroy(this.m_information)
+destroy(this.m_estimate)
+destroy(this.m_actual)
+end on
+
+type m_information from menu within m_project
+end type
+
+on m_information.create
+call super::create
+this.text = "&Information.."
+this.microhelp = "Run the Project Wizard window"
+this.toolbaritemname = "Project!"
+this.toolbaritemtext = "Properties,Project Information"
+this.toolbaritemorder = 3
+this.toolbaritemspace = 3
+end on
+
+event clicked;SetPointer(HourGlass!)
+of_SendMessage("peat_properties")
+end event
+
+on m_information.destroy
+call super::destroy
+end on
+
+type m_estimate from menu within m_project
+end type
+
+on m_estimate.create
+call super::create
+this.text = "&Estimate..."
+this.microhelp = "Enter estimate information on the current project"
+this.toolbaritemname = "Custom087!"
+this.toolbaritemtext = "Estimate,Project Estimate"
+this.toolbaritemorder = 4
+end on
+
+event clicked;SetPointer(HourGlass!)
+of_SendMessage("peat_estimate")
+end event
+
+on m_estimate.destroy
+call super::destroy
+end on
+
+type m_actual from menu within m_project
+end type
+
+on m_actual.create
+call super::create
+this.text = "&Actual..."
+this.microhelp = "Enter actual information on the current project"
+this.toolbaritemname = "Custom038!"
+this.toolbaritemtext = "Actual,Project Actual"
+this.toolbaritemorder = 5
+end on
+
+event clicked;SetPointer(HourGlass!)
+of_SendMessage("peat_actual")
+end event
+
+on m_actual.destroy
+call super::destroy
+end on
+
+type m_report from menucascade within m_peat_master
+m_projectestimation m_projectestimation
+m_projectanalyzer m_projectanalyzer
+end type
+
+on m_report.create
+call super::create
+this.text = "&Report"
+this.toolbaritemtext = "Reports,Run Reports"
+this.toolbaritemorder = 6
+this.toolbaritemspace = 3
+this.m_projectestimation=create m_projectestimation
+this.m_projectanalyzer=create m_projectanalyzer
+this.Item[UpperBound(this.Item)+1]=this.m_projectestimation
+this.Item[UpperBound(this.Item)+1]=this.m_projectanalyzer
+end on
+
+on m_report.destroy
+call super::destroy
+destroy(this.m_projectestimation)
+destroy(this.m_projectanalyzer)
+end on
+
+type m_projectestimation from menu within m_report
+end type
+
+event clicked;SetPointer(HourGlass!)
+of_SendMessage("peat_report")
+
+end event
+
+on m_projectestimation.create
+call super::create
+this.text = "Project Estimation..."
+this.microhelp = "Run Project Estimation Report"
+this.toolbaritemname = "DosEdit!"
+this.toolbaritemtext = "Estimate, Project Estimation Report"
+end on
+
+on m_projectestimation.destroy
+call super::destroy
+end on
+
+type m_projectanalyzer from menu within m_report
+end type
+
+event clicked;SetPointer(HourGlass!)
+of_SendMessage("peat_analyzer")
+end event
+
+on m_projectanalyzer.create
+call super::create
+this.text = "Project Analyzer..."
+this.microhelp = "Run Project Analyzer Report"
+this.toolbaritemname = "EditDataFreeform!"
+this.toolbaritemtext = "Analyzer,Project Analyzer Report"
+end on
+
+on m_projectanalyzer.destroy
+call super::destroy
+end on
+
