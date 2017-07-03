@@ -1,0 +1,18 @@
+HA$PBExportHeader$d_dddw_states.srd
+$PBExportComments$PFC Tutorial: Report for DropDownDataWindow: Grid:  State ID, State Name, Country
+release 4;
+datawindow(units=0 timer_interval=0 color=16777215 processing=1 print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no grid.lines=0 grid.columnmove=no selected.mouse=no )
+header(height=73 color="536870912" )
+summary(height=1 color="536870912" )
+footer(height=1 color="536870912" )
+detail(height=69 color="536870912" )
+table(column=(type=char(3) name=state_id dbname="states.state_id" )
+ column=(type=char(24) name=state_name dbname="states.state_name" )
+ column=(type=char(3) name=country dbname="states.country" )
+ retrieve="PBSELECT(TABLE(NAME=~"states~" ) COLUMN(NAME=~"states.state_id~") COLUMN(NAME=~"states.state_name~") COLUMN(NAME=~"states.country~")) " )
+column(band=detail id=1 alignment="0" tabsequence=32766 border="0" color="0" x="10" y="4" height="61" width="138" format="[general]"  name=state_id  tag="State Identification Code" edit.limit=3 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=2 alignment="0" tabsequence=32766 border="0" color="0" x="156" y="4" height="61" width="618" format="[general]"  name=state_name  tag="Name of the state" edit.limit=24 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=3 alignment="0" tabsequence=32766 border="0" color="0" x="782" y="4" height="61" width="202" format="[general]"  name=country  tag="Country the state is located in" edit.limit=3 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="2" text="ID"border="0" color="0" x="10" y="8" height="61" width="138"  name=state_id_t  font.face="Arial" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="2" text="Name"border="0" color="0" x="156" y="8" height="61" width="618"  name=state_name_t  font.face="Arial" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="2" text="Country"border="0" color="0" x="782" y="8" height="61" width="202"  name=country_t  font.face="Arial" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
