@@ -1,0 +1,12 @@
+HA$PBExportHeader$d_pfcsecurity_groupverify.srd
+$PBExportComments$PFC Security - Verify the existance of a group in the database
+release 5;
+datawindow(units=0 timer_interval=0 color=1073741824 processing=1 print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no grid.lines=0 )
+header(height=84 color="536870912" )
+summary(height=1 color="536870912" )
+footer(height=1 color="536870912" )
+detail(height=100 color="536870912" )
+table(column=(type=char(16) name=group_name dbname="security_groupings.group_name" )
+ retrieve="PBSELECT( VERSION(400) DISTINCT ()TABLE(NAME=~"security_groupings~" ) COLUMN(NAME=~"security_groupings.group_name~")WHERE(    EXP1 =~"~~~"security_groupings~~~".~~~"group_name~~~"~"   OP =~"=~"    EXP2 =~":name~" ) ) ARG(NAME = ~"name~" TYPE = string) " arguments=(("name", string)) )
+text(band=header alignment="2" text="Group Name"border="0" color="0" x="8" y="6" height="68" width="466"  name=group_name_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=1 alignment="0" tabsequence=32766 border="0" color="0" x="8" y="9" height="77" width="466" format="[general]"  name=group_name edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
