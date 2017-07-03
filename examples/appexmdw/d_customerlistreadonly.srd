@@ -1,0 +1,22 @@
+HA$PBExportHeader$d_customerlistreadonly.srd
+$PBExportComments$ID,lname,fname,company  (w_rowselection)
+release 5;
+datawindow(units=0 timer_interval=0 color=80263328 processing=1 print.documentname="" print.orientation = 0 print.margin.left = 107 print.margin.right = 107 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no grid.lines=0 grid.columnmove=no selected.mouse=no )
+header(height=113 color="536870912" )
+summary(height=9 color="536870912" )
+footer(height=5 color="536870912" )
+detail(height=69 color="536870912" )
+table(column=(type=long update=yes updatewhereclause=yes key=yes name=id dbname="customer.id" )
+ column=(type=char(15) update=yes updatewhereclause=yes name=fname dbname="customer.fname" )
+ column=(type=char(20) update=yes updatewhereclause=yes name=lname dbname="customer.lname" )
+ column=(type=char(35) update=yes updatewhereclause=yes name=company_name dbname="customer.company_name" )
+ retrieve="PBSELECT( VERSION(400) TABLE(NAME=~"customer~" ) COLUMN(NAME=~"customer.id~") COLUMN(NAME=~"customer.fname~") COLUMN(NAME=~"customer.lname~") COLUMN(NAME=~"customer.company_name~")) ORDER(NAME=~"customer.id~" ASC=yes ) " update="customer" updatewhere=0 updatekeyinplace=no )
+text(band=header alignment="2" text="Customer
+ID"border="6" color="41943040" x="10" y="4" height="101" width="234"  name=id_t  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="79219928" )
+text(band=header alignment="2" text="Last Name"border="6" color="41943040" x="682" y="4" height="101" width="508"  name=lname_t  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="79219928" )
+text(band=header alignment="2" text="Company Name"border="6" color="41943040" x="1198" y="4" height="101" width="737"  name=company_name_t  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="79219928" )
+text(band=header alignment="2" text="First Name"border="6" color="41943040" x="252" y="4" height="101" width="421"  name=fname_t  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="79219928" )
+column(band=detail id=1 alignment="1" tabsequence=32766 border="5" color="41943040" x="10" y="4" height="61" width="234" format="[general]"  name=id  tag="Unique Identification number of the customer" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="77633680" )
+column(band=detail id=2 alignment="0" tabsequence=32766 border="5" color="41943040" x="252" y="4" height="61" width="421" format="[general]"  name=fname  tag="First name of the customer" edit.limit=15 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="77633680" )
+column(band=detail id=3 alignment="0" tabsequence=32766 border="5" color="41943040" x="682" y="4" height="61" width="508" format="[general]"  name=lname  tag="Last name of the customer" edit.limit=20 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="77633680" )
+column(band=detail id=4 alignment="0" tabsequence=32766 border="5" color="41943040" x="1198" y="4" height="61" width="737" format="[general]"  name=company_name  tag="Name of the company" edit.limit=35 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="77633680" )
