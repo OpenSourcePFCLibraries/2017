@@ -1,0 +1,27 @@
+HA$PBExportHeader$d_project_category.srd
+$PBExportComments$The category datawindow used on the wizard
+release 5;
+datawindow(units=0 timer_interval=0 color=79741120 processing=0 print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no )
+header(height=77 color="536870912" )
+summary(height=1 color="536870912" )
+footer(height=1 color="536870912" )
+detail(height=101 color="536870912" )
+table(column=(type=long update=yes updatewhereclause=yes key=yes name=category_id dbname="project_category.category_id" )
+ column=(type=long updatewhereclause=yes identity=yes name=category dbname="project_category.category" )
+ column=(type=long update=yes updatewhereclause=yes key=yes name=project_id dbname="project_category.project_id" )
+ column=(type=char(50) update=yes updatewhereclause=yes name=name dbname="project_category.name" )
+ column=(type=long updatewhereclause=yes name=dependent_count dbname="compute_0005" )
+ retrieve="  SELECT ~"project_category~".~"category_id~",
+			~"project_category~".~"category_id~" category,   
+         ~"project_category~".~"project_id~",   
+         ~"project_category~".~"name~",   
+         (SELECT count(*)  
+    			FROM ~"project_category_item~"  
+   				WHERE ~"project_category_item~".~"project_id~" = :project_id AND   
+							~"project_category_item~".~"category_id~" = category)
+    FROM ~"project_category~"  
+   WHERE ~"project_category~".~"project_id~" = :project_id   
+ORDER BY ~"project_category~".~"name~" ASC   
+" update="project_category" updatewhere=1 updatekeyinplace=no arguments=(("project_id", number)) )
+text(band=header alignment="2" text="Category Name"border="6" color="0" x="10" y="8" height="53" width="1724"  name=name_t  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=4 alignment="0" tabsequence=20 border="5" color="0" x="151" y="16" height="65" width="1212" format="[general]"  name=name edit.limit=50 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.nilisnull=yes edit.autohscroll=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1090519039" )
