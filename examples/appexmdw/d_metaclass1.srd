@@ -1,0 +1,12 @@
+HA$PBExportHeader$d_metaclass1.srd
+release 5;
+datawindow(units=0 timer_interval=0 color=16777215 processing=0 print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.prompt=no print.buttons=no print.preview.buttons=no )
+header(height=4 color="536870912" )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=84 color="536870912" )
+table(column=(type=char(128) updatewhereclause=yes name=window dbname="examples.window" )
+ retrieve="PBSELECT( VERSION(400) DISTINCT ()TABLE(NAME=~"examples~" ) COLUMN(NAME=~"examples.window~")WHERE(    EXP1 =~"~~~"examples~~~".~~~"window~~~"~"   OP =~"is not~"    EXP2 =~"null~" ) ) ORDER(NAME=~"examples.window~" ASC=yes ) " )
+compute(band=detail alignment="0" expression="bitmap (~"window.bmp~")"border="0" color="0" x="23" y="4" height="72" width="87" format=""  name=cf_bitmap  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+column(band=detail id=1 alignment="0" tabsequence=10 border="0" color="0" x="133" y="12" height="68" width="855" format="[general]"  name=window  tag="Window that is opened when the example runs" edit.limit=128 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autovscroll=yes edit.displayonly=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+htmltable(border="1" cellpadding="0" cellspacing="0" generatecss="no" nowrap="yes")
