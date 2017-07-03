@@ -1,0 +1,564 @@
+HA$PBExportHeader$m_tvrmbedit.srm
+forward
+global type m_tvrmbedit from menu
+end type
+type m_treeview from menu within m_tvrmbedit
+end type
+type m_insertrow from menu within m_treeview
+end type
+type m_deleteitem from menu within m_treeview
+end type
+type m_dash11 from menu within m_treeview
+end type
+type m_refreshitem from menu within m_treeview
+end type
+type m_refreshlevel from menu within m_treeview
+end type
+type m_refreshtree from menu within m_treeview
+end type
+type m_dash12 from menu within m_treeview
+end type
+type m_printtree from menu within m_treeview
+end type
+type m_treeview from menu within m_tvrmbedit
+m_insertrow m_insertrow
+m_deleteitem m_deleteitem
+m_dash11 m_dash11
+m_refreshitem m_refreshitem
+m_refreshlevel m_refreshlevel
+m_refreshtree m_refreshtree
+m_dash12 m_dash12
+m_printtree m_printtree
+end type
+global type m_tvrmbedit from menu
+m_treeview m_treeview
+end type
+end forward
+
+global type m_tvrmbedit from menu
+m_treeview m_treeview
+end type
+global m_tvrmbedit m_tvrmbedit
+
+forward prototypes
+public function integer of_sendmessage (string as_message)
+end prototypes
+
+public function integer of_sendmessage (string as_message);//////////////////////////////////////////////////////////////////////////////
+//
+//	Function:  of_SendMessage
+//
+//	Access:  public
+//
+//	Arguments:		
+//	as_message  message (event notification) to be sent
+//
+//	Returns:  integer
+//	 1 = Message successfully sent
+//	-1 = message could not be sent (use debug object for more info)
+//
+//	Description:
+//	Sends a specified message (event notification) to a receiving window 
+//	through the pfc_messagerouter event.
+//
+//	Sequence:
+//	If application is MDI:
+//	1) Active MDI sheet pfc_messagerouter event.
+//	2) MDI Frame Window pfc_messagerouter event.
+//
+//	Application is SWI:
+//	1) ParentWindow pfc_messagerouter event.
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+//	Revision History
+//
+//	Version
+//	5.0   Initial version
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+/*
+ * Open Source PowerBuilder Foundation Class Libraries
+ *
+ * Copyright (c) 2004-2017, All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted in accordance with the MIT License
+ * 
+ *
+ * https://opensource.org/licenses/MIT
+ *
+ * ====================================================================
+ *
+ * This software consists of voluntary contributions made by many
+ * individuals and was originally based on software copyright (c) 
+ * 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
+ * information on the Open Source PowerBuilder Foundation Class
+ * Libraries see https://github.com/OpenSourcePFCLibraries
+*/
+//
+//////////////////////////////////////////////////////////////////////////////
+
+integer		li_rc = -1
+window		lw_frame
+window		lw_sheet
+n_cst_menu	lnv_menu
+
+// Check arguments
+if IsNull (as_message) or Len (Trim (as_message)) = 0 then
+	return li_rc
+end if
+
+// Determine if application is MDI by getting frame window
+lnv_menu.of_GetMDIFrame (this, lw_frame)   
+if IsValid (lw_frame) then
+
+	// Try sending the message to the active MDI sheet
+	lw_sheet = lw_frame.GetActiveSheet()
+	if IsValid (lw_sheet) then
+		li_rc = lw_sheet.dynamic event pfc_messagerouter (as_message)
+	end if
+
+	if li_rc <> 1 then
+		// Try sending the message to the frame
+		li_rc = lw_frame.dynamic event pfc_messagerouter (as_message)
+	end if
+else
+	// Try sending the message to the parentwindow
+	if IsValid (parentwindow) then
+		li_rc = parentwindow.dynamic event pfc_messagerouter (as_message)
+	end if
+end if
+
+if IsNull (li_rc) then
+	li_rc = -1
+end if
+
+// Debug message if message could not be received
+if li_rc = -1 and IsValid (gnv_app.inv_debug) then
+	MessageBox (gnv_app.inv_debug.pfc_name, "Message " + as_message + &
+					" was not received.")
+end if
+
+return li_rc
+
+end function
+
+on m_tvrmbedit.create
+m_tvrmbedit=this
+call super::create
+this.m_treeview=create m_treeview
+this.Item[UpperBound(this.Item)+1]=this.m_treeview
+end on
+
+on m_tvrmbedit.destroy
+call super::destroy
+destroy(this.m_treeview)
+end on
+
+type m_treeview from menu within m_tvrmbedit
+m_insertrow m_insertrow
+m_deleteitem m_deleteitem
+m_dash11 m_dash11
+m_refreshitem m_refreshitem
+m_refreshlevel m_refreshlevel
+m_refreshtree m_refreshtree
+m_dash12 m_dash12
+m_printtree m_printtree
+end type
+
+on m_treeview.create
+call super::create
+this.text = "treeview"
+this.m_insertrow=create m_insertrow
+this.m_deleteitem=create m_deleteitem
+this.m_dash11=create m_dash11
+this.m_refreshitem=create m_refreshitem
+this.m_refreshlevel=create m_refreshlevel
+this.m_refreshtree=create m_refreshtree
+this.m_dash12=create m_dash12
+this.m_printtree=create m_printtree
+this.Item[UpperBound(this.Item)+1]=this.m_insertrow
+this.Item[UpperBound(this.Item)+1]=this.m_deleteitem
+this.Item[UpperBound(this.Item)+1]=this.m_dash11
+this.Item[UpperBound(this.Item)+1]=this.m_refreshitem
+this.Item[UpperBound(this.Item)+1]=this.m_refreshlevel
+this.Item[UpperBound(this.Item)+1]=this.m_refreshtree
+this.Item[UpperBound(this.Item)+1]=this.m_dash12
+this.Item[UpperBound(this.Item)+1]=this.m_printtree
+end on
+
+on m_treeview.destroy
+call super::destroy
+destroy(this.m_insertrow)
+destroy(this.m_deleteitem)
+destroy(this.m_dash11)
+destroy(this.m_refreshitem)
+destroy(this.m_refreshlevel)
+destroy(this.m_refreshtree)
+destroy(this.m_dash12)
+destroy(this.m_printtree)
+end on
+
+type m_insertrow from menu within m_treeview
+end type
+
+event clicked;//////////////////////////////////////////////////////////////////////////////
+//
+//	Event:
+//	clicked
+//
+//	Description:
+//	Calls the ue_insertrow event on the window.
+//
+//////////////////////////////////////////////////////////////////////////////
+//	
+//	Revision History
+//
+//	Version
+//	6.0   Initial version
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+/*
+ * Open Source PowerBuilder Foundation Class Libraries
+ *
+ * Copyright (c) 2004-2017, All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted in accordance with the MIT License
+ * 
+ *
+ * https://opensource.org/licenses/MIT
+ *
+ * ====================================================================
+ *
+ * This software consists of voluntary contributions made by many
+ * individuals and was originally based on software copyright (c) 
+ * 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
+ * information on the Open Source PowerBuilder Foundation Class
+ * Libraries see https://github.com/OpenSourcePFCLibraries
+*/
+//
+//////////////////////////////////////////////////////////////////////////////
+
+of_SendMessage("ue_insertrow")
+end event
+
+on m_insertrow.create
+call super::create
+this.visible = false
+this.text = "&Insert Item"
+this.microhelp = "Insert a new treeview item at the selected level"
+end on
+
+on m_insertrow.destroy
+call super::destroy
+end on
+
+type m_deleteitem from menu within m_treeview
+end type
+
+event clicked;//////////////////////////////////////////////////////////////////////////////
+//
+//	Event:
+//	clicked
+//
+//	Description:
+//	Calls the ue_deleteitem event on the window.
+//
+//////////////////////////////////////////////////////////////////////////////
+//	
+//	Revision History
+//
+//	Version
+//	6.0   Initial version
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+/*
+ * Open Source PowerBuilder Foundation Class Libraries
+ *
+ * Copyright (c) 2004-2017, All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted in accordance with the MIT License
+ * 
+ *
+ * https://opensource.org/licenses/MIT
+ *
+ * ====================================================================
+ *
+ * This software consists of voluntary contributions made by many
+ * individuals and was originally based on software copyright (c) 
+ * 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
+ * information on the Open Source PowerBuilder Foundation Class
+ * Libraries see https://github.com/OpenSourcePFCLibraries
+*/
+//
+//////////////////////////////////////////////////////////////////////////////
+
+of_SendMessage("ue_deleteitem")
+end event
+
+on m_deleteitem.create
+call super::create
+this.text = "&Delete Item"
+this.microhelp = "Delete the selected item"
+end on
+
+on m_deleteitem.destroy
+call super::destroy
+end on
+
+type m_dash11 from menu within m_treeview
+end type
+
+on m_dash11.create
+call super::create
+this.visible = false
+this.text = "-"
+end on
+
+on m_dash11.destroy
+call super::destroy
+end on
+
+type m_refreshitem from menu within m_treeview
+end type
+
+event clicked;//////////////////////////////////////////////////////////////////////////////
+//
+//	Event:
+//	clicked
+//
+//	Description:
+//	Calls the ue_refreshitem event on the window.
+//
+//////////////////////////////////////////////////////////////////////////////
+//	
+//	Revision History
+//
+//	Version
+//	6.0   Initial version
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+/*
+ * Open Source PowerBuilder Foundation Class Libraries
+ *
+ * Copyright (c) 2004-2017, All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted in accordance with the MIT License
+ * 
+ *
+ * https://opensource.org/licenses/MIT
+ *
+ * ====================================================================
+ *
+ * This software consists of voluntary contributions made by many
+ * individuals and was originally based on software copyright (c) 
+ * 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
+ * information on the Open Source PowerBuilder Foundation Class
+ * Libraries see https://github.com/OpenSourcePFCLibraries
+*/
+//
+//////////////////////////////////////////////////////////////////////////////
+
+of_SendMessage("ue_refreshitem")
+end event
+
+on m_refreshitem.create
+call super::create
+this.visible = false
+this.text = "Refresh I&tem"
+this.microhelp = "Refresh data for selected item and its children"
+end on
+
+on m_refreshitem.destroy
+call super::destroy
+end on
+
+type m_refreshlevel from menu within m_treeview
+end type
+
+event clicked;//////////////////////////////////////////////////////////////////////////////
+//
+//	Event:
+//	clicked
+//
+//	Description:
+//	Calls the ue_refreshlevel event on the window.
+//
+//////////////////////////////////////////////////////////////////////////////
+//	
+//	Revision History
+//
+//	Version
+//	6.0   Initial version
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+/*
+ * Open Source PowerBuilder Foundation Class Libraries
+ *
+ * Copyright (c) 2004-2017, All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted in accordance with the MIT License
+ * 
+ *
+ * https://opensource.org/licenses/MIT
+ *
+ * ====================================================================
+ *
+ * This software consists of voluntary contributions made by many
+ * individuals and was originally based on software copyright (c) 
+ * 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
+ * information on the Open Source PowerBuilder Foundation Class
+ * Libraries see https://github.com/OpenSourcePFCLibraries
+*/
+//
+//////////////////////////////////////////////////////////////////////////////
+
+of_SendMessage("ue_refreshlevel")
+end event
+
+on m_refreshlevel.create
+call super::create
+this.visible = false
+this.text = "Refresh &Level"
+this.microhelp = "Refresh data for all items on the selected level"
+end on
+
+on m_refreshlevel.destroy
+call super::destroy
+end on
+
+type m_refreshtree from menu within m_treeview
+end type
+
+event clicked;//////////////////////////////////////////////////////////////////////////////
+//
+//	Event:
+//	clicked
+//
+//	Description:
+//	Calls the ue_refreshtree event on the window.
+//
+//////////////////////////////////////////////////////////////////////////////
+//	
+//	Revision History
+//
+//	Version
+//	6.0   Initial version
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+/*
+ * Open Source PowerBuilder Foundation Class Libraries
+ *
+ * Copyright (c) 2004-2017, All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted in accordance with the MIT License
+ * 
+ *
+ * https://opensource.org/licenses/MIT
+ *
+ * ====================================================================
+ *
+ * This software consists of voluntary contributions made by many
+ * individuals and was originally based on software copyright (c) 
+ * 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
+ * information on the Open Source PowerBuilder Foundation Class
+ * Libraries see https://github.com/OpenSourcePFCLibraries
+*/
+//
+//////////////////////////////////////////////////////////////////////////////
+
+of_SendMessage("ue_refreshtree")
+end event
+
+on m_refreshtree.create
+call super::create
+this.visible = false
+this.text = "Refresh &Tree"
+this.microhelp = "Refresh data for the entire tree"
+end on
+
+on m_refreshtree.destroy
+call super::destroy
+end on
+
+type m_dash12 from menu within m_treeview
+end type
+
+on m_dash12.create
+call super::create
+this.visible = false
+this.text = "-"
+end on
+
+on m_dash12.destroy
+call super::destroy
+end on
+
+type m_printtree from menu within m_treeview
+end type
+
+event clicked;//////////////////////////////////////////////////////////////////////////////
+//
+//	Event:
+//	clicked
+//
+//	Description:
+//	Calls the ue_printtree event on the window.
+//
+//////////////////////////////////////////////////////////////////////////////
+//	
+//	Revision History
+//
+//	Version
+//	6.0   Initial version
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+/*
+ * Open Source PowerBuilder Foundation Class Libraries
+ *
+ * Copyright (c) 2004-2017, All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted in accordance with the MIT License
+ * 
+ *
+ * https://opensource.org/licenses/MIT
+ *
+ * ====================================================================
+ *
+ * This software consists of voluntary contributions made by many
+ * individuals and was originally based on software copyright (c) 
+ * 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
+ * information on the Open Source PowerBuilder Foundation Class
+ * Libraries see https://github.com/OpenSourcePFCLibraries
+*/
+//
+//////////////////////////////////////////////////////////////////////////////
+
+of_SendMessage("ue_printtree")
+end event
+
+on m_printtree.create
+call super::create
+this.visible = false
+this.text = "&Print Tree"
+this.microhelp = "Print the treeview"
+end on
+
+on m_printtree.destroy
+call super::destroy
+end on
+
