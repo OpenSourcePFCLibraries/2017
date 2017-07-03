@@ -1,0 +1,55 @@
+HA$PBExportHeader$m_oc.srm
+$PBExportComments$Extension Ole Control menu class
+forward
+global type m_oc from pfc_m_oc
+end type
+end forward
+
+global type m_oc from pfc_m_oc
+end type
+global m_oc m_oc
+
+on m_oc.create
+m_oc=this
+call pfc_m_oc::create
+end on
+
+on m_oc.destroy
+call pfc_m_oc::destroy
+end on
+
+on m_object.create
+call pfc_m_oc`m_object::create
+this.MergeOption=Exclude!
+end on
+
+on m_edit.create
+call pfc_m_oc`m_edit::create
+this.MergeOption=Exclude!
+end on
+
+on m_open.create
+call pfc_m_oc`m_open::create
+this.MergeOption=Exclude!
+end on
+
+on m_dash11.create
+call pfc_m_oc`m_dash11::create
+this.MergeOption=Exclude!
+end on
+
+on m_cut.create
+call pfc_m_oc`m_cut::create
+this.MergeOption=Exclude!
+end on
+
+on m_copy.create
+call pfc_m_oc`m_copy::create
+this.MergeOption=Exclude!
+end on
+
+on m_paste.create
+call pfc_m_oc`m_paste::create
+this.MergeOption=Exclude!
+end on
+
