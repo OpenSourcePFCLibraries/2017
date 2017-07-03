@@ -1,0 +1,23 @@
+HA$PBExportHeader$d_project_driven_actuals.srd
+$PBExportComments$The tabular datawindow used to enter driven actuals
+release 5;
+datawindow(units=0 timer_interval=0 color=80263328 processing=0 print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no print.buttons=no print.preview.buttons=no )
+header(height=76 color="536870912" )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=100 color="536870912" )
+table(column=(type=char(50) update=yes updatewhereclause=yes name=name dbname="project_category_item.name" )
+ column=(type=decimal(2) update=yes updatewhereclause=yes name=estimated_hours dbname="project_category_item.estimated_hours" )
+ column=(type=decimal(2) update=yes updatewhereclause=yes name=actual_hours dbname="project_category_item.actual_hours" )
+ column=(type=long updatewhereclause=yes key=yes name=default_category_id dbname="project_category_item.category_id" )
+ column=(type=long update=yes updatewhereclause=yes key=yes identity=yes name=project_category_item_category_item_id dbname="project_category_item.category_item_id" initial="AUTOINCREMENT" )
+ column=(type=long update=yes updatewhereclause=yes key=yes name=project_category_item_project_id dbname="project_category_item.project_id" )
+ column=(type=decimal(4) updatewhereclause=yes name=compute_0007 dbname="compute_0007" )
+ retrieve="PBSELECT( VERSION(400) TABLE(NAME=~"project_category_item~" )  TABLE(NAME=~"project_role~" ) COLUMN(NAME=~"project_category_item.name~") COLUMN(NAME=~"project_category_item.estimated_hours~") COLUMN(NAME=~"project_category_item.actual_hours~") COLUMN(NAME=~"project_category_item.category_id~") COLUMN(NAME=~"project_category_item.category_item_id~") COLUMN(NAME=~"project_category_item.project_id~") COMPUTE(NAME=~"~~~"project_category_item~~~".~~~"estimated_hours~~~" * ~~~"project_role~~~".~~~"multipler~~~"~")    JOIN (LEFT=~"project_role.role_id~"    OP =~"=~"RIGHT=~"project_category_item.role_id~" )    JOIN (LEFT=~"project_role.project_id~"    OP =~"=~"RIGHT=~"project_category_item.project_id~" )WHERE(    EXP1 =~"( ~~~"project_category_item~~~".~~~"project_id~~~"~"   OP =~"=~"    EXP2 =~":project_id )~" ) ) ORDER(NAME=~"project_category_item.name~" ASC=yes ) ARG(NAME = ~"project_id~" TYPE = number) " update="project_category_item" updatewhere=1 updatekeyinplace=yes arguments=(("project_id", number))  sort="name A " )
+text(band=header alignment="2" text="Item"border="6" color="0" x="14" y="4" height="52" width="1335"  name=name_t  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Est Hrs"border="6" color="0" x="1367" y="4" height="52" width="288"  name=estimated_hours_t  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Actual Hrs"border="6" color="0" x="1678" y="4" height="52" width="361"  name=actual_hours_t  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=7 alignment="1" tabsequence=32766 border="0" color="0" x="1367" y="4" height="64" width="251" format="0.00"  name=compute_0007 edit.limit=0 edit.case=any edit.autoselect=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=1 alignment="0" tabsequence=32766 border="0" color="0" x="192" y="4" height="64" width="1166" format="[general]"  name=name edit.limit=50 edit.case=any edit.autoselect=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=3 alignment="1" tabsequence=10 border="5" color="0" x="1678" y="4" height="64" width="274" format="[general]"  name=actual_hours pointer="IBeam!" editmask.mask="###,###.00" editmask.focusrectangle=no  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1090519039" )
+htmltable(border="1" cellpadding="0" cellspacing="0" generatecss="no" nowrap="yes")
