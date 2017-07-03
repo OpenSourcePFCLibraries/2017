@@ -1,0 +1,13 @@
+HA$PBExportHeader$d_dddwproductid.srd
+$PBExportComments$Product table ID and Name.  (w_tablink, w_linkagefilter, w_dw3types)
+release 5;
+datawindow(units=0 timer_interval=0 color=1090519039 processing=1 print.documentname="" print.orientation = 0 print.margin.left = 107 print.margin.right = 107 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no grid.lines=1 )
+header(height=1 color="536870912" )
+summary(height=4 color="536870912" )
+footer(height=1 color="536870912" )
+detail(height=68 color="536870912" )
+table(column=(type=long update=yes updatewhereclause=yes key=yes name=id dbname="product.id" )
+ column=(type=char(15) updatewhereclause=yes name=name dbname="product.name" )
+ retrieve="PBSELECT( VERSION(400) TABLE(NAME=~"product~" ) COLUMN(NAME=~"product.id~") COLUMN(NAME=~"product.name~")) " update="product" updatewhere=1 updatekeyinplace=no )
+column(band=detail id=2 alignment="0" tabsequence=32766 border="0" color="0" x="125" y="3" height="61" width="409" format="[general]"  name=name edit.limit=0 edit.case=any edit.autoselect=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1080593568" )
+column(band=detail id=1 alignment="0" tabsequence=10 border="0" color="0" x="8" y="3" height="61" width="111" format="[general]"  name=id  tag="Unique Identification Code of the product" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1080593568" )
