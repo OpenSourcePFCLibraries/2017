@@ -1,0 +1,105 @@
+HA$PBExportHeader$m_dw.srm
+$PBExportComments$Extension DataWindow menu class
+forward
+global type m_dw from pfc_m_dw
+end type
+end forward
+
+global type m_dw from pfc_m_dw
+end type
+global m_dw m_dw
+
+on m_dw.create
+m_dw=this
+call pfc_m_dw::create
+end on
+
+on m_dw.destroy
+call pfc_m_dw::destroy
+end on
+
+on m_table.create
+call pfc_m_dw`m_table::create
+this.MergeOption=Exclude!
+end on
+
+on m_cut.create
+call pfc_m_dw`m_cut::create
+this.MergeOption=Exclude!
+end on
+
+on m_copy.create
+call pfc_m_dw`m_copy::create
+this.MergeOption=Exclude!
+end on
+
+on m_paste.create
+call pfc_m_dw`m_paste::create
+this.MergeOption=Exclude!
+end on
+
+on m_selectall.create
+call pfc_m_dw`m_selectall::create
+this.MergeOption=Exclude!
+end on
+
+on m_dash11.create
+call pfc_m_dw`m_dash11::create
+this.MergeOption=Exclude!
+end on
+
+on m_insert.create
+call pfc_m_dw`m_insert::create
+this.MergeOption=Exclude!
+end on
+
+on m_addrow.create
+call pfc_m_dw`m_addrow::create
+this.MergeOption=Exclude!
+end on
+
+on m_delete.create
+call pfc_m_dw`m_delete::create
+this.MergeOption=Exclude!
+end on
+
+on m_restorerow.create
+call pfc_m_dw`m_restorerow::create
+this.MergeOption=Exclude!
+end on
+
+on m_dash12.create
+call pfc_m_dw`m_dash12::create
+this.MergeOption=Exclude!
+end on
+
+on m_columns.create
+call pfc_m_dw`m_columns::create
+this.MergeOption=Exclude!
+end on
+
+on m_functions.create
+call pfc_m_dw`m_functions::create
+this.MergeOption=Exclude!
+end on
+
+on m_values.create
+call pfc_m_dw`m_values::create
+this.MergeOption=Exclude!
+end on
+
+on m_dash13.create
+call pfc_m_dw`m_dash13::create
+this.MergeOption=Exclude!
+end on
+
+on m_debug.create
+call pfc_m_dw`m_debug::create
+this.MergeOption=Exclude!
+end on
+
+on m_properties.create
+call pfc_m_dw`m_properties::create
+this.MergeOption=Exclude!
+end on
+
