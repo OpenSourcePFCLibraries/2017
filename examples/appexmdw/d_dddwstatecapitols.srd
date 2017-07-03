@@ -1,0 +1,12 @@
+HA$PBExportHeader$d_dddwstatecapitols.srd
+$PBExportComments$State Capitols. (w_refreshdddws)
+release 5;
+datawindow(units=0 timer_interval=0 color=1090519039 processing=1 print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no grid.lines=1 selected.mouse=no )
+header(height=1 color="536870912" )
+summary(height=5 color="536870912" )
+footer(height=1 color="536870912" )
+detail(height=73 color="536870912" )
+table(column=(type=char(24) update=yes updatewhereclause=yes key=yes name=state_capital dbname="states.state_capital" )
+ retrieve="PBSELECT( VERSION(400) DISTINCT ()TABLE(NAME=~"states~" ) COLUMN(NAME=~"states.state_capital~")) ORDER(NAME=~"states.state_capital~" ASC=yes ) " update="states" updatewhere=0 updatekeyinplace=no )
+text(band=header alignment="0" text="State Capital"border="0" color="0" x="10" y="4" height="77" width="782"  font.face="Arial" font.height="-12" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=1 alignment="0" tabsequence=32766 border="0" color="0" x="10" y="4" height="65" width="782" format="[general]"  name=state_capital edit.limit=0 edit.case=any edit.autoselect=yes edit.autovscroll=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
