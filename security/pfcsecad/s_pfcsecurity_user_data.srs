@@ -1,0 +1,10 @@
+HA$PBExportHeader$s_pfcsecurity_user_data.srs
+$PBExportComments$Used to pass information to/from the w_pfc_security_edit_user window
+global type s_pfcsecurity_user_data from structure
+	string		name
+	string		desc
+	integer		priority
+	integer		user_type
+	integer		status
+end type
+
