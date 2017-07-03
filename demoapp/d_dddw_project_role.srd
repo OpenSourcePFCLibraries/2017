@@ -1,0 +1,13 @@
+HA$PBExportHeader$d_dddw_project_role.srd
+$PBExportComments$The DDDW for roles assigned to a specified project
+release 5;
+datawindow(units=0 timer_interval=0 color=16777215 processing=0 print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no )
+header(height=1 color="536870912" )
+summary(height=1 color="536870912" )
+footer(height=1 color="536870912" )
+detail(height=65 color="553648127" )
+table(column=(type=long updatewhereclause=yes name=project_role_role_id dbname="project_role.role_id" )
+ column=(type=char(50) updatewhereclause=yes name=name dbname="project_role.name" )
+ column=(type=decimal(2) updatewhereclause=yes name=multipler dbname="project_role.multipler" )
+ retrieve="PBSELECT( VERSION(400) TABLE(NAME=~"project_role~" ) COLUMN(NAME=~"project_role.role_id~") COLUMN(NAME=~"project_role.name~") COLUMN(NAME=~"project_role.multipler~")WHERE(    EXP1 =~"~~~"project_role~~~".~~~"project_id~~~"~"   OP =~"=~"    EXP2 =~":project_id~" ) ) ORDER(NAME=~"project_role.name~" ASC=yes ) ARG(NAME = ~"project_id~" TYPE = number) " arguments=(("project_id", number)) )
+compute(band=detail alignment="0" expression="name  +~" * ~" +  multipler"border="0" color="33554432" x="1" y="8" height="65" width="1276" format="[general]"  name=adjusted_name  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1090519039" )
