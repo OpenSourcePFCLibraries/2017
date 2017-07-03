@@ -1,0 +1,11 @@
+HA$PBExportHeader$d_valuesdddw.srd
+$PBExportComments$PFC Holds filter criteria for pfc_w_filtersimple dialog
+release 5;
+datawindow(units=0 timer_interval=0 color=1086381248 processing=0 print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no )
+header(height=1 color="536870912" )
+summary(height=4 color="536870912" )
+footer(height=1 color="536870912" )
+detail(height=58 color="536870912" )
+table(column=(type=char(250) name=value dbname="value" initial=" " )
+  sort="value A " )
+column(band=detail id=1 alignment="0" tabsequence=0 border="0" color="33554687" x="11" y="3" height="52" width="2728"  name=value  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1086381248" )
