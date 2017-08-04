@@ -2049,25 +2049,8 @@ public function integer of_setresize (boolean ab_switch);///////////////////////
 //						8.0   Modified to initially set window dimensions based on the class definition
 //						12.5	11001		Reverting original size logic back to pre 8.0 logic
 //////////////////////////////////////////////////////////////////////////////
-/*
- * Open Source PowerBuilder Foundation Class Libraries
- *
- * Copyright (c) 2004-2017, All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted in accordance with the MIT License
-
- *
- * https://opensource.org/licenses/MIT
- *
- * ====================================================================
- *
- * This software consists of voluntary contributions made by many
- * individuals and was originally based on software copyright (c) 
- * 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
- * information on the Open Source PowerBuilder Foundation Class
- * Libraries see https://github.com/OpenSourcePFCLibraries
-*/
+//	Copyright $$HEX2$$a9002000$$ENDHEX$$1996-2001 Sybase, Inc. and its subsidiaries.  All rights reserved.  Any distribution of the 
+// PowerBuilder Foundation Classes (PFC) source code by other than Sybase, Inc. and its subsidiaries is prohibited.
 //////////////////////////////////////////////////////////////////////////////
 integer	li_rc, li_v, li_vars
 integer li_origwidth, li_origheight
