@@ -190,8 +190,16 @@ If li_registered_slot = 0 Then
 End If
 
 //Unregister the control
-n_cst_resizeAttrib						lnvo_resizeAttrib
-inv_registered[li_registered_slot]	= lnvo_resizeAttrib
+SetNull(inv_registered[li_registered_slot].wo_control)
+inv_registered[li_registered_slot].s_typeof = ''
+inv_registered[li_registered_slot].b_movex = False
+inv_registered[li_registered_slot].i_movex = 0
+inv_registered[li_registered_slot].b_movey = False
+inv_registered[li_registered_slot].i_movey = 0
+inv_registered[li_registered_slot].b_scalewidth = False
+inv_registered[li_registered_slot].i_scalewidth = 0
+inv_registered[li_registered_slot].b_scaleheight = False
+inv_registered[li_registered_slot].i_scaleheight = 0
 
 Return 1
 end function
@@ -608,7 +616,6 @@ For li_cnt = 1 to li_upperbound
 		If li_slot_available = 0 Then
 			//Get the first slot found
 			li_slot_available = li_cnt
-			EXIT
 		End If
 	Else
 		//Check if control has already been registered
