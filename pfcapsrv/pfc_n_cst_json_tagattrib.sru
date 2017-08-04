@@ -21,21 +21,14 @@ constant string cst_PAIR_SEP = ":"
 constant string cst_VAL_START = '"'
 constant string cst_VAL_END = '"'
 constant string cst_ENT_SEP = ","
-constant string cst_ARRAY_START = "["
-constant string cst_ARRAY_END = "]"
 
 constant integer cst_OBJ_START_len	= len( cst_OBJ_START)
-constant integer cst_OBJ_END_len	= len( cst_OBJ_END)
+constant integer cst_OBJ_END_len		= len( cst_OBJ_END)
 constant integer cst_PAIR_SEP_len 	= len( cst_PAIR_SEP)
 constant integer cst_VAL_START_len = len( cst_VAL_START)
 constant integer cst_VAL_END_len 	= len( cst_VAL_END)
 constant integer cst_ENT_SEP_len 	= len( cst_ENT_SEP)
-constant integer cst_ARRAY_START_len =len( cst_array_start )
-constant integer cst_ARRAY_END_len = len( cst_array_end )
 
-constant integer cst_OBJ_KIND 		= 1
-constant integer cst_VAL_KIND 		= 2
-constant integer cst_ARRAY_KIND 	= 3
 end variables
 
 on pfc_n_cst_json_tagattrib.create
