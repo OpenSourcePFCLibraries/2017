@@ -52,7 +52,7 @@ boolean		ib_user
 long		il_userthreshold
 integer		ii_userwidth= 270
 boolean		ib_mem
-longLong		ill_memthreshold
+long		il_memthreshold
 integer		ii_memwidth= 350
 boolean		ib_timer
 long		il_timerinterval=1000	// In milliseconds
@@ -101,9 +101,11 @@ public function boolean of_getmem ()
 public function boolean of_getuser ()
 public function boolean of_gettimer ()
 public function long of_getuserthreshold ()
+public function long of_getmemthreshold ()
 public function integer of_setuser (boolean ab_switch)
 public function integer of_setmem (boolean ab_switch)
 public function integer of_setuserthreshold (long al_threshold)
+public function integer of_setmemthreshold (long al_threshold)
 protected function integer of_registerpredefined (string as_id, integer ai_width)
 public function integer of_settimer (boolean ab_switch)
 public function integer of_unregister (string as_id)
@@ -164,9 +166,6 @@ protected function string of_barupdatevisuals (decimal adc_completion)
 public function integer of_createdwobject (ref string as_createstmt, ref integer ai_width, ref integer ai_height)
 public function integer of_barincrement ()
 protected function integer of_restorefocuspoint (graphicobject ago_focus)
-public function longlong of_getmemthreshold ()
-public function integer of_setmemthreshold (longlong all_threshold)
-public function integer of_setmemthreshold (long al_threshold)
 end prototypes
 
 event pfc_resize;call super::pfc_resize;//////////////////////////////////////////////////////////////////////////////
@@ -798,6 +797,54 @@ public function long of_getuserthreshold ();////////////////////////////////////
 Return il_userthreshold
 end function
 
+public function long of_getmemthreshold ();//////////////////////////////////////////////////////////////////////////////
+//
+//	Function:  of_GetMemThreshold
+//
+//	Access:  Public
+//
+//	Arguments:	None
+//	
+//	Returns:  long
+//	The current Computer Memory Threshold value.
+//
+//	Description:
+//	Gets the current Computer Memory Threshold value.
+//
+//////////////////////////////////////////////////////////////////////////////
+//	
+//	Revision History
+//
+//	Version
+//	5.0   Initial version
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+/*
+ * Open Source PowerBuilder Foundation Class Libraries
+ *
+ * Copyright (c) 2004-2017, All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted in accordance with the MIT License
+
+ *
+ * https://opensource.org/licenses/MIT
+ *
+ * ====================================================================
+ *
+ * This software consists of voluntary contributions made by many
+ * individuals and was originally based on software copyright (c) 
+ * 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
+ * information on the Open Source PowerBuilder Foundation Class
+ * Libraries see https://github.com/OpenSourcePFCLibraries
+*/
+//
+//////////////////////////////////////////////////////////////////////////////
+
+Return il_memthreshold
+end function
+
 public function integer of_setuser (boolean ab_switch);//////////////////////////////////////////////////////////////////////////////
 //
 //	Function:  of_SetUser
@@ -990,6 +1037,61 @@ If IsNull(al_threshold) or al_threshold < 0 Then
 End If
 
 il_userthreshold = al_threshold
+Return 1
+end function
+
+public function integer of_setmemthreshold (long al_threshold);//////////////////////////////////////////////////////////////////////////////
+//
+//	Function:  of_SetMemThreshold
+//
+//	Access:  Public
+//
+//	Arguments:
+//	al_threshold	The new Threshold.
+//	
+//	Returns:  Integer
+//	1 if it succeeds and$$HEX1$$a000$$ENDHEX$$-1 if an error occurs.
+//
+//	Description:
+//	Sets a new Computer Memory Threshold value.
+//
+//////////////////////////////////////////////////////////////////////////////
+//	
+//	Revision History
+//
+//	Version
+//	5.0   Initial version
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+/*
+ * Open Source PowerBuilder Foundation Class Libraries
+ *
+ * Copyright (c) 2004-2017, All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted in accordance with the MIT License
+
+ *
+ * https://opensource.org/licenses/MIT
+ *
+ * ====================================================================
+ *
+ * This software consists of voluntary contributions made by many
+ * individuals and was originally based on software copyright (c) 
+ * 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
+ * information on the Open Source PowerBuilder Foundation Class
+ * Libraries see https://github.com/OpenSourcePFCLibraries
+*/
+//
+//////////////////////////////////////////////////////////////////////////////
+
+// Check arguments.
+If IsNull(al_threshold) or al_threshold < 0 Then
+	Return -1
+End If
+
+il_memthreshold = al_threshold
 Return 1
 end function
 
@@ -4907,170 +5009,12 @@ End If
 Return li_rc
 end function
 
-public function longlong of_getmemthreshold ();//////////////////////////////////////////////////////////////////////////////
-//
-//	Function:  of_GetMemThreshold
-//
-//	Access:  Public
-//
-//	Arguments:	None
-//	
-//	Returns:  long
-//	The current Computer Memory Threshold value.
-//
-//	Description:
-//	Gets the current Computer Memory Threshold value.
-//
-//////////////////////////////////////////////////////////////////////////////
-//	
-//	Revision History
-//
-//	Version
-//	5.0   Initial version
-// 12.5	Modified to return LongLong
-//////////////////////////////////////////////////////////////////////////////
-//
-/*
- * Open Source PowerBuilder Foundation Class Libraries
- *
- * Copyright (c) 2004-2017, All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted in accordance with the MIT License
-
- *
- * https://opensource.org/licenses/MIT
- *
- * ====================================================================
- *
- * This software consists of voluntary contributions made by many
- * individuals and was originally based on software copyright (c) 
- * 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
- * information on the Open Source PowerBuilder Foundation Class
- * Libraries see https://github.com/OpenSourcePFCLibraries
-*/
-//
-//////////////////////////////////////////////////////////////////////////////
-
-Return ill_memthreshold
-end function
-
-public function integer of_setmemthreshold (longlong all_threshold);//////////////////////////////////////////////////////////////////////////////
-//
-//	Function:  of_SetMemThreshold
-//
-//	Access:  Public
-//
-//	Arguments:
-//	all_threshold	The new Threshold.
-//	
-//	Returns:  Integer
-//	1 if it succeeds and$$HEX1$$a000$$ENDHEX$$-1 if an error occurs.
-//
-//	Description:
-//	Sets a new Computer Memory Threshold value.
-//
-//////////////////////////////////////////////////////////////////////////////
-//	
-//	Revision History
-//
-//	Version
-//	12.5   Initial version
-//
-//////////////////////////////////////////////////////////////////////////////
-//
-/*
- * Open Source PowerBuilder Foundation Class Libraries
- *
- * Copyright (c) 2004-2017, All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted in accordance with the MIT License
-
- *
- * https://opensource.org/licenses/MIT
- *
- * ====================================================================
- *
- * This software consists of voluntary contributions made by many
- * individuals and was originally based on software copyright (c) 
- * 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
- * information on the Open Source PowerBuilder Foundation Class
- * Libraries see https://github.com/OpenSourcePFCLibraries
-*/
-//
-//////////////////////////////////////////////////////////////////////////////
-
-// Check arguments.
-If IsNull(all_threshold) or all_threshold < 0 Then
-	Return -1
-End If
-
-ill_memthreshold = all_threshold
-Return 1
-end function
-
-public function integer of_setmemthreshold (long al_threshold);//////////////////////////////////////////////////////////////////////////////
-//
-//	Function:  of_SetMemThreshold
-//
-//	Access:  Public
-//
-//	Arguments:
-//	al_threshold	The new Threshold.
-//	
-//	Returns:  Integer
-//	1 if it succeeds and$$HEX1$$a000$$ENDHEX$$-1 if an error occurs.
-//
-//	Description:
-//	Sets a new Computer Memory Threshold value.
-//
-//////////////////////////////////////////////////////////////////////////////
-//	
-//	Revision History
-//
-//	Version
-//	5.0   Initial version
-// 12.5	Memory is now stored in LongLong
-//////////////////////////////////////////////////////////////////////////////
-//
-/*
- * Open Source PowerBuilder Foundation Class Libraries
- *
- * Copyright (c) 2004-2017, All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted in accordance with the MIT License
-
- *
- * https://opensource.org/licenses/MIT
- *
- * ====================================================================
- *
- * This software consists of voluntary contributions made by many
- * individuals and was originally based on software copyright (c) 
- * 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
- * information on the Open Source PowerBuilder Foundation Class
- * Libraries see https://github.com/OpenSourcePFCLibraries
-*/
-//
-//////////////////////////////////////////////////////////////////////////////
-
-// Check arguments.
-If IsNull(al_threshold) or al_threshold < 0 Then
-	Return -1
-End If
-
-ill_memthreshold = al_threshold
-Return 1
-end function
-
 on pfc_n_cst_winsrv_statusbar.create
-call super::create
+TriggerEvent( this, "constructor" )
 end on
 
 on pfc_n_cst_winsrv_statusbar.destroy
-call super::destroy
+TriggerEvent( this, "destructor" )
 end on
 
 event constructor;call super::constructor;//////////////////////////////////////////////////////////////////////////////
