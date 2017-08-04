@@ -89,18 +89,6 @@ Function boolean SetFileTime(long hFile, os_filedatetime  lpCreationTime, os_fil
 Function boolean SystemTimeToFileTime(os_systemtime lpSystemTime, ref os_filedatetime lpFileTime) library "KERNEL32.DLL"
 Function boolean LocalFileTimeToFileTime(ref os_filedatetime lpLocalFileTime, ref os_filedatetime lpFileTime) library "KERNEL32.DLL"
 
-Public:
-
-	Function boolean MoveFile(REF String lpExistingFileName, REF String lpNewFileName) LIBRARY "KERNEL32.DLL" ALIAS FOR "MoveFileW"
-	
-Private:
-
-	FUNCTION unsignedLong GetLongPathName(REF String lpszShortPath, REF String lpszLongPath, Long cchBuffer) LIBRARY 'kernel32.dll' ALIAS FOR 'GetLongPathNameW'
-	FUNCTION unsignedLong GetShortPathName(REF String lpszLongPath, REF String lpszShortPath, Long cchBuffer) LIBRARY 'kernel32.dll' ALIAS FOR 'GetShortPathNameW'
-	Function unsignedInteger GetSystemDirectory(REF String lpBuffer, unsignedInteger uSize) LIBRARY "KERNEL32.DLL" ALIAS FOR "GetSystemDirectoryW"
-	Function unsignedInteger GetTempFileName(REF String lpPathName, REF String lpPrefixString, unsignedInteger uUnique, REF String lpTempFileName) LIBRARY "KERNEL32.DLL" ALIAS FOR "GetTempFileNameW"
-	Function unsignedLong GetTempPath(unsignedLong nBufferLength, REF String lpBuffer) LIBRARY "KERNEL32.DLL" ALIAS FOR "GetTempPathW"
-	Function unsignedInteger GetWindowsDirectory(REF String lpBuffer, unsignedInteger uSize) LIBRARY "kernel32.dll" ALIAS FOR "GetWindowsDirectoryW"
 end prototypes
 
 type variables
@@ -131,7 +119,6 @@ public function integer of_setlastaccessdate (string as_filename, date ad_date)
 public function integer of_getdrivetype (string as_drive)
 public function integer of_getdiskspace (string as_drive, ref long al_totalspace, ref long al_freespace)
 public function integer of_getdiskspaceex (string as_drive, ref decimal adec_totalspace, ref decimal adec_freespace)
-protected function long of_maxpath ()
 end prototypes
 
 public function string of_getcurrentdirectory ();//////////////////////////////////////////////////////////////////////////////
@@ -1384,9 +1371,6 @@ adec_FreeSpace = ll_FreeClusters
 adec_FreeSpace *= ll_ClusterBytes
 
 Return 1
-end function
-
-protected function long of_maxpath ();Return(32767)
 end function
 
 on pfc_n_cst_filesrvunicode.create
