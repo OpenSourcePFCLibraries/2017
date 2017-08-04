@@ -18,6 +18,8 @@ n_cst_filesrv				inv_file
 end variables
 
 forward prototypes
+public function integer of_edit_entry (long al_index, string as_object, string as_pair_name, string as_pair_value)
+public function integer of_add_entry (string as_object, string as_pair_name, string as_pair_value)
 public function integer of_delete_entries (long al_start, long al_end)
 public function integer of_delete_entry (long al_index)
 public function long of_find_entry (string as_object, string as_pair_name)
@@ -34,10 +36,136 @@ public function integer of_reset ()
 public function long of_find_entries (string as_object, string as_pair_name, ref long al_entries[])
 public function integer of_get_entry (long al_index, ref s_json_attrib astr_pair)
 public function long of_get_object (string as_object, ref s_json_attrib astr_entries[])
-public function integer of_add_entry (string as_object, string as_pair_name, string as_pair_value, integer ai_kind)
-public function integer of_edit_entry (long al_index, string as_object, string as_pair_name, string as_pair_value, integer ai_kind)
-public function integer of_get_values (string as_object, string as_pair_name, ref string as_values[])
 end prototypes
+
+public function integer of_edit_entry (long al_index, string as_object, string as_pair_name, string as_pair_value);//////////////////////////////////////////////////////////////////////////////
+//
+// Function:		of_edit_entry
+//
+// Access:			Public
+//
+// Arguments:
+// al_index:		The index of the JSON repository entry to be
+//						edited.
+// as_object:			The JSN object name to set.
+// as_pair_name:			The JSON Pair's Name value to set.
+// as_pair_value:			The JSON Pair's value to set.
+//
+// Returns:			integer
+//						 1, Ok
+//						-1, An error occurs
+//
+// Description:	Edit JSON entry corresponding to the specified repository
+//						index.
+//
+// Usage:			Call this method to edit content of an JSON entry that
+//							you know its repository's index.
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+// Revision History
+//
+// Version
+// 12.5		Initial Version
+//////////////////////////////////////////////////////////////////////////////
+//
+/*
+ * Open Source PowerBuilder Foundation Class Libraries
+ *
+ * Copyright (c) 2004-2017, All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted in accordance with the MIT License
+
+ *
+ * https://opensource.org/licenses/MIT
+ *
+ * ====================================================================
+ *
+ * This software consists of voluntary contributions made by many
+ * individuals and was originally based on software copyright (c) 
+ * 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
+ * information on the Open Source PowerBuilder Foundation Class
+ * Libraries see https://github.com/OpenSourcePFCLibraries
+*/
+//
+//////////////////////////////////////////////////////////////////////////////
+
+if al_index < 1 or al_index > ids_repository.rowcount() then return -1
+if isnull( as_object) or len(trim( as_object )) = 0 then return -1
+if isnull( as_pair_name ) or len(trim( as_pair_name )) = 0 then return -1
+
+if ids_repository.setitem( al_index, 1, as_object ) = -1 then return -1
+if ids_repository.setitem( al_index, 2, as_pair_name ) = -1 then return -1
+if ids_repository.setitem( al_index, 3, as_pair_value ) = -1 then return -1
+if ids_repository.setitem( al_index, 4, al_index) = -1 then return -1
+
+return 1
+
+end function
+
+public function integer of_add_entry (string as_object, string as_pair_name, string as_pair_value);//////////////////////////////////////////////////////////////////////////////
+//
+// Function:		of_add_entry
+//
+// Access:			Public
+//
+// Arguments:
+// as_object:		The JSON object's name to be added.
+// as_pair_name:			The JSON Pair's name to be added
+// as_pair_value:			The JSON Pair's value to be added.
+//
+// Returns:			integer
+//						 1, OK
+//						-1, An error occurs
+//
+// Description:	Add a new JSON entry in the repository.
+//
+// Usage:			Call this method to store in the repository a new JSON
+//							entry. This method is called by the of_parse() method.
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+// Revision History
+//
+// Version
+// 	12.5	Initial version
+//////////////////////////////////////////////////////////////////////////////
+//
+/*
+ * Open Source PowerBuilder Foundation Class Libraries
+ *
+ * Copyright (c) 2004-2017, All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted in accordance with the MIT License
+
+ *
+ * https://opensource.org/licenses/MIT
+ *
+ * ====================================================================
+ *
+ * This software consists of voluntary contributions made by many
+ * individuals and was originally based on software copyright (c) 
+ * 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
+ * information on the Open Source PowerBuilder Foundation Class
+ * Libraries see https://github.com/OpenSourcePFCLibraries
+*/
+//
+//////////////////////////////////////////////////////////////////////////////
+
+long ll_index
+
+if isnull( as_object) or len(trim( as_object )) = 0 then return -1
+if isnull( as_pair_name ) or len(trim( as_pair_name )) = 0 then return -1
+
+ll_index = ids_repository.insertrow(0)
+if ll_index < 1 then return -1
+
+return this.of_edit_entry( ll_index, as_object , as_pair_name , as_pair_value )
+
+
+end function
 
 public function integer of_delete_entries (long al_start, long al_end);//////////////////////////////////////////////////////////////////////////////
 //
@@ -397,7 +525,6 @@ public function integer of_parse (string as_json);//////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 
 integer	li_rc
-integer	li_kind
 long		ll_pos
 long		ll_pos2
 long		ll_tmp
@@ -405,7 +532,6 @@ string		ls_tmp
 string		ls_object
 string		ls_pair_name
 string		ls_pair_value
-boolean 	lb_array
 
 n_cst_string		lnv_string
 
@@ -428,14 +554,12 @@ do while len( ls_tmp ) >0
 	// Determine if we have found an Object definition
 	if mid( ls_tmp, ll_pos + 1, 1) = inv_tag.cst_obj_start then 
 
-		// Set entry Kind
-		li_kind = inv_tag.cst_obj_kind
-		
 		// Determine the name of it
 		ls_object = mid( ls_tmp, 1, ll_pos - 1)
 		
 		// Trim working JSON string to optimize performance
 		ls_tmp = mid( ls_tmp, ll_pos + 2)
+		ls_tmp = left( ls_tmp, len( ls_tmp) - 1)
 		
 		// Handle next token
 		continue
@@ -445,46 +569,28 @@ do while len( ls_tmp ) >0
 	ll_pos2 = pos( ls_tmp, inv_tag.cst_ent_sep)
 	if ll_pos2 = 0 then exit
 	
-	//Determine if we have found an Array definition
-	lb_array = (mid( ls_tmp, ll_pos + 1, 1 ) = inv_tag.cst_array_start)
-		
 	// Determine Pair name value
 	ls_pair_name = left( ls_tmp, ll_pos -1)
 	
 	// Determine Pair value
-	if lb_array = true then
-		// Set entry Kind
-		li_kind = inv_tag.cst_array_kind
-		
-		// Set array name
-		ls_object = ls_pair_name
-		
-		// Set array value
-		ls_tmp = mid( ls_tmp, ll_pos + 1)
-		ll_pos2 = pos( ls_tmp, inv_tag.cst_array_end )
-		if ll_pos2 = 0 then return -1
-		ls_pair_value =mid( left( ls_tmp, ll_pos2 - 1 ),2)
-		
-	else
-		// Set current Object's pair value
-		ls_pair_value = mid( ls_tmp, ll_pos + 1, ll_pos2 - (ll_pos + 1 ))
-		if right(ls_pair_value,1) = inv_tag.cst_obj_end then
-			ls_pair_value = left( ls_pair_value, len( ls_pair_value) - 1)
-		end if
-	end if	
+	ls_pair_value = mid( ls_tmp, ll_pos + 1, ll_pos2 - (ll_pos + 1 ))
 	
 	// Trim working JSON string to optimize performance
 	ls_tmp = mid( ls_tmp, ll_pos2 + 1 )
 	
-	// Set Entry kind to VALUE by default
-	if li_kind = -1 then li_kind = inv_tag.cst_val_kind
-	
-	// Add a new parsed JSON entry in the repository
-	if this.of_add_entry( ls_object , ls_pair_name , ls_pair_value, li_kind  ) = -1 then return -1
-	
-	li_kind = -1
+	// A new parsed JSON entry in the repository
+	if this.of_add_entry( ls_object , ls_pair_name , ls_pair_value ) = -1 then return -1
 loop
 	
+if len(ls_tmp) > 0 then
+	ll_pos = pos( ls_tmp, inv_tag.cst_pair_sep)
+	if ll_pos > 0 then
+		ls_pair_name = left( ls_tmp, ll_pos - 1)
+		ls_pair_value = mid( ls_tmp, ll_pos + 1)
+		if this.of_add_entry( ls_object , ls_pair_name , ls_pair_value ) = -1 then return -1
+	end if
+end if
+
 return 1
 end function
 
@@ -537,7 +643,6 @@ public function string of_tostring ();//////////////////////////////////////////
 //
 //////////////////////////////////////////////////////////////////////////////
 
-integer	li_kind
 long	ll_i
 long	ll_limit
 long	ll_object = 1
@@ -561,25 +666,19 @@ for ll_i = 1 to ll_limit
 	ls_current_object = ids_repository.getitemstring( ll_i, 1 )
 	if ls_current_object <> ls_previous_object then
 		ll_object++
-		if ll_object > 2 then
-			ls_rc = left( ls_rc, len(ls_rc) - 1) + inv_tag.cst_obj_end + inv_tag.cst_ent_sep
-		end if
 		ls_rc += inv_tag.cst_val_start+ ls_current_object + inv_tag.cst_val_end + inv_tag.cst_pair_sep + inv_tag.cst_obj_start
 		ls_previous_object = ls_current_object
 	end if
 	
 	ls_pair_name = ids_repository.getitemstring( ll_i, 2 )
 	ls_pair_value = ids_repository.getitemstring( ll_i, 3 )
-	li_kind = ids_repository.getitemnumber( ll_i, 5)
-	if li_kind <> inv_tag.cst_array_kind then
-		ls_rc += inv_tag.cst_val_start+ ls_pair_name + inv_tag.cst_val_end + inv_tag.cst_pair_sep + inv_tag.cst_val_start+ ls_pair_value + inv_tag.cst_val_end  + inv_tag.cst_ent_sep
-	else
-		ls_rc += inv_tag.cst_val_start+ ls_pair_name + inv_tag.cst_val_end + inv_tag.cst_pair_sep + inv_tag.cst_array_start+ ls_pair_value + inv_tag.cst_array_end  + inv_tag.cst_ent_sep
-	end if
+	
+	ls_rc += inv_tag.cst_val_start+ ls_pair_name + inv_tag.cst_val_end + inv_tag.cst_pair_sep + inv_tag.cst_val_start+ ls_pair_value + inv_tag.cst_val_end  + inv_tag.cst_ent_sep
+
 next
 
 ls_rc = left( ls_rc, len( ls_rc ) -  inv_tag.cst_ent_sep_len)
-ls_rc +=inv_tag.cst_obj_end
+ls_rc += fill( "}", ll_object )
 
 return ls_rc
 end function
@@ -778,7 +877,7 @@ public function integer of_get_value (string as_object, string as_pair_name, ref
 //
 //////////////////////////////////////////////////////////////////////////////
 
-long	li_rc
+long	ll_i
 long  	ll_limit
 string	ls_filter
 
@@ -790,17 +889,14 @@ if ids_repository.setfilter ( ls_filter ) = -1 then return -1
 ids_repository.filter()
 
 ll_limit = ids_repository.rowcount( )
-if ll_limit= 1 then 
-	as_value = ids_repository.getitemstring( 1, 3) 
-	li_rc = 1
-else
-	li_rc = -1
-end if
+if ll_limit <>  1 then return -1
+
+as_value = ids_repository.getitemstring( 1, 3) 
 
 ids_repository.SetFilter("")
 ids_repository.filter()
 
-return li_rc
+return 1
 end function
 
 public function integer of_load (string as_filename);//////////////////////////////////////////////////////////////////////////////
@@ -1124,7 +1220,6 @@ if isnull( al_index) or al_index < 1 or al_index > ids_repository.rowcount( ) th
 astr_pair.is_object = ids_repository.getitemstring( al_index, 1)
 astr_pair.is_pair_name = ids_repository.getitemstring( al_index, 2)
 astr_pair.ia_pair_value = ids_repository.getitemstring( al_index, 3)
-astr_pair.ii_kind = ids_repository.getitemnumber( al_index, 5)
 
 return 1
 end function
@@ -1197,217 +1292,6 @@ for ll_i = ll_limit to 1 step -1
 next
 
 return ll_limit
-end function
-
-public function integer of_add_entry (string as_object, string as_pair_name, string as_pair_value, integer ai_kind);//////////////////////////////////////////////////////////////////////////////
-//
-// Function:		of_add_entry
-//
-// Access:			Public
-//
-// Arguments:
-// as_object:		The JSON object's name to be added.
-// as_pair_name:			The JSON Pair's name to be added
-// as_pair_value:			The JSON Pair's value to be added.
-// ai_kind:					The entry Kind. Possible values are :
-//								1 = OBJECT (n_cst_json_tagattrib.CST_OBJ_KIND)
-//								2 = VALUE (n_cst_json_tagattrib.CST_VAL_KIND)
-//								3 = ARRAY (n_cst_json_tagattrib.CST_ARRAY_KIND)
-//
-// Returns:			integer
-//						 1, OK
-//						-1, An error occurs
-//
-// Description:	Add a new JSON entry in the repository.
-//
-// Usage:			Call this method to store in the repository a new JSON
-//							entry. This method is called by the of_parse() method.
-//
-//////////////////////////////////////////////////////////////////////////////
-//
-// Revision History
-//
-// Version
-// 	12.5	Initial version
-//////////////////////////////////////////////////////////////////////////////
-//
-/*
- * Open Source PowerBuilder Foundation Class Libraries
- *
- * Copyright (c) 2004-2017, All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted in accordance with the MIT License
-
- *
- * https://opensource.org/licenses/MIT
- *
- * ====================================================================
- *
- * This software consists of voluntary contributions made by many
- * individuals and was originally based on software copyright (c) 
- * 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
- * information on the Open Source PowerBuilder Foundation Class
- * Libraries see https://github.com/OpenSourcePFCLibraries
-*/
-//
-//////////////////////////////////////////////////////////////////////////////
-
-long ll_index
-
-if isnull( as_object) or len(trim( as_object )) = 0 then return -1
-if isnull( as_pair_name ) or len(trim( as_pair_name )) = 0 then return -1
-
-ll_index = ids_repository.insertrow(0)
-if ll_index < 1 then return -1
-
-return this.of_edit_entry( ll_index, as_object , as_pair_name , as_pair_value, ai_kind )
-
-
-end function
-
-public function integer of_edit_entry (long al_index, string as_object, string as_pair_name, string as_pair_value, integer ai_kind);//////////////////////////////////////////////////////////////////////////////
-//
-// Function:		of_edit_entry
-//
-// Access:			Public
-//
-// Arguments:
-// al_index:		The index of the JSON repository entry to be
-//						edited.
-// as_object:			The JSN object name to set.
-// as_pair_name:		The JSON Pair's Name value to set.
-// as_pair_value:		The JSON Pair's value to set.
-// ai_kind:				the JSON Pair's kind. Possible values are :
-//
-// Returns:			integer
-//						 1, Ok
-//						-1, An error occurs
-//
-// Description:	Edit JSON entry corresponding to the specified repository
-//						index.
-//
-// Usage:			Call this method to edit content of an JSON entry that
-//							you know its repository's index.
-//
-//////////////////////////////////////////////////////////////////////////////
-//
-// Revision History
-//
-// Version
-// 12.5		Initial Version
-//////////////////////////////////////////////////////////////////////////////
-//
-/*
- * Open Source PowerBuilder Foundation Class Libraries
- *
- * Copyright (c) 2004-2017, All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted in accordance with the MIT License
-
- *
- * https://opensource.org/licenses/MIT
- *
- * ====================================================================
- *
- * This software consists of voluntary contributions made by many
- * individuals and was originally based on software copyright (c) 
- * 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
- * information on the Open Source PowerBuilder Foundation Class
- * Libraries see https://github.com/OpenSourcePFCLibraries
-*/
-//
-//////////////////////////////////////////////////////////////////////////////
-
-if al_index < 1 or al_index > ids_repository.rowcount() then return -1
-if isnull( as_object) or len(trim( as_object )) = 0 then return -1
-if isnull( as_pair_name ) or len(trim( as_pair_name )) = 0 then return -1
-if isnull( ai_kind) then return -1
-
-if ids_repository.setitem( al_index, 1, as_object ) = -1 then return -1
-if ids_repository.setitem( al_index, 2, as_pair_name ) = -1 then return -1
-if ids_repository.setitem( al_index, 3, as_pair_value ) = -1 then return -1
-if ids_repository.setitem( al_index, 4, al_index) = -1 then return -1
-if ids_repository.setitem( al_index, 5, ai_kind) = -1 then return -1
-
-return 1
-
-end function
-
-public function integer of_get_values (string as_object, string as_pair_name, ref string as_values[]);//////////////////////////////////////////////////////////////////////////////
-//
-// Function:		of_get_values
-//
-// Access:			Public
-//
-// Arguments:
-// as_object:		The name of the JSON object that contain the as_pair_name
-// as_pair_name:	The name of the Pair value to get its value
-// as_values:		The string array variable that will holds the pair's valuet (by ref).
-//
-// Returns:			integer
-//						 1, OK
-//						-1, An error occurs.
-//
-// Description:	Get the values of the specified JSON pair with Array Kind.
-//
-// Usage:			Call this method to get the value of a JSON Object's Pair.
-//
-//////////////////////////////////////////////////////////////////////////////
-//
-// Revision History
-//
-// Version
-// 12.5 Initial version
-//////////////////////////////////////////////////////////////////////////////
-//
-/*
- * Open Source PowerBuilder Foundation Class Libraries
- *
- * Copyright (c) 2004-2017, All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted in accordance with the MIT License
-
- *
- * https://opensource.org/licenses/MIT
- *
- * ====================================================================
- *
- * This software consists of voluntary contributions made by many
- * individuals and was originally based on software copyright (c) 
- * 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
- * information on the Open Source PowerBuilder Foundation Class
- * Libraries see https://github.com/OpenSourcePFCLibraries
-*/
-//
-//////////////////////////////////////////////////////////////////////////////
-
-long	li_rc
-long  	ll_limit
-string	ls_filter
-string	ls_tmp
-
-n_cst_string		lnv_string
-
-if isnull( as_object ) or len(trim(as_object)) = 0 then return -1
-if isnull( as_pair_name ) or len(trim( as_pair_name )) = 0 then return -1
-
-ls_filter = "object ='"+ as_object +"' and pair ='"+as_pair_name+"' and kind =" +string( inv_tag.cst_array_kind)
-if ids_repository.setfilter ( ls_filter ) = -1 then return -1
-ids_repository.filter()
-
-ll_limit = ids_repository.rowcount( )
-if ll_limit= 1 then
-	ls_tmp  = ids_repository.getitemstring( 1, 3) 
-	li_rc = lnv_string.of_parsetoarray( ls_tmp, ",",  as_values )
-end if
-
-ids_repository.SetFilter("")
-ids_repository.filter()
-
-return li_rc
 end function
 
 on pfc_n_cst_json.create
