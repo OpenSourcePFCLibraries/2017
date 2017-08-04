@@ -806,8 +806,6 @@ CHOOSE CASE ai_extremetype
 
 		// Initialize the extreme point.
 		li_point = HIGH_VALUE
-		li_MinPoint					= HIGH_VALUE
-		li_MaxPoint					= LOW_VALUE
 
 		// Find the right most point.
 		For li_cnt = 1 to UpperBound(iwo_rightbottom)
