@@ -768,7 +768,7 @@ integer li_file
 if isnull( as_file ) or len(trim(as_file)) = 0 then return failure
 if isnull( as_section ) or len(trim(as_section)) = 0 then return failure
 
-li_file = fileopen( as_file, linemode!, write! )
+li_file = fileopen( as_file )
 li_rc = filewrite( li_file, "["+as_section+"]")
 li_rc = fileclose( li_file )
 
