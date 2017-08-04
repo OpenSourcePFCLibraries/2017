@@ -30,7 +30,8 @@ string 	is_excludecolumns[]
 string 	is_sortcolumn
 string 	is_sortorder
 
-n_cst_DWSrv_sortDraw		invo_sortDraw
+
+
 end variables
 
 forward prototypes
@@ -53,14 +54,9 @@ public function boolean of_getcolumnheader ()
 public function integer of_getregisterable (ref string as_allcolumns[])
 public function integer of_getinfo (ref n_cst_infoattrib anv_infoattrib)
 public function integer of_getpropertyinfo (ref n_cst_propertyattrib anv_attrib)
-public subroutine of_sortindicatornone ()
-public subroutine of_sortindicatordraw ()
-public function string of_getsort (datawindow vdw_getsort)
-private function integer of_setsort (string as_format, boolean ab_pfcclicked)
-private function integer of_setsortdraw (boolean ab_switch)
 end prototypes
 
-event type integer pfc_clicked(integer ai_xpos, integer ai_ypos, long al_row, ref dwobject adwo_obj);//////////////////////////////////////////////////////////////////////////////
+event pfc_clicked;call super::pfc_clicked;//////////////////////////////////////////////////////////////////////////////
 //
 //	Function:  		pfc_clicked
 //
@@ -86,8 +82,8 @@ event type integer pfc_clicked(integer ai_xpos, integer ai_ypos, long al_row, re
 //
 //	Revision History
 //
-//	Version:			5.0		Initial version
-//						12.5		Add sort order indicator capability
+//	Version
+//	5.0   Initial version
 //
 //////////////////////////////////////////////////////////////////////////////
 //
@@ -129,30 +125,11 @@ END IF
 IF NOT of_GetColumnHeader() THEN Return 0
 
 // Only valid on header column.
-If String(adwo_obj.Name) = 'datawindow' THEN Return 0
-
-setNull(ls_headerName)
+If adwo_obj.Name = 'datawindow' THEN Return 0
+IF adwo_obj.Band <> "header" THEN Return 0
 
 // Get column header information.
-IF isValid(invo_sortDraw) THEN
-	
-	//	Did the user click on the sort order indicator itself, if so
-	//	treat it as if the column header was clicked
-	IF invo_sortDraw.of_isSortLineClicked(String(adwo_obj.Name)) THEN
-		
-		//	User clicked on the sort order indicator, treat the click
-		//	as a toggle between ascending/descending and vice versa.
-		ls_headerName	= is_sortColumn + of_getDefaultHeaderSuffix()
-		
-	ELSE
-		IF adwo_obj.Band <> "header" THEN Return 0
-	END IF
-ELSE
-	IF adwo_obj.Band <> "header" THEN Return 0
-END IF
-
-IF isNull(ls_headerName) THEN ls_headerName	= String(adwo_obj.Name)
-
+ls_headername = adwo_obj.Name
 li_headerlen = Len(ls_headername)
 li_suffixlen = Len(is_defaultheadersuffix)
 
@@ -191,21 +168,18 @@ ELSE
 END IF 
 
 // Perform the SetSort operation (check the rc).
-li_rc = of_SetSort (ls_sortstring, TRUE) 
+li_rc = of_SetSort (ls_sortstring) 
 If li_rc < 0 Then Return li_rc
 
 // Perform the actual Sort operation (check the rc).
 li_rc = of_Sort()
-If li_rc < 0 Then Return li_rc
-
-//	Draw the sort order indicator
-IF isValid(invo_sortDraw) THEN invo_sortDraw.of_draw(is_sortColumn)
+If li_rc < 0 Then Return li_rc	
 	
 Return 1
 
 end event
 
-event type integer pfc_sortdlg();//////////////////////////////////////////////////////////////////////////////
+event pfc_sortdlg;call super::pfc_sortdlg;//////////////////////////////////////////////////////////////////////////////
 //
 //	Event:  			pfc_SortDlg
 //
@@ -226,8 +200,6 @@ event type integer pfc_sortdlg();///////////////////////////////////////////////
 //	Version
 //	5.0   Initial version
 // 5.0.04 Set focus back on the datawindow.
-//	12.5		If sort order indicator is enabled, then make sure it is not
-//				visible
 //
 //////////////////////////////////////////////////////////////////////////////
 //
@@ -271,10 +243,6 @@ idw_requestor.SetFocus()
 // Check if the user cancelled the operation (li_rc =0)
 // or if otherwise failed(li_rc <-1).
 IF li_rc <= 0 THEN Return li_rc
-
-//	If a sort is set in the dialog, then make sure the sort order indicator
-//	is destroyed
-IF isValid(invo_sortDraw) THEN invo_sortDraw.of_drawNone()
 
 // Sort the requesting datawindow.
 Return of_Sort() 
@@ -402,8 +370,6 @@ public function integer of_setsort (string as_format);//////////////////////////
 //	Version
 //	5.0   Initial version
 // 6.0	Use of constants within services.
-//	12.5	If sort order indicator is enabled, then make sure it is not
-//			visible
 //
 //////////////////////////////////////////////////////////////////////////////
 //
@@ -438,16 +404,7 @@ If IsNull(idw_Requestor) Or Not IsValid(idw_Requestor) Then Return -1
 
 // If the parameter is not null, then peform a regular SetSort operation.
 IF Not IsNull (as_format) THEN
-	li_RC					= idw_Requestor.SetSort (as_format)
-	
-	//	Because we don't know that "state" of the dataWindow for every case,
-	//	it is best to turn off the sort order indicator for now and let the
-	//	user reselect it.  The sort could be set for objects that aren't
-	//	visible and therefore the sort order indicator can't be drawn
-	//	properly.
-	of_sortIndicatorNone()
-
-	Return(li_RC)
+	Return idw_Requestor.SetSort (as_format) 
 END IF 
 
 // Passed argument was Null (as_format is null),
@@ -459,14 +416,6 @@ CHOOSE CASE ii_style
 		li_rc = idw_Requestor.SetSort (as_format) 
 		// Check if the dialog was close via the Cancel button.
 		If li_rc = -1 Then li_rc = 0
-
-		//	Because we don't know that "state" of the dataWindow for every
-		//	case, it is best to turn off the sort order indicator for now
-		//	and let the user reselect it.  The sort could be set for objects
-		//	that aren't visible and therefore the sort order indicator can't
-		//	be drawn properly.
-		IF li_RC = 1 THEN of_sortIndicatorNone()
-		
 		Return li_rc
 
 	CASE DRAGDROP, SIMPLE, DROPDOWNLISTBOX 
@@ -488,14 +437,7 @@ CHOOSE CASE ii_style
 		lnv_return = Message.PowerObjectParm
 		// Check if the dialog was close via the Cancel button.
 		IF lnv_return.ii_rc <> 1 Then Return lnv_return.ii_rc
-
-		//	Because we don't know that "state" of the dataWindow for every
-		//	case, it is best to turn off the sort order indicator for now
-		//	and let the user reselect it.  The sort could be set for objects
-		//	that aren't visible and therefore the sort order indicator can't
-		//	be drawn properly.
-		of_sortIndicatorNone()
-
+		
 		Return idw_Requestor.SetSort (lnv_return.is_rs)
 
 END CHOOSE
@@ -521,8 +463,8 @@ public function string of_getsort ();///////////////////////////////////////////
 //
 //	Revision History
 //
-//	Version			5.0   Initial version
-//						12.5	Method has been overLoaded, call new method
+//	Version
+//	5.0   Initial version
 //
 //////////////////////////////////////////////////////////////////////////////
 //
@@ -548,7 +490,11 @@ public function string of_getsort ();///////////////////////////////////////////
 //
 //////////////////////////////////////////////////////////////////////////////
 
-Return(of_getSort(idw_Requestor))
+// Check the datawindow reference.
+If IsNull(idw_Requestor) Or Not IsValid(idw_Requestor) Then Return ''
+
+// Return the current sort for the datawindow.
+Return idw_Requestor.Describe ("DataWindow.Table.Sort")
 end function
 
 public function integer of_setvisibleonly (boolean ab_visible);//////////////////////////////////////////////////////////////////////////////
@@ -1243,8 +1189,6 @@ public function integer of_setcolumnheader (boolean ab_switch);/////////////////
 //
 //	Version
 //	5.0   Initial version
-//	12.5	The sort order indicator is tied into the existing column header
-//			logic and by default is enabled at the same time.
 //
 //////////////////////////////////////////////////////////////////////////////
 //
@@ -1274,9 +1218,6 @@ public function integer of_setcolumnheader (boolean ab_switch);/////////////////
 IF IsNull(ab_switch) THEN Return -1
 
 ib_columnheadersort = ab_switch
-
-of_setSortDraw(ab_switch)
-
 Return 1
 end function
 
@@ -1514,351 +1455,11 @@ anv_attrib.ib_switchbuttons = True
 Return 1
 end function
 
-public subroutine of_sortindicatornone ();/////////////////////////////////////////////////////////////////////////
-//
-//	Function:  		of_sortIndicatorNone
-//
-//	Access:    		Public
-//
-//	Arguments:		None
-//
-//	Returns:   		None
-//
-//	Description:	Grants pfc_u_dw access to of_drawNone() in the sub-service
-//						n_cst_sortDraw.  It also keeps instance variable in
-//						this service in sync with n_cst_sortDraw.
-//
-/////////////////////////////////////////////////////////////////////////
-//
-//	Revision History
-//
-//	Version:			12.5				Initial version
-//
-/////////////////////////////////////////////////////////////////////////
-//
-//	Open Source PowerBuilder Foundation Class Libraries
-//
-//	Copyright (c) 2004-2017, All rights reserved.
-//
-//	Redistribution and use in source and binary forms, with or without
-//	modification, are permitted in accordance with the MIT License
-//
-//	https://opensource.org/licenses/MIT
-//
-//	======================================================================
-//
-//	This software consists of voluntary contributions made by many
-//	individuals and was originally based on software copyright (c) 
-//	1996-2004 Sybase, Inc. http://www.sybase.com.  For more
-//	information on the Open Source PowerBuilder Foundation Class
-//	Libraries see https://github.com/OpenSourcePFCLibraries
-//
-/////////////////////////////////////////////////////////////////////////
-
-IF isValid(invo_sortDraw) THEN
-	
-	is_sortColumn			= ''
-	is_sortOrder			= ''
-	
-	invo_sortDraw.of_drawNone(idw_requestor)
-
-END IF
-
-RETURN
-end subroutine
-
-public subroutine of_sortindicatordraw ();/////////////////////////////////////////////////////////////////////////
-//
-//	Function:  		of_sortIndicatorDraw
-//
-//	Access:    		Public
-//
-//	Arguments:		None
-//
-//	Returns:   		None
-//
-//	Description:	Grants pfc_u_dw access to of_draw() in the sub-service
-//						n_cst_sortDraw.
-//
-/////////////////////////////////////////////////////////////////////////
-//
-//	Revision History
-//
-//	Version:			12.5				Initial version
-//
-/////////////////////////////////////////////////////////////////////////
-//
-//	Open Source PowerBuilder Foundation Class Libraries
-//
-//	Copyright (c) 2004-2017, All rights reserved.
-//
-//	Redistribution and use in source and binary forms, with or without
-//	modification, are permitted in accordance with the MIT License
-//
-//  https://opensource.org/licenses/MIT
-//
-//	======================================================================
-//
-//	This software consists of voluntary contributions made by many
-//	individuals and was originally based on software copyright (c) 
-//	1996-2004 Sybase, Inc. http://www.sybase.com.  For more
-//	information on the Open Source PowerBuilder Foundation Class
-//	Libraries see https://github.com/OpenSourcePFCLibraries
-//
-/////////////////////////////////////////////////////////////////////////
-
-IF isValid(invo_sortDraw) THEN invo_sortDraw.of_draw(idw_requestor, is_sortColumn)
-
-RETURN
-end subroutine
-
-public function string of_getsort (datawindow vdw_getsort);//////////////////////////////////////////////////////////////////////////////
-//
-//	Function:  		of_GetSort
-//
-//	Access:    		Public
-//
-//	Arguments: 		dataWindow		The dataWindow for which the current sort is
-//											to be retrieved.
-//
-//	Returns:   		String			The sort expression
-//
-//	Description:	Get the current sort expression on the datawindow.
-//
-//////////////////////////////////////////////////////////////////////////////
-//
-//	Revision History
-//
-//	Version			12.5				Initial version
-//
-//////////////////////////////////////////////////////////////////////////////
-//
-/*
- * Open Source PowerBuilder Foundation Class Libraries
- *
- * Copyright (c) 2004-2017, All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted in accordance with the MIT License
-
- *
- * https://opensource.org/licenses/MIT
- *
- * ====================================================================
- *
- * This software consists of voluntary contributions made by many
- * individuals and was originally based on software copyright (c) 
- * 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
- * information on the Open Source PowerBuilder Foundation Class
- * Libraries see https://github.com/OpenSourcePFCLibraries
-*/
-//
-//////////////////////////////////////////////////////////////////////////////
-
-// Check the datawindow reference.
-If IsNull(vdw_getSort) Or Not IsValid(vdw_getSort) Then Return ''
-
-// Return the current sort for the datawindow.
-Return vdw_getSort.Describe ("DataWindow.Table.Sort")
-end function
-
-private function integer of_setsort (string as_format, boolean ab_pfcclicked);/////////////////////////////////////////////////////////////////////////
-//
-//	Function:  		of_SetSort
-//
-//	Access:    		Private			Should only be called from this object's
-//											pfc_clicked event.
-//
-//	Arguments:		String			Valid sort criteria for the DataWindow.
-//											The expression includes column name(s)
-//											and/or number(s).  A column number must
-//											be preceded by a pound sign (#).
-//						Boolean			Indicator that this was called from the
-//											pfc_clicked event.  This will cause the
-//											logic to preserve the sortColumn and
-//											sortOrder values.
-//
-//	Returns:   		Integer			 1	If it succeeds.
-//											 0	User cancelled.
-//											-1 if an error occurs.
-//
-//	Description:	Set the sort from the pfc_clicked event.
-//
-/////////////////////////////////////////////////////////////////////////
-//
-//	Revision History
-//
-//	Version:			12.5				Initial version
-//
-/////////////////////////////////////////////////////////////////////////
-//
-//	Open Source PowerBuilder Foundation Class Libraries
-//
-//	Copyright (c) 2004-2017, All rights reserved.
-//
-//	Redistribution and use in source and binary forms, with or without
-//	modification, are permitted in accordance with the MIT License
-//
-//	https://opensource.org/licenses/MIT
-//
-//	======================================================================
-//
-//	This software consists of voluntary contributions made by many
-//	individuals and was originally based on software copyright (c) 
-//	1996-2004 Sybase, Inc. http://www.sybase.com.  For more
-//	information on the Open Source PowerBuilder Foundation Class
-//	Libraries see https://github.com/OpenSourcePFCLibraries
-//
-/////////////////////////////////////////////////////////////////////////
-
-String						ls_sortColumn,	ls_sortOrder
-
-IF ab_pfcClicked THEN
-	
-	ls_sortColumn			= is_sortColumn
-	ls_sortOrder			= is_sortOrder
-	
-END IF
-
-Integer						li_RC
-li_RC							= of_setSort(as_format)
-
-IF ab_pfcClicked THEN
-	
-	is_sortColumn			= ls_sortColumn
-	is_sortOrder			= ls_sortOrder
-	
-END IF
-
-Return(li_RC)
-end function
-
-private function integer of_setsortdraw (boolean ab_switch);/////////////////////////////////////////////////////////////////////////
-//
-//	Function:		of_SetSortDraw
-//
-//	Access:			Private
-//
-//	Arguments:		boolean			TRUE	- Start (create) the service
-//   										FALSE	- Stop (destroy ) the service
-//
-//	Returns:			Integer			 1 If Successful operation
-//											 0	No action taken
-//											-1	If an error occured
-//
-//	Description:	Starts or stops the Sort Draw Service.  This service
-//						provides routines to control the drawing of a sort
-//						order indicator.
-//
-/////////////////////////////////////////////////////////////////////////
-//
-//	Revision History
-//
-//	Version:			12.5		Initial version
-//
-/////////////////////////////////////////////////////////////////////////
-//
-//	Open Source PowerBuilder Foundation Class Libraries
-//
-//	Copyright (c) 2004-2017, All rights reserved.
-//
-//	Redistribution and use in source and binary forms, with or without
-//	modification, are permitted in accordance with the MIT License
-//
-//	https://opensource.org/licenses/MIT
-//
-//	======================================================================
-//
-//	This software consists of voluntary contributions made by many
-//	individuals and was originally based on software copyright (c) 
-//	1996-2004 Sybase, Inc. http://www.sybase.com.  For more
-//	information on the Open Source PowerBuilder Foundation Class
-//	Libraries see https://github.com/OpenSourcePFCLibraries
-//
-/////////////////////////////////////////////////////////////////////////
-
-// Check arguments
-IF IsNull(ab_switch) THEN Return(FAILURE)
-
-//	Must turn on column header click sorting first
-IF NOT of_getColumnHeader() THEN Return(FAILURE)
-
-IF ab_switch THEN
-	IF IsNull(invo_sortDraw) OR NOT IsValid (invo_sortDraw) THEN
-		
-		invo_sortDraw		= CREATE n_cst_DWSrv_sortDraw
-		
-		IF isValid(idw_requestor) THEN
-			invo_sortDraw.of_SetRequestor(idw_requestor)
-		END IF
-		
-		Return(SUCCESS)
-		
-	END IF
-ELSE 
-	IF IsValid(invo_sortDraw) THEN
-	
-		//	Destroy the sort order indicator before destructor for the
-		//	service
-		invo_sortDraw.of_drawNone(idw_requestor)
-		
-		DESTROY invo_sortDraw
-		
-		Return(SUCCESS)
-		
-	END IF
-END IF
-
-Return(NO_ACTION)
-end function
-
 on pfc_n_cst_dwsrv_sort.create
-call super::create
+TriggerEvent( this, "constructor" )
 end on
 
 on pfc_n_cst_dwsrv_sort.destroy
-call super::destroy
+TriggerEvent( this, "destructor" )
 end on
-
-event destructor;call super::destructor;/////////////////////////////////////////////////////////////////////////
-//
-//	Event:	  		destructor
-//
-//	Access:    		Public
-//
-//	Arguments:		None
-//
-//	Returns:   		Long
-//
-//	Description:	Clean up to avoid memory leaks.
-//
-/////////////////////////////////////////////////////////////////////////
-//
-//	Revision History
-//
-//	Version:			12.5				Initial version
-//
-/////////////////////////////////////////////////////////////////////////
-//
-//	Open Source PowerBuilder Foundation Class Libraries
-//
-//	Copyright (c) 2004-2017, All rights reserved.
-//
-//	Redistribution and use in source and binary forms, with or without
-//	modification, are permitted in accordance with the MIT License
-//
-//	https://opensource.org/licenses/MIT
-//
-//	======================================================================
-//
-//	This software consists of voluntary contributions made by many
-//	individuals and was originally based on software copyright (c) 
-//	1996-2004 Sybase, Inc. http://www.sybase.com.  For more
-//	information on the Open Source PowerBuilder Foundation Class
-//	Libraries see https://github.com/OpenSourcePFCLibraries
-//
-/////////////////////////////////////////////////////////////////////////
-
-of_setColumnHeader(FALSE)
-end event
 
