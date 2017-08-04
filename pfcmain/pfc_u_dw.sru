@@ -77,17 +77,10 @@ event pfc_properties ( )
 event pfc_prermbmenuproperty ( ref m_dw am_dw )
 event type integer pfc_checkrequirederror ( long al_row,  ref string as_columnname )
 event pfc_postinsertrow ( long al_row )
-event pfc_postlbuttonup ( unsignedlong flags,  integer xpos,  integer ypos )
 end type
 global pfc_u_dw pfc_u_dw
 
 type variables
-Private:
-
-	String							is_syntaxModified		= 'no'
-	Long								il_clicked
-	DWObject							idwo_clicked
-	
 Public:
 // - Common return value constants:
 constant integer 		SUCCESS = 1
@@ -133,7 +126,7 @@ public function integer of_SetBase (boolean ab_switch)
 public function integer of_SetDropDownSearch (boolean ab_switch)
 public function integer of_SetFilter (boolean ab_switch)
 public function integer of_SetFind (boolean ab_switch)
-public function integer of_setlinkage (boolean ab_switch)
+public function integer of_SetLinkage (boolean ab_switch)
 public function integer of_SetMultiTable (boolean ab_switch)
 public function integer of_SetPrintPreview (boolean ab_switch)
 public function integer of_SetQueryMode (boolean ab_switch)
@@ -1611,12 +1604,10 @@ end event
 
 event lbuttonup;//////////////////////////////////////////////////////////////////////////////
 //	Event:			lbuttonup
-//	Description:	Send lbuttonup notification to services
+//	Description:		Send lbuttonup notification to services
 //////////////////////////////////////////////////////////////////////////////
-//	Rev. History	Version
+//	Rev. History		Version
 //						5.0   Initial version
-//						12.5	Need a posted lButtonUp event to draw sort order
-//								indicator
 //////////////////////////////////////////////////////////////////////////////
 /*
  * Open Source PowerBuilder Foundation Class Libraries
@@ -1639,17 +1630,14 @@ event lbuttonup;////////////////////////////////////////////////////////////////
 */
 //////////////////////////////////////////////////////////////////////////////
 if IsValid (inv_RowSelect) then inv_RowSelect.event pfc_lbuttonup (flags, xpos, ypos)
-
-POST EVENT pfc_postLButtonUp(flags, xPos, yPos)
 end event
 
 event lbuttondown;//////////////////////////////////////////////////////////////////////////////
 //	Event:			lbuttondown
-//	Description:	Send lbuttondown notification to services
+//	Description:		Send lbuttondown notification to services
 //////////////////////////////////////////////////////////////////////////////
-//	Rev. History	Version
+//	Rev. History		Version
 //						5.0   Initial version
-//						12.5	Add logic to draw sort order indicator
 //////////////////////////////////////////////////////////////////////////////
 /*
  * Open Source PowerBuilder Foundation Class Libraries
@@ -1672,16 +1660,6 @@ event lbuttondown;//////////////////////////////////////////////////////////////
 */
 //////////////////////////////////////////////////////////////////////////////
 if IsValid (inv_RowSelect) then inv_RowSelect.event pfc_lbuttondown (flags, xpos, ypos)
-
-IF Integer(Describe("DataWindow.Processing")) = 1 THEN
-
-	//	Syntax Modified is used in post_lButtonUp in order to tell if the
-	//	user has moved or resized a column.
-	is_syntaxModified				= Describe("DataWindow.Syntax.Modified")
-	
-	Modify("DataWindow.Syntax.Modified='no'")
-	
-END IF
 end event
 
 event pfc_updatespending;//////////////////////////////////////////////////////////////////////////////
@@ -2701,63 +2679,6 @@ event pfc_postinsertrow;////////////////////////////////////////////////////////
 
 end event
 
-event pfc_postlbuttonup(unsignedlong flags, integer xpos, integer ypos);/////////////////////////////////////////////////////////////////////////
-//
-//	Event:			post_lButtonUp
-//
-//	Description:	Posted from lButtonUp in order to draw the sort order
-//						indicator.  Needs to be after PowerBuilder is done
-//						drawing a grid datawindow when moving/resizing columns.
-//
-/////////////////////////////////////////////////////////////////////////
-//
-//	Rev. History	Version
-//						12.5	Initial version, this special logic for drawing
-//								the sort order indicator is only needed for grid
-//								style dataWindows.  This is because the user can
-//								dragDrop columns to new positions or change their
-//								widths.
-//
-/////////////////////////////////////////////////////////////////////////
-//
-// Open Source PowerBuilder Foundation Class Libraries
-//
-// Copyright (c) 2004-2017, All rights reserved.
-//
-// Redistribution and use in source and binary forms, with or without
-// modification, are permitted in accordance with the MIT License
-
-//
-// https://opensource.org/licenses/MIT
-//
-// ======================================================================
-//
-// This software consists of voluntary contributions made by many
-// individuals and was originally based on software copyright (c) 
-// 1996-2004 Sybase, Inc. http://www.sybase.com.  For more information on
-// the Open Source PowerBuilder Foundation Class Libraries see
-//	https://github.com/OpenSourcePFCLibraries
-//
-/////////////////////////////////////////////////////////////////////////
-
-IF Integer(Describe("DataWindow.Processing")) = 1 THEN
-
-	//	Did the user actually move or resize a column?  Initialized to 'no' in lButtonDown.
-	IF Describe("DataWindow.Syntax.Modified") = 'yes' THEN
-		//	Just redraw sort order indicator
-		IF isValid(inv_sort) THEN inv_sort.of_sortIndicatorDraw()
-	ELSE
-		//	Apply/Change sort order indicator, il_clicked and idwo_clicked
-		//	are set in the clicked event.
-		IF isValid(inv_sort) THEN inv_sort.EVENT pfc_clicked(xPos, yPos, il_clicked, idwo_clicked)
-	END IF
-
-	//	Reset value to what was saved in lButtonDown
-	Modify("DataWindow.Syntax.Modified='" + is_syntaxModified + "'")
-	
-END IF
-end event
-
 public function boolean of_GetUpdateable ();//////////////////////////////////////////////////////////////////////////////
 //	Public Function:	of_GetUpdateable
 //	Arguments:		None
@@ -3092,7 +3013,7 @@ end if
 return NO_ACTION
 end function
 
-public function integer of_setlinkage (boolean ab_switch);//////////////////////////////////////////////////////////////////////////////
+public function integer of_SetLinkage (boolean ab_switch);//////////////////////////////////////////////////////////////////////////////
 //	Public Function:	of_SetLinkage
 //	Arguments:		boolean
 //   					true  - Start (create) the service
@@ -4737,16 +4658,14 @@ end function
 
 event clicked;//////////////////////////////////////////////////////////////////////////////
 //	Event:			clicked
-//	Description:	DataWindow clicked
+//	Description:		DataWindow clicked
 //////////////////////////////////////////////////////////////////////////////
-//	Rev. History	Version
-//						5.0	Initial version
-// 					6.0 	Added Linkage service notification
-// 					6.0 	Introduced non zero return value
-// 					7.0	Do not bypass processing on linkage failure.  
-// 					7.0	Linkage service should not fire events when querymode
-//								is enabled
-//						12.5	Add logic to draw sort order indicator
+//	Rev. History		Version
+//						5.0		Initial version
+// 						6.0 	Added Linkage service notification
+// 						6.0 	Introduced non zero return value
+// 						7.0		Do not bypass processing on linkage failure.  
+// 						7.0		Linkage service should not fire events when querymode is enabled
 //////////////////////////////////////////////////////////////////////////////
 /*
  * Open Source PowerBuilder Foundation Class Libraries
@@ -4789,12 +4708,7 @@ end if
 	
 if IsValid (inv_RowSelect) then inv_RowSelect.Event pfc_clicked ( xpos, ypos, row, dwo )
 
-IF Integer(Describe("DataWindow.Processing")) = 1 THEN
-	il_clicked						= row
-	idwo_clicked					= dwo
-ELSE
-	if IsValid (inv_Sort) then inv_Sort.Event pfc_clicked ( xpos, ypos, row, dwo )
-END IF
+if IsValid (inv_Sort) then inv_Sort.Event pfc_clicked ( xpos, ypos, row, dwo ) 
 end event
 
 event destructor;//////////////////////////////////////////////////////////////////////////////
@@ -5377,7 +5291,6 @@ event retrieveend;//////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 //	Rev. History		Version
 //						6.0   Initial version
-//						12.5	Add logic for sort order indicator
 //////////////////////////////////////////////////////////////////////////////
 /*
  * Open Source PowerBuilder Foundation Class Libraries
@@ -5416,12 +5329,6 @@ If IsValid(gnv_app.inv_debug) then
 end if
 
 If IsValid(inv_Linkage) then inv_Linkage.Event pfc_retrieveend (rowcount)
-
-//	Because we don't know that "state" of the dataWindow for every case,
-//	it is best to turn off the sort order indicator for now and let the
-//	user reselect it.  Columns/Headers that were visible before the
-//	retrieve, may no long be visible based on things like expressions.
-IF isValid(inv_sort) THEN inv_sort.of_sortIndicatorNone()
 end event
 
 event retrievestart;//////////////////////////////////////////////////////////////////////////////
