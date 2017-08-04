@@ -357,7 +357,7 @@ event pfc_presplash(ref n_cst_splashattrib anv_splashattrib);///////////////////
  * individuals and was originally based on software copyright (c) 
  * 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
  * information on the Open Source PowerBuilder Foundation Class
- * Libraries see https://github.com/bruce-armstrong/pfc
+ * Libraries see https://github.com/OpenSourcePFCLibraries
 */
 //
 //////////////////////////////////////////////////////////////////////////////
