@@ -247,6 +247,7 @@ event pfc_postopen;call super::pfc_postopen;////////////////////////////////////
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted in accordance with the MIT License
+
  *
  * https://opensource.org/licenses/MIT
  *
@@ -584,7 +585,6 @@ event dragdrop;/////////////////////////////////////////////////////////////////
 //
 //	Version
 //	5.0   Initial version
-//	12.5	DraggedObject() is obsolete, use source instead
 //
 //////////////////////////////////////////////////////////////////////////////
 //
@@ -611,10 +611,13 @@ event dragdrop;/////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 
 Integer	li_rc
+dragobject ldrg_object
+
+ldrg_object = DraggedObject( )
 
 // Make sure you are not dropping this object on itself!
-IF TypeOf ( source ) = DataWindow! THEN
-	IF source.ClassName ( ) = "dw_sorted" THEN 
+IF TypeOf ( ldrg_object ) = DataWindow! THEN
+	IF ldrg_object.ClassName ( ) = "dw_sorted" THEN 
 		li_rc = this.Drag ( Cancel! ) 
 		Return 
 	END IF
@@ -733,7 +736,6 @@ event dragdrop;/////////////////////////////////////////////////////////////////
 //
 //	Version
 //	5.0   Initial version
-//	12.5	DraggedObject() is obsolete, use source instead
 //
 //////////////////////////////////////////////////////////////////////////////
 //
@@ -760,10 +762,13 @@ event dragdrop;/////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 
 Integer	li_rc
+dragobject ldrg_object
+
+ldrg_object = DraggedObject( )
 
 // Make sure you are not dropping this object on itself!.
-IF TypeOf ( source ) = DataWindow! THEN
-	IF source.ClassName ( ) = "dw_sortcolumns" THEN 
+IF TypeOf ( ldrg_object ) = DataWindow! THEN
+	IF ldrg_object.ClassName ( ) = "dw_sortcolumns" THEN 
 		li_rc = this.Drag ( Cancel! ) 
 		Return 
 	END IF
