@@ -9,6 +9,11 @@ global type pfc_n_err from error
 end type
 global pfc_n_err pfc_n_err
 
+type variables
+Protected:
+boolean		ib_IsObsolete
+end variables
+
 forward prototypes
 protected function integer of_messagebox (string as_id, string as_title, string as_text, icon ae_icon, button ae_button, integer ai_default)
 end prototypes
@@ -69,12 +74,12 @@ Return MessageBox(as_title, as_text, ae_icon, ae_button, ai_default)
 end function
 
 on pfc_n_err.create
-call error::create
+call super::create
 TriggerEvent( this, "constructor" )
 end on
 
 on pfc_n_err.destroy
-call error::destroy
 TriggerEvent( this, "destructor" )
+call super::destroy
 end on
 
