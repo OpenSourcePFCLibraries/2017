@@ -82,7 +82,7 @@ public function integer of_setapppreference (boolean ab_switch)
 public function integer of_setmru (boolean ab_switch)
 end prototypes
 
-event pfc_open(string as_commandline);//////////////////////////////////////////////////////////////////////////////
+event pfc_open;//////////////////////////////////////////////////////////////////////////////
 //
 //	Event:  pfc_open
 //
@@ -110,6 +110,7 @@ event pfc_open(string as_commandline);//////////////////////////////////////////
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted in accordance with the MIT License
+
  *
  * https://opensource.org/licenses/MIT
  *
@@ -148,7 +149,7 @@ end if
 
 end event
 
-event pfc_close();//////////////////////////////////////////////////////////////////////////////
+event pfc_close;//////////////////////////////////////////////////////////////////////////////
 //
 //	Event:  pfc_close
 //
@@ -175,6 +176,7 @@ event pfc_close();//////////////////////////////////////////////////////////////
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted in accordance with the MIT License
+
  *
  * https://opensource.org/licenses/MIT
  *
@@ -210,7 +212,7 @@ end if
 
 end event
 
-event pfc_systemerror();//////////////////////////////////////////////////////////////////////////////
+event pfc_systemerror;//////////////////////////////////////////////////////////////////////////////
 //
 //	Event:  PFC_systemerror
 //
@@ -237,6 +239,7 @@ event pfc_systemerror();////////////////////////////////////////////////////////
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted in accordance with the MIT License
+
  *
  * https://opensource.org/licenses/MIT
  *
@@ -273,7 +276,7 @@ this.event pfc_exit()
 
 end event
 
-event pfc_preabout(ref n_cst_aboutattrib anv_aboutattrib);//////////////////////////////////////////////////////////////////////////////
+event pfc_preabout;//////////////////////////////////////////////////////////////////////////////
 //
 //	Event:  pfc_preabout
 //
@@ -300,6 +303,7 @@ event pfc_preabout(ref n_cst_aboutattrib anv_aboutattrib);//////////////////////
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted in accordance with the MIT License
+
  *
  * https://opensource.org/licenses/MIT
  *
@@ -320,7 +324,7 @@ anv_aboutattrib.is_version = is_version
 anv_aboutattrib.is_copyright = is_copyright
 end event
 
-event pfc_presplash(ref n_cst_splashattrib anv_splashattrib);//////////////////////////////////////////////////////////////////////////////
+event pfc_presplash;//////////////////////////////////////////////////////////////////////////////
 //
 //	Event:  pfc_presplash
 //
@@ -2555,10 +2559,10 @@ GetEnvironment (ienv_object)
 end event
 
 on pfc_n_cst_appmanager.create
-call super::create
+TriggerEvent( this, "constructor" )
 end on
 
 on pfc_n_cst_appmanager.destroy
-call super::destroy
+TriggerEvent( this, "destructor" )
 end on
 
