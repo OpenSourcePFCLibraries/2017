@@ -19,21 +19,29 @@ m_copy m_copy
 m_paste m_paste
 m_selectall m_selectall
 end type
+global type pfc_m_edit from menu
+m_edititem m_edititem
+end type
 end forward
 
 global type pfc_m_edit from menu
 m_edititem m_edititem
+event type boolean pfc_isobsolete ( )
 end type
 global pfc_m_edit pfc_m_edit
 
 type variables
 Protected:
+boolean		ib_IsObsolete
 dragobject	idrg_parent
 end variables
 
 forward prototypes
 public function integer of_setparent (dragobject adrg_parent)
 end prototypes
+
+event type boolean pfc_isobsolete();return ib_isobsolete
+end event
 
 public function integer of_setparent (dragobject adrg_parent);//////////////////////////////////////////////////////////////////////////////
 //
@@ -94,11 +102,28 @@ end function
 
 on pfc_m_edit.create
 pfc_m_edit=this
+call super::create
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
 this.m_edititem=create m_edititem
-this.Item[]={this.m_edititem}
+this.Item[UpperBound(this.Item)+1]=this.m_edititem
 end on
 
 on pfc_m_edit.destroy
+call super::destroy
 destroy(this.m_edititem)
 end on
 
@@ -110,18 +135,35 @@ m_selectall m_selectall
 end type
 
 on m_edititem.create
-this.Text="&Edit"
+call super::create
+this.text = "&Edit"
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
 this.m_cut=create m_cut
 this.m_copy=create m_copy
 this.m_paste=create m_paste
 this.m_selectall=create m_selectall
-this.Item[]={this.m_cut, &
-this.m_copy, &
-this.m_paste, &
-this.m_selectall}
+this.Item[UpperBound(this.Item)+1]=this.m_cut
+this.Item[UpperBound(this.Item)+1]=this.m_copy
+this.Item[UpperBound(this.Item)+1]=this.m_paste
+this.Item[UpperBound(this.Item)+1]=this.m_selectall
 end on
 
 on m_edititem.destroy
+call super::destroy
 destroy(this.m_cut)
 destroy(this.m_copy)
 destroy(this.m_paste)
@@ -135,9 +177,29 @@ event clicked;idrg_parent.dynamic event pfc_cut()
 end event
 
 on m_cut.create
-this.Text="C&ut"
-this.Microhelp="Moves the selection to the Clipboard"
-this.Enabled=false
+call super::create
+this.text = "C&ut"
+this.enabled = false
+this.microhelp = "Moves the selection to the Clipboard"
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_cut.destroy
+call super::destroy
 end on
 
 type m_copy from menu within m_edititem
@@ -148,9 +210,29 @@ event clicked;idrg_parent.dynamic event pfc_copy()
 end event
 
 on m_copy.create
-this.Text="&Copy"
-this.Microhelp="Copies the selection to the Clipboard"
-this.Enabled=false
+call super::create
+this.text = "&Copy"
+this.enabled = false
+this.microhelp = "Copies the selection to the Clipboard"
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_copy.destroy
+call super::destroy
 end on
 
 type m_paste from menu within m_edititem
@@ -161,20 +243,60 @@ event clicked;idrg_parent.dynamic event pfc_paste()
 end event
 
 on m_paste.create
-this.Text="&Paste"
-this.Microhelp="Inserts Clipboard contents at current insertion point"
-this.Enabled=false
+call super::create
+this.text = "&Paste"
+this.enabled = false
+this.microhelp = "Inserts Clipboard contents at current insertion point"
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_paste.destroy
+call super::destroy
 end on
 
 type m_selectall from menu within m_edititem
 end type
 
 on m_selectall.create
-this.Text="Select &All"
-this.Microhelp="Selects all items or information"
-this.Enabled=false
+call super::create
+this.text = "Select &All"
+this.enabled = false
+this.microhelp = "Selects all items or information"
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
 end on
 
 event clicked;idrg_parent.dynamic event pfc_selectall()
 end event
+
+on m_selectall.destroy
+call super::destroy
+end on
 
