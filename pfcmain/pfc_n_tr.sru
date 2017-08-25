@@ -15,9 +15,10 @@ constant integer CST_FILETYPE_INI = 1
 constant integer CST_FILETYPE_XML = 2
 
 Protected:
-boolean	ib_AutoRollBack
-boolean 	ib_Trace
-string	is_Name
+boolean		ib_IsObsolete
+boolean		ib_AutoRollBack
+boolean 		ib_Trace
+string			is_Name
 end variables
 
 forward prototypes
@@ -39,7 +40,7 @@ public function long of_End ()
 public function integer of_SetAutoRollBack (boolean ab_autorollback)
 protected function integer of_MessageBox (string as_id, string as_title, string as_text, icon ae_icon, button ae_button, integer ai_default)
 public function long of_Commit ()
-public subroutine of_SetUser (string as_userid, string as_password)
+public subroutine of_setuser (string as_userid, string as_password)
 public subroutine of_SetLogidAndPassword (string as_loginid, string as_logpassword)
 public subroutine of_SetUseridAndPassword (string as_userid, string as_password)
 public function long of_begin ()
@@ -935,7 +936,7 @@ end if
 return ll_rc
 end function
 
-public subroutine of_SetUser (string as_userid, string as_password);//////////////////////////////////////////////////////////////////////////////
+public subroutine of_setuser (string as_userid, string as_password);//////////////////////////////////////////////////////////////////////////////
 //	Public Function:  of_SetUser
 //	Arguments:			as_userid:  	User ID
 //							as_password:	User's password
@@ -987,7 +988,7 @@ if len (ls_connectstring) <= 0 then
 	this.dbparm = this.dbparm + ls_connectstring
 else
 	// Temporarily remove single quotes from connectstring
-	ls_connectstring = lnv_string.of_globalReplace (ls_connectstring, "'", "")
+	ls_connectstring = lnv_string.of_globalReplace (ls_connectstring, "'", "", FALSE)
 
 	// Set User ID
 	ls_userid = lnv_string.of_getKeyValue (ls_connectstring, "UID", ";")
