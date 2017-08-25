@@ -40,8 +40,9 @@ u_calendar	iuo_calendar
 u_calculator	iuo_calculator
 
 Protected:
-boolean	ib_autoselect
-boolean	ib_rmbmenu = true
+boolean		ib_autoselect
+boolean		ib_rmbmenu = true
+boolean		ib_IsObsolete
 end variables
 
 forward prototypes
