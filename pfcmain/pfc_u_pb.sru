@@ -6,19 +6,24 @@ end type
 end forward
 
 global type pfc_u_pb from picturebutton
-int Width=352
-int Height=92
-int TabOrder=1
-string Text="none"
-VTextAlign VTextAlign=VCenter!
-boolean OriginalSize=true
-int TextSize=-8
-int Weight=400
-string FaceName="MS Sans Serif"
-FontFamily FontFamily=Swiss!
-FontPitch FontPitch=Variable!
+integer width = 352
+integer height = 92
+integer taborder = 1
+integer textsize = -8
+integer weight = 400
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "MS Sans Serif"
+string text = "none"
+boolean originalsize = true
+vtextalign vtextalign = vcenter!
 end type
 global pfc_u_pb pfc_u_pb
+
+type variables
+Protected:
+boolean		ib_IsObsolete
+end variables
 
 forward prototypes
 public function integer of_getparentwindow (ref window aw_parent)
@@ -204,4 +209,10 @@ If gnv_app.of_GetMicrohelp() Then
 End If
 
 end event
+
+on pfc_u_pb.create
+end on
+
+on pfc_u_pb.destroy
+end on
 
