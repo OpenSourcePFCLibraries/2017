@@ -19,6 +19,7 @@ constant integer	HEADER = 2
 
 Protected:
 integer	ii_source = DEFAULT
+string	is_charThousand 				// leave this empty to read char from Registry
 string	is_defaultheadersuffix = "_t"
 string	is_displayunits = "rows"
 string	is_displayitem = "this row"
@@ -74,7 +75,8 @@ public function integer of_getobjects (ref string as_objlist[], string as_objtyp
 public function integer of_getobjects (ref string as_objlist[], string as_objtype, string as_band, boolean ab_visibleonly)
 end prototypes
 
-public function integer of_getcolumnnamesource ();//////////////////////////////////////////////////////////////////////////////
+public function integer of_getcolumnnamesource ();// ##Obsolete##
+//////////////////////////////////////////////////////////////////////////////
 //
 //	Function:  	of_GetColumnnameSource
 //
@@ -98,6 +100,7 @@ public function integer of_getcolumnnamesource ();//////////////////////////////
 //	Version
 //	5.0	Initial version
 // 6.0	Marked obsolete  Replaced by of_getColumnDisplayNameStyle()
+//	12.5	Added Metaclass Service Obsolete Tag
 //
 //////////////////////////////////////////////////////////////////////////////
 //
@@ -727,14 +730,14 @@ ELSE
 END IF	
 
 //	Remove undesired characters.
-ls_colhead				= lnv_string.of_GlobalReplace ( ls_colhead, "~r~n", " " ) 
-ls_colhead				= lnv_string.of_GlobalReplace ( ls_colhead, "~t", " " ) 
-ls_colhead				= lnv_string.of_GlobalReplace ( ls_colhead, "~r", " " ) 
-ls_colhead				= lnv_string.of_GlobalReplace ( ls_colhead, "~n", " " ) 
-ls_colhead				= lnv_string.of_GlobalReplace ( ls_colhead, "_", " " ) 
-ls_colhead				= lnv_string.of_GlobalReplace ( ls_colhead, "~"", "" ) 
-ls_colhead				= lnv_string.of_GlobalReplace ( ls_colhead, "~'", "" ) 
-ls_colhead				= lnv_string.of_GlobalReplace ( ls_colhead, "~~", "" )
+ls_colhead				= lnv_string.of_GlobalReplace ( ls_colhead, "~r~n", " ", FALSE ) 
+ls_colhead				= lnv_string.of_GlobalReplace ( ls_colhead, "~t", " ", FALSE ) 
+ls_colhead				= lnv_string.of_GlobalReplace ( ls_colhead, "~r", " ", FALSE ) 
+ls_colhead				= lnv_string.of_GlobalReplace ( ls_colhead, "~n", " ", FALSE ) 
+ls_colhead				= lnv_string.of_GlobalReplace ( ls_colhead, "_", " ", FALSE ) 
+ls_colhead				= lnv_string.of_GlobalReplace ( ls_colhead, "~"", "", FALSE ) 
+ls_colhead				= lnv_string.of_GlobalReplace ( ls_colhead, "~'", "", FALSE ) 
+ls_colhead				= lnv_string.of_GlobalReplace ( ls_colhead, "~~", "", FALSE )
 
 IF Right(ls_colHead, 1) = ':' THEN
 	ls_colhead			= Left(ls_colhead, Len(ls_colhead) - 1)
@@ -1573,7 +1576,8 @@ public function string of_GetDisplayUnits ();///////////////////////////////////
 return is_displayunits
 end function
 
-public function integer of_setcolumnnamesource (integer ai_colsource);//////////////////////////////////////////////////////////////////////////////
+public function integer of_setcolumnnamesource (integer ai_colsource);// ##Obsolete##
+//////////////////////////////////////////////////////////////////////////////
 //
 //	Function:  of_SetColumnNameSource
 //
@@ -1600,6 +1604,7 @@ public function integer of_setcolumnnamesource (integer ai_colsource);//////////
 //	Version
 //	5.0	Initial version
 // 6.0	Marked obsolete Replaced by of_setColumnDisplayNameStyle(...).
+//	12.5	Added Metaclass Service Obsolete Tag
 //
 //////////////////////////////////////////////////////////////////////////////
 //
@@ -2243,11 +2248,11 @@ CHOOSE CASE Left ( ls_coltype , 5 )
 		CASE "char(", "char"				//  CHARACTER DATATYPE
 			IF lb_editmask_used = TRUE THEN 
 				/*  Need to replace 'EditMask' characters with 'Format' characters */
-				ls_string_format = lnv_string.of_GlobalReplace ( ls_string_format, "^", "@" ) //Lowercase
-				ls_string_format = lnv_string.of_GlobalReplace ( ls_string_format, "!", "@")	//Uppercase
-				ls_string_format = lnv_string.of_GlobalReplace ( ls_string_format, "#", "@" ) //Number
-				ls_string_format = lnv_string.of_GlobalReplace ( ls_string_format, "a", "@" ) //Aplhanumeric
-				ls_string_format = lnv_string.of_GlobalReplace ( ls_string_format, "x", "@" ) //Any Character
+				ls_string_format = lnv_string.of_GlobalReplace ( ls_string_format, "^", "@", FALSE ) //Lowercase
+				ls_string_format = lnv_string.of_GlobalReplace ( ls_string_format, "!", "@", FALSE)	//Uppercase
+				ls_string_format = lnv_string.of_GlobalReplace ( ls_string_format, "#", "@", FALSE ) //Number
+				ls_string_format = lnv_string.of_GlobalReplace ( ls_string_format, "a", "@", TRUE ) //Aplhanumeric
+				ls_string_format = lnv_string.of_GlobalReplace ( ls_string_format, "x", "@", TRUE ) //Any Character
 			END IF 
 			ls_string = ids_Requestor.GetItemString ( al_row, as_column, adw_buffer, ab_orig_value ) 
 			ls_string = String ( ls_string, ls_string_format ) 
@@ -2493,6 +2498,7 @@ public function any of_buildexpression (long al_row, string as_column, string as
 //	  6.0   	Initial version
 //    7.0		Added "char" datatype to case statement
 //	12.5		Added LIKE & NOT LIKE operators
+//				Number conversion to handle other number formats (like 1.234,56) #11012
 //
 //////////////////////////////////////////////////////////////////////////////
 //
@@ -2593,7 +2599,7 @@ Else
 		
 		// Number
 		Case 	Else
-			ls_expression += ls_value
+			ls_expression += "Number('" + ls_value + "')"   // convert to support other number formats #11012
 
 	End Choose
 End If
@@ -2680,6 +2686,7 @@ public function any of_buildcomparison (long al_row, string as_column, string as
 //	  6.0	Initial version
 //    7.0	Added "char" datatype to case statement
 //	12.5	Added LIKE & NOT LIKE operators
+//			Number conversion to handle other number formats (like 1.234,56) #11012
 //
 //////////////////////////////////////////////////////////////////////////////
 //
@@ -2762,7 +2769,7 @@ Else
 		
 		// Number
 		Case 	Else
-			ls_expression += ls_value
+			ls_expression += "Number('" + ls_value + "')"   // convert to support other number formats #11012
 
 	End Choose
 End If
@@ -2910,6 +2917,7 @@ public function integer of_setitem (long al_row, string as_column, string as_val
 //										Added error checking for arguments.
 //							6.0.01	Fixed where number and real datatype was being converted into a long.
 //							8.0		Check datetime columns for absence of time value
+//							12.5		Use separator for thousand from registry #11012
 //////////////////////////////////////////////////////////////////////////////
 /*
  * Open Source PowerBuilder Foundation Class Libraries
@@ -2974,12 +2982,21 @@ CHOOSE CASE Lower ( Left ( ids_requestor.Describe ( as_column + ".ColType" ) , 5
 				
 		CASE "decim"		//  DECIMAL DATATYPE
 			/*  Replace formatting characters in passed string */
-			ls_string_value = lnv_string.of_GlobalReplace (as_value, "$", "" ) 
-			ls_string_value = lnv_string.of_GlobalReplace (ls_string_value, ",", "" ) 
-			ls_string_value = lnv_string.of_GlobalReplace (ls_string_value, "(", "-")
-			ls_string_value = lnv_string.of_GlobalReplace (ls_string_value, ")", "")
+
+			// which character is used as separator for thousand?  #11012
+			// (only read once to improve performance)
+			if is_charThousand = "" or IsNull (is_charThousand) then
+				if RegistryGet("HKEY_CURRENT_USER\Control Panel\International","sThousand",RegString!,is_charThousand) <> 1 then
+					is_charThousand = ","
+				end if
+			end if
+			
+			ls_string_value = lnv_string.of_GlobalReplace (as_value, "$", "", FALSE ) 
+			ls_string_value = lnv_string.of_GlobalReplace (ls_string_value, is_charThousand, "", FALSE )   // #11012
+			ls_string_value = lnv_string.of_GlobalReplace (ls_string_value, "(", "-", FALSE)
+			ls_string_value = lnv_string.of_GlobalReplace (ls_string_value, ")", "", FALSE)
 			if Pos (ls_string_value, "%") > 0 then
-				ls_string_value = lnv_string.of_GlobalReplace (ls_string_value, "%", "")
+				ls_string_value = lnv_string.of_GlobalReplace (ls_string_value, "%", "", FALSE)
 				ldc_val = Dec (ls_string_value) / 100
 			else
 				ldc_val = Dec (ls_string_value)
@@ -2989,12 +3006,21 @@ CHOOSE CASE Lower ( Left ( ids_requestor.Describe ( as_column + ".ColType" ) , 5
 	
 		CASE "numbe", "doubl"			//  NUMBER DATATYPE	
 			/*  Replace formatting characters in passed string */
-			ls_string_value = lnv_string.of_GlobalReplace (as_value, "$", "" ) 
-			ls_string_value = lnv_string.of_GlobalReplace (ls_string_value, ",", "" ) 
-			ls_string_value = lnv_string.of_GlobalReplace (ls_string_value, "(", "-")
-			ls_string_value = lnv_string.of_GlobalReplace (ls_string_value, ")", "")
+
+			// which character is used as separator for thousand?  #11012
+			// (only read once to improve performance)
+			if is_charThousand = "" or IsNull (is_charThousand) then
+				if RegistryGet("HKEY_CURRENT_USER\Control Panel\International","sThousand",RegString!,is_charThousand) <> 1 then
+					is_charThousand = ","
+				end if
+			end if
+			
+			ls_string_value = lnv_string.of_GlobalReplace (as_value, "$", "", FALSE ) 
+			ls_string_value = lnv_string.of_GlobalReplace (ls_string_value, is_charThousand, "", FALSE )   // #11012
+			ls_string_value = lnv_string.of_GlobalReplace (ls_string_value, "(", "-", FALSE)
+			ls_string_value = lnv_string.of_GlobalReplace (ls_string_value, ")", "", FALSE)
 			if Pos (ls_string_value, "%") > 0 then
-				ls_string_value = lnv_string.of_GlobalReplace (ls_string_value, "%", "")
+				ls_string_value = lnv_string.of_GlobalReplace (ls_string_value, "%", "", FALSE)
 				ldb_val = Double (ls_string_value) / 100
 			else
 				ldb_val = Double (ls_string_value)
@@ -3004,12 +3030,21 @@ CHOOSE CASE Lower ( Left ( ids_requestor.Describe ( as_column + ".ColType" ) , 5
 		
 		CASE "real"				//  REAL DATATYPE	
 			/*  Replace formatting characters in passed string */
-			ls_string_value = lnv_string.of_GlobalReplace (as_value, "$", "" ) 
-			ls_string_value = lnv_string.of_GlobalReplace (ls_string_value, ",", "" ) 
-			ls_string_value = lnv_string.of_GlobalReplace (ls_string_value, "(", "-")
-			ls_string_value = lnv_string.of_GlobalReplace (ls_string_value, ")", "")
+
+			// which character is used as separator for thousand?  #11012
+			// (only read once to improve performance)
+			if is_charThousand = "" or IsNull (is_charThousand) then
+				if RegistryGet("HKEY_CURRENT_USER\Control Panel\International","sThousand",RegString!,is_charThousand) <> 1 then
+					is_charThousand = ","
+				end if
+			end if
+			
+			ls_string_value = lnv_string.of_GlobalReplace (as_value, "$", "", FALSE ) 
+			ls_string_value = lnv_string.of_GlobalReplace (ls_string_value, is_charThousand, "", FALSE )   // #11012
+			ls_string_value = lnv_string.of_GlobalReplace (ls_string_value, "(", "-", FALSE)
+			ls_string_value = lnv_string.of_GlobalReplace (ls_string_value, ")", "", FALSE)
 			if Pos (ls_string_value, "%") > 0 then
-				ls_string_value = lnv_string.of_GlobalReplace (ls_string_value, "%", "")
+				ls_string_value = lnv_string.of_GlobalReplace (ls_string_value, "%", "", FALSE)
 				lr_val = Real (ls_string_value) / 100
 			else
 				lr_val = Real (ls_string_value)
@@ -3019,12 +3054,21 @@ CHOOSE CASE Lower ( Left ( ids_requestor.Describe ( as_column + ".ColType" ) , 5
 		
 		CASE "long", "ulong"		//  LONG/INTEGER DATATYPE	
 			/*  Replace formatting characters in passed string */
-			ls_string_value = lnv_string.of_GlobalReplace (as_value, "$", "" ) 
-			ls_string_value = lnv_string.of_GlobalReplace (ls_string_value, ",", "" ) 
-			ls_string_value = lnv_string.of_GlobalReplace (ls_string_value, "(", "-")
-			ls_string_value = lnv_string.of_GlobalReplace (ls_string_value, ")", "")
+
+			// which character is used as separator for thousand?  #11012
+			// (only read once to improve performance)
+			if is_charThousand = "" or IsNull (is_charThousand) then
+				if RegistryGet("HKEY_CURRENT_USER\Control Panel\International","sThousand",RegString!,is_charThousand) <> 1 then
+					is_charThousand = ","
+				end if
+			end if
+			
+			ls_string_value = lnv_string.of_GlobalReplace (as_value, "$", "", FALSE ) 
+			ls_string_value = lnv_string.of_GlobalReplace (ls_string_value, is_charThousand, "", FALSE )   // #11012
+			ls_string_value = lnv_string.of_GlobalReplace (ls_string_value, "(", "-", FALSE)
+			ls_string_value = lnv_string.of_GlobalReplace (ls_string_value, ")", "", FALSE)
 			if Pos (ls_string_value, "%") > 0 then
-				ls_string_value = lnv_string.of_GlobalReplace (ls_string_value, "%", "")
+				ls_string_value = lnv_string.of_GlobalReplace (ls_string_value, "%", "", FALSE)
 				ll_val = Long (ls_string_value) / 100
 			else
 				ll_val = Long (ls_string_value)
@@ -3078,6 +3122,7 @@ public function integer of_getobjects (ref string as_objlist[], string as_objtyp
 //  12.5	Force to work in lowercase in order to be able to use Mixed or Uppercase
 //			for used argument's values.
 //			+ add possibility to append results to specified object list
+//			+ reset object list parameter first if results should not appended
 //
 //////////////////////////////////////////////////////////////////////////////
 //
@@ -3102,12 +3147,15 @@ public function integer of_getobjects (ref string as_objlist[], string as_objtyp
 */
 //
 //////////////////////////////////////////////////////////////////////////////
-string	ls_ObjString, ls_ObjHolder
+string	ls_ObjString, ls_ObjHolder, ls_empty[]
 integer	li_Start=1, li_Tab, li_Count=0
+boolean	lb_found
 
 // Apply Append mode, if needed
-if ab_append = true then
+if ab_append then
 	li_count = UpperBound( as_objlist )
+else
+	as_objlist = ls_empty
 end if
 
 /* Put every parameters in lowercase */
@@ -3123,11 +3171,19 @@ Do While li_Tab > 0
 	ls_ObjHolder = Mid(ls_ObjString, li_Start, (li_Tab - li_Start))
 
 	// Determine if object is the right type and in the right band
-	If  (lower(ids_Requestor.Describe(ls_ObjHolder + ".type")) = as_ObjType Or as_ObjType = "*") And &
-		(lower(ids_Requestor.Describe(ls_ObjHolder + ".band")) = as_Band Or as_Band = "*") And &
-		(lower(ids_Requestor.Describe(ls_ObjHolder + ".visible")) = "1" Or Not ab_VisibleOnly) Then
-			li_Count ++
-			as_ObjList[li_Count] = ls_ObjHolder
+	lb_found = true
+	If as_ObjType <> "*" Then
+		lb_found = (lower(ids_Requestor.Describe(ls_ObjHolder + ".type")) = as_ObjType)
+	End If
+	If lb_found AND as_Band <> "*" Then
+		lb_found = (lower(ids_Requestor.Describe(ls_ObjHolder + ".band")) = as_Band)
+	End If
+	If lb_found AND ab_VisibleOnly Then
+		lb_found = (lower(ids_Requestor.Describe(ls_ObjHolder + ".visible")) = "1")
+	End If
+	If lb_found Then
+		li_Count ++
+		as_ObjList[li_Count] = ls_ObjHolder
 	End if
 
 	/* Get the next tab position. */
@@ -3139,11 +3195,19 @@ Loop
 ls_ObjHolder = Mid(ls_ObjString, li_Start, Len(ls_ObjString))
 
 // Determine if object is the right type and in the right band
-If  (lower(ids_Requestor.Describe(ls_ObjHolder + ".type")) = as_ObjType or as_ObjType = "*") And &
-	(lower(ids_Requestor.Describe(ls_ObjHolder + ".band")) = as_Band or as_Band = "*") And &
-	(lower(ids_Requestor.Describe(ls_ObjHolder + ".visible")) = "1" Or Not ab_VisibleOnly) Then
-		li_Count ++
-		as_ObjList[li_Count] = ls_ObjHolder
+lb_found = true
+If as_ObjType <> "*" Then
+	lb_found = (lower(ids_Requestor.Describe(ls_ObjHolder + ".type")) = as_ObjType)
+End If
+If lb_found AND as_Band <> "*" Then
+	lb_found = (lower(ids_Requestor.Describe(ls_ObjHolder + ".band")) = as_Band)
+End If
+If lb_found AND ab_VisibleOnly Then
+	lb_found = (lower(ids_Requestor.Describe(ls_ObjHolder + ".visible")) = "1")
+End If
+If lb_found Then
+	li_Count ++
+	as_ObjList[li_Count] = ls_ObjHolder
 End if
 
 Return li_Count
