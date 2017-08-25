@@ -39,6 +39,8 @@ string		is_pfckeydelimiter = '#$%'
 // 7.0	This variable is obsolete.  Left in for migration purposes.
 //			DO NOT USE THIS VARIABLE
 n_cst_tvattrib	istr_ds[]
+
+boolean		ib_IsObsolete
 end variables
 
 forward prototypes
@@ -3417,6 +3419,7 @@ protected function long of_populatelevel (integer ai_level, long al_parent);////
 // 6.0.01	Add code to check rc from settransobject (-5) and retrieve (-3)
 //				and non-updateable check on key creation (-2)
 //	6.0.01	Change Return codes to match those from of_setdatasource (was -2 (5.03) is now -4)
+//	12.5		CJH		Issue 12324
 //
 //////////////////////////////////////////////////////////////////////////////
 //
@@ -3445,6 +3448,8 @@ Integer				li_Index
 Long					ll_NewRows, ll_Rows, ll_Cnt
 Any					la_Arg[20]
 TreeViewItem		ltvi_New
+
+IF UpperBound(inv_ds[]) = 0 THEN Return(0)										//	Issue 12324
 
 SetPointer(Hourglass!)
 
@@ -4095,4 +4100,10 @@ If gnv_app.of_GetMicrohelp() Then
 End If
 
 end event
+
+on pfc_u_tv.create
+end on
+
+on pfc_u_tv.destroy
+end on
 
