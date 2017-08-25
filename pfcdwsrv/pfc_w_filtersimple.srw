@@ -77,6 +77,7 @@ public subroutine of_getvalues (string as_column);//////////////////////////////
 //	5.0   Initial version
 // 5.0.02 Validate the required transaction object.
 // 5.0.03 Clear the columnvalues via a Reset operation.
+// 12.5.2 Share Filtered DW's column dddw with ColValue's dddw, if any
 //
 //////////////////////////////////////////////////////////////////////////////
 //
@@ -101,10 +102,22 @@ public subroutine of_getvalues (string as_column);//////////////////////////////
 */
 //
 //////////////////////////////////////////////////////////////////////////////
-string 			ls_dbname, ls_select, ls_owner, ls_table
-string			ls_full_table, ls_full_dbname, ls_values[]
-integer 			li_i, li_pos1, li_pos2, li_num_values , li_newrow, li_rc
-n_cst_string 	lnv_string
+integer 	li_i
+integer	li_pos1
+integer	li_pos2
+integer	li_num_values 
+integer	li_newrow
+integer	li_rc
+string 	ls_dbname
+string		ls_select
+string		ls_owner
+string		ls_table
+string		ls_full_table
+string		ls_full_dbname
+string		ls_values[]
+
+n_cst_string 		lnv_string
+datawindowchild	ldwc
 
 // Validate the transaction object.
 If IsNull(inv_filterattrib.idw_dw.itr_object) or &
@@ -130,45 +143,54 @@ SetPointer ( HourGlass! )
 // Clear all of the values.
 li_rc = idwc_values.Reset()
 
-// Get the database name associated with the column.
-ls_dbname = inv_filterattrib.idw_dw.Describe ( as_column + ".DBName" ) 
-
-// Get the SQL Select for the requesting datawindow.
-ls_select = inv_filterattrib.idw_dw.Describe ( "DataWindow.Table.Select" )
-If ls_select = "" or ls_select = "!" or ls_select = "?" Then Return
-
-// Search the SQL Select for the owner name associated with the selected column.
-li_pos1 = Pos ( ls_select, ls_dbname, 1 ) 
-IF li_pos1 > 0 THEN 
-	li_pos2 = lnv_string.of_lastpos ( ls_select, " ", li_pos1 ) 
-	IF li_pos2 > 0 THEN 
-		ls_owner = Trim (Mid ( ls_select, li_pos2, li_pos1 - li_pos2 )) 
-	END IF
-END IF 
-
-// Create a table and columnname with owner information if available.
-ls_table = lnv_string.of_gettoken ( ls_dbname, "." ) 
-IF ls_owner <> "" THEN 
-	ls_full_table = ls_owner + "." + ls_table
-ELSE
-	ls_full_table = ls_table
-END IF 
-
-ls_full_dbname = ls_full_table + "." + ls_dbname 
-
-// Get the distinct values.
-inv_filterattrib.idw_dw.itr_object.of_distinctvalues ( ls_full_table, ls_full_dbname, &
-																		   ls_values ) 
-
-// Populate the DropDownDatawidow column with the column values.
-li_num_values = UpperBound ( ls_values ) 
-FOR li_i = 1 to li_num_values
-	// Insert new row.
-	li_newrow = idwc_values.InsertRow ( 0 ) 
+// Check if a dddw is associated with the specified column of the filtered dw
+if inv_filterattrib.idw_dw.getchild( as_column, ldwc ) = 1 then
+	// if so, share dddw properties and contents
+	dw_filter.object.colvalue.dddw.name 				= inv_filterattrib.idw_dw.describe( as_column+ ".dddw.name" )
+	dw_filter.object.colvalue.dddw.displaycolumn 	= inv_filterattrib.idw_dw.describe( as_column+ ".dddw.displaycolumn" )
+	dw_filter.object.colvalue.dddw.datacolumn 		= inv_filterattrib.idw_dw.describe( as_column+ ".dddw.datacolumn" )
+	ldwc.sharedata( idwc_values )
+else
+	// Get the database name associated with the column.
+	ls_dbname = inv_filterattrib.idw_dw.Describe ( as_column + ".DBName" ) 
 	
-	// Populate the values for the new row.	
-	idwc_values.SetItem ( li_newrow, "value", ls_values[li_i] )	
-NEXT
+	// Get the SQL Select for the requesting datawindow.
+	ls_select = inv_filterattrib.idw_dw.Describe ( "DataWindow.Table.Select" )
+	If ls_select = "" or ls_select = "!" or ls_select = "?" Then Return
+	
+	// Search the SQL Select for the owner name associated with the selected column.
+	li_pos1 = Pos ( ls_select, ls_dbname, 1 ) 
+	IF li_pos1 > 0 THEN 
+		li_pos2 = lnv_string.of_lastpos ( ls_select, " ", li_pos1 ) 
+		IF li_pos2 > 0 THEN 
+			ls_owner = Trim (Mid ( ls_select, li_pos2, li_pos1 - li_pos2 )) 
+		END IF
+	END IF 
+	
+	// Create a table and columnname with owner information if available.
+	ls_table = lnv_string.of_gettoken ( ls_dbname, "." ) 
+	IF ls_owner <> "" THEN 
+		ls_full_table = ls_owner + "." + ls_table
+	ELSE
+		ls_full_table = ls_table
+	END IF 
+	
+	ls_full_dbname = ls_full_table + "." + ls_dbname 
+	
+	// Get the distinct values.
+	inv_filterattrib.idw_dw.itr_object.of_distinctvalues ( ls_full_table, ls_full_dbname, &
+																				ls_values ) 
+	
+	// Populate the DropDownDatawidow column with the column values.
+	li_num_values = UpperBound ( ls_values ) 
+	FOR li_i = 1 to li_num_values
+		// Insert new row.
+		li_newrow = idwc_values.InsertRow ( 0 ) 
+		
+		// Populate the values for the new row.	
+		idwc_values.SetItem ( li_newrow, "value", ls_values[li_i] )	
+	NEXT
+end if
 
 // Sort the DropDownDatawidow
 idwc_values.Sort()
@@ -275,7 +297,7 @@ FOR li_i = 1 to li_rcount
 				// No special characters found.
 				If Pos(ls_value, "'") >0 Then
 					// Replace single quotes with special chars single quotes.
-					ls_value = lnv_string.of_GlobalReplace(ls_value, "'", "~~~'")				
+					ls_value = lnv_string.of_GlobalReplace(ls_value, "'", "~~~'", FALSE)				
 				End If
 			End If
 			ls_expression = "'" + ls_value + "'"			
@@ -439,7 +461,7 @@ dw_filter.SetReDraw (FALSE)
 // Make the original filter visible.
 ls_filter = inv_filterattrib.is_filter
 If Pos(ls_filter, "~~~~'") > 0 And  Pos(ls_filter, "~~~~~~'") = 0 Then
-	ls_filter = lnv_string.of_GlobalReplace(ls_filter, "~~~~'", "~~'")	
+	ls_filter = lnv_string.of_GlobalReplace(ls_filter, "~~~~'", "~~'", FALSE)	
 End If
 mle_originalfilter.text = ls_filter
 
