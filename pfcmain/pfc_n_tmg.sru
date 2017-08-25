@@ -13,6 +13,9 @@ type variables
 Public:
 n_cst_tmgsingle 	inv_single
 n_cst_tmgmultiple 	inv_multiple
+
+Protected:
+boolean		ib_IsObsolete
 end variables
 
 forward prototypes
@@ -163,13 +166,13 @@ Return 0
 end function
 
 on pfc_n_tmg.create
-call timing::create
+call super::create
 TriggerEvent( this, "constructor" )
 end on
 
 on pfc_n_tmg.destroy
-call timing::destroy
 TriggerEvent( this, "destructor" )
+call super::destroy
 end on
 
 event timer;//////////////////////////////////////////////////////////////////////////////
