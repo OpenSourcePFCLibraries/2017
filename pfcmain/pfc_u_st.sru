@@ -6,7 +6,7 @@ end type
 end forward
 
 global type pfc_u_st from statictext
-integer width = 344
+integer width = 343
 integer height = 64
 integer textsize = -8
 integer weight = 400
@@ -20,6 +20,11 @@ string text = "none"
 boolean focusrectangle = false
 end type
 global pfc_u_st pfc_u_st
+
+type variables
+Protected:
+boolean		ib_IsObsolete
+end variables
 
 forward prototypes
 public function integer of_getparentwindow (ref window aw_parent)
@@ -205,4 +210,10 @@ If gnv_app.of_GetMicrohelp() Then
 End If
 
 end event
+
+on pfc_u_st.create
+end on
+
+on pfc_u_st.destroy
+end on
 
