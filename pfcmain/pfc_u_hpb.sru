@@ -6,8 +6,8 @@ end type
 end forward
 
 global type pfc_u_hpb from hprogressbar
-integer width = 468
-integer height = 51
+integer width = 466
+integer height = 52
 string dragicon = "none!"
 string pointer = "Arrow!"
 unsignedinteger maxposition = 100
@@ -15,6 +15,11 @@ unsignedinteger position = 50
 integer setstep = 10
 end type
 global pfc_u_hpb pfc_u_hpb
+
+type variables
+Protected:
+boolean		ib_IsObsolete
+end variables
 
 forward prototypes
 public function integer of_getparentwindow (ref window aw_parent)
@@ -200,4 +205,10 @@ If gnv_app.of_GetMicrohelp() Then
 End If
 
 end event
+
+on pfc_u_hpb.create
+end on
+
+on pfc_u_hpb.destroy
+end on
 
