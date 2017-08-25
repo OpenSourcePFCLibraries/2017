@@ -86,7 +86,7 @@ public function double of_distance_millimeterstocentimeters (double vdbl_millime
 // 
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted in accordance with the MIT License
-
+// 
 // 
 // https://opensource.org/licenses/MIT
 // 
@@ -127,7 +127,7 @@ public function double of_distance_centimeterstometers (double vdbl_centimeters)
 // 
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted in accordance with the MIT License
-
+// 
 // 
 // https://opensource.org/licenses/MIT
 // 
@@ -168,7 +168,7 @@ public function double of_distance_centimeterstoinches (double vdbl_centimeters)
 // 
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted in accordance with the MIT License
-
+// 
 // 
 // https://opensource.org/licenses/MIT
 // 
@@ -209,7 +209,7 @@ public function double of_distance_inchestocentimeters (double vdbl_inches);////
 // 
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted in accordance with the MIT License
-
+// 
 // 
 // https://opensource.org/licenses/MIT
 // 
@@ -250,7 +250,7 @@ public function double of_distance_millimeterstoinches (double vdbl_millimeters)
 // 
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted in accordance with the MIT License
-
+// 
 // 
 // https://opensource.org/licenses/MIT
 // 
@@ -293,7 +293,7 @@ public function double of_temperature_celsiustofahrenheit (double vdbl_celsius);
 // 
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted in accordance with the MIT License
-
+// 
 // 
 // https://opensource.org/licenses/MIT
 // 
@@ -336,7 +336,7 @@ public function double of_temperature_celsiustokelvin (double vdbl_celsius);////
 // 
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted in accordance with the MIT License
-
+// 
 // 
 // https://opensource.org/licenses/MIT
 // 
@@ -379,7 +379,7 @@ public function double of_temperature_fahrenheittocelsius (double vdbl_fahrenhei
 // 
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted in accordance with the MIT License
-
+// 
 // 
 // https://opensource.org/licenses/MIT
 // 
@@ -422,7 +422,7 @@ public function double of_temperature_fahrenheittokelvin (double vdbl_fahrenheit
 // 
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted in accordance with the MIT License
-
+// 
 // 
 // https://opensource.org/licenses/MIT
 // 
@@ -465,7 +465,7 @@ public function double of_temperature_kelvintocelsius (double vdbl_kelvin);/////
 // 
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted in accordance with the MIT License
-
+// 
 // 
 // https://opensource.org/licenses/MIT
 // 
@@ -508,7 +508,7 @@ public function double of_temperature_kelvintofahrenheit (double vdbl_kelvin);//
 // 
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted in accordance with the MIT License
-
+// 
 // 
 // https://opensource.org/licenses/MIT
 // 
@@ -549,7 +549,7 @@ public function double of_weight_gramstokilograms (double vdbl_grams);//////////
 // 
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted in accordance with the MIT License
-
+// 
 // 
 // https://opensource.org/licenses/MIT
 // 
@@ -590,7 +590,7 @@ public function double of_weight_gramstopounds (double vdbl_grams);/////////////
 // 
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted in accordance with the MIT License
-
+// 
 // 
 // https://opensource.org/licenses/MIT
 // 
@@ -631,7 +631,7 @@ public function double of_weight_kilogramstopounds (double vdbl_kilograms);/////
 // 
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted in accordance with the MIT License
-
+// 
 // 
 // https://opensource.org/licenses/MIT
 // 
@@ -672,7 +672,7 @@ public function double of_weight_poundstokilograms (double vdbl_pounds);////////
 // 
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted in accordance with the MIT License
-
+// 
 // 
 // https://opensource.org/licenses/MIT
 // 
@@ -715,7 +715,7 @@ public function double of_pressure_mmhgtotorr (double vdbl_millimetersofmercury)
 // 
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted in accordance with the MIT License
-
+// 
 // 
 // https://opensource.org/licenses/MIT
 // 
@@ -757,7 +757,7 @@ public function double of_pressure_kpatommhg (double vdbl_kilopascals);/////////
 // 
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted in accordance with the MIT License
-
+// 
 // 
 // https://opensource.org/licenses/MIT
 // 
@@ -798,7 +798,7 @@ public function double of_pressure_kpatotorr (double vdbl_kilopascals);/////////
 // 
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted in accordance with the MIT License
-
+// 
 // 
 // https://opensource.org/licenses/MIT
 // 
@@ -841,7 +841,7 @@ public function double of_pressure_mmhgtokpa (double vdbl_millimetersofmercury);
 // 
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted in accordance with the MIT License
-
+// 
 // 
 // https://opensource.org/licenses/MIT
 // 
@@ -883,7 +883,7 @@ public function double of_pressure_torrtommhg (double vdbl_torr);///////////////
 // 
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted in accordance with the MIT License
-
+// 
 // 
 // https://opensource.org/licenses/MIT
 // 
@@ -924,7 +924,7 @@ public function double of_pressure_torrtokpa (double vdbl_torr);////////////////
 // 
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted in accordance with the MIT License
-
+// 
 // 
 // https://opensource.org/licenses/MIT
 // 
@@ -967,7 +967,7 @@ public function double of_pressure_psitoatm (double vdbl_poundspersquareinch);//
 // 
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted in accordance with the MIT License
-
+// 
 // 
 // https://opensource.org/licenses/MIT
 // 
@@ -1008,7 +1008,7 @@ public function double of_pressure_torrtoatm (double vdbl_torr);////////////////
 // 
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted in accordance with the MIT License
-
+// 
 // 
 // https://opensource.org/licenses/MIT
 // 
@@ -1051,7 +1051,7 @@ public function double of_pressure_mmhgtoatm (double vdbl_millimetersofmercury);
 // 
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted in accordance with the MIT License
-
+// 
 // 
 // https://opensource.org/licenses/MIT
 // 
@@ -1093,7 +1093,7 @@ public function double of_pressure_kpatoatm (double vdbl_kilopascals);//////////
 // 
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted in accordance with the MIT License
-
+// 
 // 
 // https://opensource.org/licenses/MIT
 // 
@@ -1135,7 +1135,7 @@ public function double of_pressure_inhgtoatm (double vdbl_inchesofmercury);/////
 // 
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted in accordance with the MIT License
-
+// 
 // 
 // https://opensource.org/licenses/MIT
 // 
@@ -1176,7 +1176,7 @@ public function double of_pressure_atmtotorr (double vdbl_atmosphere);//////////
 // 
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted in accordance with the MIT License
-
+// 
 // 
 // https://opensource.org/licenses/MIT
 // 
@@ -1218,7 +1218,7 @@ public function double of_pressure_atmtommhg (double vdbl_atmosphere);//////////
 // 
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted in accordance with the MIT License
-
+// 
 // 
 // https://opensource.org/licenses/MIT
 // 
@@ -1260,7 +1260,7 @@ public function double of_pressure_atmtopsi (double vdbl_atmosphere);///////////
 // 
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted in accordance with the MIT License
-
+// 
 // 
 // https://opensource.org/licenses/MIT
 // 
@@ -1302,7 +1302,7 @@ public function double of_pressure_atmtoinhg (double vdbl_atmosphere);//////////
 // 
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted in accordance with the MIT License
-
+// 
 // 
 // https://opensource.org/licenses/MIT
 // 
@@ -1344,7 +1344,7 @@ public function double of_pressure_atmtokpa (double vdbl_atmosphere);///////////
 // 
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted in accordance with the MIT License
-
+// 
 // 
 // https://opensource.org/licenses/MIT
 // 
@@ -1385,7 +1385,7 @@ public function double of_distance_kilometerstofeet (double vdbl_kilometers);///
 // 
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted in accordance with the MIT License
-
+// 
 // 
 // https://opensource.org/licenses/MIT
 // 
@@ -1426,7 +1426,7 @@ public function double of_distance_feettokilometers (double vdbl_feet);/////////
 // 
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted in accordance with the MIT License
-
+// 
 // 
 // https://opensource.org/licenses/MIT
 // 
@@ -1467,7 +1467,7 @@ public function double of_distance_kilometerstomiles (double vdbl_kilometers);//
 // 
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted in accordance with the MIT License
-
+// 
 // 
 // https://opensource.org/licenses/MIT
 // 
@@ -1508,7 +1508,7 @@ public function double of_distance_milestokilometers (double vdbl_miles);///////
 // 
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted in accordance with the MIT License
-
+// 
 // 
 // https://opensource.org/licenses/MIT
 // 
@@ -1549,7 +1549,7 @@ public function double of_force_newtonstoponds (double vdbl_newtons);///////////
 // 
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted in accordance with the MIT License
-
+// 
 // 
 // https://opensource.org/licenses/MIT
 // 
@@ -1591,7 +1591,7 @@ public function double of_force_newtonstopounds (double vdbl_newtons);//////////
 // 
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted in accordance with the MIT License
-
+// 
 // 
 // https://opensource.org/licenses/MIT
 // 
@@ -1632,7 +1632,7 @@ public function double of_force_pondstonewtons (double vdbl_ponds);/////////////
 // 
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted in accordance with the MIT License
-
+// 
 // 
 // https://opensource.org/licenses/MIT
 // 
@@ -1674,7 +1674,7 @@ public function double of_force_poundstonewtons (double vdbl_poundforce);///////
 // 
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted in accordance with the MIT License
-
+// 
 // 
 // https://opensource.org/licenses/MIT
 // 
@@ -1715,7 +1715,7 @@ public function double of_distance_feettomiles (double vdbl_feet);//////////////
 // 
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted in accordance with the MIT License
-
+// 
 // 
 // https://opensource.org/licenses/MIT
 // 
@@ -1756,7 +1756,7 @@ public function double of_distance_milestofeet (double vdbl_miles);/////////////
 // 
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted in accordance with the MIT License
-
+// 
 // 
 // https://opensource.org/licenses/MIT
 // 
@@ -1798,7 +1798,7 @@ public function double of_force_pondstopounds (double vdbl_ponds);//////////////
 // 
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted in accordance with the MIT License
-
+// 
 // 
 // https://opensource.org/licenses/MIT
 // 
@@ -1840,7 +1840,7 @@ public function double of_force_poundstoponds (double vdbl_poundforce);/////////
 // 
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted in accordance with the MIT License
-
+// 
 // 
 // https://opensource.org/licenses/MIT
 // 
