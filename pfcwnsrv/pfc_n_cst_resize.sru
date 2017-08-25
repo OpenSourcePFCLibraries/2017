@@ -190,16 +190,8 @@ If li_registered_slot = 0 Then
 End If
 
 //Unregister the control
-SetNull(inv_registered[li_registered_slot].wo_control)
-inv_registered[li_registered_slot].s_typeof = ''
-inv_registered[li_registered_slot].b_movex = False
-inv_registered[li_registered_slot].i_movex = 0
-inv_registered[li_registered_slot].b_movey = False
-inv_registered[li_registered_slot].i_movey = 0
-inv_registered[li_registered_slot].b_scalewidth = False
-inv_registered[li_registered_slot].i_scalewidth = 0
-inv_registered[li_registered_slot].b_scaleheight = False
-inv_registered[li_registered_slot].i_scaleheight = 0
+n_cst_resizeAttrib						lnvo_resizeAttrib
+inv_registered[li_registered_slot]	= lnvo_resizeAttrib
 
 Return 1
 end function
@@ -616,6 +608,7 @@ For li_cnt = 1 to li_upperbound
 		If li_slot_available = 0 Then
 			//Get the first slot found
 			li_slot_available = li_cnt
+			EXIT
 		End If
 	Else
 		//Check if control has already been registered
@@ -628,6 +621,10 @@ Next
 //If an available slot was not found then create a new entry
 If li_slot_available = 0 Then
 	li_slot_available = li_upperbound + 1
+Else
+	// reset slot because it may still contain values from previous object (#10999)
+	n_cst_resizeAttrib	lnvo_resizeAttrib
+	inv_registered[li_slot_available]	= lnvo_resizeAttrib
 End If
 
 ///////////////////////////////////////////////////////////////////////////////////////
@@ -1195,12 +1192,12 @@ For li_cnt = 1 to li_upperbound
 			
 			//Determine if the object does not support the requested Width or Height.
 			//Used to determine if the object was resized by any other means.
-			If li_width > inv_registered[li_cnt].r_width Then
+			If li_width > inv_registered[li_cnt].r_width + ii_rounding Then //with rounding (#11000)
 				inv_registered[li_cnt].i_widthmin = li_width
 			Else
 				inv_registered[li_cnt].i_widthmin = 0
 			End If
-			If li_height > inv_registered[li_cnt].r_height Then
+			If li_height > inv_registered[li_cnt].r_height + ii_rounding Then //with rounding (#11000)
 				inv_registered[li_cnt].i_heightmin = li_height
 			Else
 				inv_registered[li_cnt].i_heightmin = 0
