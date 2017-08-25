@@ -32,7 +32,8 @@ global pfc_u_oc pfc_u_oc
 
 type variables
 Protected:
-boolean	ib_rmbmenu = true
+boolean		ib_rmbmenu = true
+boolean		ib_IsObsolete
 end variables
 
 forward prototypes
