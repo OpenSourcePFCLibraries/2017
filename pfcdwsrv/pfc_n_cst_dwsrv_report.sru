@@ -38,7 +38,7 @@ public subroutine of_ResetUndo ()
 public function string of_Undo ()
 public function string of_ShiftBand (string as_band, integer ai_xunits, integer ai_yunits, boolean ab_execute)
 public function string of_SetBackground (string as_filename, boolean ab_sizetofit, integer ai_x, integer ai_y, integer ai_height, integer ai_width, boolean ab_execute)
-public function string of_SetFont (string as_fontface, integer ai_fontsize, fontfamily aff_fontfamily, fontpitch afp_fontpitch, boolean ab_bold, boolean ab_italic, boolean ab_underline, string as_name, string as_band, boolean ab_execute)
+public function string of_setfont (string as_fontface, integer ai_fontsize, fontfamily aff_fontfamily, fontpitch afp_fontpitch, boolean ab_bold, boolean ab_italic, boolean ab_underline, string as_name, string as_band, boolean ab_execute)
 public function string of_getdefaultfontface ()
 public function integer of_getdefaultfontsize ()
 public function border of_getdefaultborder ()
@@ -50,7 +50,7 @@ public subroutine of_setdefaultborder (border abo_Border)
 public subroutine of_setdefaultcolor (long al_Color)
 public subroutine of_setdefaultbackcolor (long al_BackColor)
 protected function string of_BuildTextModify (string as_type, string as_text, string as_band, integer ai_x, integer ai_y, integer ai_height, integer ai_width, border abo_border, boolean ab_bold, boolean ab_italic, boolean ab_underline, string as_fontface, integer ai_fontsize, fontcharset afc_charset, long al_Color, long al_BackColor)
-protected function string of_AddCompute (string as_expr, string as_band, alignment aal_halign, vtextalign avta_valign, integer ai_x, integer ai_y, border abo_border, boolean ab_bold, boolean ab_italic, boolean ab_underline, string as_fontface, integer ai_fontsize, fontcharset afc_charset, long al_color, long al_backcolor, boolean ab_execute)
+protected function string of_addcompute (string as_expr, string as_band, alignment aal_halign, vtextalign avta_valign, integer ai_x, integer ai_y, border abo_border, boolean ab_bold, boolean ab_italic, boolean ab_underline, string as_fontface, integer ai_fontsize, fontcharset afc_charset, long al_color, long al_backcolor, boolean ab_execute)
 public function string of_AddCompute (string as_expr, string as_band, alignment aal_halign, vtextalign avta_valign, border abo_border, boolean ab_bold, boolean ab_italic, boolean ab_underline, string as_fontface, integer ai_fontsize, fontcharset afc_charset, long al_color, long al_backcolor, boolean ab_execute)
 public function string of_AddCompute (string as_expr, string as_band, integer ai_x, integer ai_y, border abo_border, boolean ab_bold, boolean ab_italic, boolean ab_underline, string as_fontface, integer ai_fontsize, fontcharset afc_charset, long al_color, long al_backcolor, boolean ab_execute)
 protected function string of_AddText (string as_text, string as_band, alignment aal_halign, vtextalign avta_valign, integer ai_x, integer ai_y, border abo_border, boolean ab_bold, boolean ab_italic, boolean ab_underline, string as_fontface, integer ai_fontsize, fontcharset afc_charset, long al_color, long al_backcolor, boolean ab_execute)
@@ -847,7 +847,7 @@ Next
 ii_UndoLevel = li_Undo
 
 is_Undo[ii_UndoLevel] = ls_Undo + is_Undo[ii_UndoLevel]
-is_Undo[ii_UndoLevel] = lnv_string.of_GlobalReplace (is_Undo[ii_UndoLevel], "~"", "")
+is_Undo[ii_UndoLevel] = lnv_string.of_GlobalReplace (is_Undo[ii_UndoLevel], "~"", "", FALSE)
 
 ls_Return = idw_Requestor.Modify(ls_Modify)
 
@@ -1335,7 +1335,7 @@ Return ls_Return
 
 end function
 
-public function string of_SetFont (string as_fontface, integer ai_fontsize, fontfamily aff_fontfamily, fontpitch afp_fontpitch, boolean ab_bold, boolean ab_italic, boolean ab_underline, string as_name, string as_band, boolean ab_execute);//////////////////////////////////////////////////////////////////////////////
+public function string of_setfont (string as_fontface, integer ai_fontsize, fontfamily aff_fontfamily, fontpitch afp_fontpitch, boolean ab_bold, boolean ab_italic, boolean ab_underline, string as_name, string as_band, boolean ab_execute);//////////////////////////////////////////////////////////////////////////////
 //
 //	Function:  of_SetFont
 //
@@ -1540,7 +1540,7 @@ Else
 		End if
 	End if
 
-	ls_Undo = lnv_string.of_GlobalReplace (ls_Undo, "~"", "")
+	ls_Undo = lnv_string.of_GlobalReplace (ls_Undo, "~"", "", FALSE)
 	ii_UndoLevel ++
 	is_Undo[ii_UndoLevel] = ls_Undo
 End if
@@ -2184,7 +2184,7 @@ Return ls_Modify
 
 end function
 
-protected function string of_AddCompute (string as_expr, string as_band, alignment aal_halign, vtextalign avta_valign, integer ai_x, integer ai_y, border abo_border, boolean ab_bold, boolean ab_italic, boolean ab_underline, string as_fontface, integer ai_fontsize, fontcharset afc_charset, long al_color, long al_backcolor, boolean ab_execute);//////////////////////////////////////////////////////////////////////////////
+protected function string of_addcompute (string as_expr, string as_band, alignment aal_halign, vtextalign avta_valign, integer ai_x, integer ai_y, border abo_border, boolean ab_bold, boolean ab_italic, boolean ab_underline, string as_fontface, integer ai_fontsize, fontcharset afc_charset, long al_color, long al_backcolor, boolean ab_execute);//////////////////////////////////////////////////////////////////////////////
 //
 //	Function:  of_AddCompute
 //
@@ -2263,7 +2263,7 @@ n_cst_string	lnv_String
 If idw_Requestor.Object.DataWindow.Units > "1" Then Return "Error!  Invalid DW Unit"
 
 // Change all " to ~" because it will be imbedded in quotes
-as_Expr = lnv_string.of_GlobalReplace (as_Expr, "~"", "~~~"")
+as_Expr = lnv_string.of_GlobalReplace (as_Expr, "~"", "~~~"", FALSE)
 
 // Evaluate the expression to be used in calculating the object width
 ls_Text = idw_Requestor.Describe("Evaluate('" + as_Expr + "', 1)")
@@ -2271,8 +2271,8 @@ If ls_Text = "!" Then
 	Return "Error!  Invalid Expression"
 End if
 
-// Calculate the height, width and position of the new object
-li_NewLines = of_GetTextSizePos(as_Expr, as_Band, aal_HAlign, avta_VAlign, ab_Bold, &
+// Calculate the height, width and position of the new object (for the text: #11009)
+li_NewLines = of_GetTextSizePos(ls_Text, as_Band, aal_HAlign, avta_VAlign, ab_Bold, &
 												ab_Italic, ab_Underline, as_FontFace, ai_FontSize, li_Height, &
 												li_Width, ai_X, ai_Y)
 If li_NewLines = -1 Then Return "Error!  Error calculating size"
@@ -6550,7 +6550,7 @@ Else
 		ls_Modify = ls_Modify + " " + as_Name + ".Border='" + ls_Border + "'"
 		ls_Undo = ls_Undo + " " + as_Name + ".Border='" + ls_OldBorder + "'"
 
-		ls_Undo = lnv_string.of_GlobalReplace (ls_Undo, "~"", "")
+		ls_Undo = lnv_string.of_GlobalReplace (ls_Undo, "~"", "", FALSE)
 		ii_UndoLevel ++
 		is_Undo[ii_UndoLevel] = ls_Undo
 	End if
@@ -6704,7 +6704,7 @@ Else
 			End if
 	End Choose
 
-	ls_Undo = lnv_string.of_GlobalReplace (ls_Undo, "~"", "")
+	ls_Undo = lnv_string.of_GlobalReplace (ls_Undo, "~"", "", FALSE)
 	ii_UndoLevel ++
 	is_Undo[ii_UndoLevel] = ls_Undo
 End if
@@ -6763,11 +6763,11 @@ End if
 end event
 
 on pfc_n_cst_dwsrv_report.create
-TriggerEvent( this, "constructor" )
+call super::create
 end on
 
 on pfc_n_cst_dwsrv_report.destroy
-TriggerEvent( this, "destructor" )
+call super::destroy
 end on
 
 event constructor;call super::constructor;//////////////////////////////////////////////////////////////////////////////
