@@ -9,13 +9,18 @@ global type pfc_n_ir from internetresult
 end type
 global pfc_n_ir pfc_n_ir
 
+type variables
+Protected:
+boolean		ib_IsObsolete
+end variables
+
 on pfc_n_ir.create
-call internetresult::create
+call super::create
 TriggerEvent( this, "constructor" )
 end on
 
 on pfc_n_ir.destroy
-call internetresult::destroy
 TriggerEvent( this, "destructor" )
+call super::destroy
 end on
 
