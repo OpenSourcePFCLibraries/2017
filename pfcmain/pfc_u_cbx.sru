@@ -6,8 +6,8 @@ end type
 end forward
 
 global type pfc_u_cbx from checkbox
-integer width = 234
-integer height = 67
+integer width = 233
+integer height = 68
 integer textsize = -8
 integer weight = 400
 fontpitch fontpitch = variable!
@@ -16,12 +16,12 @@ string facename = "MS Sans Serif"
 long textcolor = 33554432
 long backcolor = 80263581
 string text = "none"
-borderstyle borderstyle = stylelowered!
 end type
 global pfc_u_cbx pfc_u_cbx
 
 type variables
-
+Protected:
+boolean		ib_IsObsolete
 end variables
 
 forward prototypes
@@ -208,4 +208,10 @@ If gnv_app.of_GetMicrohelp() Then
 End If
 
 end event
+
+on pfc_u_cbx.create
+end on
+
+on pfc_u_cbx.destroy
+end on
 
