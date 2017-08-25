@@ -1,17 +1,17 @@
 HA$PBExportHeader$pfc_u_base.sru
 $PBExportComments$PFC Visual Ancestor class
 forward
-global type pfc_u_base from UserObject
+global type pfc_u_base from userobject
 end type
 end forward
 
-global type pfc_u_base from UserObject
-int Width=1330
-int Height=740
-long BackColor=79741120
-long PictureMaskColor=553648127
-long TabTextColor=33554432
-long TabBackColor=79741120
+global type pfc_u_base from userobject
+integer width = 1330
+integer height = 740
+long backcolor = 79741120
+long tabtextcolor = 33554432
+long tabbackcolor = 79741120
+long picturemaskcolor = 553648127
 event resize pbm_size
 event type integer pfc_accepttext ( powerobject apo_control[],  boolean ab_focusonerror )
 event type integer pfc_validation ( powerobject apo_control[] )
@@ -43,7 +43,7 @@ powerobject	ipo_updaterequestor
 powerobject	ipo_pendingupdates[]
 powerobject	ipo_updateobjects[]
 n_cst_luw	inv_luw
-
+boolean		ib_IsObsolete
 end variables
 
 forward prototypes
