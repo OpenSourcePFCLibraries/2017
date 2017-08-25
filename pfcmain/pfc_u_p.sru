@@ -6,11 +6,16 @@ end type
 end forward
 
 global type pfc_u_p from picture
-int Width=160
-int Height=144
-boolean FocusRectangle=false
+integer width = 160
+integer height = 144
+boolean focusrectangle = false
 end type
 global pfc_u_p pfc_u_p
+
+type variables
+Protected:
+boolean		ib_IsObsolete
+end variables
 
 forward prototypes
 public function integer of_getparentwindow (ref window aw_parent)
@@ -196,4 +201,10 @@ If gnv_app.of_GetMicrohelp() Then
 End If
 
 end event
+
+on pfc_u_p.create
+end on
+
+on pfc_u_p.destroy
+end on
 
