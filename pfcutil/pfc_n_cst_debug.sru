@@ -22,6 +22,7 @@ constant time	PFC_BUILD_TIME = Now()
 
 n_ds		ids_debuglog
 n_cst_sqlspy	inv_sqlspy
+n_ds		ids_debugjson
 
 Protected:
 boolean		ib_alwaysontop=False
@@ -39,6 +40,8 @@ public function boolean of_getalwaysontop ()
 public function integer of_setdwproperty (boolean ab_switch)
 public function boolean of_islogopen ()
 public function boolean of_isdwproperty ()
+public function integer of_openjson (n_cst_json anv_json)
+public function integer of_closejson ()
 end prototypes
 
 public function integer of_setsqlspy (boolean ab_switch);//////////////////////////////////////////////////////////////////////////////
@@ -617,6 +620,113 @@ End If
 Return False
 end function
 
+public function integer of_openjson (n_cst_json anv_json);//////////////////////////////////////////////////////////////////////////////
+//
+//	Function:  		of_OpenJSON
+//
+//	Access:  		public
+//
+//  anv_json		The instance of n_cst_JSON to debug
+//
+//	Returns:  	integer
+//					Return value of Open or Close PowerBuilder call.
+//					0 if no action to open or close the window is taken.
+//					If any argument's value is NULL, function returns -1.
+//
+//	Description:	Open the DebugJSON window.
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+//	Revision History
+//
+//	Version
+//	12.5   Initial version
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+/*
+ * Open Source PowerBuilder Foundation Class Libraries
+ *
+ * Copyright (c) 2004-2017, All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted in accordance with the MIT License
+
+ *
+ * https://opensource.org/licenses/MIT
+ *
+ * ====================================================================
+ *
+ * This software consists of voluntary contributions made by many
+ * individuals and was originally based on software copyright (c) 
+ * 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
+ * information on the Open Source PowerBuilder Foundation Class
+ * Libraries see https://github.com/OpenSourcePFCLibraries
+*/
+//
+//////////////////////////////////////////////////////////////////////////////
+
+if isnull( anv_json ) or not isvalid( anv_json ) then return -1
+
+if anv_json.ids_repository.sharedata( ids_debugjson ) = -1 then  return -1
+
+Return Open(w_debugjson)
+
+end function
+
+public function integer of_closejson ();//////////////////////////////////////////////////////////////////////////////
+//
+//	Function:  		of_CloseJSON
+//
+//	Access:  		public
+//
+//	Returns:  	integer
+//					Return value of Close PowerBuilder call.
+//					0 if no action to close the window is taken.
+//					If any argument's value is NULL, function returns -1.
+//
+//	Description:	Closethe DebugJSON window.
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+//	Revision History
+//
+//	Version
+//	12.5   Initial version
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+/*
+ * Open Source PowerBuilder Foundation Class Libraries
+ *
+ * Copyright (c) 2004-2017, All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted in accordance with the MIT License
+
+ *
+ * https://opensource.org/licenses/MIT
+ *
+ * ====================================================================
+ *
+ * This software consists of voluntary contributions made by many
+ * individuals and was originally based on software copyright (c) 
+ * 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
+ * information on the Open Source PowerBuilder Foundation Class
+ * Libraries see https://github.com/OpenSourcePFCLibraries
+*/
+//
+//////////////////////////////////////////////////////////////////////////////
+
+
+if isvalid( w_debugjson ) then
+	Return close(w_debugjson)
+end if
+
+return 0
+
+end function
+
 on pfc_n_cst_debug.create
 call super::create
 end on
@@ -670,6 +780,11 @@ event constructor;//////////////////////////////////////////////////////////////
 //Create the DebugLog datastore.
 ids_debuglog = CREATE n_ds
 ids_debuglog.DataObject = 'd_debuglog'
+
+//Create the DebugJSON datastore.
+ids_debugjson = CREATE n_ds
+ids_debugjson.DataObject = "d_json_repository"
+
 end event
 
 event destructor;//////////////////////////////////////////////////////////////////////////////
@@ -731,5 +846,13 @@ of_SetSQLSpy(False)
 
 //DW Property cleanup.
 of_SetDWProperty(False)
+
+//Close the DebugJSON window
+of_Closejson ()
+
+//Destroy the DebugJSON datastore.
+If IsValid(ids_debugjson) Then
+ 	Destroy ids_debugjson
+End If
 end event
 
