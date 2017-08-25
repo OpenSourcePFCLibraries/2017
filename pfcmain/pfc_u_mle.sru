@@ -34,6 +34,7 @@ type variables
 Protected:
 boolean	ib_autoselect
 boolean	ib_rmbmenu = true
+boolean		ib_IsObsolete
 end variables
 
 forward prototypes
