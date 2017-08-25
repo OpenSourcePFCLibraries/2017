@@ -31,6 +31,7 @@ global pfc_u_lv pfc_u_lv
 
 type variables
 Protected:
+boolean		ib_IsObsolete
 boolean	ib_rmbmenu=true
 integer	ii_CurrentSortCol
 long	il_LastHandle
