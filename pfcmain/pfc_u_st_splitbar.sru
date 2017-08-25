@@ -11,6 +11,8 @@ integer height = 20
 fontcharset fontcharset = ansi!
 string facename = "System"
 long backcolor = 8421504
+boolean enabled = true
+string text = ""
 event mousemove pbm_mousemove
 event lbuttonup pbm_lbuttonup
 end type
@@ -806,6 +808,8 @@ CHOOSE CASE ai_extremetype
 
 		// Initialize the extreme point.
 		li_point = HIGH_VALUE
+		li_MinPoint					= HIGH_VALUE
+		li_MaxPoint					= LOW_VALUE
 
 		// Find the right most point.
 		For li_cnt = 1 to UpperBound(iwo_rightbottom)
@@ -2230,7 +2234,7 @@ public function integer of_unregister_all ();///////////////////////////////////
 // 
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted in accordance with the MIT License
-
+// 
 // 
 // https://opensource.org/licenses/MIT
 // 
@@ -2298,7 +2302,7 @@ public function integer of_unregister (windowobject awo_object);////////////////
 // 
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted in accordance with the MIT License
-
+// 
 // 
 // https://opensource.org/licenses/MIT
 // 
@@ -2395,7 +2399,7 @@ public subroutine of_move (long al_newx, long al_newy);/////////////////////////
 // 
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted in accordance with the MIT License
-
+// 
 // 
 // https://opensource.org/licenses/MIT
 // 
@@ -2455,7 +2459,7 @@ private subroutine of_moved (integer ai_pointerx, integer ai_pointery);/////////
 // 
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted in accordance with the MIT License
-
+// 
 // 
 // https://opensource.org/licenses/MIT
 // 
@@ -2890,7 +2894,7 @@ private subroutine of_previousposition (integer ai_prevpositionx, integer ai_pre
 // 
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted in accordance with the MIT License
-
+// 
 // 
 // https://opensource.org/licenses/MIT
 // 
