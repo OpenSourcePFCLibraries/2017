@@ -40,6 +40,7 @@ Public:
 n_cst_rtefind	inv_find
 
 Protected:
+boolean		ib_IsObsolete
 boolean 		ib_ongoingfind
 boolean		ib_ignorefileexists
 boolean		ib_continuouspages
