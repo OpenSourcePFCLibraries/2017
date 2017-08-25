@@ -1433,7 +1433,8 @@ Next
 Return li_updpending
 end function
 
-public function integer of_getusecollinks ();//////////////////////////////////////////////////////////////////////////////
+public function integer of_getusecollinks ();// ##Obsolete##
+//////////////////////////////////////////////////////////////////////////////
 //
 //	Function:  		of_GetUseColLinks
 //
@@ -1460,6 +1461,7 @@ public function integer of_getusecollinks ();///////////////////////////////////
 //	Version
 //	5.0   Initial version
 // 6.0 	Marked obsolete Replaced by of_GetStyle().
+//	12.5	Added Metaclass Service Obsolete Tag
 //
 //////////////////////////////////////////////////////////////////////////////
 //
@@ -1670,7 +1672,8 @@ idw_details[UpperBound(idw_details) + 1] = adw_detail
 Return 1
 end function
 
-public function integer of_linkto (u_dw adw_master);//////////////////////////////////////////////////////////////////////////////
+public function integer of_linkto (u_dw adw_master);// ##Obsolete##
+//////////////////////////////////////////////////////////////////////////////
 //
 //	Function:  		of_LinkTo
 //
@@ -1695,6 +1698,7 @@ public function integer of_linkto (u_dw adw_master);////////////////////////////
 //	Version
 //	5.0   Initial version.
 // 6.0 	Marked obsolete Replaced by of_SetMaster(...).
+//	12.5	Added Metaclass Service Obsolete Tag
 //
 //////////////////////////////////////////////////////////////////////////////
 //
@@ -1790,7 +1794,8 @@ Next
 Return li_rc
 end function
 
-public function integer of_resetarguments ();//////////////////////////////////////////////////////////////////////////////
+public function integer of_resetarguments ();// ##Obsolete##
+//////////////////////////////////////////////////////////////////////////////
 //
 //	Function:  		of_ResetArguments
 //
@@ -1813,6 +1818,7 @@ public function integer of_resetarguments ();///////////////////////////////////
 //	Version
 //	5.0   Initial version
 // 6.0 	Marked obsolete Replaced by of_Unregister().
+//	12.5	Added Metaclass Service Obsolete Tag
 //
 //////////////////////////////////////////////////////////////////////////////
 //
@@ -2238,7 +2244,8 @@ End If
 Return 1
 end function
 
-public function integer of_setarguments (string as_masterarg, string as_detailarg);//////////////////////////////////////////////////////////////////////////////
+public function integer of_setarguments (string as_masterarg, string as_detailarg);// ##Obsolete##
+//////////////////////////////////////////////////////////////////////////////
 //
 //	Function:  		of_SetArguments
 //
@@ -2268,6 +2275,7 @@ public function integer of_setarguments (string as_masterarg, string as_detailar
 //	Version
 //	5.0   Initial version
 // 6.0 	Marked obsolete Replaced by of_Register(...).
+//	12.5	Added Metaclass Service Obsolete Tag
 //
 //////////////////////////////////////////////////////////////////////////////
 //
@@ -2367,7 +2375,8 @@ Next
 Return li_rc
 end function
 
-public function integer of_setupdatebottomup (boolean ab_direction);//////////////////////////////////////////////////////////////////////////////
+public function integer of_setupdatebottomup (boolean ab_direction);// ##Obsolete##
+//////////////////////////////////////////////////////////////////////////////
 //
 //	Function:  		of_SetUpdateBottomUp
 //
@@ -2394,6 +2403,7 @@ public function integer of_setupdatebottomup (boolean ab_direction);////////////
 //	Version
 //	5.0   Initial version
 // 6.0 	Marked obsolete Replaced by of_SetUpdateStyle().
+//	12.5	Added Metaclass Service Obsolete Tag
 //
 //////////////////////////////////////////////////////////////////////////////
 //
@@ -2434,7 +2444,8 @@ End if
 Return 1
 end function
 
-public function integer of_setusecollinks (integer ai_use);//////////////////////////////////////////////////////////////////////////////
+public function integer of_setusecollinks (integer ai_use);// ##Obsolete##
+//////////////////////////////////////////////////////////////////////////////
 //
 //	Function:  	of_SetUseColLinks 
 //
@@ -2474,6 +2485,7 @@ public function integer of_setusecollinks (integer ai_use);/////////////////////
 //			multiple styles to be suported on the same linkage chain.
 // 5.0.02 Return 1 for successful operation.
 // 6.0 	Marked obsolete Replaced by of_SetStyle().
+//	12.5	Added Metaclass Service Obsolete Tag
 //
 //////////////////////////////////////////////////////////////////////////////
 //
@@ -2582,7 +2594,8 @@ Next
 Return li_rcall
 end function
 
-public function integer of_unlink ();//////////////////////////////////////////////////////////////////////////////
+public function integer of_unlink ();// ##Obsolete##
+//////////////////////////////////////////////////////////////////////////////
 //
 //	Function:  		of_Unlink
 //
@@ -2606,6 +2619,7 @@ public function integer of_unlink ();///////////////////////////////////////////
 //	Version
 //	5.0   Initial version
 // 6.0 	Marked obsolete.  Replaced by of_ResetMaster().
+//	12.5	Added Metaclass Service Obsolete Tag
 //
 //////////////////////////////////////////////////////////////////////////////
 //
@@ -3326,7 +3340,8 @@ idw_Requestor.Event pfc_rowchanged ( )
 Return li_rc
  end function
 
-public function integer of_getarguments (ref n_cst_linkageattrib anv_linkargs);//////////////////////////////////////////////////////////////////////////////
+public function integer of_getarguments (ref n_cst_linkageattrib anv_linkargs);// ##Obsolete##
+//////////////////////////////////////////////////////////////////////////////
 //
 //	Function:  		of_GetArguments
 //
@@ -3351,6 +3366,7 @@ public function integer of_getarguments (ref n_cst_linkageattrib anv_linkargs);/
 //	Version
 //	5.0   Initial version
 // 6.0 	Marked obsolete Replaced by of_GetRegistered().
+//	12.5	Added Metaclass Service Obsolete Tag
 //
 //////////////////////////////////////////////////////////////////////////////
 //
@@ -4554,7 +4570,8 @@ Next
 Return 1
 end function
 
-protected function boolean of_getupdatebottomup ();//////////////////////////////////////////////////////////////////////////////
+protected function boolean of_getupdatebottomup ();// ##Obsolete##
+//////////////////////////////////////////////////////////////////////////////
 //
 //	Function:  		of_GetUpdateBottomUp
 //
@@ -4576,6 +4593,7 @@ protected function boolean of_getupdatebottomup ();/////////////////////////////
 //	Version
 //	5.0   Initial version
 // 6.0 	Marked obsolete Replaced by of_GetUpdateStyle().
+//	12.5	Added Metaclass Service Obsolete Tag
 //
 //////////////////////////////////////////////////////////////////////////////
 //
