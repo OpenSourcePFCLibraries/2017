@@ -70,7 +70,7 @@ n_cst_tvsrv_levelsource	inv_levelsource
 
 Protected:
 boolean						ib_rmbmenu=true
-
+boolean						ib_IsObsolete
 // Logical Unit of Work -  SelfUpdatingObject - Save Process - (Attributes).
 boolean						ib_isupdateable = False
 boolean						ib_alwaysvalidate = false // Save process flag to include all objects in validation process.
