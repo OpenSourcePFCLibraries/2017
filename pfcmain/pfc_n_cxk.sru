@@ -9,13 +9,18 @@ global type pfc_n_cxk from contextkeyword
 end type
 global pfc_n_cxk pfc_n_cxk
 
+type variables
+Protected:
+boolean		ib_IsObsolete
+end variables
+
 on pfc_n_cxk.create
-call contextkeyword::create
+call super::create
 TriggerEvent( this, "constructor" )
 end on
 
 on pfc_n_cxk.destroy
-call contextkeyword::destroy
 TriggerEvent( this, "destructor" )
+call super::destroy
 end on
 
