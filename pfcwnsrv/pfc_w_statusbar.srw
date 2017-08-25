@@ -333,7 +333,7 @@ End If
 //	appropriate background color.
 ls_replacestring = 'background.color="'+string(il_buttonface)+'"'
 ls_dwdefinition = lnv_string.of_GlobalReplace(ls_dwdefinition, &
-			'background.color="12632256"', ls_replacestring)
+			'background.color="12632256"', ls_replacestring, TRUE)
 
 // Set it on the DataWindow Control (which set focus on it).
 li_rc = dw_statusbar.Create ( ls_dwdefinition, ls_errorbuffer)
@@ -581,6 +581,7 @@ protected function integer of_refreshvisuals ();////////////////////////////////
 //		instead of a negative return code.
 //	12.5	of_getFreeMemory() has been modified to return a longLong and report
 //			memory Threshold in gigaBytes.
+//			Instantiate platform service if needed
 //////////////////////////////////////////////////////////////////////////////
 //
 /*
@@ -621,6 +622,7 @@ End If
 
 // If appropriate update the Memory value.
 If iw_parentwindow.inv_statusbar.of_GetMem() Then
+	IF NOT IsValid (inv_platform) THEN f_SetPlatform (inv_platform, TRUE)
 	lll_resource = inv_platform.of_GetFreeMemory()
 	If lll_resource <> -1 then
 		// Display the reading.  Color it if below threshold.
@@ -643,6 +645,7 @@ End If
 
 // If appropriate update the User Memory value.
 If iw_parentwindow.inv_statusbar.of_GetUser() Then
+	IF NOT IsValid (inv_platform) THEN f_SetPlatform (inv_platform, TRUE)
 	ll_resource = inv_platform.of_GetFreeResources(2)
 	If ll_resource <> -1 Then
 		// Display the reading.  Color it if below threshold.		
@@ -665,6 +668,7 @@ End If
 
 // If appropriate update the GDI Memory value.
 If iw_parentwindow.inv_statusbar.of_GetGDI() Then
+	IF NOT IsValid (inv_platform) THEN f_SetPlatform (inv_platform, TRUE)
 	ll_resource = inv_platform.of_GetFreeResources(1)
 	If ll_resource <> -1 then
 		// Display the reading.  Color it if below threshold.		
@@ -1163,6 +1167,7 @@ event open;/////////////////////////////////////////////////////////////////////
 // 							5.0.02		Updated check for Operating system.
 // 							5.0.03		Added checks for WindowsNT 4.0.
 // 							7.0			Added InsertRow to StatusBar dw
+//								12.5			Platform service only if needed
 //////////////////////////////////////////////////////////////////////////////
 /*
  * Open Source PowerBuilder Foundation Class Libraries
@@ -1191,9 +1196,6 @@ iw_parentwindow = ParentWindow()
 
 // Disable the CloserQuery process.
 ib_disableclosequery = true
-
-// Create an instance of the platform service.
-f_setplatform(inv_platform, true)  
 
 // Determine the environment.
 GetEnvironment(ienv_object)
