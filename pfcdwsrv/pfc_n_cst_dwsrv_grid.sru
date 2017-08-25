@@ -548,8 +548,8 @@ n_cst_string	lnv_string
 
 ls_rc = ids_repository.object.datawindow.data
 if not isnull( ls_rc ) and len(trim(ls_rc)) > 0 then
-	ls_rc = lnv_string.of_globalreplace( ls_rc, "~t", ",")
-	ls_rc = lnv_string.of_globalreplace( ls_rc, "~r~n", "#")
+	ls_rc = lnv_string.of_globalreplace( ls_rc, "~t", ",", FALSE)
+	ls_rc = lnv_string.of_globalreplace( ls_rc, "~r~n", "#", FALSE)
 end if
 
 return ls_rc
@@ -590,8 +590,8 @@ n_cst_string	lnv_string
 if isnull( as_layout) or len(trim(as_layout)) = 0 then return failure
 
 ls_rc = as_layout
-ls_rc = lnv_string.of_globalreplace( ls_rc, ",", "~t")
-ls_rc = lnv_string.of_globalreplace( ls_rc, "#", "~r~n")
+ls_rc = lnv_string.of_globalreplace( ls_rc, ",", "~t", FALSE)
+ls_rc = lnv_string.of_globalreplace( ls_rc, "#", "~r~n", FALSE)
 
 ids_repository.reset()
 li_rc = ids_repository.importstring( ls_rc)
