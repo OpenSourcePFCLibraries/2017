@@ -380,7 +380,8 @@ Return of_UnRegister(as_column)
 
 end function
 
-public function integer of_addcolumn (string as_column);//////////////////////////////////////////////////////////////////////////////
+public function integer of_addcolumn (string as_column);// ##Obsolete##
+//////////////////////////////////////////////////////////////////////////////
 //
 //	Function:  		of_AddColumn
 //
@@ -407,6 +408,7 @@ public function integer of_addcolumn (string as_column);////////////////////////
 //	Version
 //	5.0   Initial version
 // 6.0 	Marked obsolete Replaced by of_Register().
+//	12.5	Added Metaclass Service Obsolete Tag
 //
 //////////////////////////////////////////////////////////////////////////////
 //
@@ -436,7 +438,8 @@ public function integer of_addcolumn (string as_column);////////////////////////
 Return of_Register(as_column)
 end function
 
-public function integer of_getcolumn (ref string as_columns[]);//////////////////////////////////////////////////////////////////////////////
+public function integer of_getcolumn (ref string as_columns[]);// ##Obsolete##
+//////////////////////////////////////////////////////////////////////////////
 //
 //	Function: 		of_GetColumn
 //
@@ -460,6 +463,7 @@ public function integer of_getcolumn (ref string as_columns[]);/////////////////
 //	Version
 //	5.0   Initial version
 // 6.0 	Marked obsolete Replaced by of_GetRegistered(...).
+//	12.5	Added Metaclass Service Obsolete Tag
 //
 //////////////////////////////////////////////////////////////////////////////
 //
@@ -747,7 +751,8 @@ End If
 Return 0
 end function
 
-public function integer of_addcolumn ();//////////////////////////////////////////////////////////////////////////////
+public function integer of_addcolumn ();// ##Obsolete##
+//////////////////////////////////////////////////////////////////////////////
 //
 //	Function:  		of_AddColumn
 //
@@ -772,6 +777,7 @@ public function integer of_addcolumn ();////////////////////////////////////////
 //	Version
 //	5.0   Initial version
 // 6.0 	Marked obsolete Replaced by of_Register().
+//	12.5	Added Metaclass Service Obsolete Tag
 //
 //////////////////////////////////////////////////////////////////////////////
 //
