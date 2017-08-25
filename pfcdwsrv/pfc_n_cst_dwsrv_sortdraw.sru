@@ -40,10 +40,6 @@ public subroutine of_draw (string vs_dwobject)
 public subroutine of_draw ()
 protected function integer of_getalignment ()
 protected subroutine of_setalignment (integer vi_alignment)
-public subroutine of_drawascending (datawindow vdw_sort, integer vi_x, integer vi_y)
-public subroutine of_drawascending (integer vi_x, integer vi_y)
-private subroutine of_drawdescending (datawindow vdw_sort, integer vi_x, integer vi_y)
-private subroutine of_drawdescending (integer vi_x, integer vi_y)
 public subroutine of_drawnone (datawindow vdw_sort)
 public subroutine of_drawnone ()
 protected function long of_getcolorlinebackground ()
@@ -56,6 +52,10 @@ private function string of_getsortdwobject ()
 private subroutine of_setsortdwobject (string vs_sortdwobject)
 public function boolean of_issortlineclicked (dwobject vdwo_clicked)
 public function boolean of_issortlineclicked (string vs_dwobject)
+private subroutine of_drawascending (datawindow vdw_sort, integer vi_x, integer vi_y)
+private subroutine of_drawascending (integer vi_x, integer vi_y)
+private subroutine of_drawdescending (datawindow vdw_sort, integer vi_x, integer vi_y)
+private subroutine of_drawdescending (integer vi_x, integer vi_y)
 end prototypes
 
 public subroutine of_draw (datawindow vdw_sort, string vs_dwobject);IF IsNull(vs_DWObject) OR Trim(vs_DWObject) = '' THEN RETURN
@@ -173,7 +173,68 @@ ii_alignment						= vi_alignment
 RETURN
 end subroutine
 
-public subroutine of_drawascending (datawindow vdw_sort, integer vi_x, integer vi_y);Long									ll_X1,	ll_Y1,	ll_X2,	ll_Y2,	ll_X3,	ll_Y3,	ll_X4,	ll_Y4
+public subroutine of_drawnone (datawindow vdw_sort);IF vdw_Sort.Describe('sort_ln1_xyzzy.type') = 'line' THEN
+	
+	of_setSortDWObject("")
+
+	String							ls_Modify
+	ls_Modify						= 'DESTROY sort_ln1_xyzzy DESTROY sort_ln2_xyzzy DESTROY sort_ln3_xyzzy '
+	
+	// Destroy the triangle
+	vdw_Sort.Modify(ls_Modify)
+
+END IF
+
+RETURN
+end subroutine
+
+public subroutine of_drawnone ();IF isValid(idw_requestor) THEN of_drawNone(idw_requestor)
+
+RETURN
+end subroutine
+
+protected function long of_getcolorlinebackground ();Return(il_backgroundLineColor)
+end function
+
+protected function long of_getcolorlineprimary ();Return(il_primaryLineColor)
+end function
+
+protected function long of_getcolorlinesecondary ();Return(il_secondaryLineColor)
+end function
+
+protected subroutine of_setcolorlinebackground (long vl_backgroundlinecolor);il_backGroundLineColor			= vl_backGroundLineColor
+
+RETURN
+end subroutine
+
+protected subroutine of_setcolorlineprimary (long vl_primarylinecolor);il_primaryLineColor				= vl_primaryLineColor
+
+RETURN
+end subroutine
+
+protected subroutine of_setcolorlinesecondary (long vl_secondarylinecolor);il_secondaryLineColor			= vl_secondaryLineColor
+
+RETURN
+end subroutine
+
+private function string of_getsortdwobject ();Return(is_sortDWObject)
+end function
+
+private subroutine of_setsortdwobject (string vs_sortdwobject);is_sortDWObject					= vs_sortDWObject
+
+RETURN
+end subroutine
+
+public function boolean of_issortlineclicked (dwobject vdwo_clicked);Return(of_isSortLineClicked(String(vdwo_clicked.Name)))
+end function
+
+public function boolean of_issortlineclicked (string vs_dwobject);String						ls_ID
+ls_ID							= Lower(Left(vs_DWObject, Len('sort_lnx_xyzzy')))
+
+Return(ls_ID = 'sort_ln1_xyzzy' OR ls_ID = 'sort_ln2_xyzzy' OR ls_ID = 'sort_ln3_xyzzy')
+end function
+
+private subroutine of_drawascending (datawindow vdw_sort, integer vi_x, integer vi_y);Long									ll_X1,	ll_Y1,	ll_X2,	ll_Y2,	ll_X3,	ll_Y3,	ll_X4,	ll_Y4
 
 vi_X									= invo_conversion.of_ConvertUnitsX(vi_X, Long(vdw_sort.Describe('DataWindow.Units')), invo_conversion.Pixels)
 vi_Y									= invo_conversion.of_ConvertUnitsY(vi_Y, Long(vdw_sort.Describe('DataWindow.Units')), invo_conversion.Pixels)
@@ -242,7 +303,7 @@ vdw_Sort.Modify(ls_Modify)
 RETURN
 end subroutine
 
-public subroutine of_drawascending (integer vi_x, integer vi_y);IF IsValid(idw_requestor) THEN of_drawAscending(idw_requestor, vi_X, vi_Y)
+private subroutine of_drawascending (integer vi_x, integer vi_y);IF IsValid(idw_requestor) THEN of_drawAscending(idw_requestor, vi_X, vi_Y)
 
 RETURN
 end subroutine
@@ -320,67 +381,6 @@ private subroutine of_drawdescending (integer vi_x, integer vi_y);IF isValid(idw
 
 RETURN
 end subroutine
-
-public subroutine of_drawnone (datawindow vdw_sort);IF vdw_Sort.Describe('sort_ln1_xyzzy.type') = 'line' THEN
-	
-	of_setSortDWObject("")
-
-	String							ls_Modify
-	ls_Modify						= 'DESTROY sort_ln1_xyzzy DESTROY sort_ln2_xyzzy DESTROY sort_ln3_xyzzy '
-	
-	// Destroy the triangle
-	vdw_Sort.Modify(ls_Modify)
-
-END IF
-
-RETURN
-end subroutine
-
-public subroutine of_drawnone ();IF isValid(idw_requestor) THEN of_drawNone(idw_requestor)
-
-RETURN
-end subroutine
-
-protected function long of_getcolorlinebackground ();Return(il_backgroundLineColor)
-end function
-
-protected function long of_getcolorlineprimary ();Return(il_primaryLineColor)
-end function
-
-protected function long of_getcolorlinesecondary ();Return(il_secondaryLineColor)
-end function
-
-protected subroutine of_setcolorlinebackground (long vl_backgroundlinecolor);il_backGroundLineColor			= vl_backGroundLineColor
-
-RETURN
-end subroutine
-
-protected subroutine of_setcolorlineprimary (long vl_primarylinecolor);il_primaryLineColor				= vl_primaryLineColor
-
-RETURN
-end subroutine
-
-protected subroutine of_setcolorlinesecondary (long vl_secondarylinecolor);il_secondaryLineColor			= vl_secondaryLineColor
-
-RETURN
-end subroutine
-
-private function string of_getsortdwobject ();Return(is_sortDWObject)
-end function
-
-private subroutine of_setsortdwobject (string vs_sortdwobject);is_sortDWObject					= vs_sortDWObject
-
-RETURN
-end subroutine
-
-public function boolean of_issortlineclicked (dwobject vdwo_clicked);Return(of_isSortLineClicked(String(vdwo_clicked.Name)))
-end function
-
-public function boolean of_issortlineclicked (string vs_dwobject);String						ls_ID
-ls_ID							= Lower(Left(vs_DWObject, Len('sort_lnx_xyzzy')))
-
-Return(ls_ID = 'sort_ln1_xyzzy' OR ls_ID = 'sort_ln2_xyzzy' OR ls_ID = 'sort_ln3_xyzzy')
-end function
 
 on pfc_n_cst_dwsrv_sortdraw.create
 call super::create
