@@ -48,6 +48,7 @@ global function integer f_setplatform (ref n_cst_platform anv_platform, boolean 
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted in accordance with the MIT License
+
  *
  * https://opensource.org/licenses/MIT
  *
