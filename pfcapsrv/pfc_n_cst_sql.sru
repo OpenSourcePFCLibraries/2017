@@ -183,9 +183,9 @@ boolean lb_isUnion, lb_isUnionAll
 integer li_PosAll
 
 // Remove Carriage returns, Newlines, and Tabs
-as_SQL = lnv_string.of_GlobalReplace(as_SQL, "~r", " ")
-as_SQL = lnv_string.of_GlobalReplace(as_SQL, "~n", " ")
-as_SQL = lnv_string.of_GlobalReplace(as_SQL, "~t", " ")
+as_SQL = lnv_string.of_GlobalReplace(as_SQL, "~r", " ", FALSE)
+as_SQL = lnv_string.of_GlobalReplace(as_SQL, "~n", " ", FALSE)
+as_SQL = lnv_string.of_GlobalReplace(as_SQL, "~t", " ", FALSE)
 as_SQL = Trim(as_SQL) 
 
 // Search for UNION keyword, must be followed by SELECT Keyword.
