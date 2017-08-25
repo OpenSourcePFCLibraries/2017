@@ -71,17 +71,23 @@ end forward
 
 global type pfc_m_dw from menu
 m_table m_table
+event type boolean pfc_isobsolete ( )
 end type
 global pfc_m_dw pfc_m_dw
 
 type variables
 Protected:
+boolean	ib_isobsolete
 datawindow	idw_parent
+
 end variables
 
 forward prototypes
 public function integer of_setparent (datawindow adw_parent)
 end prototypes
+
+event type boolean pfc_isobsolete();return ib_isobsolete
+end event
 
 public function integer of_setparent (datawindow adw_parent);//////////////////////////////////////////////////////////////////////////////
 //
