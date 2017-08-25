@@ -271,7 +271,8 @@ boolean	lb_resetflags = True
 Return of_Update (ab_accepttext, lb_resetflags) 
 end function
 
-public function integer of_addtoupdate (string as_table, string as_keycolumns[]);//////////////////////////////////////////////////////////////////////////////
+public function integer of_addtoupdate (string as_table, string as_keycolumns[]);// ##Obsolete##
+//////////////////////////////////////////////////////////////////////////////
 //	Public Function:		of_AddToUpdate ( Format 1 ) 
 //	Arguments:			as_table: A string containing the table to update
 //  						as_keycolumns[]: A string array containing the key columns to be used for update
@@ -285,6 +286,7 @@ public function integer of_addtoupdate (string as_table, string as_keycolumns[])
 //	Rev. History			Version
 //							5.0		Initial version
 // 							6.0		Marked obsolete Replaced by of_Register(...).
+//	12.5	Added Metaclass Service Obsolete Tag
 //////////////////////////////////////////////////////////////////////////////
 /*
  * Open Source PowerBuilder Foundation Class Libraries
@@ -309,7 +311,8 @@ public function integer of_addtoupdate (string as_table, string as_keycolumns[])
 Return of_Register(as_table, as_keycolumns)
 end function
 
-public function integer of_addtoupdate (string as_table, string as_keycolumns[], string as_updateable_cols[], boolean ab_keyinplace, integer ai_whereoption);//////////////////////////////////////////////////////////////////////////////
+public function integer of_addtoupdate (string as_table, string as_keycolumns[], string as_updateable_cols[], boolean ab_keyinplace, integer ai_whereoption);// ##Obsolete##
+//////////////////////////////////////////////////////////////////////////////
 //	Public Function:		of_AddToUpdate (Format 3)
 //	Arguments:			as_table: A string containing the table to update
 //   						as_keycolumns[]: A string array containing the key columns to be used for update
@@ -324,6 +327,7 @@ public function integer of_addtoupdate (string as_table, string as_keycolumns[],
 //	Rev. History			Version
 //							5.0		Initial version
 //							6.0		Marked obsolete Replaced by of_Register(...).
+//	12.5	Added Metaclass Service Obsolete Tag
 //////////////////////////////////////////////////////////////////////////////
 /*
  * Open Source PowerBuilder Foundation Class Libraries
@@ -349,7 +353,8 @@ Return of_Register(as_table, as_keycolumns, as_updateable_cols, ab_keyinplace, &
 		ai_whereoption)
 end function
 
-public function integer of_addtoupdate (string as_table, string as_keycolumns[], string as_updateable_cols[]);//////////////////////////////////////////////////////////////////////////////
+public function integer of_addtoupdate (string as_table, string as_keycolumns[], string as_updateable_cols[]);// ##Obsolete##
+//////////////////////////////////////////////////////////////////////////////
 //	Public Function:		of_AddToUpdate ( Format 2 ) 
 //	Arguments:			as_table: A string containing the table to update
 //   						as_keycolumns[]: A string array containing the key columns to be used for update
@@ -365,6 +370,7 @@ public function integer of_addtoupdate (string as_table, string as_keycolumns[],
 //	Rev. History			Version
 //							5.0		Initial version
 // 							6.0 	Marked obsolete Replaced by of_Register(...).
+//	12.5	Added Metaclass Service Obsolete Tag
 //////////////////////////////////////////////////////////////////////////////
 /*
  * Open Source PowerBuilder Foundation Class Libraries
@@ -1296,10 +1302,10 @@ Return 1
 end function
 
 on pfc_n_cst_dwsrv_multitable.create
-TriggerEvent( this, "constructor" )
+call super::create
 end on
 
 on pfc_n_cst_dwsrv_multitable.destroy
-TriggerEvent( this, "destructor" )
+call super::destroy
 end on
 
