@@ -81,6 +81,8 @@ Constant UInt  VER_NT_WORKSTATION       = 1, &
 					VER_UNDOCUMENTED_VM_MASK = 7680, &
                SM_CXSCREEN              = 0, &
                SM_CYSCREEN              = 1, &
+               SM_XVIRTUALSCREEN        = 76, &
+               SM_YVIRTUALSCREEN        = 77, &
                SM_CXVIRTUALSCREEN       = 78, &
                SM_CYVIRTUALSCREEN       = 79, &
                SM_CMONITORS             = 80, &
@@ -158,6 +160,8 @@ Boolean     ib_IsRTSSession          = FALSE    // TRUE when desktop is remotely
 Boolean     ib_IsRemotelyControlled  = FALSE    // TRUE when desktop is being remotely controlled
 
 Integer     ii_NumMonitors = 1
+Long        il_VirtualScreenX       // in pixels
+Long        il_VirtualScreenY       // in pixels
 Long        il_VirtualScreenHeight  // in pixels
 Long        il_VirtualScreenWidth   // in pixels
 UInt        iui_NumColorsPowerOf2   // NumberOfColors = ( 2 ^ this_value ) - 1
@@ -248,6 +252,8 @@ il_VirtualScreenWidth  = This.ScreenWidth
 il_VirtualScreenHeight = This.ScreenHeight
 ii_NumMonitors = GetSystemMetrics( SM_CMONITORS)
 If ii_NumMonitors > 1 Then
+	il_VirtualScreenX      = GetSystemMetrics( SM_XVIRTUALSCREEN)
+	il_VirtualScreenY      = GetSystemMetrics( SM_YVIRTUALSCREEN)
 	il_VirtualScreenWidth  = GetSystemMetrics( SM_CXVIRTUALSCREEN)
 	il_VirtualScreenHeight = GetSystemMetrics( SM_CYVIRTUALSCREEN)
 End If
@@ -1331,6 +1337,9 @@ Else
 	li_ndx++
 	as_name[li_ndx]  = 'Virtual monitor resolution (pixels, W x H)'
 	as_value[li_ndx] = String(il_VirtualScreenWidth) + ' x ' + String(il_VirtualScreenHeight)
+	li_ndx++
+	as_name[li_ndx]  = 'Virtual monitor origin (pixels, X, Y)'
+	as_value[li_ndx] = String(il_VirtualScreenX) + ', ' + String(il_VirtualScreenY)
 End If
 
 li_ndx++
