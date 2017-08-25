@@ -68,21 +68,29 @@ m_viewdisplay m_viewdisplay
 m_dash11 m_dash11
 m_arrangeicons m_arrangeicons
 end type
+global type pfc_m_view from menu
+m_viewitem m_viewitem
+end type
 end forward
 
 global type pfc_m_view from menu
 m_viewitem m_viewitem
+event type boolean pfc_isobsolete ( )
 end type
 global pfc_m_view pfc_m_view
 
 type variables
 Protected:
+boolean	ib_IsObsolete
 listview	ilv_parent
 end variables
 
 forward prototypes
 public function integer of_setparent (listview alv_parent)
 end prototypes
+
+event type boolean pfc_isobsolete();return ib_isobsolete
+end event
 
 public function integer of_setparent (listview alv_parent);//////////////////////////////////////////////////////////////////////////////
 //
@@ -144,11 +152,28 @@ end function
 
 on pfc_m_view.create
 pfc_m_view=this
+call super::create
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
 this.m_viewitem=create m_viewitem
-this.Item[]={this.m_viewitem}
+this.Item[UpperBound(this.Item)+1]=this.m_viewitem
 end on
 
 on pfc_m_view.destroy
+call super::destroy
 destroy(this.m_viewitem)
 end on
 
@@ -159,16 +184,33 @@ m_arrangeicons m_arrangeicons
 end type
 
 on m_viewitem.create
-this.Text="&View"
+call super::create
+this.text = "&View"
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
 this.m_viewdisplay=create m_viewdisplay
 this.m_dash11=create m_dash11
 this.m_arrangeicons=create m_arrangeicons
-this.Item[]={this.m_viewdisplay, &
-this.m_dash11, &
-this.m_arrangeicons}
+this.Item[UpperBound(this.Item)+1]=this.m_viewdisplay
+this.Item[UpperBound(this.Item)+1]=this.m_dash11
+this.Item[UpperBound(this.Item)+1]=this.m_arrangeicons
 end on
 
 on m_viewitem.destroy
+call super::destroy
 destroy(this.m_viewdisplay)
 destroy(this.m_dash11)
 destroy(this.m_arrangeicons)
@@ -237,19 +279,36 @@ End Choose
 end event
 
 on m_viewdisplay.create
-this.Text="&View"
-this.Microhelp="Contains commands for customizing display of items"
+call super::create
+this.text = "&View"
+this.microhelp = "Contains commands for customizing display of items"
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
 this.m_largeicon=create m_largeicon
 this.m_smallicon=create m_smallicon
 this.m_list=create m_list
 this.m_details=create m_details
-this.Item[]={this.m_largeicon, &
-this.m_smallicon, &
-this.m_list, &
-this.m_details}
+this.Item[UpperBound(this.Item)+1]=this.m_largeicon
+this.Item[UpperBound(this.Item)+1]=this.m_smallicon
+this.Item[UpperBound(this.Item)+1]=this.m_list
+this.Item[UpperBound(this.Item)+1]=this.m_details
 end on
 
 on m_viewdisplay.destroy
+call super::destroy
 destroy(this.m_largeicon)
 destroy(this.m_smallicon)
 destroy(this.m_list)
@@ -302,11 +361,28 @@ ilv_Parent.View = ListViewLargeIcon!
 end event
 
 on m_largeicon.create
-this.Text="Lar&ge Icons"
-this.Microhelp="Displays items by using large icons"
+call super::create
+this.text = "Lar&ge Icons"
+this.microhelp = "Displays items by using large icons"
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
 end on
 
 on m_largeicon.destroy
+call super::destroy
 end on
 
 type m_smallicon from menu within m_viewdisplay
@@ -355,8 +431,28 @@ ilv_Parent.View = ListViewSmallIcon!
 end event
 
 on m_smallicon.create
-this.Text="S&mall Icons"
-this.Microhelp="Displays items by using small icons"
+call super::create
+this.text = "S&mall Icons"
+this.microhelp = "Displays items by using small icons"
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_smallicon.destroy
+call super::destroy
 end on
 
 type m_list from menu within m_viewdisplay
@@ -405,8 +501,28 @@ ilv_Parent.View = ListViewList!
 end event
 
 on m_list.create
-this.Text="&List"
-this.Microhelp="Displays items in a list"
+call super::create
+this.text = "&List"
+this.microhelp = "Displays items in a list"
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_list.destroy
+call super::destroy
 end on
 
 type m_details from menu within m_viewdisplay
@@ -455,15 +571,55 @@ ilv_Parent.View = ListViewReport!
 end event
 
 on m_details.create
-this.Text="&Details"
-this.Microhelp="Displays information about each item"
+call super::create
+this.text = "&Details"
+this.microhelp = "Displays information about each item"
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_details.destroy
+call super::destroy
 end on
 
 type m_dash11 from menu within m_viewitem
 end type
 
 on m_dash11.create
-this.Text="-"
+call super::create
+this.text = "-"
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_dash11.destroy
+call super::destroy
 end on
 
 type m_arrangeicons from menu within m_viewitem
@@ -482,8 +638,24 @@ m_autoarrange m_autoarrange
 end type
 
 on m_arrangeicons.create
-this.Text="Arrange &Icons"
-this.Microhelp="Contains commands for arranging items"
+call super::create
+this.text = "Arrange &Icons"
+this.microhelp = "Contains commands for arranging items"
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
 this.m_1=create m_1
 this.m_2=create m_2
 this.m_3=create m_3
@@ -496,21 +668,22 @@ this.m_9=create m_9
 this.m_10=create m_10
 this.m_dash12=create m_dash12
 this.m_autoarrange=create m_autoarrange
-this.Item[]={this.m_1, &
-this.m_2, &
-this.m_3, &
-this.m_4, &
-this.m_5, &
-this.m_6, &
-this.m_7, &
-this.m_8, &
-this.m_9, &
-this.m_10, &
-this.m_dash12, &
-this.m_autoarrange}
+this.Item[UpperBound(this.Item)+1]=this.m_1
+this.Item[UpperBound(this.Item)+1]=this.m_2
+this.Item[UpperBound(this.Item)+1]=this.m_3
+this.Item[UpperBound(this.Item)+1]=this.m_4
+this.Item[UpperBound(this.Item)+1]=this.m_5
+this.Item[UpperBound(this.Item)+1]=this.m_6
+this.Item[UpperBound(this.Item)+1]=this.m_7
+this.Item[UpperBound(this.Item)+1]=this.m_8
+this.Item[UpperBound(this.Item)+1]=this.m_9
+this.Item[UpperBound(this.Item)+1]=this.m_10
+this.Item[UpperBound(this.Item)+1]=this.m_dash12
+this.Item[UpperBound(this.Item)+1]=this.m_autoarrange
 end on
 
 on m_arrangeicons.destroy
+call super::destroy
 destroy(this.m_1)
 destroy(this.m_2)
 destroy(this.m_3)
@@ -529,11 +702,28 @@ type m_1 from menu within m_arrangeicons
 end type
 
 on m_1.create
-this.Text="1"
-this.Visible=false
+call super::create
+this.visible = false
+this.text = "1"
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
 end on
 
 on m_1.destroy
+call super::destroy
 end on
 
 event clicked;//////////////////////////////////////////////////////////////////////////////
@@ -581,8 +771,24 @@ type m_2 from menu within m_arrangeicons
 end type
 
 on m_2.create
-this.Text="2"
-this.Visible=false
+call super::create
+this.visible = false
+this.text = "2"
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
 end on
 
 event clicked;//////////////////////////////////////////////////////////////////////////////
@@ -626,12 +832,32 @@ ilv_Parent.event ColumnClick(2)
 
 end event
 
+on m_2.destroy
+call super::destroy
+end on
+
 type m_3 from menu within m_arrangeicons
 end type
 
 on m_3.create
-this.Text="3"
-this.Visible=false
+call super::create
+this.visible = false
+this.text = "3"
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
 end on
 
 event clicked;//////////////////////////////////////////////////////////////////////////////
@@ -675,12 +901,32 @@ ilv_Parent.event ColumnClick(3)
 
 end event
 
+on m_3.destroy
+call super::destroy
+end on
+
 type m_4 from menu within m_arrangeicons
 end type
 
 on m_4.create
-this.Text="4"
-this.Visible=false
+call super::create
+this.visible = false
+this.text = "4"
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
 end on
 
 event clicked;//////////////////////////////////////////////////////////////////////////////
@@ -724,12 +970,32 @@ ilv_Parent.event ColumnClick(4)
 
 end event
 
+on m_4.destroy
+call super::destroy
+end on
+
 type m_5 from menu within m_arrangeicons
 end type
 
 on m_5.create
-this.Text="5"
-this.Visible=false
+call super::create
+this.visible = false
+this.text = "5"
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
 end on
 
 event clicked;//////////////////////////////////////////////////////////////////////////////
@@ -773,12 +1039,32 @@ ilv_Parent.event ColumnClick(5)
 
 end event
 
+on m_5.destroy
+call super::destroy
+end on
+
 type m_6 from menu within m_arrangeicons
 end type
 
 on m_6.create
-this.Text="6"
-this.Visible=false
+call super::create
+this.visible = false
+this.text = "6"
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
 end on
 
 event clicked;//////////////////////////////////////////////////////////////////////////////
@@ -822,12 +1108,32 @@ ilv_Parent.event ColumnClick(6)
 
 end event
 
+on m_6.destroy
+call super::destroy
+end on
+
 type m_7 from menu within m_arrangeicons
 end type
 
 on m_7.create
-this.Text="7"
-this.Visible=false
+call super::create
+this.visible = false
+this.text = "7"
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
 end on
 
 event clicked;//////////////////////////////////////////////////////////////////////////////
@@ -871,12 +1177,32 @@ ilv_Parent.event ColumnClick(7)
 
 end event
 
+on m_7.destroy
+call super::destroy
+end on
+
 type m_8 from menu within m_arrangeicons
 end type
 
 on m_8.create
-this.Text="8"
-this.Visible=false
+call super::create
+this.visible = false
+this.text = "8"
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
 end on
 
 event clicked;//////////////////////////////////////////////////////////////////////////////
@@ -920,12 +1246,32 @@ ilv_Parent.event ColumnClick(8)
 
 end event
 
+on m_8.destroy
+call super::destroy
+end on
+
 type m_9 from menu within m_arrangeicons
 end type
 
 on m_9.create
-this.Text="9"
-this.Visible=false
+call super::create
+this.visible = false
+this.text = "9"
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
 end on
 
 event clicked;//////////////////////////////////////////////////////////////////////////////
@@ -969,12 +1315,32 @@ ilv_Parent.event ColumnClick(9)
 
 end event
 
+on m_9.destroy
+call super::destroy
+end on
+
 type m_10 from menu within m_arrangeicons
 end type
 
 on m_10.create
-this.Text="10"
-this.Visible=false
+call super::create
+this.visible = false
+this.text = "10"
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
 end on
 
 event clicked;//////////////////////////////////////////////////////////////////////////////
@@ -1018,21 +1384,61 @@ ilv_Parent.event ColumnClick(10)
 
 end event
 
+on m_10.destroy
+call super::destroy
+end on
+
 type m_dash12 from menu within m_arrangeicons
 end type
 
 on m_dash12.create
-this.Text="-"
-this.ShiftToRight=true
+call super::create
+this.text = "-"
+this.shifttoright = true
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_dash12.destroy
+call super::destroy
 end on
 
 type m_autoarrange from menu within m_arrangeicons
 end type
 
 on m_autoarrange.create
-this.Text="&Auto Arrange"
-this.Microhelp="Arranges the icons automatically"
-this.ShiftToRight=true
+call super::create
+this.text = "&Auto Arrange"
+this.microhelp = "Arranges the icons automatically"
+this.shifttoright = true
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
 end on
 
 event clicked;//////////////////////////////////////////////////////////////////////////////
@@ -1075,4 +1481,8 @@ event clicked;//////////////////////////////////////////////////////////////////
 this.checked = not this.checked
 ilv_parent.autoarrange = this.checked
 end event
+
+on m_autoarrange.destroy
+call super::destroy
+end on
 
