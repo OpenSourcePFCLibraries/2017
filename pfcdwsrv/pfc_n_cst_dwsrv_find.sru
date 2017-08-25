@@ -506,6 +506,7 @@ protected function string of_buildfindexpression (string as_find, string as_colu
 //	Version
 //	5.0   Initial version
 // 5.0.03 Handle searching of quotes.
+//	12.5	Number conversion to handle other number formats (like 1.234,56) #11010
 //
 //////////////////////////////////////////////////////////////////////////////
 //
@@ -554,7 +555,7 @@ ls_editstyle = idw_requestor.Describe(as_column+".Edit.Style")
 If ls_editstyle='dddw' or ls_editstyle='ddlb' Then
 	// Handle searching of quotes by replacing them with the special characters.
 	If Pos(as_find, "'") > 0 Then
-		as_find = lnv_string.of_GlobalReplace (as_find, "'", "~~'")
+		as_find = lnv_string.of_GlobalReplace (as_find, "'", "~~'", FALSE)
 	End If	
 	
 	//Add the MatchCase attributes.
@@ -566,9 +567,15 @@ If ls_editstyle='dddw' or ls_editstyle='ddlb' Then
 Else
 	//Process according to the column type.
 	Choose Case Left(Lower(ls_coltype),4)
-		Case 'numb', 'long', 'inte', 'deci'
+		Case 'long', 'inte'
 			If IsNumber(as_find) Then
-				ls_findexp = as_column+ " = " + as_find
+				ls_findexp = as_column+ " = Long ('" + as_find + "')"
+			Else
+				ls_findexp = "!"
+			End If
+		Case 'numb', 'deci'
+			If IsNumber(as_find) Then
+				ls_findexp = as_column+ " = Dec ('" + as_find + "')"
 			Else
 				ls_findexp = "!"
 			End If
@@ -587,7 +594,7 @@ Else
 		Case Else
 			// Handle searching of quotes by replacing them with the special characters.
 			If Pos(as_find, "'") > 0 Then
-				as_find = lnv_string.of_GlobalReplace (as_find, "'", "~~'")
+				as_find = lnv_string.of_GlobalReplace (as_find, "'", "~~'", FALSE)
 			End If				
 			
 			//Add the MatchCase attributes.
