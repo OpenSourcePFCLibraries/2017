@@ -546,6 +546,7 @@ public function integer of_getmenureference (ref menu am_source, string as_findm
 //
 //	Version
 //	6.0   Initial version
+//	12.5	Optimized and without recursion (#3603)
 //
 //////////////////////////////////////////////////////////////////////////////
 //
@@ -571,11 +572,9 @@ public function integer of_getmenureference (ref menu am_source, string as_findm
 //
 //////////////////////////////////////////////////////////////////////////////
 
-integer	li_limit, li_cnt
-integer	li_found = 0
-boolean	lb_found = False
+long		ll_limit, ll_cnt, ll_upper, ll_i
 string	ls_searchitem
-n_cst_string	lnv_string
+menu 		lm_list[]
 
 //Check arguments
 If Not IsValid(am_source) or IsNull(am_source) Then
@@ -588,29 +587,38 @@ End If
 
 ls_searchitem = lower(as_findmenuitem)
 
-//Use recursion to go down the menu item array
-li_limit = UpperBound (am_source.item)
-For li_cnt = 1 To li_limit
-	If ls_searchitem = lower( am_source.item[li_cnt].classname() ) Then
-		am_menureference = am_source.item[li_cnt]
-		li_found = 1
-//		lb_found = True
-	Else
-		If li_found > 0 Then Continue
-//		if lb_found then continue
-		li_found = of_GetMenuReference(am_source.item[li_cnt], as_findmenuitem, am_menureference)
-	End If
-End For
+// set first item to search in
+ll_upper ++
+lm_list[ll_upper] = am_source
 
-Return li_found 
-//Return lb_found
+// loop through menu items
+DO WHILE ll_i < ll_upper
+	// take next item and check the children
+	ll_i ++
+	ll_limit = UpperBound (lm_list[ll_i].item)
+	For ll_cnt = 1 To ll_limit
+		If ls_searchitem = lower( lm_list[ll_i].item[ll_cnt].classname() ) Then
+			// we have it
+			am_menureference = lm_list[ll_i].item[ll_cnt]
+			return 1
+			
+		ElseIf UpperBound (lm_list[ll_i].item[ll_cnt].item) > 0 Then
+			// this item has children so add it to the list for further searching
+			ll_upper ++
+			lm_list[ll_upper] = lm_list[ll_i].item[ll_cnt]
+		End If
+	Next
+LOOP
+
+return 0
+
 end function
 
 on pfc_n_cst_menu.create
-TriggerEvent( this, "constructor" )
+call super::create
 end on
 
 on pfc_n_cst_menu.destroy
-TriggerEvent( this, "destructor" )
+call super::destroy
 end on
 
