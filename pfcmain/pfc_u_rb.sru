@@ -6,8 +6,8 @@ end type
 end forward
 
 global type pfc_u_rb from radiobutton
-integer width = 417
-integer height = 67
+integer width = 416
+integer height = 68
 integer textsize = -8
 integer weight = 400
 fontpitch fontpitch = variable!
@@ -16,9 +16,13 @@ string facename = "MS Sans Serif"
 long textcolor = 33554432
 long backcolor = 80263581
 string text = "none"
-borderstyle borderstyle = stylelowered!
 end type
 global pfc_u_rb pfc_u_rb
+
+type variables
+Protected:
+boolean		ib_IsObsolete
+end variables
 
 forward prototypes
 public function integer of_getparentwindow (ref window aw_parent)
