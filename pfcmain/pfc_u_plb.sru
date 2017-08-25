@@ -24,6 +24,11 @@ event type integer pfc_invertselection ( )
 end type
 global pfc_u_plb pfc_u_plb
 
+type variables
+Protected:
+boolean		ib_IsObsolete
+end variables
+
 forward prototypes
 public function integer of_getparentwindow (ref window aw_parent)
 public function integer of_getselected (ref n_cst_itemattrib anv_itemattrib[])
