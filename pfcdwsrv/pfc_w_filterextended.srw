@@ -227,7 +227,7 @@ inv_base.of_Center()
 // Display original filter in the filter mle.
 ls_filter = inv_filterattrib.is_filter
 If Pos(ls_filter, "~~~~'") > 0 And  Pos(ls_filter, "~~~~~~'") = 0 Then
-	ls_filter = lnv_string.of_GlobalReplace(ls_filter, "~~~~'", "~~'")	
+	ls_filter = lnv_string.of_GlobalReplace(ls_filter, "~~~~'", "~~'", FALSE)	
 End If
 mle_filter.text = ls_filter
 mle_filter.SelectText (1, Len (mle_filter.text))
@@ -685,6 +685,7 @@ event selectionchanged;/////////////////////////////////////////////////////////
 //	5.0   Initial version
 //	5.0.03	Radiobutton and checkbox edit styles should only display data values
 //	5.0.03	Do not display dropdown arrows, spin controls
+// 12.5.2		Use SQL statement of the associated dddw, if any
 //
 //////////////////////////////////////////////////////////////////////////////
 //
@@ -729,7 +730,9 @@ string		ls_table
 string		ls_sql
 string		ls_editstyle
 string		ls_replacesyntax
+string		ls_dddw
 n_cst_string	lnv_string
+datastore	lds
 
 // Check for values tabpage
 if newindex <> 4 then
@@ -760,7 +763,17 @@ if li_selectedrow > 0 then
 		end if
 
 		// SQL
-		ls_sql = "select distinct " + ls_dbname + " from " + ls_table
+		// Check if a dddw is associated with the selected column
+		ls_dddw = inv_filterattrib.idw_dw.describe( ls_col+".dddw.name")
+		if ls_dddw <> "!" or ls_dddw <> "?" then
+			// if so, extract sql from dddw dataobject
+			lds = create datastore
+			lds.dataobject = ls_dddw
+			ls_sql = lds.object.datawindow.table.select
+		else
+			// otherwise, build sql based on selected column's dbname
+			ls_sql = "select distinct " + ls_dbname + " from " + ls_table
+		end if
 
 		// Default presentation
 		ls_presentation = "DataWindow (color=" + WHITE + ") " + &
@@ -1464,7 +1477,7 @@ if row > 0 then
 				// No special characters found.
 				If Pos(ls_value, "'") >0 Then
 					// Replace single quotes with special chars single quotes.
-					ls_value = lnv_string.of_GlobalReplace(ls_value, "'", "~~~'")				
+					ls_value = lnv_string.of_GlobalReplace(ls_value, "'", "~~~'", FALSE)				
 				End If
 			End If
 			ls_expression = "'" + ls_value + "'"
