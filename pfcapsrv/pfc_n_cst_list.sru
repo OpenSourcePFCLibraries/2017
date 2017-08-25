@@ -895,7 +895,7 @@ End If
 // Check if the new key is Greater than the current High key (Tail node).
 li_rc = inv_compare.of_compare(anv_newnode, inv_tail)
 If li_rc = inv_compare.FAILURE Then Return FAILURE
-If li_rc = inv_compare.GREATERTHAN Then
+If li_rc = inv_compare.GREATERTHAN or li_rc = inv_compare.EQUAL Then  // #11016  check for equal to insert two identical items to an empty list
 	// Add it as the new Tail node.  Use the ancestor of_AddTail().
 	Return Super::of_AddTail(anv_newnode)
 End If
@@ -929,10 +929,10 @@ Return of_Add(anv_newnode, lnv_insertpointnode)
 end function
 
 on pfc_n_cst_list.create
-TriggerEvent( this, "constructor" )
+call super::create
 end on
 
 on pfc_n_cst_list.destroy
-TriggerEvent( this, "destructor" )
+call super::destroy
 end on
 
