@@ -35,11 +35,16 @@ Protected:
 boolean	ib_autoselect
 boolean	ib_rmbmenu = true
 boolean	ib_search		// Search (type ahead) attribute.
+boolean		ib_IsObsolete
 end variables
 
 forward prototypes
 public function integer of_getparentwindow (ref window aw_parent)
 protected function integer of_messagebox (string as_id, string as_title, string as_text, icon ae_icon, button ae_button, integer ai_default)
+public function integer of_additems (string as_items[], integer ai_pictures[], boolean ab_append)
+public function integer of_additems (string as_items[], integer ai_picture, boolean ab_append)
+public function integer of_additems (string as_items[], integer ai_picture)
+public function integer of_additems (string as_items[], integer ai_pictures[])
 end prototypes
 
 event pfc_clear;//////////////////////////////////////////////////////////////////////////////
@@ -621,6 +626,249 @@ protected function integer of_messagebox (string as_id, string as_title, string 
 //////////////////////////////////////////////////////////////////////////////
 
 Return MessageBox(as_title, as_text, ae_icon, ae_button, ai_default)
+end function
+
+public function integer of_additems (string as_items[], integer ai_pictures[], boolean ab_append);//////////////////////////////////////////////////////////////////////////////
+//
+// Function:		of_additems (syntax 1)
+//
+// Access:			Public
+//
+// Arguments:
+// as_items[]:		The list of items to be added
+// ai_pictures[]:			The corresponding picture indexes of the items to
+//						be added
+// ab_append:			TRUE, append entries to the existing ones,
+//						FALSE, reset control's contents before adding
+//						specifeid entries.
+//
+// Returns:			integer
+//						The number of added items, or
+//						-1, if an error occurs.
+//
+// Description:	Add the specified list of items using the specified
+//						pictures index list, in append mode or not.
+//
+// Usage:			Call this method to add a list of items and their
+//							corresponding pictures at once
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+// Revision History
+//
+// Version
+//	12.5	Initial version
+///
+/*
+ * Open Source PowerBuilder Foundation Class Libraries
+ *
+ * Copyright (c) 2004-2017, All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted in accordance with the MIT License
+
+ *
+ * https://opensource.org/licenses/MIT
+ *
+ * ====================================================================
+ *
+ * This software consists of voluntary contributions made by many
+ * individuals and was originally based on software copyright (c) 
+ * 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
+ * information on the Open Source PowerBuilder Foundation Class
+ * Libraries see https://github.com/OpenSourcePFCLibraries
+*/
+//
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+integer	li_i
+integer 	li_limit
+
+li_limit = UpperBound( as_items )
+
+if ab_append = false then
+	this.reset( )
+end if
+
+for li_i = 1 to li_limit
+	this.additem( as_items[li_i], ai_pictures[li_i] )
+next
+
+return li_limit
+end function
+
+public function integer of_additems (string as_items[], integer ai_picture, boolean ab_append);//////////////////////////////////////////////////////////////////////////////
+//
+// Function:		of_additems (syntax 3)
+//
+// Access:			Public
+//
+// Arguments:
+// as_items[]:		The list of items to be added
+// ai_picture:		The picture indexe of the items to
+//						be added
+// ab_append:			TRUE, append entries to the existing ones,
+//						FALSE, reset control's contents before adding
+//						specifeid entries.
+//
+// Returns:			integer
+//						The number of added items, or
+//						-1, if an error occurs.
+//
+// Description:	Add the specified list of items using the specified
+//						picture index list, in append mode or not.
+//
+// Usage:			Call this method to add a list of items and their
+//							corresponding picture at once
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+// Revision History
+//
+// Version
+//	12.5	Initial version
+//
+//////////////////////////////////////////////////////////////////////////////
+///
+/*
+ * Open Source PowerBuilder Foundation Class Libraries
+ *
+ * Copyright (c) 2004-2017, All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted in accordance with the MIT License
+
+ *
+ * https://opensource.org/licenses/MIT
+ *
+ * ====================================================================
+ *
+ * This software consists of voluntary contributions made by many
+ * individuals and was originally based on software copyright (c) 
+ * 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
+ * information on the Open Source PowerBuilder Foundation Class
+ * Libraries see https://github.com/OpenSourcePFCLibraries
+*/
+//
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+integer	li_i
+integer 	li_limit
+integer	li_pictures[]
+
+li_limit = UpperBound( as_items )
+for li_i = li_limit to 1 step -1
+	li_pictures[li_i] = ai_picture
+next
+
+return this.of_additems( as_items, li_pictures, ab_append )
+end function
+
+public function integer of_additems (string as_items[], integer ai_picture);//////////////////////////////////////////////////////////////////////////////
+//
+// Function:		of_additems (syntax 4)
+//
+// Access:			Public
+//
+// Arguments:
+// as_items[]:		The list of items to be added
+// ai_picture:		The picture indexe of the items to
+//						be added
+//
+// Returns:			integer
+//						The number of added items, or
+//						-1, if an error occurs.
+//
+// Description:	Add the specified list of items using the specified
+//						picture index list, in default append mode.
+//
+// Usage:			Call this method to add a list of items and their
+//							corresponding picture at once
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+// Revision History
+//
+// Version
+//	12.5	Initial version
+//
+//////////////////////////////////////////////////////////////////////////////
+///
+/*
+ * Open Source PowerBuilder Foundation Class Libraries
+ *
+ * Copyright (c) 2004-2017, All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted in accordance with the MIT License
+
+ *
+ * https://opensource.org/licenses/MIT
+ *
+ * ====================================================================
+ *
+ * This software consists of voluntary contributions made by many
+ * individuals and was originally based on software copyright (c) 
+ * 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
+ * information on the Open Source PowerBuilder Foundation Class
+ * Libraries see https://github.com/OpenSourcePFCLibraries
+*/
+//
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+return this.of_additems( as_items, ai_picture, true )
+end function
+
+public function integer of_additems (string as_items[], integer ai_pictures[]);//////////////////////////////////////////////////////////////////////////////
+//
+// Function:		of_additems (syntax 2)
+//
+// Access:			Public
+//
+// Arguments:
+// as_items[]:		The list of items to be added
+// ai_pictures[]:			The corresponding picture indexes of the items to
+//						be added
+//
+// Returns:			integer
+//						The number of added items, or
+//						-1, if an error occurs.
+//
+// Description:	Add the specified list of items using the specified
+//						pictures index list, in default append mode.
+//
+// Usage:			Call this method to add a list of items and their
+//							corresponding pictures at once
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+// Revision History
+//
+// Version
+//	12.5	Initial version
+///
+/*
+ * Open Source PowerBuilder Foundation Class Libraries
+ *
+ * Copyright (c) 2004-2017, All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted in accordance with the MIT License
+
+ *
+ * https://opensource.org/licenses/MIT
+ *
+ * ====================================================================
+ *
+ * This software consists of voluntary contributions made by many
+ * individuals and was originally based on software copyright (c) 
+ * 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
+ * information on the Open Source PowerBuilder Foundation Class
+ * Libraries see https://github.com/OpenSourcePFCLibraries
+*/
+//
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+return this.of_additems( as_items, ai_pictures, true )
 end function
 
 event getfocus;//////////////////////////////////////////////////////////////////////////////
