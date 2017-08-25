@@ -70,6 +70,7 @@ n_cst_lvsrv_sort		inv_sort
 n_cst_lvsrv_datasource	inv_datasource
 
 Protected:
+boolean		ib_IsObsolete
 boolean	ib_rmbmenu=True
 long	il_rightclicked
 
