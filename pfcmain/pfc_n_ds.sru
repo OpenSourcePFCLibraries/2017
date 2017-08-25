@@ -43,12 +43,14 @@ n_cst_dssrv_printpreview	inv_printpreview
 n_tr	itr_object
 
 Protected :
-window		iw_parentwindow
-powerobject	ipo_parent
 boolean		ib_append
 boolean		ib_isupdateable = True
-string		is_updatesallowed='IUD'
-powerobject	ipo_updaterequestor
+boolean		ib_IsObsolete
+string			is_updatesallowed='IUD'
+
+window			iw_parentwindow
+powerobject		ipo_parent
+powerobject		ipo_updaterequestor
 end variables
 
 forward prototypes
@@ -603,7 +605,7 @@ return ll_rc
 
 end event
 
-event pfc_accepttext;//////////////////////////////////////////////////////////////////////////////
+event type integer pfc_accepttext(boolean ab_focusonerror);//////////////////////////////////////////////////////////////////////////////
 //
 //	Event:  pfc_accepttext
 //
@@ -687,14 +689,19 @@ If li_rc < 0 Then
 		ls_msgparm[1] = this.GetColumnName()
 		ls_msgparm[2] = string(this.GetRow())
 
-		If IsValid(gnv_app.inv_error) Then
-			gnv_app.inv_error.of_Message ('pfc_dsaccepttext', ls_msgparm, &
-						gnv_app.iapp_object.DisplayName)					
+		If IsValid(gnv_app) Then
+			If IsValid(gnv_app.inv_error) Then
+				gnv_app.inv_error.of_Message ('pfc_dsaccepttext', ls_msgparm, &
+							gnv_app.iapp_object.DisplayName)					
+			Else
+				ls_message = "Failed accepttext validation on datastore.  "+&
+								 "Column "+ ls_msgparm[1] + &
+								 " on row "+ ls_msgparm[2] + "."
+				of_Messagebox ("pfc_acceptext_failedvalidation", gnv_app.iapp_object.DisplayName, &
+					ls_message, Exclamation!, Ok!, 1)
+			End If
 		Else
-			ls_message = "Failed accepttext validation on datastore.  "+&
-							 "Column "+ ls_msgparm[1] + &
-							 " on row "+ ls_msgparm[2] + "."
-			of_Messagebox ("pfc_acceptext_failedvalidation", gnv_app.iapp_object.DisplayName, &
+			of_Messagebox ("pfc_acceptext_failedvalidation", "", &
 				ls_message, Exclamation!, Ok!, 1)
 		End If
 	End If
@@ -1459,13 +1466,19 @@ if al_row <> 0 then
 	end if
 	
 	If Not lb_skipmessage Then
-		If IsValid(gnv_app.inv_error) Then
-			ls_msgparm[1] = as_colname
-			ls_msgparm[2] = String (al_row)
-			gnv_app.inv_error.of_Message('pfc_requiredmissingondatastore', ls_msgparm, &
-					gnv_app.iapp_object.DisplayName)
+		If IsValid(gnv_app) Then				
+			If IsValid(gnv_app.inv_error) Then
+				ls_msgparm[1] = as_colname
+				ls_msgparm[2] = String (al_row)
+				gnv_app.inv_error.of_Message('pfc_requiredmissingondatastore', ls_msgparm, &
+						gnv_app.iapp_object.DisplayName)
+			Else
+				of_MessageBox ("pfc_checkrequired_missingvalue", gnv_app.iapp_object.DisplayName, &
+					"Required DataStore value missing for " + as_colname + " on row "  + &
+					String (al_row) + ".", information!, Ok!, 1)
+			End If
 		Else
-			of_MessageBox ("pfc_checkrequired_missingvalue", gnv_app.iapp_object.DisplayName, &
+			of_MessageBox ("pfc_checkrequired_missingvalue", "", &
 				"Required DataStore value missing for " + as_colname + " on row "  + &
 				String (al_row) + ".", information!, Ok!, 1)
 		End If
@@ -1588,14 +1601,16 @@ If IsValid(iw_parentwindow) Then
 End If
 
 // There is no valid parent to return.
-If IsValid(gnv_app.inv_debug) Then				
-	of_MessageBox ("pfc_getparentwindow_debug", "PowerBuilder Class Library", &
-		"For certain functionality the " + &
-		"PFC DataStore requires a reference to its parent window. " + &
-		"One of these cases has been encountered.  To let the Datastore "+&
-		"know who its parent window call the of_SetParentWindow(...) "+&
-		"function after the DataStore creation.", &
-		Exclamation!, Ok!, 1)
+If IsValid(gnv_app) Then				
+	If IsValid(gnv_app.inv_debug) Then				
+		of_MessageBox ("pfc_getparentwindow_debug", "PowerBuilder Class Library", &
+			"For certain functionality the " + &
+			"PFC DataStore requires a reference to its parent window. " + &
+			"One of these cases has been encountered.  To let the Datastore "+&
+			"know who its parent window call the of_SetParentWindow(...) "+&
+			"function after the DataStore creation.", &
+			Exclamation!, Ok!, 1)
+	End If
 End If
 
 aw_parent = lw_notvalid
@@ -2586,14 +2601,16 @@ If IsValid(ipo_parent) Then
 End If
 
 // There is no valid parent to return.
-If IsValid(gnv_app.inv_debug) Then				
-	of_MessageBox ("pfc_getparent_debug", "PowerBuilder Class Library", &
-		"For certain functionality the " + &
-		"PFC DataStore requires a reference to its parent object. " + &
-		"One of these cases has been encountered.  To let the Datastore "+&
-		"know who its parent window call the of_SetParent(...) "+&
-		"function after the DataStore creation.", &
-		Exclamation!, Ok!, 1)
+If IsValid(gnv_app) Then				
+	If IsValid(gnv_app.inv_debug) Then				
+		of_MessageBox ("pfc_getparent_debug", "PowerBuilder Class Library", &
+			"For certain functionality the " + &
+			"PFC DataStore requires a reference to its parent object. " + &
+			"One of these cases has been encountered.  To let the Datastore "+&
+			"know who its parent window call the of_SetParent(...) "+&
+			"function after the DataStore creation.", &
+			Exclamation!, Ok!, 1)
+	End If
 End If
 
 apo_parent = lpo_notvalid
@@ -2767,37 +2784,39 @@ Else
 End If
 
 //If available trigger the SQLSpy service.
-If IsValid(gnv_app.inv_debug) Then
-	If IsValid(gnv_app.inv_debug.inv_sqlspy) Then
-
-		ls_sqlsyntax = sqlsyntax
-		l_request = request
-		l_sqltype = sqltype
-		l_buffer = buffer
-
-		//Send the information to the service for processing.
-		li_rc = gnv_app.inv_debug.inv_sqlspy.of_sqlpreview &
-			(this.ClassName(), l_request, l_sqltype, ls_sqlsyntax, l_buffer, row)
-		If li_rc = 1 or li_rc = 2 Then
-			// 1 Stop processing of all entries.
-			// 2 Skip this request and execute the next request.
-			Return li_rc
-		Else
-			// Normal processing.
-			If ls_sqlsyntax <> sqlsyntax Then
-				//The sqlsyntax was inspected and changed by the user.
-				//Update the SQL to the new syntax.
-				If this.SetSQLPreview (ls_sqlsyntax) = 1 Then 
-					Return
-				Else
-					// An error was encountered on the Modified SQLStatement
-					of_Messagebox ('pfc_sqlpreview_error', 'SQLSpy on SQLPreview', &
-						'An error was encountered with the following SQL:~r~n~r~n'+ &
-						ls_sqlsyntax, Information!, Ok!, 1)
-				End If				
+If IsValid(gnv_app) Then
+	If IsValid(gnv_app.inv_debug) Then
+		If IsValid(gnv_app.inv_debug.inv_sqlspy) Then
+	
+			ls_sqlsyntax = sqlsyntax
+			l_request = request
+			l_sqltype = sqltype
+			l_buffer = buffer
+	
+			//Send the information to the service for processing.
+			li_rc = gnv_app.inv_debug.inv_sqlspy.of_sqlpreview &
+				(this.ClassName(), l_request, l_sqltype, ls_sqlsyntax, l_buffer, row)
+			If li_rc = 1 or li_rc = 2 Then
+				// 1 Stop processing of all entries.
+				// 2 Skip this request and execute the next request.
+				Return li_rc
+			Else
+				// Normal processing.
+				If ls_sqlsyntax <> sqlsyntax Then
+					//The sqlsyntax was inspected and changed by the user.
+					//Update the SQL to the new syntax.
+					If this.SetSQLPreview (ls_sqlsyntax) = 1 Then 
+						Return
+					Else
+						// An error was encountered on the Modified SQLStatement
+						of_Messagebox ('pfc_sqlpreview_error', 'SQLSpy on SQLPreview', &
+							'An error was encountered with the following SQL:~r~n~r~n'+ &
+							ls_sqlsyntax, Information!, Ok!, 1)
+					End If				
+				End If
 			End If
+			
 		End If
-		
 	End If
 End If
 
@@ -2867,17 +2886,19 @@ lnv_dberrorattrib.is_errormsg = ls_message
 lnv_dberrorattrib.ipo_inerror = this
 
 //If available trigger the SQLSpy service.
-If IsValid(gnv_app.inv_debug) Then
-	If IsValid(gnv_app.inv_debug.inv_sqlspy) Then
-
-		//Create the heading and message for the SQLSpy.
-		ls_sqlspyheading = 'DBError - ' + this.ClassName() + '(' + string(row) + ')'
-		ls_sqlspymessage = "Database error code:  " + String (sqldbcode) + "~r~n" + &
-			"Database error message:  " + sqlerrtext
-		
-		//Send the information to the service for processing.
-		gnv_app.inv_debug.inv_sqlspy.of_sqlSyntax  &
-			(ls_sqlspyheading, '/*** ' + ls_sqlspymessage + ' ***/')
+If IsValid(gnv_app) Then
+	If IsValid(gnv_app.inv_debug) Then
+		If IsValid(gnv_app.inv_debug.inv_sqlspy) Then
+	
+			//Create the heading and message for the SQLSpy.
+			ls_sqlspyheading = 'DBError - ' + this.ClassName() + '(' + string(row) + ')'
+			ls_sqlspymessage = "Database error code:  " + String (sqldbcode) + "~r~n" + &
+				"Database error message:  " + sqlerrtext
+			
+			//Send the information to the service for processing.
+			gnv_app.inv_debug.inv_sqlspy.of_sqlSyntax  &
+				(ls_sqlspyheading, '/*** ' + ls_sqlspymessage + ' ***/')
+		End If
 	End If
 End If
 
@@ -2903,12 +2924,17 @@ If IsValid(lpo_updaterequestor) Then
 	lpo_updaterequestor.Dynamic Function of_SetDBErrorMsg(lnv_dberrorattrib)
 Else
 	// Display the message immediately.
-	If IsValid(gnv_app.inv_error) Then
-		ls_msgparm[1] = ls_message
-		gnv_app.inv_error.of_Message ('pfc_dwdberror', ls_msgparm, &
-					gnv_app.iapp_object.DisplayName)
+	If IsValid(gnv_app) Then
+		If IsValid(gnv_app.inv_error) Then
+			ls_msgparm[1] = ls_message
+			gnv_app.inv_error.of_Message ('pfc_dwdberror', ls_msgparm, &
+						gnv_app.iapp_object.DisplayName)
+		Else
+			of_Messagebox ("pfc_dberror", gnv_app.iapp_object.DisplayName, &
+				ls_message, StopSign!, Ok!, 1)
+		End If
 	Else
-		of_Messagebox ("pfc_dberror", gnv_app.iapp_object.DisplayName, &
+		of_Messagebox ("pfc_dberror", "", &
 			ls_message, StopSign!, Ok!, 1)
 	End If
 End If
@@ -2961,17 +2987,19 @@ string 	ls_sqlspyheading
 string	ls_sqlspymessage
 
 //If available trigger the SQLSpy service.
-If IsValid(gnv_app.inv_debug) Then
-	If IsValid(gnv_app.inv_debug.inv_sqlspy) Then
-
-		//Create the heading and message for the SQLSpy.
-		ls_sqlspyheading = 'RetrieveEnd - ' + this.ClassName() 
-		ls_sqlspymessage = "Rows Retrieved = "+ string(rowcount)
-		
-		//Send the information to the service for processing.
-		gnv_app.inv_debug.inv_sqlspy.of_sqlSyntax  &
-			(ls_sqlspyheading, '/*** ' + ls_sqlspymessage + ' ***/')
-		
+If IsValid(gnv_app) Then
+	If IsValid(gnv_app.inv_debug) Then
+		If IsValid(gnv_app.inv_debug.inv_sqlspy) Then
+	
+			//Create the heading and message for the SQLSpy.
+			ls_sqlspyheading = 'RetrieveEnd - ' + this.ClassName() 
+			ls_sqlspymessage = "Rows Retrieved = "+ string(rowcount)
+			
+			//Send the information to the service for processing.
+			gnv_app.inv_debug.inv_sqlspy.of_sqlSyntax  &
+				(ls_sqlspyheading, '/*** ' + ls_sqlspymessage + ' ***/')
+			
+		End If
 	End If
 End If
 
