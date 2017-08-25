@@ -79,7 +79,7 @@ public subroutine of_clientsize (ref long rl_width, ref long rl_height);////////
 // 
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted in accordance with the MIT License
-
+// 
 // 
 // https://opensource.org/licenses/MIT
 // 
@@ -132,7 +132,7 @@ public subroutine of_describe (ref string rs_style[]);//////////////////////////
 // 
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted in accordance with the MIT License
-
+// 
 // 
 // https://opensource.org/licenses/MIT
 // 
@@ -184,7 +184,7 @@ public subroutine of_describe (window vw_describe, ref string rs_style[]);//////
 // 
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted in accordance with the MIT License
-
+// 
 // 
 // https://opensource.org/licenses/MIT
 // 
@@ -234,7 +234,7 @@ public subroutine of_style (window vw_style, unsignedlong vul_style, boolean vb_
 // 
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted in accordance with the MIT License
-
+// 
 // 
 // https://opensource.org/licenses/MIT
 // 
@@ -281,7 +281,7 @@ public subroutine of_style (unsignedlong vul_style, boolean vb_style);//////////
 // 
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted in accordance with the MIT License
-
+// 
 // 
 // https://opensource.org/licenses/MIT
 // 
@@ -332,7 +332,7 @@ public subroutine of_setscrollbars (window vw_scrollbars);//////////////////////
 // 
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted in accordance with the MIT License
-
+// 
 // 
 // https://opensource.org/licenses/MIT
 // 
@@ -468,7 +468,7 @@ public subroutine of_setscrollbars ();//////////////////////////////////////////
 // 
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted in accordance with the MIT License
-
+// 
 // 
 // https://opensource.org/licenses/MIT
 // 
@@ -520,7 +520,7 @@ public subroutine of_style_extended (unsignedlong vul_styleextended, boolean vb_
 // 
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted in accordance with the MIT License
-
+// 
 // 
 // https://opensource.org/licenses/MIT
 // 
@@ -572,7 +572,7 @@ public subroutine of_style_extended (window vw_styleextended, unsignedlong vul_s
 // 
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted in accordance with the MIT License
-
+// 
 // 
 // https://opensource.org/licenses/MIT
 // 
@@ -617,7 +617,7 @@ public function boolean of_ismdichild ();///////////////////////////////////////
 // 
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted in accordance with the MIT License
-
+// 
 // 
 // https://opensource.org/licenses/MIT
 // 
@@ -661,7 +661,7 @@ public subroutine of_clientsize (unsignedlong vul_hwnd, ref long rl_width, ref l
 // 
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted in accordance with the MIT License
-
+// 
 // 
 // https://opensource.org/licenses/MIT
 // 
@@ -737,7 +737,7 @@ public function boolean of_ismdichild (unsignedlong vul_hwnd);//////////////////
 // 
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted in accordance with the MIT License
-
+// 
 // 
 // https://opensource.org/licenses/MIT
 // 
@@ -779,7 +779,7 @@ public function boolean of_ismdichild (window vw_ismdichild);///////////////////
 // 
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted in accordance with the MIT License
-
+// 
 // 
 // https://opensource.org/licenses/MIT
 // 
@@ -820,7 +820,7 @@ public function boolean of_ischild (unsignedlong vul_hwnd);/////////////////////
 // 
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted in accordance with the MIT License
-
+// 
 // 
 // https://opensource.org/licenses/MIT
 // 
@@ -862,7 +862,7 @@ public function boolean of_ischild (window vw_ischild);/////////////////////////
 // 
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted in accordance with the MIT License
-
+// 
 // 
 // https://opensource.org/licenses/MIT
 // 
@@ -905,7 +905,7 @@ public function boolean of_ischild ();//////////////////////////////////////////
 // 
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted in accordance with the MIT License
-
+// 
 // 
 // https://opensource.org/licenses/MIT
 // 
@@ -951,7 +951,7 @@ public function boolean of_isstyle (unsignedlong vul_hwnd, unsignedlong vul_styl
 // 
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted in accordance with the MIT License
-
+// 
 // 
 // https://opensource.org/licenses/MIT
 // 
@@ -1004,7 +1004,7 @@ public function boolean of_isstyle_extended (unsignedlong vul_hwnd, unsignedlong
 // 
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted in accordance with the MIT License
-
+// 
 // 
 // https://opensource.org/licenses/MIT
 // 
@@ -1053,7 +1053,7 @@ public subroutine of_clientsize (window vw_clientsize, ref long rl_width, ref lo
 // 
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted in accordance with the MIT License
-
+// 
 // 
 // https://opensource.org/licenses/MIT
 // 
@@ -1103,7 +1103,7 @@ public subroutine of_describe (unsignedlong vul_hwnd, ref string rs_style[]);///
 // 
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted in accordance with the MIT License
-
+// 
 // 
 // https://opensource.org/licenses/MIT
 // 
@@ -1210,7 +1210,7 @@ public function boolean of_isstyle_extended (window vw_isstyleextended, unsigned
 // 
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted in accordance with the MIT License
-
+// 
 // 
 // https://opensource.org/licenses/MIT
 // 
@@ -1264,7 +1264,7 @@ public function boolean of_isstyle_extended (unsignedlong vul_styleextended);///
 // 
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted in accordance with the MIT License
-
+// 
 // 
 // https://opensource.org/licenses/MIT
 // 
@@ -1319,7 +1319,7 @@ public function boolean of_isstyle (unsignedlong vul_style);////////////////////
 // 
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted in accordance with the MIT License
-
+// 
 // 
 // https://opensource.org/licenses/MIT
 // 
@@ -1374,7 +1374,7 @@ public function boolean of_isstyle (window vw_isstyle, unsignedlong vul_style);/
 // 
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted in accordance with the MIT License
-
+// 
 // 
 // https://opensource.org/licenses/MIT
 // 
@@ -1425,7 +1425,7 @@ public subroutine of_style (unsignedlong vul_hwnd, unsignedlong vul_style, boole
 // 
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted in accordance with the MIT License
-
+// 
 // 
 // https://opensource.org/licenses/MIT
 // 
@@ -1484,7 +1484,7 @@ public subroutine of_style_extended (unsignedlong vul_hwnd, unsignedlong vul_sty
 // 
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted in accordance with the MIT License
-
+// 
 // 
 // https://opensource.org/licenses/MIT
 // 
@@ -1546,7 +1546,7 @@ event destructor;call super::destructor;////////////////////////////////////////
 // 
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted in accordance with the MIT License
-
+// 
 // 
 // https://opensource.org/licenses/MIT
 // 
