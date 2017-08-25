@@ -67,9 +67,10 @@ constant integer 		CONTINUE_ACTION = 1
 constant integer 		PREVENT_ACTION = 0
 //constant integer 		FAILURE = -1
 
-n_cst_winsrv		inv_base
-n_cst_winsrv_preference	inv_preference
-n_cst_resize		inv_resize
+n_cst_winsrv					inv_base
+n_cst_winsrv_preference		inv_preference
+n_cst_resize						inv_resize
+n_cst_winsrv_style				inv_style
 
 Protected:
 any			ia_helptypeid
@@ -89,7 +90,7 @@ powerobject		ipo_updateobjects[]
 powerobject		ipo_tempupdateobjects[]
 n_cst_luw		inv_luw
 
-
+boolean		ib_IsObsolete
 end variables
 
 forward prototypes
@@ -120,6 +121,7 @@ protected function integer of_setupdaterequestor (powerobject apo_updaterequesto
 public function integer of_update (boolean ab_accepttext, boolean ab_resetflag)
 protected function integer of_messagebox (string as_id, string as_title, string as_text, icon ae_icon, button ae_button, integer ai_default)
 public function integer of_setdberrormsg (n_cst_dberrorattrib anv_dberrorattrib)
+public function integer of_setstyle (boolean ab_switch)
 end prototypes
 
 event pfc_controlgotfocus;//////////////////////////////////////////////////////////////////////////////
@@ -2408,7 +2410,8 @@ public function boolean of_GetSaveStatus ();////////////////////////////////////
 return ib_savestatus
 end function
 
-public function integer of_setdberrormsg (string as_msg);//////////////////////////////////////////////////////////////////////////////
+public function integer of_setdberrormsg (string as_msg);// ##Obsolete##
+//////////////////////////////////////////////////////////////////////////////
 //
 //	Function:  of_SetDBErrorMsg
 //
@@ -2432,6 +2435,7 @@ public function integer of_setdberrormsg (string as_msg);///////////////////////
 //	Version
 //	5.0.02   Initial version
 // 6.0  Marked obsolete Replaced by of_SetDBErrorMsg(n_cst_dberrorattrib).
+//	12.5	Added Metaclass Service Obsolete Tag
 //
 //////////////////////////////////////////////////////////////////////////////
 //
@@ -3751,6 +3755,73 @@ If IsValid(anv_dberrorattrib) Then
 End If
 
 return 1
+end function
+
+public function integer of_setstyle (boolean ab_switch);//////////////////////////////////////////////////////////////////////////////
+//
+//	Event:  of_SetStyle
+//
+//	Arguments:
+//	ab_switch   starts/stops the window style service
+//
+//	Returns:  integer
+//	 1 = Successful operation.
+//	 0 = No action necessary
+//	-1 = An error was encountered
+//
+//	Description:
+//	Starts or stops the window style service
+//
+//////////////////////////////////////////////////////////////////////////////
+//	
+//	Revision History
+//
+//	Version
+//	12.5   Initial version
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+/*
+ * Open Source PowerBuilder Foundation Class Libraries
+ *
+ * Copyright (c) 2004-2017, All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted in accordance with the MIT License
+
+ *
+ * https://opensource.org/licenses/MIT
+ *
+ * ====================================================================
+ *
+ * This software consists of voluntary contributions made by many
+ * individuals and was originally based on software copyright (c) 
+ * 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
+ * information on the Open Source PowerBuilder Foundation Class
+ * Libraries see https://github.com/OpenSourcePFCLibraries
+*/
+//
+//////////////////////////////////////////////////////////////////////////////
+
+integer	li_rc
+
+// Check arguments.
+if IsNull (ab_switch) then return -1
+
+if ab_Switch then
+	if IsNull(inv_style) Or not IsValid (inv_style) then
+		inv_style = create n_cst_winsrv_style
+		inv_style.of_SetRequestor (this)
+		li_rc = 1
+	end if
+else
+	if IsValid (inv_style) then
+		destroy inv_style
+		li_rc = 1
+	end if
+end if
+
+return li_rc
 end function
 
 event closequery;//////////////////////////////////////////////////////////////////////////////
