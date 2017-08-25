@@ -9,13 +9,18 @@ global type pfc_n_dda from dynamicdescriptionarea
 end type
 global pfc_n_dda pfc_n_dda
 
+type variables
+Protected:
+boolean		ib_IsObsolete
+end variables
+
 on pfc_n_dda.create
-call dynamicdescriptionarea::create
+call super::create
 TriggerEvent( this, "constructor" )
 end on
 
 on pfc_n_dda.destroy
-call dynamicdescriptionarea::destroy
 TriggerEvent( this, "destructor" )
+call super::destroy
 end on
 
