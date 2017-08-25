@@ -7,22 +7,36 @@ type os_memorystatus from structure within pfc_n_cst_platformunicode
 end type
 type os_size from structure within pfc_n_cst_platformunicode
 end type
+type os_memorystatusex from structure within pfc_n_cst_platformunicode
+end type
 end forward
 
 type os_memorystatus from structure
-    unsignedlong ul_length
-    unsignedlong ul_memoryload
-    unsignedlong ul_totalphys
-    unsignedlong ul_availphys
-    unsignedlong ul_totalpagefile
-    unsignedlong ul_availpagefile
-    unsignedlong ul_totalvirtual
-    unsignedlong ul_availvirtual
+	unsignedlong		ul_length
+	unsignedlong		ul_memoryload
+	unsignedlong		ul_totalphys
+	unsignedlong		ul_availphys
+	unsignedlong		ul_totalpagefile
+	unsignedlong		ul_availpagefile
+	unsignedlong		ul_totalvirtual
+	unsignedlong		ul_availvirtual
 end type
 
 type os_size from structure
     long l_cx
     long l_cy
+end type
+
+type os_memorystatusex from structure
+	unsignedlong		dwlength
+	unsignedlong		dwmemoryload
+	longlong		ulltotalphys
+	longlong		ullavailphys
+	longlong		ulltotalpagefile
+	longlong		ullavailpagefile
+	longlong		ulltotalvirtual
+	longlong		ullavailvirtual
+	longlong		ullavailextendedvirtual
 end type
 
 global type pfc_n_cst_platformunicode from n_cst_platform
@@ -42,8 +56,6 @@ Function ulong GetModuleHandleW(string modname) Library "KERNEL32.DLL"
 
 // Window functions
 Function ulong GetWindowTextW(ulong handle, ref string wintext, ulong length) Library "USER32.DLL"
-Function ulong GetWindowsDirectoryW (ref string dirtext, ulong textlen) library "KERNEL32.DLL"
-Function ulong GetSystemDirectoryW (ref string dirtext, ulong textlen) library "KERNEL32.DLL"
 Function ulong FindWindowW( ref string lpClassName, ref string lpWindowName) Library "USER32.DLL"
 Function ulong SHGetFolderPathW(ulong hwndOwner, integer nFolder, ulong hToken, ulong dwFlags, ref string pszPath) Library "SHELL32.DLL"
 
@@ -53,11 +65,26 @@ function boolean GetComputerNameW(ref string  lpBuffer, ref ulong nSize) library
 
 // Get text size
 Function boolean SystemParametersInfoW(uint wActon, uint wParam, REF int pvParam, uint fUpdateProfile) Library "USER32.DLL"
-Function ulong GetDC(ulong hWnd) Library "USER32.DLL"
-Function long ReleaseDC(ulong hWnd, ulong hdcr) Library "USER32.DLL"
 Function boolean GetTextExtentPoint32W(ulong hdcr, string lpString, long nCount, ref os_size size) Library "GDI32.DLL"
 Function ulong SelectObject(ulong hdc, ulong hWnd) Library "GDI32.DLL"
 
+Private:
+
+	// Kernel32 - Memory Management
+	FUNCTION Boolean GlobalMemoryStatusEx(REF os_memoryStatusEx lpBuffer ) LIBRARY "kernel32.DLL"
+
+Public:
+
+	//	User32 - Menu
+	FUNCTION Integer GetMenuString(unsignedLong hMenu, unsignedInteger uIDItem, REF String lpString, integer nMaxCount, unsignedInteger uFlag) LIBRARY "user32.dll" ALIAS FOR "GetMenuStringW" 
+	FUNCTION Boolean InsertMenu(unsignedLong hMenu, unsignedInteger uPosition, unsignedInteger uFlags, unsignedInteger uIDNewItem, REF String lpNewItem) LIBRARY "user32.dll" ALIAS FOR "InsertMenuW" 
+	FUNCTION Boolean InsertMenu(unsignedLong hMenu, unsignedInteger uPosition, unsignedInteger uFlags, unsignedInteger uIDNewItem) LIBRARY "user32.dll" ALIAS FOR "InsertMenuW" 
+	FUNCTION Boolean ModifyMenu(unsignedLong hMenu, unsignedInteger uPosition, unsignedInteger uFlags, unsignedInteger uIDNewItem, REF String lpNewItem) LIBRARY "user32.dll" ALIAS FOR "ModifyMenuW"
+	FUNCTION Boolean ModifyMenu(unsignedLong hMenu, unsignedInteger uPosition, unsignedInteger uFlags, unsignedInteger uIDNewItem) LIBRARY "user32.dll" ALIAS FOR "ModifyMenuW"
+	
+	//	User32 - Window Class
+	FUNCTION Long GetWindowLong(unsignedLong hWnd, Integer nIndex) LIBRARY "user32.dll" ALIAS FOR "GetWindowLongW"
+	FUNCTION Long SetWindowLong(unsignedLong hWnd, Integer nIndex, unsignedLong dwNewLong) LIBRARY "user32.dll" ALIAS FOR "SetWindowLongW"
 end prototypes
 
 type variables
@@ -145,31 +172,32 @@ constant integer FOLDER_CDBURN_AREA             = 59    // Temporary burn direct
 end variables
 
 forward prototypes
-public function unsignedinteger of_FindWindow (string as_window_name)
+public function unsignedinteger of_findwindow (string as_window_name)
 public function integer of_GetActiveWindowBorder ()
 public function string of_GetComputerName ()
-public function long of_GetFreeMemory ()
-public function long of_GetPhysicalMemory ()
-public function string of_GetSystemDirectory ()
+public function longlong of_getfreememory ()
+public function longlong of_getphysicalmemory ()
+public function string of_getsystemdirectory ()
 public function integer of_GetTextSize (ref window aw_obj, string as_text, string as_fontface, integer ai_fontsize, boolean ab_bold, boolean ab_italic, boolean ab_underline, ref integer ai_height, ref integer ai_width)
 public function string of_GetUserID ()
-public function string of_GetWindowsDirectory ()
+public function string of_getwindowsdirectory ()
 public function string of_GetWindowText (unsignedinteger ai_handle)
 public function integer of_PlaySound (string as_file)
 public function integer of_getknownfolderpath (integer ai_foldercode, ref string as_folderpath)
 public function integer of_getknownfolderpath (integer ai_foldercode, boolean ab_currentpath, ref string as_folderpath)
+public function integer of_maxpath ()
 end prototypes
 
-public function unsignedinteger of_FindWindow (string as_window_name);//////////////////////////////////////////////////////////////////////////////
-//	Public Function:		of_FindWindow
+public function unsignedinteger of_findwindow (string as_window_name);//////////////////////////////////////////////////////////////////////////////
+//	Public Function:	of_FindWindow
 //	Arguments: 			as_window_name - window text to search for
 //	Returns:  			uint  - window handle
 //	Description:  		Return the handle of the window passed in by window name (Window Title)
 //////////////////////////////////////////////////////////////////////////////
-//	Rev. History			Version
-//							5.0   Initial version
+//	Rev. History		Version
+//							5.0   	Initial version
 //							5.0.03	Changed Uint variables to Ulong for NT4.0 compatibility
-// 							7.0 	Moved the class names into an instance array.  Allow for multiple class names.
+// 						7.0 		Moved the class names into an instance array.  Allow for multiple class names.
 //////////////////////////////////////////////////////////////////////////////
 /*
  * Open Source PowerBuilder Foundation Class Libraries
@@ -293,16 +321,18 @@ else
 end if
 end function
 
-public function long of_GetFreeMemory ();//////////////////////////////////////////////////////////////////////////////
-//	Public Function:		of_GetFreeMemory
+public function longlong of_getfreememory ();//////////////////////////////////////////////////////////////////////////////
+//	Public Function:	of_GetFreeMemory
 //	Arguments: 			none
-//	Returns:  			long - 	bytes of memory
+//	Returns:  			longLong	-	bytes of memory
 //	Description:  		returns the number of bytes of memory currently available 
 //////////////////////////////////////////////////////////////////////////////
-//	Rev. History			Version
+//	Rev. History		Version
 //							5.0   Initial version
-//							8.0		Changed from lstr_memory.ul_availpagefile to
+//							8.0	Changed from lstr_memory.ul_availpagefile to
 //									to lstr_memory.ul_availpagefile
+//							12.5	Changed to use GlobalMemoryStatusEx and return
+//									longLong dataType
 //////////////////////////////////////////////////////////////////////////////
 /*
  * Open Source PowerBuilder Foundation Class Libraries
@@ -324,25 +354,27 @@ public function long of_GetFreeMemory ();///////////////////////////////////////
  * Libraries see https://github.com/OpenSourcePFCLibraries
 */
 //////////////////////////////////////////////////////////////////////////////
-os_memorystatus lstr_memory
+os_memoryStatusEx		lstr_memory
 
-//structure size is 8 ulong's or 8 * 4 bytes
-lstr_memory.ul_length = 32
+//	Structure size is 7 LongLongs and 2 unsignedLongs or (7 * 8) + (2 * 4) bytes
+lstr_memory.dwLength	= 64
 
-GlobalMemoryStatus(lstr_memory)
+GlobalMemoryStatusEx(lstr_memory)
 
-//bytes of physical memory available
-Return (lstr_memory.ul_availphys)
+//	Bytes of physical memory available
+Return(lstr_memory.ullAvailPhys)
 end function
 
-public function long of_GetPhysicalMemory ();//////////////////////////////////////////////////////////////////////////////
-//	Public Function:		of_GetPhysicalMemory
+public function longlong of_getphysicalmemory ();//////////////////////////////////////////////////////////////////////////////
+//	Public Function:	of_GetPhysicalMemory
 //	Arguments: 			none
-//	Returns:  			long -  total memory
+//	Returns:  			longLong	-	total memory
 //	Description:  		Return the total physical memory (RAM) installed in the machine
 //////////////////////////////////////////////////////////////////////////////
-//	Rev. History			Version
+//	Rev. History		Version
 //							5.0   Initial version
+//							12.5	Changed to use GlobalMemoryStatusEx and return
+//									longLong dataType
 //////////////////////////////////////////////////////////////////////////////
 /*
  * Open Source PowerBuilder Foundation Class Libraries
@@ -364,28 +396,30 @@ public function long of_GetPhysicalMemory ();///////////////////////////////////
  * Libraries see https://github.com/OpenSourcePFCLibraries
 */
 //////////////////////////////////////////////////////////////////////////////
-os_memorystatus lstr_memory
+os_memoryStatusEx		lstr_memory
 
-//structure size is 8 ulong's or 8 * 4 bytes
-lstr_memory.ul_length = 32
+//	Structure size is 7 LongLongs and 2 unsignedLongs or (7 * 8) + (2 * 4) bytes
+lstr_memory.dwLength	= 64
 
-GlobalMemoryStatus(lstr_memory)
+GlobalMemoryStatusEx(lstr_memory)
 
-//bytes of virtual memory available
-Return (lstr_memory.ul_totalphys)
+//	Bytes of virtual memory available
+Return(lstr_memory.ullTotalPhys)
 end function
 
-public function string of_GetSystemDirectory ();//////////////////////////////////////////////////////////////////////////////
-//	Public Function:		of_GetSystemDirectory
+public function string of_getsystemdirectory ();//////////////////////////////////////////////////////////////////////////////
+//	Public Function:	of_GetSystemDirectory
 //	Arguments: 			none
 //	Returns:  			string 
 //							system directory
 //							"" if error			
 //	Description:  		Return the window's system directory
 //////////////////////////////////////////////////////////////////////////////
-//	Rev. History			Version
+//	Rev. History		Version
 //							5.0   Initial version
 //							5.0.03	Changed Uint variables to Ulong for NT4.0 compatibility
+//							12.5		Logic has been moved to fileSrv object.  This is 
+//										is here for backward compatibility.
 //////////////////////////////////////////////////////////////////////////////
 /*
  * Open Source PowerBuilder Foundation Class Libraries
@@ -407,19 +441,17 @@ public function string of_GetSystemDirectory ();////////////////////////////////
  * Libraries see https://github.com/OpenSourcePFCLibraries
 */
 //////////////////////////////////////////////////////////////////////////////
-ulong		lul_size = 260 // MAX_PATH
-ulong		lul_rc
-string 	ls_dir 
 
-ls_dir = space(lul_size)
+n_cst_fileSrv				lnvo_fileSrv
 
-lul_rc = GetSystemDirectoryW(ls_dir, lul_size)
+f_setFileSrv(lnvo_fileSrv, TRUE)
 
-if lul_rc > 0 THEN
-	return ls_dir
-else
-	return ""
-end if
+String						ls_systemDirectory
+ls_systemDirectory		= lnvo_fileSrv.of_getSystemDirectory()
+
+f_setFileSrv(lnvo_fileSrv, FALSE)
+
+Return(ls_systemDirectory)
 end function
 
 public function integer of_GetTextSize (ref window aw_obj, string as_text, string as_fontface, integer ai_fontsize, boolean ab_bold, boolean ab_italic, boolean ab_underline, ref integer ai_height, ref integer ai_width);//////////////////////////////////////////////////////////////////////////////
@@ -562,17 +594,19 @@ else
 end if
 end function
 
-public function string of_GetWindowsDirectory ();//////////////////////////////////////////////////////////////////////////////
-//	Public Function:		of_GetWindowsDirectory
+public function string of_getwindowsdirectory ();//////////////////////////////////////////////////////////////////////////////
+//	Public Function:	of_GetWindowsDirectory
 //	Arguments: 			none
 //	Returns:  			string 
 //							windows directoy
 //							"" if error
 //	Description:  		Return the window's directory
 //////////////////////////////////////////////////////////////////////////////
-//	Rev. History			Version
-//							5.0   Initial version
+//	Rev. History		Version
+//							5.0   	Initial version
 //							5.0.03	Changed int variables to Ulong for NT4.0 compatibility
+//							12.5		Logic has been moved to fileSrv object.  This is 
+//										is here for backward compatibility.
 //////////////////////////////////////////////////////////////////////////////
 /*
  * Open Source PowerBuilder Foundation Class Libraries
@@ -594,19 +628,17 @@ public function string of_GetWindowsDirectory ();///////////////////////////////
  * Libraries see https://github.com/OpenSourcePFCLibraries
 */
 //////////////////////////////////////////////////////////////////////////////
-ulong 	lul_size = 260 // MAX_PATH
-ulong		lul_rc
-string 	ls_dir 
 
-ls_dir = space(lul_size)
+n_cst_fileSrv				lnvo_fileSrv
 
-lul_rc = GetWindowsDirectoryW(ls_dir, lul_size)
+f_setFileSrv(lnvo_fileSrv, TRUE)
 
-if lul_rc > 0 THEN
-	return ls_dir
-else
-	return ""
-end if
+String						ls_windowsDirectory
+ls_windowsDirectory		= lnvo_fileSrv.of_getWindowsDirectory()
+
+f_setFileSrv(lnvo_fileSrv, FALSE)
+
+Return(ls_windowsDirectory)
 
 end function
 
@@ -838,6 +870,9 @@ Choose Case lul_rc
 End Choose
 
 Return li_rc
+end function
+
+public function integer of_maxpath ();Return(32767)
 end function
 
 on pfc_n_cst_platformunicode.create
