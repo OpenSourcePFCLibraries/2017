@@ -23,6 +23,11 @@ boolean focusrectangle = false
 end type
 global pfc_u_sth pfc_u_sth
 
+type variables
+Protected:
+boolean		ib_IsObsolete
+end variables
+
 forward prototypes
 public function integer of_getparentwindow (ref window aw_parent)
 public function integer of_messagebox (string as_id, string as_title, string as_text, icon ae_icon, button ae_button, integer ai_default)
@@ -206,4 +211,10 @@ if gnv_app.of_GetMicrohelp() then
 end if
 
 end event
+
+on pfc_u_sth.create
+end on
+
+on pfc_u_sth.destroy
+end on
 
