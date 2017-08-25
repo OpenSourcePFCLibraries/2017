@@ -9,6 +9,11 @@ global type pfc_n_cn from connection
 end type
 global pfc_n_cn pfc_n_cn
 
+type variables
+Protected:
+boolean		ib_IsObsolete
+end variables
+
 forward prototypes
 public function integer of_init (string as_inifile, string as_inisection)
 public function integer of_init (string as_registrykey)
@@ -222,12 +227,12 @@ Return MessageBox(as_title, as_text, ae_icon, ae_button, ai_default)
 end function
 
 on pfc_n_cn.create
-call connection::create
+call super::create
 TriggerEvent( this, "constructor" )
 end on
 
 on pfc_n_cn.destroy
-call connection::destroy
 TriggerEvent( this, "destructor" )
+call super::destroy
 end on
 
