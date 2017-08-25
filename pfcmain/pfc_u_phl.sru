@@ -6,14 +6,19 @@ end type
 end forward
 
 global type pfc_u_phl from picturehyperlink
-integer width = 132
-integer height = 115
+integer width = 133
+integer height = 116
 string dragicon = "none!"
 string pointer = "HyperLink!"
 boolean originalsize = true
 boolean focusrectangle = false
 end type
 global pfc_u_phl pfc_u_phl
+
+type variables
+Protected:
+boolean		ib_IsObsolete
+end variables
 
 forward prototypes
 protected function integer of_MessageBox (string as_id, string as_title, string as_text, icon ae_icon, button ae_button, integer ai_default)
@@ -199,4 +204,10 @@ If gnv_app.of_GetMicrohelp() Then
 End If
 
 end event
+
+on pfc_u_phl.create
+end on
+
+on pfc_u_phl.destroy
+end on
 
