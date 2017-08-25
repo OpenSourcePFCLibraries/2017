@@ -76,6 +76,7 @@ public function string of_globalreplacenew (string as_source, string as_old, str
 public function integer of_getglobalreplacemethod ()
 public function integer of_setglobalreplacemethod (integer ai_method)
 public function string of_removepunctuation (string as_source)
+public function string of_urlencode (string as_value)
 end prototypes
 
 public function long of_parsetoarray (string as_source, string as_delimiter, ref string as_array[]);//////////////////////////////////////////////////////////////////////////////
@@ -86,14 +87,14 @@ public function long of_parsetoarray (string as_source, string as_delimiter, ref
 //
 //	Arguments:
 //	as_Source   The string to parse.
-//	as_Delimiter   The delimeter string.
+//	as_Delimiter   The delimiter string.
 //	as_Array[]   The array to be filled with the parsed strings, passed by reference.
 //
 //	Returns:  long
 //	The number of elements in the array.
-//	If as_Source or as_Delimeter is NULL, function returns NULL.
+//	If as_Source or as_Delimiter is NULL, function returns NULL.
 //
-//	Description:  Parse a string into array elements using a delimeter string.
+//	Description:  Parse a string into array elements using a delimiter string.
 //
 //////////////////////////////////////////////////////////////////////////////
 //
@@ -102,8 +103,12 @@ public function long of_parsetoarray (string as_source, string as_delimiter, ref
 //	Version
 //	5.0   Initial version
 //	5.0.02   Fixed problem when delimiter is last character of string.
-
-//	   Ref array and return code gave incorrect results.
+//	   		Ref array and return code gave incorrect results.
+//	12.5		Optimized
+//				Changed behavior: #11020
+//					reset return array at start
+//					return additional empty item when delimiter is last character of string
+//					return also one item when string is empty
 //
 //////////////////////////////////////////////////////////////////////////////
 //
@@ -130,24 +135,25 @@ public function long of_parsetoarray (string as_source, string as_delimiter, ref
 //////////////////////////////////////////////////////////////////////////////
 
 long		ll_DelLen, ll_Pos, ll_Count, ll_Start, ll_Length
-string 	ls_holder
+string 	ls_upper_source, ls_empty[]
+
+//Reset array
+as_Array = ls_empty
 
 //Check for NULL
 IF IsNull(as_source) or IsNull(as_delimiter) Then
-	long ll_null
-	SetNull(ll_null)
-	Return ll_null
+	SetNull(ll_Count)
+	Return ll_Count
 End If
 
-//Check for at leat one entry
-If Trim (as_source) = '' Then
-	Return 0
-End If
+//ignore case
+as_Delimiter = Upper(as_Delimiter)
+ls_upper_source = Upper(as_source)
 
-//Get the length of the delimeter
+//Get the length of the delimiter
 ll_DelLen = Len(as_Delimiter)
 
-ll_Pos =  Pos(Upper(as_source), Upper(as_Delimiter))
+ll_Pos = Pos(ls_upper_source, as_Delimiter)
 
 //Only one entry was found
 if ll_Pos = 0 then
@@ -160,28 +166,20 @@ ll_Count = 0
 ll_Start = 1
 Do While ll_Pos > 0
 	
-	//Set current entry
+	//Add current entry to array
 	ll_Length = ll_Pos - ll_Start
-	ls_holder = Mid (as_source, ll_start, ll_length)
-
-	// Update array and counter
 	ll_Count ++
-	as_Array[ll_Count] = ls_holder
+	as_Array[ll_Count] = Mid (as_source, ll_start, ll_length)
 	
 	//Set the new starting position
 	ll_Start = ll_Pos + ll_DelLen
 
-	ll_Pos =  Pos(Upper(as_source), Upper(as_Delimiter), ll_Start)
+	ll_Pos = Pos(ls_upper_source, as_Delimiter, ll_Start)
 Loop
 
-//Set last entry
-ls_holder = Mid (as_source, ll_start, Len (as_source))
-
-// Update array and counter if necessary
-if Len (ls_holder) > 0 then
-	ll_count++
-	as_Array[ll_Count] = ls_holder
-end if
+//Add last entry to array (also if empty #11020)
+ll_count++
+as_Array[ll_Count] = Mid (as_source, ll_start, Len (as_source))
 
 //Return the number of entries found
 Return ll_Count
@@ -2064,6 +2062,7 @@ public function string of_getkeyvalue (string as_source, string as_keyword, stri
 //	Version
 //	5.0   Initial version
 //	6.0.01	Make function find only an exact match of the keyword
+//	12.5	accept spaces after separator (#11014)
 //
 //////////////////////////////////////////////////////////////////////////////
 //
@@ -2110,15 +2109,15 @@ do while not lb_done
 		as_source = LeftTrim(Right(as_source, Len(as_source) - (li_keyword + Len(as_keyword) - 1)))
 		// see if this is an exact match.  Either the match will be at the start of the string or
 		// the match will be after a separator character.  So check for both cases
-		li_equal = li_keyword - len(as_separator)
-		If li_equal > 0 Then
-			// not the start so see if this is a compound occurance separated by the separator string
-			ls_exact = mid(ls_source, li_equal, len(as_separator))  
-			If ls_exact <> as_separator Then
-				// not the separator string so continue looking
-				Continue
-			End IF
-		End If
+
+		// accept spaces after separator (#11014)
+		li_equal = LastPos (ls_source, as_separator, li_keyword - 1)
+		IF li_equal > 0 THEN 
+			li_equal += Len(as_separator)
+			IF Trim (Mid (ls_source, li_equal, li_keyword - li_equal)) > "" THEN continue
+		ELSE
+			IF Trim (Left (ls_source, li_keyword - 1)) > "" THEN continue
+		END IF
 
 		if Left(as_source, 1) = "=" then
 			li_separator = Pos (as_source, as_separator, 2)
@@ -2164,6 +2163,8 @@ public function integer of_setkeyvalue (ref string as_source, string as_keyword,
 //
 //	Version
 //	5.0   Initial version
+//	12.5  accept spaces after separator
+//			do not check if only partial match of keyword (#11014)
 //
 //////////////////////////////////////////////////////////////////////////////
 //
@@ -2207,6 +2208,18 @@ do
 	li_keyword = Pos (Lower(as_source), Lower(as_keyword), li_keyword + 1)
 	if li_keyword > 0 then
 		ls_temp = LeftTrim (Right (as_source, Len(as_source) - (li_keyword + Len(as_keyword) - 1)))
+		
+		// #11014
+		// - do not change if only partial match of keyword
+		// - accept spaces after separator
+		li_equal = LastPos (as_source, as_separator, li_keyword - 1)
+		IF li_equal > 0 THEN 
+			li_equal += Len(as_separator)
+			IF Trim (Mid (as_source, li_equal, li_keyword - li_equal)) > "" THEN continue
+		ELSE
+			IF Trim (Left (as_source, li_keyword - 1)) > "" THEN continue
+		END IF
+		
 		if Left (ls_temp, 1) = "=" then
 			li_equal = Pos (as_source, "=", li_keyword + 1)
 			li_separator = Pos (as_source, as_separator, li_equal + 1)
@@ -2903,6 +2916,7 @@ public function long of_arraytostring (string as_source[], string as_delimiter, 
 //			processing of an empty string.  The default behavior is to dissallow 
 //			empty string to remain backwards compatible.  Call the 4 argument 
 //			version of the function if the empty string processing is desired.
+//	12.5	Process empty items by default so the behavior is invers to of_parsetoarray (#11020)
 //
 //////////////////////////////////////////////////////////////////////////////
 //
@@ -2928,7 +2942,7 @@ public function long of_arraytostring (string as_source[], string as_delimiter, 
 //
 //////////////////////////////////////////////////////////////////////////////
 
-return of_arraytostring(as_source[], as_delimiter, FALSE, as_ref_string)
+return of_arraytostring(as_source[], as_delimiter, TRUE, as_ref_string)
 
 end function
 
@@ -2960,6 +2974,7 @@ public function long of_arraytostring (string as_source[], string as_delimiter, 
 //	7.0   Initial version
 //			Overloaded an existing of_arraytostring to optionally allow processing 
 //			of empty string arguments.
+//	12.5	Changed: Now optionally ignore empty string arguments (#11020)
 //
 //////////////////////////////////////////////////////////////////////////////
 //
@@ -3818,6 +3833,112 @@ FOR ll_loop = 1 TO ll_source_len
 NEXT
 
 Return ls_source
+
+end function
+
+public function string of_urlencode (string as_value);//////////////////////////////////////////////////////////////////////////////
+//
+// Function:      of_URLEncode
+//
+//	Access: 			public
+//
+//	Arguments:
+// as_Value       String   value to encode for URL
+//
+//	Returns: 		String   The encoded value
+//
+//	Description:   Encodes a string to use as parameter in URL.
+//			         - Not encoded chars (because not reserved for special use): 
+//                      a - z, A - Z, 0 - 9
+//			               - _ . ! ~ * ' ( )
+//			         - Space: +
+//			         - all other ASCII chars: %xy (xy = hex value of the char)
+//			         - all non ASCII chars: converted into two or thee Bytes, each encoded as %xy
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+//	Revision History
+//
+//	Version
+//	12.5  Initial version
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+/*
+ * Open Source PowerBuilder Foundation Class Libraries
+ *
+ * Copyright (c) 2004-2013, All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted in accordance with the MIT License
+
+ *
+ * https://opensource.org/licenses/MIT
+ *
+ * ====================================================================
+ *
+ * This software consists of voluntary contributions made by many
+ * individuals and was originally based on software copyright (c) 
+ * 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
+ * information on the Open Source PowerBuilder Foundation Class
+ * Libraries see https://github.com/OpenSourcePFCLibraries
+*/
+//
+//////////////////////////////////////////////////////////////////////////////
+
+string ls_return
+char lc_char
+long ll_i, ll_len
+n_cst_numerical lnv_numerical
+
+
+IF IsNull (as_value) THEN return ""
+
+ll_len = Len (as_value)
+FOR ll_i = 1 TO ll_len
+	lc_char = Mid (as_value, ll_i, 1)
+	IF (ASC ('A') <= ASC (lc_char) AND ASC (lc_char) <= ASC ('Z')) THEN		// 'A'..'Z'
+		ls_return += string (lc_char)
+		
+	ELSEIF (ASC ('a') <= ASC (lc_char) AND ASC (lc_char) <= ASC ('z')) THEN	// 'a'..'z'
+		ls_return += string (lc_char)
+		
+	ELSEIF (ASC ('0') <= ASC (lc_char) AND ASC (lc_char) <= ASC ('9')) THEN	// '0'..'9'
+		ls_return += string (lc_char)
+		
+	ELSEIF (lc_char = ' ') THEN							// space
+		ls_return += "+"
+		
+	ELSEIF (lc_char = '-' OR lc_char = '_'	OR & 		
+				lc_char = '.' OR lc_char = '!' OR &
+				lc_char = '~~' OR lc_char = '*' OR &
+				lc_char = "'" OR lc_char = '(' OR &
+				lc_char = ')') THEN 							// unreserved
+		ls_return += string (lc_char)
+		
+	ELSEIF (ASC (lc_char) <= 127) THEN					// other ASCII
+		ls_return += "%" + Right ("00" + lnv_numerical.of_hex (ASC (lc_char)), 2)
+		
+	ELSEIF (ASC (lc_char) <= 2047) THEN					// non-ASCII <= 0x7FF
+		// 0xc0 | (lc_char >> 6)
+		ls_return += "%" + Right ("00" + lnv_numerical.of_hex (lnv_numerical.of_bitwiseor (192, INT (ASC (lc_char) / 2^6))), 2)
+		
+		// 0x80 | (lc_char & 0x3F)
+		ls_return += "%" + Right ("00" + lnv_numerical.of_hex (lnv_numerical.of_bitwiseor (128, lnv_numerical.of_bitwiseand (ASC (lc_char), 63))), 2)
+		
+	ELSE															// 0x7FF < lc_char <= 0xFFFF
+		// 0xe0 | (lc_char >> 12)
+		ls_return += "%" + Right ("00" + lnv_numerical.of_hex (lnv_numerical.of_bitwiseor (224, INT (ASC (lc_char) / 2^12))), 2)
+		
+		// 0x80 | ((lc_char >> 6) & 0x3F)
+		ls_return += "%" + Right ("00" + lnv_numerical.of_hex (lnv_numerical.of_bitwiseor (128, lnv_numerical.of_bitwiseand (INT (ASC (lc_char) / 2^6), 63))), 2)
+		
+		// 0x80 | (lc_char & 0x3F)
+		ls_return += "%" + Right ("00" + lnv_numerical.of_hex (lnv_numerical.of_bitwiseor (128, lnv_numerical.of_bitwiseand (ASC (lc_char), 63))), 2)
+	END IF
+NEXT
+
+return ls_return
 
 end function
 
