@@ -561,7 +561,8 @@ End If
 return li_count
 end function
 
-protected function boolean of_findentry (string as_win, string as_object);//////////////////////////////////////////////////////////////////////////////
+protected function boolean of_findentry (string as_win, string as_object);// ##Obsolete##
+//////////////////////////////////////////////////////////////////////////////
 //
 //	Function:  of_FindEntry
 //
@@ -580,8 +581,9 @@ protected function boolean of_findentry (string as_win, string as_object);//////
 //	Revision History
 //
 //	Version
-//	5.0   Initial version
-// 6.0 	Marked obsolete
+//		5.0	Initial version
+// 		6.0	Marked obsolete
+// 	   12.5	Added Metaclass Service Obsolete Tag
 //
 //////////////////////////////////////////////////////////////////////////////
 //
@@ -614,7 +616,8 @@ ids_updates.rowsdiscard(ll_row,ll_row,primary!)
 return true
 end function
 
-protected function string of_gettag (string as_tag);//////////////////////////////////////////////////////////////////////////////
+protected function string of_gettag (string as_tag);// ##Obsolete##
+//////////////////////////////////////////////////////////////////////////////
 //
 //	Function:  of_GetTag
 //
@@ -636,6 +639,7 @@ protected function string of_gettag (string as_tag);////////////////////////////
 //	Version
 //	5.0   Initial version
 // 6.0 	Marked obsolete
+//	12.5	Added Metaclass Service Obsolete Tag
 //
 //////////////////////////////////////////////////////////////////////////////
 //
@@ -668,7 +672,8 @@ if ls_value = '' then ls_value = as_tag
 return ls_value
 end function
 
-protected function integer of_scandatawindow (string as_win_name, datawindow adw_scan, string as_object);//////////////////////////////////////////////////////////////////////////////
+protected function integer of_scandatawindow (string as_win_name, datawindow adw_scan, string as_object);// ##Obsolete##
+//////////////////////////////////////////////////////////////////////////////
 //
 //	Function: of_ScanDatawindow
 //
@@ -691,6 +696,7 @@ protected function integer of_scandatawindow (string as_win_name, datawindow adw
 //	Version
 //	5.0   Initial version
 // 6.0 	Marked obsolete
+//	12.5	Added Metaclass Service Obsolete Tag
 //
 //////////////////////////////////////////////////////////////////////////////
 //
@@ -750,7 +756,8 @@ loop
 return li_col_cnt
 end function
 
-public function integer of_initscanprocess (n_tr a_trans, string as_app, string as_lib_list[]);//////////////////////////////////////////////////////////////////////////////
+public function integer of_initscanprocess (n_tr a_trans, string as_app, string as_lib_list[]);// ##Obsolete##
+//////////////////////////////////////////////////////////////////////////////
 //
 //	Function:  of_InitScanProcess
 //
@@ -773,6 +780,7 @@ public function integer of_initscanprocess (n_tr a_trans, string as_app, string 
 //	Version
 //	5.0   Initial version
 // 6.0 	Marked obsolete
+//	12.5	Added Metaclass Service Obsolete Tag
 //
 //////////////////////////////////////////////////////////////////////////////
 //
@@ -815,7 +823,8 @@ return 1
 
 end function
 
-public function integer of_scanwindow (window aw_win);//////////////////////////////////////////////////////////////////////////////
+public function integer of_scanwindow (window aw_win);// ##Obsolete##
+//////////////////////////////////////////////////////////////////////////////
 //
 //	Function:  of_ScanWindow
 //
@@ -839,6 +848,7 @@ public function integer of_scanwindow (window aw_win);//////////////////////////
 //	Version
 //	5.0   Initial version
 // 6.0 	Marked obsolete
+//	12.5	Added Metaclass Service Obsolete Tag
 //
 //////////////////////////////////////////////////////////////////////////////
 //
@@ -922,7 +932,8 @@ end if
 	
 end function
 
-protected function integer of_scancontrolarray (string as_win_name, windowobject ao_objects[], string as_object_name);//////////////////////////////////////////////////////////////////////////////
+protected function integer of_scancontrolarray (string as_win_name, windowobject ao_objects[], string as_object_name);// ##Obsolete##
+//////////////////////////////////////////////////////////////////////////////
 //
 //	Function:  of_ScanControlArray
 //
@@ -946,6 +957,7 @@ protected function integer of_scancontrolarray (string as_win_name, windowobject
 //	Version
 //	5.0   Initial version
 // 6.0 	Marked obsolete
+//	12.5	Added Metaclass Service Obsolete Tag
 //
 //////////////////////////////////////////////////////////////////////////////
 //
@@ -1647,7 +1659,8 @@ return 1
 
 end function
 
-protected function integer of_addobject (string as_app, string as_winname, string as_object, string as_objecttype, string as_desc);//////////////////////////////////////////////////////////////////////////////
+protected function integer of_addobject (string as_app, string as_winname, string as_object, string as_objecttype, string as_desc);// ##Obsolete##
+//////////////////////////////////////////////////////////////////////////////
 //
 //	Function:  of_addobject
 //
@@ -1672,6 +1685,7 @@ protected function integer of_addobject (string as_app, string as_winname, strin
 //	5.0   Initial version
 // 5.0.03 Remove Non Printing chars from description
 // 6.0 	Marked obsolete 
+//	12.5	Added Metaclass Service Obsolete Tag
 //
 //////////////////////////////////////////////////////////////////////////////
 //
@@ -2022,7 +2036,8 @@ Return li_numset
 
 end function
 
-public function string of_gettype (windowobject a_object, ref string as_desc);//////////////////////////////////////////////////////////////////////////////
+public function string of_gettype (windowobject a_object, ref string as_desc);// ##Obsolete##
+//////////////////////////////////////////////////////////////////////////////
 //
 //	Function:  of_GetType
 //
@@ -2043,6 +2058,7 @@ public function string of_gettype (windowobject a_object, ref string as_desc);//
 //	Version
 //	5.0   Initial version
 // 6.0 	Marked obsolete
+//	12.5	Added Metaclass Service Obsolete Tag
 //
 //////////////////////////////////////////////////////////////////////////////
 //
