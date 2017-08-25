@@ -2832,14 +2832,12 @@ If li_numdigits > 32 Then Return lul_null
 lc_digit = as_binary
 
 lul_decimal = 0
-lul_factor  = 0
+lul_factor  = 1
 
 // Process the binary digit characters from least significant to most (Right to Left).
 For li_i = li_numdigits To 1 Step -1
-	lul_factor *= 2
-	If li_i = 1 Then lul_factor = 1
-	
 	If lc_digit[li_i] = '1' Then lul_decimal += lul_factor
+	lul_factor *= 2
 Next
 
 Return lul_decimal
@@ -2917,14 +2915,12 @@ If li_numdigits > 16 Then Return lui_null
 lc_digit = as_binary
 
 lui_decimal = 0
-lui_factor  = 0
+lui_factor  = 1
 
 // Process the binary digit characters from least significant to most (Right to Left).
 For li_i = li_numdigits To 1 Step -1
-	lui_factor *= 2
-	If li_i = 1 Then lui_factor = 1
-	
 	If lc_digit[li_i] = '1' Then lui_decimal += lui_factor
+	lui_factor *= 2
 Next
 
 Return lui_decimal
@@ -4528,14 +4524,12 @@ If li_numdigits > 8 Then Return lbyte_null
 lc_digit = as_binary
 
 lbyte_decimal = 0
-lbyte_factor  = 0
+lbyte_factor  = 1
 
 // Process the binary digit characters from least significant to most (Right to Left).
 For li_i = li_numdigits To 1 Step -1
-	lbyte_factor *= 2
-	If li_i = 1 Then lbyte_factor = 1
-	
 	If lc_digit[li_i] = '1' Then lbyte_decimal += lbyte_factor
+	lbyte_factor *= 2
 Next
 
 Return lbyte_decimal
