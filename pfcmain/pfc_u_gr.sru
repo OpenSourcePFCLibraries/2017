@@ -23,6 +23,11 @@ grsorttype categorysort = ascending!
 end type
 global pfc_u_gr pfc_u_gr
 
+type variables
+Protected:
+boolean		ib_IsObsolete
+end variables
+
 forward prototypes
 public function integer of_getparentwindow (ref window aw_parent)
 protected function integer of_messagebox (string as_id, string as_title, string as_text, icon ae_icon, button ae_button, integer ai_default)
