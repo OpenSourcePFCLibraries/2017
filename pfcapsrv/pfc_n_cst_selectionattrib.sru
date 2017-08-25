@@ -16,16 +16,16 @@ string	is_dataobject
 string	is_columnreturn[]
 string	is_title
 n_tr		itr_object
-powerobject	ipo_data[]
+any	ipo_data[]    // #11015 changed from powerobject to any because of gpfs (assign any[] of any[] to powerobject[])
 
 
 end variables
 
 on pfc_n_cst_selectionattrib.create
-TriggerEvent( this, "constructor" )
+call super::create
 end on
 
 on pfc_n_cst_selectionattrib.destroy
-TriggerEvent( this, "destructor" )
+call super::destroy
 end on
 
