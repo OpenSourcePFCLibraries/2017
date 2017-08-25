@@ -30,6 +30,8 @@ constant long	  LP_MW_UP = 18285400
 constant long	  WP_MW_down = 4287102976
 constant long	  LP_MW_down = 18023255
 
+Protected:
+boolean		ib_IsObsolete
 end variables
 
 forward prototypes
@@ -382,5 +384,28 @@ if message.number = WM_mousewheel then
 	end if
 	this.post event pfc_positionchanged( cst_moved , this.position)
 end if
+end event
+
+event moved;//////////////////////////////////////////////////////////////////////////////
+//
+// Event:			moved
+//
+// Access:			public
+//
+// Returns:			long
+//						
+//
+// Description:	Propagates event to pfc_positionchanged() event
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+// Revision History
+//
+// Version
+//	12.5		Initial version
+//////////////////////////////////////////////////////////////////////////////
+
+this.event pfc_positionchanged( CST_MOVED, scrollpos )
+
 end event
 
