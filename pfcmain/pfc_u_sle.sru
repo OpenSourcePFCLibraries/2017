@@ -32,8 +32,9 @@ global pfc_u_sle pfc_u_sle
 
 type variables
 Protected:
-boolean	ib_autoselect
-boolean	ib_rmbmenu = true
+boolean		ib_autoselect
+boolean		ib_rmbmenu = true
+boolean		ib_IsObsolete
 end variables
 
 forward prototypes
