@@ -6,11 +6,15 @@ end type
 end forward
 
 global type pfc_u_vsb from vscrollbar
-int Width=59
-int Height=272
-boolean Enabled=false
+integer width = 59
+integer height = 272
 end type
 global pfc_u_vsb pfc_u_vsb
+
+type variables
+Protected:
+boolean		ib_IsObsolete
+end variables
 
 forward prototypes
 public function integer of_getparentwindow (ref window aw_parent)
@@ -196,4 +200,10 @@ If gnv_app.of_GetMicrohelp() Then
 End If
 
 end event
+
+on pfc_u_vsb.create
+end on
+
+on pfc_u_vsb.destroy
+end on
 
