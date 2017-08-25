@@ -6,16 +6,22 @@ end type
 end forward
 
 global type pfc_n_ostg from olestorage
+long anchor = 874419756
 end type
 global pfc_n_ostg pfc_n_ostg
 
+type variables
+Protected:
+boolean		ib_IsObsolete
+end variables
+
 on pfc_n_ostg.create
-call olestorage::create
+call super::create
 TriggerEvent( this, "constructor" )
 end on
 
 on pfc_n_ostg.destroy
-call olestorage::destroy
 TriggerEvent( this, "destructor" )
+call super::destroy
 end on
 
