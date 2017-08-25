@@ -11,9 +11,10 @@ global pfc_n_msg pfc_n_msg
 
 type variables
 Protected:
-powerobject	ipo_parm
-string		is_parm
+powerobject		ipo_parm
+string			is_parm
 double		idbl_parm
+boolean		ib_IsObsolete
 end variables
 
 forward prototypes
@@ -454,12 +455,12 @@ Return idbl_parm
 end function
 
 on pfc_n_msg.create
-call message::create
+call super::create
 TriggerEvent( this, "constructor" )
 end on
 
 on pfc_n_msg.destroy
-call message::destroy
 TriggerEvent( this, "destructor" )
+call super::destroy
 end on
 
