@@ -6,18 +6,18 @@ end type
 end forward
 
 global type pfc_u_tab from tab
-int Width=896
-int Height=612
-int TabOrder=1
-boolean ShowPicture=false
-boolean RaggedRight=true
-int SelectedTab=1
-long BackColor=79741120
-int TextSize=-8
-int Weight=400
-string FaceName="MS Sans Serif"
-FontFamily FontFamily=Swiss!
-FontPitch FontPitch=Variable!
+integer width = 896
+integer height = 612
+integer taborder = 1
+integer textsize = -8
+integer weight = 400
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "MS Sans Serif"
+long backcolor = 79741120
+boolean raggedright = true
+boolean showpicture = false
+integer selectedtab = 1
 event resize pbm_size
 event type integer pfc_accepttext ( powerobject apo_control[],  boolean ab_focusonerror )
 event type integer pfc_validation ( powerobject apo_control[] )
@@ -44,6 +44,7 @@ Protected:
 // Logical Unit of Work -  SelfUpdatingObject - Save Process - (Attributes).
 boolean		ib_isupdateable = True
 boolean		ib_alwaysvalidate = false // Save process flag to include all objects in validation process.
+boolean		ib_IsObsolete
 powerobject	ipo_updaterequestor
 powerobject	ipo_pendingupdates[]
 powerobject	ipo_updateobjects[]
