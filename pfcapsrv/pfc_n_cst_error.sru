@@ -2272,9 +2272,9 @@ If Len(Trim(as_msgid)) >0 Then
 			
 			// Get the text and perform any needed conversions.
 			inv_errorpass.is_text = ids_messages.Object.msgtext[ll_row]
-			inv_errorpass.is_text = inv_string.of_GlobalReplace (inv_errorpass.is_text, '~~r', '~r')
-			inv_errorpass.is_text = inv_string.of_GlobalReplace (inv_errorpass.is_text, '~~n', '~n')
-			inv_errorpass.is_text = inv_string.of_GlobalReplace (inv_errorpass.is_text, '~~t', '~t')
+			inv_errorpass.is_text = inv_string.of_GlobalReplace (inv_errorpass.is_text, '~~r', '~r', TRUE)
+			inv_errorpass.is_text = inv_string.of_GlobalReplace (inv_errorpass.is_text, '~~n', '~n', TRUE)
+			inv_errorpass.is_text = inv_string.of_GlobalReplace (inv_errorpass.is_text, '~~t', '~t', TRUE)
 
 			// Get the rest of the information.			
 			li_rc = inv_conversion.of_icon(ids_messages.Object.msgicon[ll_row], inv_errorpass.ie_icon )
@@ -3054,10 +3054,10 @@ End If
 end event
 
 on pfc_n_cst_error.create
-TriggerEvent( this, "constructor" )
+call super::create
 end on
 
 on pfc_n_cst_error.destroy
-TriggerEvent( this, "destructor" )
+call super::destroy
 end on
 
