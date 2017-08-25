@@ -6,11 +6,15 @@ end type
 end forward
 
 global type pfc_u_hsb from hscrollbar
-int Width=302
-int Height=52
-boolean Enabled=false
+integer width = 302
+integer height = 52
 end type
 global pfc_u_hsb pfc_u_hsb
+
+type variables
+Protected:
+boolean		ib_IsObsolete
+end variables
 
 forward prototypes
 public function integer of_getparentwindow (ref window aw_parent)
@@ -196,4 +200,10 @@ If gnv_app.of_GetMicrohelp() Then
 End If
 
 end event
+
+on pfc_u_hsb.create
+end on
+
+on pfc_u_hsb.destroy
+end on
 
