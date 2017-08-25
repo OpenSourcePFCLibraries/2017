@@ -3145,8 +3145,9 @@ protected function integer of_reset ();/////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 //	Rev. History			Version
 //							6.0		Initial version
-// 							7.0 	On invalid date set the reset date to Null
+// 						7.0 		On invalid date set the reset date to Null
 //							8.0		Change to conversion service to convert date when datetype is datetime
+//							12.5		RU: No ColType check (Issue #12132)
 //////////////////////////////////////////////////////////////////////////////
 /*
  * Open Source PowerBuilder Foundation Class Libraries
@@ -3168,7 +3169,7 @@ protected function integer of_reset ();/////////////////////////////////////////
  * Libraries see https://github.com/OpenSourcePFCLibraries
 */
 //////////////////////////////////////////////////////////////////////////////
-string					ls_date, ls_colname, ls_coltype
+string				ls_date, ls_colname
 Integer				li_FirstDayNum, li_Cell, li_DaysInMonth
 String				ls_Year, ls_Return
 Date					ld_FirstDay
@@ -3202,12 +3203,7 @@ SetFocus(dw_cal)
 if Len(Trim(ls_date)) = 0 or IsNull(ls_date) or NOT IsDate( String ( Date ( ls_date ) ) ) then
 	SetNull(id_resetdate)
 else
-	CHOOSE CASE ls_coltype
-		CASE 'date'
-			id_resetdate = date(ls_date)
-		CASE ELSE
-			id_resetdate = lnv_conv.of_date(ls_date)
-	END CHOOSE
+	id_resetdate = lnv_conv.of_date(ls_date)
 end if
 
 
@@ -3246,7 +3242,7 @@ protected function integer of_drawmonth (date ad_date);/////////////////////////
 //	7.0	Removed an invalid comparison to date($$HEX1$$1820$$ENDHEX$$50/50/1900$$HEX1$$1920$$ENDHEX$$)).  The comparison 
 //			is no longer needed.  Post 5.0.03 PowerBuilder date type cannot contain 
 //			an  invalid date with an exception of a null value.
-//
+//	12.5	Use the value for first week day from registry (#11004)
 //			
 //
 //////////////////////////////////////////////////////////////////////////////
@@ -3288,6 +3284,17 @@ String	ls_modifyexp
 Date		ldt_holiday[], ldt_markedday[]
 Boolean  lb_sundaybold, lb_saturdaybold, lb_holidaybold, lb_markeddaybold
 Long		ll_sundaycolor, ll_saturdaycolor, ll_holidaycolor, ll_markeddaycolor
+Integer	li_x, li_minx, li_firstweekdaynum
+String	ls_weekdaytext[7] = {"t_sunday", "t_monday", "t_tuesday", "t_wednesday", &
+										"t_thursday", "t_friday", "t_saturday"}
+
+// read first day of week from registry (#11004)
+IF RegistryGet ("HKEY_CURRENT_USER\Control Panel\International", "iFirstDayOfWeek", ls_cell) <> 1 THEN
+	ls_cell = "0"
+END IF
+// and convert the value from registry (0 = monday) for powerbuilder (1 = sunday)
+li_firstweekdaynum = Mod (Integer (ls_cell) + 1, 7) + 1
+
 
 //Get appropriate information.
 of_GetHoliday(ldt_holiday)
@@ -3300,6 +3307,30 @@ ll_sundaycolor = of_GetSundayColor()
 ll_saturdaycolor = of_GetSaturdayColor()
 ll_holidaycolor = of_GetHolidayColor()
 ll_markeddaycolor = of_GetMarkeddayColor()		
+
+
+// change position of week days if necessary (#11004)
+// get position and first week day in datawindow
+li_minx = Integer (dw_cal.Describe (ls_weekdaytext[1] + ".X"))
+li_day = 1
+FOR li_loop = 2 TO 7
+	li_x = Integer (dw_cal.Describe (ls_weekdaytext[li_loop] + ".X"))
+	IF li_x < li_minx THEN
+		li_minx = li_x
+		li_day = li_loop
+	END IF
+NEXT
+// if the first week day in datawindow is not the right one
+IF li_day <> li_firstweekdaynum THEN
+	// change position of week days
+	FOR li_loop = 1 TO 7
+		li_x = Integer (dw_cal.Describe ("cell" + String (Mod (7 + li_loop - li_firstweekdaynum, 7) + 1) + ".X"))
+		ls_modifyexp += ls_weekdaytext[li_loop] + ".X=" + string (li_x) + " "
+	NEXT
+	dw_cal.Modify (ls_modifyexp)
+	ls_modifyexp = ""
+END IF
+
 
 // Check the argument(s).
 If IsNull(ad_date) Then
@@ -3339,7 +3370,7 @@ End If
 
 //-- Update the DataWindow object to display the desired month --.
 //Find the weekday for the first day in the month.
-li_FirstDayNum = DayNumber(Date(li_year, li_month, 1))
+li_FirstDayNum = Mod (7 + DayNumber(Date(li_year, li_month, 1)) - li_firstweekdaynum, 7) + 1
 //Blank cells prior to the first day of the month.
 For li_loop = 1 to li_FirstDayNum
 	dw_cal.SetItem(1,li_loop,"")
@@ -3367,8 +3398,8 @@ ls_modifyexp = ''
 If lb_sundaybold Then li_weight = ii_boldfontweight &
 						Else li_weight = ii_normalfontweight
 For li_loop = 1 to 36 step 7
-	ls_modifyexp += "cell"+string(li_loop)+".Color='"+string(ll_sundaycolor)+"' " + &
-						 "cell"+string(li_loop)+".Font.Weight='"+string(li_weight)+"' "
+	ls_modifyexp += "cell"+string(Mod (7 + li_loop - li_firstweekdaynum, 7) + li_loop)+".Color='"+string(ll_sundaycolor)+"' " + &
+						 "cell"+string(Mod (7 + li_loop - li_firstweekdaynum, 7) + li_loop)+".Font.Weight='"+string(li_weight)+"' "
 Next
 dw_cal.Modify(ls_modifyexp)
 
@@ -3377,8 +3408,8 @@ ls_modifyexp = ''
 If lb_saturdaybold Then li_weight = ii_boldfontweight &
 						Else li_weight = ii_normalfontweight
 For li_loop = 7 to 42 step 7
-	ls_modifyexp += "cell"+string(li_loop)+".Color='"+string(ll_saturdaycolor)+"' " + &
-						 "cell"+string(li_loop)+".Font.Weight='"+string(li_weight)+"' "
+	ls_modifyexp += "cell"+string(Mod (7 + li_loop - li_firstweekdaynum, 7) + li_loop - 6)+".Color='"+string(ll_saturdaycolor)+"' " + &
+						 "cell"+string(Mod (7 + li_loop - li_firstweekdaynum, 7) + li_loop - 6)+".Font.Weight='"+string(li_weight)+"' "
 Next
 dw_cal.Modify(ls_modifyexp)
 
@@ -3391,7 +3422,7 @@ If li_upperbound > 0 Then
 	For li_loop = 1 to li_upperbound
 		ldt_special = ldt_holiday[li_loop]
 		If Year(ldt_special)=Year(ad_date) And Month(ldt_special)=Month(ad_date) Then
-			li_FirstDayNum = DayNumber(Date(Year(ldt_special), Month(ldt_special), 1))
+			li_FirstDayNum = Mod (7 + DayNumber(Date(Year(ldt_special), Month(ldt_special), 1)) - li_firstweekdaynum, 7) + 1
 			ls_cell = 'cell'+string(li_FirstDayNum + Day(ldt_special) - 1)
 			ls_modifyexp += ls_cell+".Color='"+string(ll_holidaycolor)+"' " + &
 								 ls_cell+".Font.Weight='"+string(li_weight)+"' "
@@ -3411,7 +3442,7 @@ If li_upperbound > 0 Then
 	For li_loop = 1 to li_upperbound
 		ldt_special = ldt_markedday[li_loop]
 		If Year(ldt_special)=Year(ad_date) And Month(ldt_special)=Month(ad_date) Then
-			li_FirstDayNum = DayNumber(Date(Year(ldt_special), Month(ldt_special), 1))
+			li_FirstDayNum = Mod (7 + DayNumber(Date(Year(ldt_special), Month(ldt_special), 1)) - li_firstweekdaynum, 7) + 1
 			ls_cell = 'cell'+string(li_FirstDayNum + Day(ldt_special) - 1)
 			ls_modifyexp += ls_cell+".Color='"+string(ll_markeddaycolor)+"' " + &
 								 ls_cell+".Font.Weight='"+string(li_weight)+"' "
@@ -3454,6 +3485,7 @@ protected function integer of_setdate (date ad_date, boolean ab_setrequestor);//
 //	7.0	Add code to always redraw for date matching 1/1/1900 to allow date 
 //			display for January 1900.  Previously the calendar did not redraw since 
 //			the initial value of the previous date was also 1/1/1900.
+//	12.5	Use the value for first week day from registry (#11004)
 //
 //////////////////////////////////////////////////////////////////////////////
 //
@@ -3484,6 +3516,7 @@ Integer 			li_month
 Integer 			li_year
 Integer 			li_day
 Integer  		li_FirstDayNum
+Integer			li_firstweekdaynum
 String			ls_newcell
 String			ls_date
 
@@ -3528,8 +3561,15 @@ If Len(Trim(is_prevcell)) > 0 Then
 	End If
 End If
 
+// read first day of week from registry (#11004)
+IF RegistryGet ("HKEY_CURRENT_USER\Control Panel\International", "iFirstDayOfWeek", ls_newcell) <> 1 THEN
+	ls_newcell = "0"
+END IF
+// and convert the value from registry (0 = monday) for powerbuilder (1 = sunday)
+li_firstweekdaynum = Mod (Integer (ls_newcell) + 1, 7) + 1
+
 //Highlight the current date.
-li_FirstDayNum = DayNumber(Date(li_year, li_month, 1))
+li_FirstDayNum = Mod (7 + DayNumber(Date(li_year, li_month, 1)) - li_firstweekdaynum, 7) + 1
 ls_newcell = 'cell'+string(li_FirstDayNum + li_day - 1)
 If dw_cal.Modify(ls_newcell + ".border=5") <> "" Then
 	li_rc = -1
