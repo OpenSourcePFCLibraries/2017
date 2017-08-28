@@ -34,6 +34,7 @@ Save Format v3.0(19990112)
  "pfeutil\\n_cst_debug.sru" "pfeutil\\pfeutil.pbl";
  "pfeutil\\u_tabpg_dwproperty_srvrowselection.sru" "pfeutil\\pfeutil.pbl";
  "pfeutil\\w_debuglog.srw" "pfeutil\\pfeutil.pbl";
+ "pfeutil\\w_debugjson.srw" "pfeutil\\pfeutil.pbl";
  "pfeutil\\n_cst_sqlspy.sru" "pfeutil\\pfeutil.pbl";
  "pfeutil\\w_dwproperty.srw" "pfeutil\\pfeutil.pbl";
  "pfeutil\\w_sqlspy.srw" "pfeutil\\pfeutil.pbl";
