@@ -1,0 +1,74 @@
+HA$PBExportHeader$f_removeduplicate.srf
+global type f_removeduplicate from function_object
+end type
+
+forward prototypes
+global function integer f_removeduplicate (ref any aa_array[])
+end prototypes
+
+global function integer f_removeduplicate (ref any aa_array[]);//////////////////////////////////////////////////////////////////////////////
+//
+// Function:		f_RemoveDuplicate
+//
+// Access:			Public
+//
+// Returns:			integer
+//						the number of remaining entries
+//
+// Description:	Remove all adjacent duplicated  entries from the
+//						specified array.
+//
+// Usage:			Call this method to remove adjacent duplicated entries
+//							from a specified array.
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+// Revision History
+//
+// Version
+//	12.5	Initial version
+//////////////////////////////////////////////////////////////////////////////
+//
+/*
+ * Open Source PowerBuilder Foundation Class Libraries
+ *
+ * Copyright (c) 2004-2017, All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted in accordance with the MIT License
+
+ *
+ * https://opensource.org/licenses/MIT
+ *
+ * ====================================================================
+ *
+ * This software consists of voluntary contributions made by many
+ * individuals and was originally based on software copyright (c) 
+ * 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
+ * information on the Open Source PowerBuilder Foundation Class
+ * Libraries see https://github.com/OpenSourcePFCLibraries
+*/
+//
+//////////////////////////////////////////////////////////////////////////////
+
+any la_tmp[]
+integer	li_i
+integer	li_limit
+integer	li_index = 1
+
+li_limit = upperbound( aa_array )
+la_tmp[1] = ""
+
+for li_i = 1 to li_limit
+	if aa_array[li_i] <> la_tmp[li_index] then
+		la_tmp[li_index] = aa_array[li_i]
+		li_index++
+		la_tmp[li_index] = aa_array[li_i]
+	end if
+next
+
+aa_array = la_tmp
+
+return upperbound( la_tmp )
+end function
+
