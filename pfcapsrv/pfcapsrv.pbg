@@ -12,6 +12,7 @@ Save Format v3.0(19990112)
  "pfcapsrv\\s_rgb_colorattrib.srs" "pfcapsrv\\pfcapsrv.pbl";
  "pfcapsrv\\s_xyz_colorattrib.srs" "pfcapsrv\\pfcapsrv.pbl";
  "pfcapsrv\\s_yxy_colorattrib.srs" "pfcapsrv\\pfcapsrv.pbl";
+ "pfcapsrv\\pbdom_entityreference.sru" "pfcapsrv\\pfcapsrv.pbl";
  "pfcapsrv\\pfc_n_cst_lvsrv.sru" "pfcapsrv\\pfcapsrv.pbl";
  "pfcapsrv\\pfc_n_cst_trregistration.sru" "pfcapsrv\\pfcapsrv.pbl";
  "pfcapsrv\\d_json_repository.srd" "pfcapsrv\\pfcapsrv.pbl";
@@ -27,7 +28,9 @@ Save Format v3.0(19990112)
  "pfcapsrv\\d_pfcsecurity_grouplookup.srd" "pfcapsrv\\pfcapsrv.pbl";
  "pfcapsrv\\pfc_n_cst_sqlattrib.sru" "pfcapsrv\\pfcapsrv.pbl";
  "pfcapsrv\\d_pfcsecurity_userlookup.srd" "pfcapsrv\\pfcapsrv.pbl";
+ "pfcapsrv\\pbdom_cdata.sru" "pfcapsrv\\pfcapsrv.pbl";
  "pfcapsrv\\pfc_w_find.srw" "pfcapsrv\\pfcapsrv.pbl";
+ "pfcapsrv\\pbdom_processinginstruction.sru" "pfcapsrv\\pfcapsrv.pbl";
  "pfcapsrv\\pfc_n_cst_lvsrv_sort.sru" "pfcapsrv\\pfcapsrv.pbl";
  "pfcapsrv\\pfc_n_cst_mruattrib.sru" "pfcapsrv\\pfcapsrv.pbl";
  "pfcapsrv\\s_pagesetupattrib.srs" "pfcapsrv\\pfcapsrv.pbl";
@@ -36,11 +39,16 @@ Save Format v3.0(19990112)
  "pfcapsrv\\pfc_n_cst_lvsrvattrib.sru" "pfcapsrv\\pfcapsrv.pbl";
  "pfcapsrv\\pfc_n_cst_tvsrv_print.sru" "pfcapsrv\\pfcapsrv.pbl";
  "pfcapsrv\\pfc_w_replace.srw" "pfcapsrv\\pfcapsrv.pbl";
+ "pfcapsrv\\pbdom_object.sru" "pfcapsrv\\pfcapsrv.pbl";
+ "pfcapsrv\\pbdom_builder.sru" "pfcapsrv\\pfcapsrv.pbl";
+ "pfcapsrv\\pbdom_element.sru" "pfcapsrv\\pfcapsrv.pbl";
  "pfcapsrv\\pfc_n_cst_tvsrvattrib.sru" "pfcapsrv\\pfcapsrv.pbl";
  "pfcapsrv\\pfc_w_message.srw" "pfcapsrv\\pfcapsrv.pbl";
+ "pfcapsrv\\pbdom_comment.sru" "pfcapsrv\\pfcapsrv.pbl";
  "pfcapsrv\\pfc_w_splash.srw" "pfcapsrv\\pfcapsrv.pbl";
  "pfcapsrv\\s_json_attrib.srs" "pfcapsrv\\pfcapsrv.pbl";
  "pfcapsrv\\pfc_w_about.srw" "pfcapsrv\\pfcapsrv.pbl";
+ "pfcapsrv\\pbdom_doctype.sru" "pfcapsrv\\pfcapsrv.pbl";
  "pfcapsrv\\pfc_n_cst_sql.sru" "pfcapsrv\\pfcapsrv.pbl";
  "pfcapsrv\\pfc_w_logon.srw" "pfcapsrv\\pfcapsrv.pbl";
  "pfcapsrv\\pfc_n_cst_mru.sru" "pfcapsrv\\pfcapsrv.pbl";
@@ -49,9 +57,11 @@ Save Format v3.0(19990112)
  "pfcapsrv\\d_dirattrib.srd" "pfcapsrv\\pfcapsrv.pbl";
  "pfcapsrv\\f_setfilesrv.srf" "pfcapsrv\\pfcapsrv.pbl";
  "pfcapsrv\\pfc_n_cst_dwcacheattrib.sru" "pfcapsrv\\pfcapsrv.pbl";
+ "pfcapsrv\\pbdom_text.sru" "pfcapsrv\\pfcapsrv.pbl";
  "pfcapsrv\\d_mruservice.srd" "pfcapsrv\\pfcapsrv.pbl";
  "pfcapsrv\\f_setplatform.srf" "pfcapsrv\\pfcapsrv.pbl";
  "pfcapsrv\\d_timerlist.srd" "pfcapsrv\\pfcapsrv.pbl";
+ "pfcapsrv\\pbdom_characterdata.sru" "pfcapsrv\\pfcapsrv.pbl";
  "pfcapsrv\\pfc_n_cst_nodebase.sru" "pfcapsrv\\pfcapsrv.pbl";
  "pfcapsrv\\pfc_n_cst_dwcache.sru" "pfcapsrv\\pfcapsrv.pbl";
  "pfcapsrv\\pfc_n_cst_json_tagattrib.sru" "pfcapsrv\\pfcapsrv.pbl";
@@ -74,9 +84,11 @@ Save Format v3.0(19990112)
  "pfcapsrv\\pfc_n_cst_nodecomparebase.sru" "pfcapsrv\\pfcapsrv.pbl";
  "pfcapsrv\\pfc_n_cst_treenodecompare.sru" "pfcapsrv\\pfcapsrv.pbl";
  "pfcapsrv\\s_cielab_colorattrib.srs" "pfcapsrv\\pfcapsrv.pbl";
+ "pfcapsrv\\pbdom_document.sru" "pfcapsrv\\pfcapsrv.pbl";
  "pfcapsrv\\pfc_n_cst_queue.sru" "pfcapsrv\\pfcapsrv.pbl";
  "pfcapsrv\\pfc_w_pagesetup.srw" "pfcapsrv\\pfcapsrv.pbl";
  "pfcapsrv\\pfc_n_cst_filesrv.sru" "pfcapsrv\\pfcapsrv.pbl";
+ "pfcapsrv\\pbdom_exception.sru" "pfcapsrv\\pfcapsrv.pbl";
  "pfcapsrv\\pfc_n_cst_platform.sru" "pfcapsrv\\pfcapsrv.pbl";
  "pfcapsrv\\pfc_n_cst_selection.sru" "pfcapsrv\\pfcapsrv.pbl";
  "pfcapsrv\\s_cielch_colorattrib.srs" "pfcapsrv\\pfcapsrv.pbl";
@@ -85,9 +97,11 @@ Save Format v3.0(19990112)
  "pfcapsrv\\pfc_n_cst_dropdown.sru" "pfcapsrv\\pfcapsrv.pbl";
  "pfcapsrv\\pfc_n_cst_linkedlistnodecompare.sru" "pfcapsrv\\pfcapsrv.pbl";
  "pfcapsrv\\pfc_n_cst_rtefind.sru" "pfcapsrv\\pfcapsrv.pbl";
+ "pfcapsrv\\f_removeduplicate.srf" "pfcapsrv\\pfcapsrv.pbl";
  "pfcapsrv\\pfc_n_cst_error.sru" "pfcapsrv\\pfcapsrv.pbl";
  "pfcapsrv\\pfc_n_cst_list.sru" "pfcapsrv\\pfcapsrv.pbl";
  "pfcapsrv\\pfc_n_cst_splashattrib.sru" "pfcapsrv\\pfcapsrv.pbl";
+ "pfcapsrv\\pbdom_attribute.sru" "pfcapsrv\\pfcapsrv.pbl";
  "pfcapsrv\\pfc_n_cst_security.sru" "pfcapsrv\\pfcapsrv.pbl";
  "pfcapsrv\\pfc_n_cst_columnattrib.sru" "pfcapsrv\\pfcapsrv.pbl";
  "pfcapsrv\\pfc_n_cst_lvsrv_datasource.sru" "pfcapsrv\\pfcapsrv.pbl";
@@ -102,6 +116,7 @@ Save Format v3.0(19990112)
  "pfcapsrv\\pfc_n_cst_infoattrib.sru" "pfcapsrv\\pfcapsrv.pbl";
  "pfcapsrv\\pfc_n_cst_logonattrib.sru" "pfcapsrv\\pfcapsrv.pbl";
  "pfcapsrv\\pfc_n_cst_measureconversion.sru" "pfcapsrv\\pfcapsrv.pbl";
+ "pfcapsrv\\s_classoverview_attrib.srs" "pfcapsrv\\pfcapsrv.pbl";
  "pfcapsrv\\pfc_n_cst_filesrvunicode.sru" "pfcapsrv\\pfcapsrv.pbl";
  "pfcapsrv\\s_cieluv_colorattrib.srs" "pfcapsrv\\pfcapsrv.pbl";
  "pfcapsrv\\pfc_n_cst_itemattrib.sru" "pfcapsrv\\pfcapsrv.pbl";
