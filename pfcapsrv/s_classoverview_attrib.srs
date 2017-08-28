@@ -1,0 +1,12 @@
+HA$PBExportHeader$s_classoverview_attrib.srs
+$PBExportComments$Cclass overview attributes structure
+global type s_classoverview_attrib from structure
+	string		class		descriptor "comment" = "The base class name"
+	string		classlib		descriptor "comment" = "The library where is stored the base class"
+	string		classtype		descriptor "comment" = "The datatype of the base class"
+	boolean		isautoinstanciate		descriptor "comment" = "Wether the class is autoinstanciate or not"
+	integer		ancestorcount		descriptor "comment" = "The total number of heritage level of the base class"
+	string		ancestor[]		descriptor "comment" = "The complete heritage list of the base class"
+	string		ancestorlib[]		descriptor "comment" = "The complete list of library where are stored each ancestor of the base class"
+end type
+
