@@ -40,6 +40,7 @@ Save Format v3.0(19990112)
  "pfcutil\\pfc_w_dwpropertyservices.srw" "pfcutil\\pfcutil.pbl";
  "pfcutil\\d_debuglog.srd" "pfcutil\\pfcutil.pbl";
  "pfcutil\\pfc_n_cst_debug.sru" "pfcutil\\pfcutil.pbl";
+ "pfcutil\\pfc_w_debugjson.srw" "pfcutil\\pfcutil.pbl";
  "pfcutil\\d_sqlspyprint.srd" "pfcutil\\pfcutil.pbl";
  "pfcutil\\pfc_w_sqlspy.srw" "pfcutil\\pfcutil.pbl";
  "pfcutil\\d_dwproperty_linkageargs.srd" "pfcutil\\pfcutil.pbl";
