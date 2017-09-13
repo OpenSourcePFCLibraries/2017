@@ -6,7 +6,6 @@ end type
 end forward
 
 global type pfc_n_ostm from olestream
-long anchor = 871147092
 end type
 global pfc_n_ostm pfc_n_ostm
 
