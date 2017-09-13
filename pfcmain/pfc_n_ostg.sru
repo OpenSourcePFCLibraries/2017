@@ -6,7 +6,6 @@ end type
 end forward
 
 global type pfc_n_ostg from olestorage
-long anchor = 874419756
 end type
 global pfc_n_ostg pfc_n_ostg
 
