@@ -71,37 +71,39 @@ type variables
 Protected:
 // Constants used as Windows API argument values or used to decode
 // information supplied by Windows in response to an API call.
-Constant ULong PROCESSOR_ARCHITECTURE_INTEL = 0, &
-               PROCESSOR_ARCHITECTURE_IA64  = 6, &
-               PROCESSOR_ARCHITECTURE_AMD64 = 9, &
-               OSVERSIONINFOEX_STRUCTURE_SIZE_UNICODE = 284
+Constant ULong PROCESSOR_ARCHITECTURE_INTEL = 0
+Constant ULong PROCESSOR_ARCHITECTURE_IA64  = 6
+Constant ULong PROCESSOR_ARCHITECTURE_AMD64 = 9
+Constant ULong OSVERSIONINFOEX_STRUCTURE_SIZE_UNICODE = 284
 
-Constant UInt  VER_NT_WORKSTATION       = 1, &
-               VER_NT_SERVER            = 3, &
-					VER_UNDOCUMENTED_VM_MASK = 7680, &
-               SM_CXSCREEN              = 0, &
-               SM_CYSCREEN              = 1, &
-               SM_XVIRTUALSCREEN        = 76, &
-               SM_YVIRTUALSCREEN        = 77, &
-               SM_CXVIRTUALSCREEN       = 78, &
-               SM_CYVIRTUALSCREEN       = 79, &
-               SM_CMONITORS             = 80, &
-					SM_TABLETPC              = 86, &
-					SM_MEDIACENTER           = 87, &
-					SM_STARTER               = 88, &
-               SM_SERVERR2              = 89, &
-               SM_REMOTESESSION         = 4096, &
-               SM_REMOTECONTROL         = 8193, &
-					VER_SUITE_SMALLBUSINESS  = 1, &
-					VER_SUITE_ENTERPRISE     = 2, &
-					VER_SUITE_TERMINAL       = 16, &
-					VER_SUITE_EMBEDDEDNT     = 64, &
-					VER_SUITE_DATACENTER     = 128, &
-					VER_SUITE_SINGLEUSERRTS  = 256, &
-					VER_SUITE_PERSONAL       = 512, &
-					VER_SUITE_BLADE          = 1024, &
-					VER_SUITE_STORAGE_SERVER = 8192, &
-					VER_SUITE_WH_SERVER      = 32768
+Constant UInt VER_NT_WORKSTATION       = 1
+Constant UInt VER_NT_SERVER            = 3
+Constant UInt VER_UNDOCUMENTED_VM_MASK = 7680
+
+Constant UInt SM_CXSCREEN              = 0
+Constant UInt SM_CYSCREEN              = 1
+Constant UInt SM_XVIRTUALSCREEN        = 76
+Constant UInt SM_YVIRTUALSCREEN        = 77
+Constant UInt SM_CXVIRTUALSCREEN       = 78
+Constant UInt SM_CYVIRTUALSCREEN       = 79
+Constant UInt SM_CMONITORS             = 80
+Constant UInt SM_TABLETPC              = 86
+Constant UInt SM_MEDIACENTER           = 87
+Constant UInt SM_STARTER               = 88
+Constant UInt SM_SERVERR2              = 89
+Constant UInt SM_REMOTESESSION         = 4096
+Constant UInt SM_REMOTECONTROL         = 8193
+
+Constant UInt VER_SUITE_SMALLBUSINESS  = 1
+Constant UInt VER_SUITE_ENTERPRISE     = 2
+Constant UInt VER_SUITE_TERMINAL       = 16
+Constant UInt VER_SUITE_EMBEDDEDNT     = 64
+Constant UInt VER_SUITE_DATACENTER     = 128
+Constant UInt VER_SUITE_SINGLEUSERRTS  = 256
+Constant UInt VER_SUITE_PERSONAL       = 512
+Constant UInt VER_SUITE_BLADE          = 1024
+Constant UInt VER_SUITE_STORAGE_SERVER = 8192
+Constant UInt VER_SUITE_WH_SERVER      = 32768
 
 Boolean     ib_HaveEnvironmentValues = FALSE    // TRUE after of_GetEnvironment is successful.
 
@@ -173,7 +175,6 @@ String      is_OSEditionDesc     // e.g., "Professional", "Home Premium"
 String      is_OSServicePackDesc // Describes service pack level, e.g., "Service Pack 2"
 String      is_OSSummaryDesc     // e.g., "Windows 7 Professional, Service Pack 1 (64-bit)"
 end variables
-
 forward prototypes
 public function integer of_refresh ()
 protected function integer of_getenvironment ()
