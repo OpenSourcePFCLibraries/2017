@@ -1,16 +1,15 @@
 HA$PBExportHeader$pfc_n_cst_metaclass.sru
 $PBExportComments$PFC metaclass service
 forward
-global type pfc_n_cst_metaclass from nonvisualobject
+global type pfc_n_cst_metaclass from n_base
 end type
 end forward
 
-global type pfc_n_cst_metaclass from nonvisualobject autoinstantiate
+global type pfc_n_cst_metaclass from n_base autoinstantiate
 end type
 
 type variables
 Protected:
-boolean	ib_IsObsolete
 boolean	ib_skip_system
 boolean 	ib_NotifyObsolete
 string		is_ObsoleteTag = "// ##Obsolete##"
@@ -20,7 +19,6 @@ constant integer	CST_ALL				=	1
 constant integer	CST_NONVISUAL  =	2
 constant integer	CST_STRUCTURE = 	3
 end variables
-
 forward prototypes
 public function boolean of_isfunctiondefined (string as_classname, string as_functionname, string as_argtype[])
 public function boolean of_iseventdefined (string as_classname, string as_eventname)
@@ -6102,11 +6100,9 @@ end function
 
 on pfc_n_cst_metaclass.create
 call super::create
-TriggerEvent( this, "constructor" )
 end on
 
 on pfc_n_cst_metaclass.destroy
-TriggerEvent( this, "destructor" )
 call super::destroy
 end on
 
