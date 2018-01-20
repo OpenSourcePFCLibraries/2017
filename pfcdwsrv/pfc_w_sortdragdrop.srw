@@ -577,7 +577,8 @@ event dragdrop;/////////////////////////////////////////////////////////////////
 //	Event:  DragDrop!
 //
 //	Description:  Move the row from the "sort from" dw to the 
-//					  "selected sort" dw and stop the Drag
+//					  "selected sort" dw or within "selected sort" dw 
+//					  and stop the Drag
 //
 //////////////////////////////////////////////////////////////////////////////
 //	
@@ -586,6 +587,8 @@ event dragdrop;/////////////////////////////////////////////////////////////////
 //	Version
 //	5.0   Initial version
 //	12.5	DraggedObject() is obsolete, use source instead
+//	2017	Insert marker for Drag&Drop, Drag&Drop to every position 
+//       and within "selected sort"
 //
 //////////////////////////////////////////////////////////////////////////////
 //
@@ -613,22 +616,31 @@ event dragdrop;/////////////////////////////////////////////////////////////////
 
 Integer	li_rc
 
-// Make sure you are not dropping this object on itself!
+// Hide insert marker
+Modify ("l_marker_top.visible=0 l_marker_bottom.visible=0")
+
+// Drag&Drop this object on itself
 IF TypeOf ( source ) = DataWindow! THEN
 	IF source.ClassName ( ) = "dw_sorted" THEN 
-		li_rc = this.Drag ( Cancel! ) 
+		If il_sortingrow > 0 Then
+			IF row = 0 THEN row = this.RowCount() + 1
+			li_rc = this.RowsMove ( il_sortingrow, il_sortingrow, Primary!, &
+						this, row, Primary! )
+		End If
+		
+		dw_sortcolumns.Drag ( End! ) 
 		Return 
 	END IF
 END IF
 
 // Move the row.
 If il_availablerow > 0 Then
+	IF row = 0 THEN row = this.RowCount() + 1
 	li_rc = dw_sortcolumns.RowsMove ( il_availablerow, il_availablerow, Primary!, &
-				this, this.RowCount()+1, Primary! )
+				this, row, Primary! )
 End If
 
 dw_sortcolumns.Drag ( End! ) 
-
 
 end event
 
@@ -675,6 +687,97 @@ event constructor;call super::constructor;//////////////////////////////////////
 
 of_SetUpdateable ( FALSE ) 
 ib_rmbmenu = FALSE
+
+end event
+
+event dragwithin;call super::dragwithin;//////////////////////////////////////////////////////////////////////////////
+//
+//	Event:  DragWithin
+//
+//	Description:  Show and hide insert marker for Drag&Drop
+//
+//////////////////////////////////////////////////////////////////////////////
+//	
+//	Revision History
+//
+//	Version
+//	2017   Initial version
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+/*
+ * Open Source PowerBuilder Foundation Class Libraries
+ *
+ * Copyright (c) 2004-2017, All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted in accordance with the MIT License
+
+ *
+ * https://opensource.org/licenses/MIT
+ *
+ * ====================================================================
+ *
+ * This software consists of voluntary contributions made by many
+ * individuals and was originally based on software copyright (c) 
+ * 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
+ * information on the Open Source PowerBuilder Foundation Class
+ * Libraries see https://github.com/OpenSourcePFCLibraries
+*/
+//
+//////////////////////////////////////////////////////////////////////////////
+
+IF row = 0 THEN
+	// add to the end, show marker after last row
+	Modify ("l_marker_top.visible=0")
+	Modify ("l_marker_bottom.visible='0~tif (GetRow() = RowCount(), 1, 0)'")
+
+ELSE
+	// insert before a row, show marker before this row
+	Modify ("l_marker_bottom.visible=0")
+	Modify ("l_marker_top.visible='0~tif (GetRow() = " + string (row) + ", 1, 0)'")
+END IF
+
+end event
+
+event dragleave;call super::dragleave;//////////////////////////////////////////////////////////////////////////////
+//
+//	Event:  DragWithin
+//
+//	Description:  Hide all insert markers for Drag&Drop
+//
+//////////////////////////////////////////////////////////////////////////////
+//	
+//	Revision History
+//
+//	Version
+//	2017   Initial version
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+/*
+ * Open Source PowerBuilder Foundation Class Libraries
+ *
+ * Copyright (c) 2004-2017, All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted in accordance with the MIT License
+
+ *
+ * https://opensource.org/licenses/MIT
+ *
+ * ====================================================================
+ *
+ * This software consists of voluntary contributions made by many
+ * individuals and was originally based on software copyright (c) 
+ * 1996-2004 Sybase, Inc. http://www.sybase.com.  For more
+ * information on the Open Source PowerBuilder Foundation Class
+ * Libraries see https://github.com/OpenSourcePFCLibraries
+*/
+//
+//////////////////////////////////////////////////////////////////////////////
+
+Modify ("l_marker_top.visible=0 l_marker_bottom.visible=0")
 
 end event
 
