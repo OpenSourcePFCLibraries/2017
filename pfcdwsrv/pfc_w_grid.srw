@@ -787,7 +787,7 @@ end event
 type cbx_restore from checkbox within pfc_w_grid
 integer x = 1271
 integer y = 1424
-integer width = 544
+integer width = 590
 integer height = 64
 integer textsize = -8
 integer weight = 400
