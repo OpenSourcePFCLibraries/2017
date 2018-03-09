@@ -188,6 +188,9 @@ ids_repository.sort( )
 // 2.2 -  Make order of appearance sequential
 for li_i = 1 to li_limit
 	ids_repository.object.column_order[li_i] = string(li_i)
+	//trim off leading and trailing spaces
+	ids_repository.object.column_name.primary[li_i] =&
+	trim(ids_repository.object.column_name.primary[li_i],false)
 next
 
 // 3. Make a copy of the original layout for further use
