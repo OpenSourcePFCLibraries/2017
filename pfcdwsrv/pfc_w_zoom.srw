@@ -8,7 +8,6 @@ end type
 type rb_200 from u_rb within pfc_w_zoom
 end type
 type rb_100 from u_rb within pfc_w_zoom
-boolean checked = true
 end type
 type rb_75 from u_rb within pfc_w_zoom
 end type
@@ -419,6 +418,7 @@ integer y = 164
 integer width = 407
 integer height = 72
 string text = "100%"
+boolean checked = true
 end type
 
 event clicked;call u_rb::clicked;//////////////////////////////////////////////////////////////////////////////
@@ -598,11 +598,9 @@ event enchange pbm_enchange
 integer x = 87
 integer y = 600
 integer width = 283
-integer height = 84
 integer taborder = 20
 string mask = "###%"
 boolean spin = true
-string displaydata = ""
 string minmax = "10~~200"
 end type
 
@@ -726,7 +724,6 @@ string facename = "MS Sans Serif"
 long textcolor = 33554432
 long backcolor = 67108864
 string text = "Preview"
-borderstyle borderstyle = stylelowered!
 end type
 
 type gb_3 from groupbox within pfc_w_zoom
@@ -743,7 +740,6 @@ string facename = "MS Sans Serif"
 long textcolor = 33554432
 long backcolor = 67108864
 string text = "Zoom To"
-borderstyle borderstyle = stylelowered!
 end type
 
 type cb_dlghelp from u_cb within pfc_w_zoom
