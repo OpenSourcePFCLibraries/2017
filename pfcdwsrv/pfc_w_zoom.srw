@@ -8,6 +8,7 @@ end type
 type rb_200 from u_rb within pfc_w_zoom
 end type
 type rb_100 from u_rb within pfc_w_zoom
+boolean checked = true
 end type
 type rb_75 from u_rb within pfc_w_zoom
 end type
