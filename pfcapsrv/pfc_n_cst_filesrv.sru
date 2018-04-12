@@ -342,7 +342,7 @@ If of_FileWrite(as_TargetFile, lblb_Data, ab_append) < 0 Then Return -2
 Return 1
 end function
 
-public function long of_FileRead (string as_FileName, ref blob ablb_Data);//////////////////////////////////////////////////////////////////////////////
+public function long of_fileread (string as_filename, ref blob ablb_data);//////////////////////////////////////////////////////////////////////////////
 //	Public Function:  of_FileRead
 //	Arguments:		as_FileName				The name of the file to read.
 //						ablb_Data				The data from the file, passed by reference.
@@ -372,37 +372,17 @@ public function long of_FileRead (string as_FileName, ref blob ablb_Data);//////
  * Libraries see https://github.com/OpenSourcePFCLibraries
 */
 //////////////////////////////////////////////////////////////////////////////
-integer		li_FileNo, li_Reads, li_Cnt
+//2018/04/12 Changed to FileReadEx from FileRead, changed filelock from deafult LockReadWrite! to LockWrite!
+integer		li_FileNo
 long			ll_FileLen
-blob			lblb_Data
 
-ll_FileLen = FileLength(as_FileName)
-
-li_FileNo = FileOpen(as_FileName, StreamMode!, Read!)
+li_FileNo = FileOpen(as_FileName,StreamMode!,Read!,LockWrite!)
 If li_FileNo < 0 Then Return -1
 
-// Determine the number of reads required to read the entire file
-If ll_FileLen > 32765 Then
-	If Mod(ll_FileLen, 32765) = 0 Then
-		li_Reads = ll_FileLen / 32765
-	Else
-		li_Reads = (ll_FileLen / 32765) + 1
-	End if
-Else
-	li_Reads = 1
-End if
-
 // Empty the blob argument
-ablb_Data = lblb_Data
+setnull(ablb_Data)
 
-// Read the file and build the blob with data from the file
-For li_Cnt = 1 to li_Reads
-	If FileRead(li_FileNo, lblb_Data) = -1 Then
-		Return -1
-	Else
-		ablb_Data = ablb_Data + lblb_Data
-	End if
-Next
+ll_FileLen = FileReadEx(li_FileNo, ablb_Data)
 
 FileClose(li_FileNo)
 
