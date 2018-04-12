@@ -485,10 +485,9 @@ public function integer of_filewrite (string as_filename, string as_text, boolea
  * Libraries see https://github.com/OpenSourcePFCLibraries
 */
 //////////////////////////////////////////////////////////////////////////////
-integer		li_FileNo, li_writes, li_cnt
-long			ll_StrLen, ll_currentpos
-string		ls_Text
-writemode	lwm_Mode
+//2018/04/12 Changed to new FileWriteEx from obsolete FileWrite
+integer li_FileNo, li_rc
+writemode lwm_Mode
 
 If ab_Append Then
 	lwm_Mode = Append!
@@ -499,34 +498,16 @@ End if
 li_FileNo = FileOpen(as_FileName, StreamMode!, Write!, LockReadWrite!, lwm_Mode)
 If li_FileNo < 0 Then Return -1
 
-ll_StrLen = Len(as_Text)
-
-// If the string is longer than 32765 bytes then it will require multiple writes to write it
-If ll_StrLen > 32765 Then
-	If Mod(ll_StrLen, 32765) = 0 Then
-		li_Writes = ll_StrLen / 32765
-	Else
-		li_Writes = (ll_StrLen / 32765) + 1
-	End if
-Else
-	li_Writes = 1
-End if
-
-ll_CurrentPos = 1
-
-For li_Cnt = 1 To li_Writes
-	ls_Text = Mid(as_Text, ll_CurrentPos, 32765)
-	ll_CurrentPos += 32765
-	If FileWrite(li_FileNo, ls_Text) = -1 Then
-		Return -1
-	End if
-Next
+if FileWriteEx(li_FileNo, as_text) = -1 then
+	li_rc = -1
+else
+	li_rc = 1
+end if
 
 FileClose(li_FileNo)
 
-Return 1
+Return li_rc
 end function
-
 public function integer of_FileWrite (string as_FileName, blob ablb_Data, boolean ab_Append);//////////////////////////////////////////////////////////////////////////////
 //	Public Function:  of_FileWrite
 //	Arguments:		as_FileName				The name of the file to write to.
