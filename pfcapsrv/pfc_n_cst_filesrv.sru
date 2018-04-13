@@ -508,7 +508,7 @@ FileClose(li_FileNo)
 
 Return li_rc
 end function
-public function integer of_FileWrite (string as_FileName, blob ablb_Data, boolean ab_Append);//////////////////////////////////////////////////////////////////////////////
+public function integer of_filewrite (string as_filename, blob ablb_data, boolean ab_append);//////////////////////////////////////////////////////////////////////////////
 //	Public Function:  of_FileWrite
 //	Arguments:		as_FileName				The name of the file to write to.
 //						ablb_Data				The data to be written to the file.
@@ -541,9 +541,8 @@ public function integer of_FileWrite (string as_FileName, blob ablb_Data, boolea
  * Libraries see https://github.com/OpenSourcePFCLibraries
 */
 //////////////////////////////////////////////////////////////////////////////
-integer li_FileNo, li_Writes, li_Cnt
-long ll_BlobLen, ll_CurrentPos
-blob lblb_Data
+//2018/04/12 Changed to new FileWriteEx from obsolete FileWrite
+integer li_FileNo, li_rc
 writemode lwm_Mode
 
 If ab_Append Then
@@ -555,34 +554,16 @@ End if
 li_FileNo = FileOpen(as_FileName, StreamMode!, Write!, LockReadWrite!, lwm_Mode)
 If li_FileNo < 0 Then Return -1
 
-ll_BlobLen = Len(ablb_Data)
-
-// Determine the number of writes required to write the entire blob
-If ll_BlobLen > 32765 Then
-	If Mod(ll_BlobLen, 32765) = 0 Then
-		li_Writes = ll_BlobLen / 32765
-	Else
-		li_Writes = (ll_BlobLen / 32765) + 1
-	End if
-Else
-	li_Writes = 1
-End if
-
-ll_CurrentPos = 1
-
-For li_Cnt = 1 To li_Writes
-	lblb_Data = BlobMid(ablb_Data, ll_CurrentPos, 32765)
-	ll_CurrentPos += 32765
-	If FileWrite(li_FileNo, lblb_Data) = -1 Then
-		Return -1
-	End if
-Next
+if FileWriteEx(li_FileNo, ablb_Data) = -1 then
+	li_rc = -1
+else
+	li_rc = 1
+end if
 
 FileClose(li_FileNo)
 
-Return 1
+Return li_rc
 end function
-
 public function integer of_FileWrite (string as_filename, string as_text);//////////////////////////////////////////////////////////////////////////////
 //	Public Function:  of_FileWrite
 //	Arguments:		as_FileName				The name of the file to write to.
