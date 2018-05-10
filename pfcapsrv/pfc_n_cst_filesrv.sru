@@ -486,6 +486,7 @@ public function integer of_filewrite (string as_filename, string as_text, boolea
 */
 //////////////////////////////////////////////////////////////////////////////
 //2018/04/12 Changed to new FileWriteEx from obsolete FileWrite
+//2018/05/10 Kim Berghall Changed to TextMode! from StreamMode!, required for string data type with FileWriteEx.
 integer li_FileNo, li_rc
 writemode lwm_Mode
 
@@ -495,7 +496,7 @@ Else
 	lwm_Mode = Replace!
 End if
 
-li_FileNo = FileOpen(as_FileName, StreamMode!, Write!, LockReadWrite!, lwm_Mode)
+li_FileNo = FileOpen(as_FileName, TextMode!, Write!, LockReadWrite!, lwm_Mode)
 If li_FileNo < 0 Then Return -1
 
 if FileWriteEx(li_FileNo, as_text) = -1 then
